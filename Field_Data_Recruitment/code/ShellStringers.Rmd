@@ -6,10 +6,10 @@ output: html_document
 
 description: This R code is used to import and summarize recruitment data collected using shellstringers from the LISS Oyster Health Project at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. 
 ---
-#Last updated 12/4/2023 by M.Kachmar
-#Accuracy of spat counting 0.75 - did not double read for all collections and we lost data due to shell stringers disappearing
-#Would like to discuss this data - NAs frequent. Is this because stringers were not counted? I would like to add notes into the code explaining things like this. 
-#Best way to report recruitment to stakeholders?
+
+
+last updated 10/24/2023 by M. Kachmar
+- Uploaded the data
 
 
 
@@ -30,16 +30,24 @@ knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-AS
 ### This code chunk merges all .csv files within the Tissue processing folder into one data frame and outputs the full dataset into a .csv master file. This allows us to download the raw data as a .csv, add it to the repository folder, and create the master data file without copying and pasting data in excel.
 # reading in .csv files from local folder
 ```{r}
-data_all <- list.files(path = "Field_Data_Recruitment/raw_data",                           # Identify all CSV files
-  pattern = "*.csv", full.names = TRUE) %>% 
-  lapply(read_csv) %>%                              # Store all files in list
-  bind_rows                                         # Combine data sets into one data set 
-data_all                                            # Print data to RStudio console
 
+# There were some issues with dates so I added this code to help alleviate issues and to make sure all dates that are being pulled in have the same format moving forward. 
+
+file_paths <- list.files(path = "Field_Data_Recruitment/raw_data",
+                          pattern = "*.csv", full.names = TRUE)
+
+
+data_all <- lapply(file_paths, function(file_path) {
+  read_csv(file_path) %>%
+    mutate(
+      date_collected = as.Date(date_collected,format = "%m/%d/%Y"),
+      date_deployed= as.Date(date_deployed,format = "%m/%d/%Y"))
+}) %>%
+  bind_rows
 
 as.data.frame(data_all)                            # Convert tibble to data.frame
 
-View(data_all)
+#View(data_all)
 
 data_all <- data_all %>% filter(!is.na(Count_1))
 
