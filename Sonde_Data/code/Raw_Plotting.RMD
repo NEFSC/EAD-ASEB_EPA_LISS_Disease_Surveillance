@@ -985,8 +985,6 @@ ASHC_DO          <- Master_table_LONG_means %>% dplyr::filter(variable == 'RDO.C
 ASHC_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == 'Chlorophyll.a.Fluorescence' & Site %in% c('ASHC'))
 
 
-View(ASHC_Salinity)
-
 # pH 
 
 ASHC_pH_2023 <- ASHC_pH %>% na.omit() %>%
@@ -1408,7 +1406,7 @@ ASHC_DO_2024 <- ASHC_DO %>% na.omit() %>%
               geom_errorbar(aes(ymin=(mean)-(se), 
                                 ymax=(mean)+(se)), 
                             width=0,position=position_dodge(.4)) +
-              facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+              #facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
               ggtitle("DO Concentration") +
               labs(x = "Time", y = "DO Concentration (mg/L)") +
               theme_classic() +
@@ -1485,7 +1483,7 @@ ASHC_CHLA_2024 <- ASHC_CHLA %>% na.omit() %>%
                                 linetype = Site), 
                             size = 0.2, 
                             position=position_dodge(.4)) + 
-              # scale_linetype_manual(values=c("solid", "dashed")) +
+              #scale_linetype_manual(values=c("solid", "dashed")) +
               geom_point(aes(shape=Site, 
                              fill=Site)) + 
               scale_shape_manual(values=c(21, 22, 24, 25)) + 
@@ -1822,7 +1820,7 @@ FENC_pH_2024 <- FENC_pH %>% na.omit() %>%
 FENC_pH_2024
 
 
-pdf(paste0(path= "output/raw_plots/Report_plots/FENC_pH_.pdf"), height = 7, width = 14)
+pdf(paste0(path = "output/raw_plots/Report_plots/FENC_pH_2024.pdf"), height = 7, width = 14)
 print(FENC_pH_2024)
 dev.off()
 
