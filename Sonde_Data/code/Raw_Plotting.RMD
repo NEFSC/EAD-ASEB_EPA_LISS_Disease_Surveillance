@@ -49,6 +49,8 @@ Master_table <- read.csv("output/Sonde_master.csv",check.names=FALSE) %>% dplyr:
 
 Master_table$`Date Time` <- lubridate::ymd_hms(Master_table$`Date Time`)
 
+View(Master_table)
+
 ```
 
 ```{r}
@@ -981,8 +983,8 @@ CT_DO_ASHC_yearly
 ASHC_pH          <- Master_table_LONG_means %>% dplyr::filter(variable == 'pH' & Site %in% c('ASHC'))
 ASHC_Salinity    <- Master_table_LONG_means %>% dplyr::filter(variable == 'Salinity' & Site %in% c('ASHC'))
 ASHC_Temperature <- Master_table_LONG_means %>% dplyr::filter(variable == 'Temperature' & Site %in% c('ASHC'))
-ASHC_DO          <- Master_table_LONG_means %>% dplyr::filter(variable == 'RDO.Concentration' & Site %in% c('ASHC'))
-ASHC_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == 'Chlorophyll.a.Fluorescence' & Site %in% c('ASHC'))
+ASHC_DO          <- Master_table_LONG_means %>% dplyr::filter(variable == 'RDO Concentration' & Site %in% c('ASHC'))
+ASHC_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == 'Chlorophyll-a Fluorescence' & Site %in% c('ASHC'))
 
 
 # pH 
@@ -1502,6 +1504,8 @@ ASHC_CHLA_2024
 pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_CHLA_2024.pdf"), height = 7, width = 14)
 print(ASHC_CHLA_2024)
 ```
+
+
 ```{r}
 
 ## DAILY AVERAGES OF DO - ASHC###
