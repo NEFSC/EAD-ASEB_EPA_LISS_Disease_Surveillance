@@ -5,7 +5,7 @@ date: "2023-10-03"
 output: html_document
 ---
 
-Last updated 9/18/2024 by M.Kachmar
+Last updated 10/24/24 by M.Kachmar
 
 
 ## Setup: 
@@ -157,31 +157,31 @@ for(i in 1:nrow(vars)) {
 # Temperature pre October 1st 2023 
 # why? we have a hefty gap in the FENC data during all october, this is 
 # a clean plot for Genevieve's NACE 2024 presentation
-Sonde_Temp_2023 <- Table_by_var %>% 
-    dplyr::filter(variable %in% vars[11,]) %>% 
-    dplyr::filter(`Date Time` > '2023-06-15 00:00:00' & `Date Time` < '2024-05-01 00:00:00') %>% 
-              ggplot(aes(x=`Date Time`, 
-                       y=mean, # the mean values
-                       group=Site)) + # call the new mean
-              geom_line(aes(group = factor(Site), # lines for site
-                                linetype = Site), 
-                            size = 0.2, 
-                            position=position_dodge(.4)) + 
-              # scale_linetype_manual(values=c("solid", "dashed")) +
-              geom_point(aes(shape=Site, 
-                             fill=Site)) + 
-              scale_shape_manual(values=c(21, 22, 24, 25)) + 
-              scale_fill_manual(values=c("#CC79A7", "#D55E00", "#009E73", "#0072B2")) + 
-              geom_errorbar(aes(ymin=(mean)-(se), 
-                                ymax=(mean)+(se)), 
-                            width=0,position=position_dodge(.4)) +
-              facet_grid(rows = vars(Site), scales = "free_y") +
-              ggtitle(vars[11,]) +
-              theme_bw()
- 
-pdf(paste0(path ="output/raw_plots/Temperature_JuneOct_2023.pdf"), height = 12, width = 15)
-print(Sonde_Temp_2023) 
-dev.off()
+#Sonde_Temp_2023 <- Table_by_var %>% 
+#    dplyr::filter(variable %in% vars[11,]) %>% 
+#    dplyr::filter(`Date Time` > '2023-06-15 00:00:00' & `Date Time` < '2024-05-01 00:00:00') %>% 
+#              ggplot(aes(x=`Date Time`, 
+#                       y=mean, # the mean values
+#                       group=Site)) + # call the new mean
+#              geom_line(aes(group = factor(Site), # lines for site
+#                                linetype = Site), 
+#                            size = 0.2, 
+#                            position=position_dodge(.4)) + 
+#              # scale_linetype_manual(values=c("solid", "dashed")) +
+#              geom_point(aes(shape=Site, 
+#                             fill=Site)) + 
+#              scale_shape_manual(values=c(21, 22, 24, 25)) + 
+#              scale_fill_manual(values=c("#CC79A7", "#D55E00", "#009E73", "#0072B2")) + 
+#              geom_errorbar(aes(ymin=(mean)-(se), 
+#                                ymax=(mean)+(se)), 
+#                            width=0,position=position_dodge(.4)) +
+#              facet_grid(rows = vars(Site), scales = "free_y") +
+#              ggtitle(vars[11,]) +
+#              theme_bw()
+# 
+#pdf(paste0(path ="output/raw_plots/Temperature_JuneOct_2023.pdf"), height = 12, width = 15)
+#print(Sonde_Temp_2023) 
+#dev.off()
   
 ```
 
@@ -654,10 +654,11 @@ print(CT_DO_2024)
 dev.off()
 
 
-#Grid of June and July 2024 temperature and salinity for HOllings Scholar Juvenille Growth project
+##########################Grid of June and July 2024 temperature and salinity for HOllings Scholar Juvenille Growth project########################################
 Master_table <- Master_table %>% filter(!is.na(Temperature))
 
 Master_table <- Master_table %>% dplyr::mutate(month = month(`Date Time`))
+
 
 CT_Temperature_jg <- Master_table %>%  
                       dplyr::mutate(`Date Time` = as.factor(substr(`Date Time`,1,13))) %>% # remove minutes and seconds
@@ -982,6 +983,9 @@ ASHC_Salinity    <- Master_table_LONG_means %>% dplyr::filter(variable == 'Salin
 ASHC_Temperature <- Master_table_LONG_means %>% dplyr::filter(variable == 'Temperature' & Site %in% c('ASHC'))
 ASHC_DO          <- Master_table_LONG_means %>% dplyr::filter(variable == 'RDO.Concentration' & Site %in% c('ASHC'))
 ASHC_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == 'Chlorophyll.a.Fluorescence' & Site %in% c('ASHC'))
+
+
+View(ASHC_Salinity)
 
 # pH 
 

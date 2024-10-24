@@ -78,6 +78,7 @@ file.names.2024         <- data.frame(txt.files =
 
 file.names.2024
 
+
 ```
 
 * second, assign your *blank* master dataframe 
@@ -98,7 +99,7 @@ The objective being to reformat each csv file so that they merge successfully an
 
 * What the heck POSIXct?
 
-  - time series format that stores data as seconds starting from January 1, 1970 (I know, wierd...)
+  - time series format that stores data as seconds starting from January 1, 1970 (I know, weird...)
 
 Lubridate calls: 
 
@@ -110,7 +111,7 @@ Lubridate calls:
 
 * y = year, m = month, d = day, h = hour, m = minute, s = second
 
-*Important!* At any time you wish to just upload or diagnose an error in a particular file, you can copy and paste the syntax wihtin the loop below and change 'm' to the row # in file.names.2023
+*Important!* At any time you wish to just upload or diagnose an error in a particular file, you can copy and paste the syntax wihtin the loop below and change 'm' to the row # in file.names.2024
   
 ```{r run the crazy loop}
 
