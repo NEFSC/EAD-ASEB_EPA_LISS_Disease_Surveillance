@@ -21,10 +21,10 @@ Last updated 10/9/24 by M.Kachmar
 
 knitr::opts_chunk$set(echo = TRUE) 
 #knitr::opts_knit$set(root.dir = 'C:/Users/kennedy.mcgrath/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kennedy's
-#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
 #knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 #knitr::opts_knit$set(root.dir = 'C:/Users/kelly.roper/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kelly's
-knitr::opts_knit$set(root.dir = 'C:/Users/katherine.mcfarland/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Katie's
+#knitr::opts_knit$set(root.dir = 'C:/Users/katherine.mcfarland/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Katie's
 ```
 
 
