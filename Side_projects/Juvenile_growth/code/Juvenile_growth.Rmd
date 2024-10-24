@@ -9,8 +9,7 @@ description: This code is for the Juvenille Growth Study looking at growth rates
 Important Notes: Fence Creek 06/10/24 measurements for height after individual 50 were deleted/lost due to tablet glitch. Total counts should be based on the survival metric taken to determine live counts. 
 
 ---
-Last updated 10/9/24 by M.Kachmar
-  -incorporated Kaplan Meier survival statistics and curves
+Last updated 10/24/24 by M.Kachmar
 
   
  
