@@ -69,7 +69,7 @@ data_all <- data_all %>% filter(!is.na(Date))  #filtering NAs only in column "Da
 
 data_all <- data_all %>% select(where(~ !all(is.na(.)))) #removing excess columns with NA
 
-#View(data_all)
+
 
 write.csv(data_all, "Master_files\\juv_growth_all_data.csv", row.names=FALSE)  #creating/printing csv file of all raw data merged together
 ```
