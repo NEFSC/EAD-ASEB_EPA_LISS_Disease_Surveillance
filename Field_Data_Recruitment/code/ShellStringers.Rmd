@@ -62,6 +62,9 @@ data_all <- data_all %>% filter(!is.na(Count_1))
 st_rec <- summarySE(data_all, measurevar="Count_1", groupvars=c("Site", "date_collected", "Replicate"))
 st_rec 
 
+Total_counts_rec <- data_all  %>% group_by(date_collected, Site) %>% summarise(Total = sum(Count_1))
+Total_counts_rec
+
 #Calculate completeness for QC
 st_rec$Completeness <- st_rec$N /24
 
@@ -196,6 +199,22 @@ df_GOLD<- data_all %>%
 
 st_rec_GOLD <- summarySE(df_GOLD, measurevar="Count_1", groupvars=c("Site", "date_collected", "Replicate"))
 st_rec_GOLD
+
+#Mean spat per shell per replicate
+GOLD_spat <- df_GOLD %>%
+  dplyr::group_by(Replicate, Shell, date_collected) %>%
+  dplyr::summarize(sum_count_1 = sum(Count_1),sum_count_2 = sum(Count_2))
+GOLD_spat
+
+GOLD_spat_avg <- GOLD_spat %>%
+  dplyr::group_by(Replicate, date_collected)%>%
+ dplyr::summarize(Mean_1 = mean(sum_count_1), Mean_2 = mean(sum_count_2))
+GOLD_spat_avg
+
+GOLD_spat_avg2 <- GOLD_spat_avg %>%
+  dplyr::group_by(date_collected)%>%
+  dplyr::summarize(mean_1 = mean(Mean_1), mean_2 = mean(Mean_2))
+GOLD_spat_avg2
 ```
 
 #Laurel Hollow summary

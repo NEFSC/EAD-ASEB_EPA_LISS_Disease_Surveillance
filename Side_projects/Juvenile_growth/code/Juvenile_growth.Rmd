@@ -119,9 +119,9 @@ ggplot(data=st_height, aes(x=Month, y=Shell_length, fill=Site)) +
 
 ```{r}
 #Average shell height per month per site
-  ### Why is the color and the lin plot not working????)
+  
 
-ggplot(data=st_height, aes(x=Month, y=Shell_length, fill=Site)) +
+ggplot(data=st_height, aes(x=Month, y=Shell_length, color=Site)) +
                  geom_point()+geom_line()+
         geom_errorbar(aes(ymin=Shell_length-se, ymax=Shell_length+se), width=.2,
           position=position_dodge(0)) +  
@@ -129,6 +129,11 @@ ggplot(data=st_height, aes(x=Month, y=Shell_length, fill=Site)) +
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   labs( x ="Month", y = "Mean Shell Height (mm)") 
+
+
+# In June we lost some of the data from fence creek causing this weird discrepancy in the data. We need to combine ASHC & FENC for June to be the "starting point". 
+
+
 ```
 
 ```{r}
@@ -139,7 +144,7 @@ ggplot(data=data_all, aes(x=Site, y=Shell_length, fill=Site)) +
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   labs(title="Mean Shell Height ", x ="Site", y = "Mean Shell Height (mm)") +
-  facet_wrap(~Month, ncol = 4)
+  facet_wrap(~Month, ncol = 5)
 ```
 ```{r}
 #Average shell height per month per site
