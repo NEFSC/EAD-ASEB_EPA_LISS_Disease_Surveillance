@@ -9,8 +9,10 @@ description: This code is for the Juvenille Growth Study looking at growth rates
 Important Notes: Fence Creek 06/10/24 measurements for height after individual 50 were deleted/lost due to tablet glitch. Total counts should be based on the survival metric taken to determine live counts. 
 
 ---
-Last updated 10/24/24 by M.Kachmar
-
+Last updated 10/28/24 by M.Kachmar
+- We need to combine june for both fence creek and ash creek to create a t0. Best way to do this?
+- Still working on calculating growth rate - not finding good examples to kick off. also need to combine t0 first
+- also need to standardize to 30 day time lapse
   
  
 
@@ -76,7 +78,6 @@ write.csv(data_all, "Master_files\\juv_growth_all_data.csv", row.names=FALSE)  #
 
 #This code chunk with specify to R the order in which you want month presented. When not using a data and grouping by month, the default is to put in alphabetical order, this chuck will correct that. 
 
-#This code chunk is not working. it is reading the format as dd/mm/yy instead of mm/dd/yy and giving a month associated with the date. 
 ```{r}
 #The dates in the data files are reading as a character "chr" so we need to change them to date format
 
@@ -89,6 +90,18 @@ data_all <- data_all %>% dplyr::mutate(Month = month(Date,label = TRUE, abbr = F
     #    labels=c("Jan","Feb", "March","April","May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"))
 
 #data_all
+
+
+# we want June to be t0 for both sites. We need to combine ASHC & FENC. Is this the best way to do this? 
+
+#data_all <- data_all %>%
+#  mutate(Site = case_when(
+#    Month == "June" ~ "Initial",      # If Month is 6, set Site to "Initial"
+#    Site == "ASHC" ~ "ASHC",      # If Site is ASHC, keep ASHC
+#    TRUE ~ "FENC"                 # Otherwise, set Site to "FENC"
+#  ))
+#data_all
+
 
 ```
 
@@ -159,8 +172,8 @@ ggplot(data=data_all, aes(x=Month, y=Shell_length, fill=Site)) +
 ```{r}
 # size class distribution graph per site per month
 
-ASHC<- data_all %>% filter(Site == "ASHC")
-FENC<- data_all %>% filter(Site == "FENC")
+ASHC<- data_all %>% filter(Site %in% c("ASHC", "Initial"))
+FENC<- data_all %>% filter(Site %in% c("FENC", "Initial"))
 
 ggplot(data=ASHC, aes(x=Shell_length)) +
   geom_histogram()+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
@@ -248,6 +261,15 @@ st_height_bag <- st_height_bag %>%
 
 st_height_bag
 
+#Need to standardize the time lapsed to 30 days
+#Interpolate shell length at 30-day intervals for each month separately
+
+
+
+#Calculating growth rate. We can use GR or SPG to calculate. Since we want to combine T0 from fence and ash creek GR may be more appropriate. 
+#GR = ((Ht2 - Ht1 )/ (t2-t1)) x 30 growth rate standaridized in mm / month (to a 30-day month)
+#SPG = ln L2 - lnL1 / t2-t1
+
 
 
 ```
@@ -267,7 +289,10 @@ growth.rate <- ggplot(data=survival_sum_all, aes(x=Site, y=GR_mergedT0, fill=Sit
 
 growth.rate
 ```
+#Linear mixed effects models to look at size between sites over time
+```{r}
 
+```
 
 #Kaplan Meier Survival Statistics
 ```{r}
