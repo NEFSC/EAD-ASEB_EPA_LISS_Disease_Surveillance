@@ -92,15 +92,7 @@ data_all <- data_all %>% dplyr::mutate(Month = month(Date,label = TRUE, abbr = F
 #data_all
 
 
-# we want June to be t0 for both sites. We need to combine ASHC & FENC. Is this the best way to do this? 
 
-#data_all <- data_all %>%
-#  mutate(Site = case_when(
-#    Month == "June" ~ "Initial",      # If Month is 6, set Site to "Initial"
-#    Site == "ASHC" ~ "ASHC",      # If Site is ASHC, keep ASHC
-#    TRUE ~ "FENC"                 # Otherwise, set Site to "FENC"
-#  ))
-#data_all
 
 
 ```
@@ -172,8 +164,8 @@ ggplot(data=data_all, aes(x=Month, y=Shell_length, fill=Site)) +
 ```{r}
 # size class distribution graph per site per month
 
-ASHC<- data_all %>% filter(Site %in% c("ASHC", "Initial"))
-FENC<- data_all %>% filter(Site %in% c("FENC", "Initial"))
+ASHC<- data_all %>% filter(Site %in% c("ASHC"))
+FENC<- data_all %>% filter(Site %in% c("FENC"))
 
 ggplot(data=ASHC, aes(x=Shell_length)) +
   geom_histogram()+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
@@ -241,35 +233,89 @@ dev.off()
 #Calculating Growth Rate
 #Reading this paper : Osei et al. 2022 - "monthly growth rate = (H2 − H1)/(t/30), where H1 is initial shell height (cm), H2 is final shell height (cm) and t is the number days between sampling" - how to tell R to do this?
 #Is the correct? I am not sure - needs to be checked over and adjusted. I have it a whirl LOL - MK
+
+#GR = ((Ht2 - Ht1 )/ (t2-t1)) x 30 growth rate standaridized in mm / month (to a 30-day month)
+#SPG = ln L2 - lnL1 / t2-t1
 ```{r}
 
-#Create summary of height per bag per time period per site
+# we want June to be t0 for both sites. We need to combine ASHC & FENC. To do this, first change the site name in June to initial to combined the data.
+data_adjusted <- data_all %>%
+  mutate(Site = case_when(
+   Month == "June" ~ "Initial",      # If Month is 6, set Site to "Initial"
+    Site == "ASHC" ~ "ASHC",      # If Site is ASHC, keep ASHC
+    TRUE ~ "FENC"                 # Otherwise, set Site to "FENC"
+  ))
+data_adjusted
 
-st_height_bag <- summarySE(data_all%>% filter(!is.na(Shell_length)), measurevar="Shell_length", groupvars=c("Site", "Date", "Bag_number", "Month"))
+#lets separate data sets by sites and rename "Initial" to the correct site (ASHC or FENC) for the data frame
+ASHC_gr<- data_adjusted %>% filter(Site %in% c("ASHC", "Initial")) %>%   mutate(Site = ifelse(Site == "Initial", "ASHC", Site))
+FENC_gr<- data_adjusted %>% filter(Site %in% c("FENC", "Initial"))%>%   mutate(Site = ifelse(Site == "Initial", "FENC", Site))
 
-st_height_bag 
+
+#Now that our data sets are adjusted we can rreate summary of height per bag per time period per site for each data set
+
+st_height_bag_ASHC <- summarySE(ASHC_gr%>% filter(!is.na(Shell_length)), measurevar="Shell_length", groupvars=c("Site", "Date", "Bag_number", "Month"))
+st_height_bag_FENC <- summarySE(FENC_gr%>% filter(!is.na(Shell_length)), measurevar="Shell_length", groupvars=c("Site", "Date", "Bag_number", "Month"))
+
+ 
 
 #So we need to calculate how many days between each measurement to calculate the growth rate
 # Sort data by site and sampling date (important if dates are not ordered)
-st_height_bag <- st_height_bag %>%
+st_height_bag_ASHC <- st_height_bag_ASHC %>%
+  arrange(Site, Date, Bag_number)
+
+st_height_bag_FENC <- st_height_bag_FENC %>%
   arrange(Site, Date, Bag_number)
 
 # Calculate the number of days between sampling dates and the monthly growth rate per site per replicate
-st_height_bag <- st_height_bag %>%
+st_height_bag_ASHC <- st_height_bag_ASHC %>%
   group_by(Site, Bag_number) %>%
   mutate(Days_between = c(NA, diff(Date)), H1 = lag(Shell_length), H2 = Shell_length, monthly_growth_rate = (H2-H1)/(Days_between))
 
-st_height_bag
+st_height_bag_ASHC
 
-#Need to standardize the time lapsed to 30 days
+st_height_bag_FENC <- st_height_bag_FENC %>%
+  group_by(Site, Bag_number) %>%
+  mutate(Days_between = c(NA, diff(Date)), H1 = lag(Shell_length), H2 = Shell_length, monthly_growth_rate = (H2-H1)/(Days_between))
+
+st_height_bag_FENC
+
+# MONTHLY GROWTH RATE: Calculate the number of days between sampling dates and the monthly growth rate per site across all replicates
+
+st_height_ASHC <- summarySE(ASHC_gr%>% filter(!is.na(Shell_length)), measurevar="Shell_length", groupvars=c("Site", "Date", "Month"))
+st_height_FENC <- summarySE(FENC_gr%>% filter(!is.na(Shell_length)), measurevar="Shell_length", groupvars=c("Site", "Date", "Month"))
+
+ 
+
+st_height_ASHC <- st_height_ASHC %>%
+  group_by(Site) %>%
+  mutate(Days_between = c(NA, diff(Date)), H1 = lag(Shell_length), H2 = Shell_length, monthly_growth_rate = (H2-H1)/(Days_between))
+st_height_ASHC
+
+st_height_FENC <- st_height_FENC %>%
+  group_by(Site) %>%
+  mutate(Days_between = c(NA, diff(Date)), H1 = lag(Shell_length), H2 = Shell_length, monthly_growth_rate = (H2-H1)/(Days_between))
+st_height_FENC
+
+
+#Combine ASHC & FENC 
+growth_summary<-rbind(st_height_ASHC, st_height_FENC)
+
+# TOTAL GROWTH RATE - growth rate across the entire sample period
+growthrate <- st_height_ASHC  %>%
+  group_by(Site) %>%
+  summarise(datemax = max(Date), 
+             datemin = min(Date),
+             time.elapsed = datemax - datemin, 
+             lengthmax = max(Shell_length), 
+             lengthmin = min(Shell_length), 
+             growthrate = (lengthmax-lengthmin)/as.numeric(time.elapsed)) %>%
+  ungroup()
+  
+growthrate
+
+#Need to standardize the time lapsed to 30 days???? 
 #Interpolate shell length at 30-day intervals for each month separately
-
-
-
-#Calculating growth rate. We can use GR or SPG to calculate. Since we want to combine T0 from fence and ash creek GR may be more appropriate. 
-#GR = ((Ht2 - Ht1 )/ (t2-t1)) x 30 growth rate standaridized in mm / month (to a 30-day month)
-#SPG = ln L2 - lnL1 / t2-t1
-
 
 
 ```
@@ -277,17 +323,27 @@ st_height_bag
 #graphing growth rate
 #this needs to be fixed/updated
 ```{r}
-growth.rate <- ggplot(data=survival_sum_all, aes(x=Site, y=GR_mergedT0, fill=Site)) +
+growth.rate <- ggplot(data=growth_summary, aes(x=Site, y=monthly_growth_rate, fill=Site)) +
   geom_boxplot(width = 2)+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+scale_fill_manual(values = c("orange1", "cornflowerblue") )+
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   labs(x ="Site", y = "Growth Rate (mm / month)") +
 # could add a facet_wrap for date
   theme(axis.title = element_text(size = rel(1.7)), axis.text = element_text(size = rel(1.3)), plot.margin = margin(10, 150, 10, 150))+
-  ylim(0,16)
+  ylim(0,1)
   
 
 growth.rate
+
+
+ggplot(data=growth_summary, aes(x=Month, y=monthly_growth_rate, color=Site, group = Site)) +
+                 geom_point()+ geom_line(size = 1) +
+        #geom_errorbar(aes(ymin=Shell_length-se, ymax=Shell_length+se), width=.2, position=position_dodge(0)) +  
+  # scale_color_manual(values=c("green4", "darkorange1"))+
+  theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  labs( x ="Month", y = "Growth Rate (mm/month") #+ facet_wrap(~Site, nrow = 2)
+
 ```
 #Linear mixed effects models to look at size between sites over time
 ```{r}
