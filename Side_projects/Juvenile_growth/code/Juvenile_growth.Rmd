@@ -10,9 +10,8 @@ Important Notes: Fence Creek 06/10/24 measurements for height after individual 5
 
 ---
 Last updated 10/28/24 by M.Kachmar
-- We need to combine june for both fence creek and ash creek to create a t0. Best way to do this?
-- Still working on calculating growth rate - not finding good examples to kick off. also need to combine t0 first
-- also need to standardize to 30 day time lapse
+- calculated growth rate & graphed, I think? Need someone to check the math. I combined June to be t0 to do these calculations. 
+- also need to standardize to 30 day time lapse??
   
  
 
@@ -345,8 +344,36 @@ ggplot(data=growth_summary, aes(x=Month, y=monthly_growth_rate, color=Site, grou
   labs( x ="Month", y = "Growth Rate (mm/month") #+ facet_wrap(~Site, nrow = 2)
 
 ```
+
+
+
 #Linear mixed effects models to look at size between sites over time
 ```{r}
+
+#We want to use the below data sheets with the standardized t0 - combining 
+ASHC_gr
+FENC_gr
+
+library(lme4)
+library(car)
+
+#Lets look at differences within sites - Is shell length significantly different over time? 
+
+lme_size_ASHC <- lmer(Shell_length ~ Date + (1|Bag_number), ASHC_gr)
+Anova(lme_size_ASHC)
+summary(lme_size_ASHC)
+
+lme_size_FENC <- lmer(Shell_length ~ Date + (1|Bag_number), FENC_gr)
+Anova(lme_size_FENC)
+summary(lme_size_ASHC)
+
+
+#We want to compare between the sites as well - lets combine the data & run a model. Is there a significant difference in growth over time and between sites?
+growth_master <- rbind(ASHC_gr, FENC_gr)
+
+lme_size <- lmer(Shell_length ~ Date + Site + (1|Bag_number), growth_master)
+Anova(lme_size)
+summary(lme_size)
 
 ```
 
@@ -368,7 +395,7 @@ Surv_ASHC <- Surv(time = ASHC$Month, event = ASHC$Survival)
 fit.surv_ASHC <- survfit(formula = Surv_ASHC ~ Bag_number, data = ASHC)
 
 ASHC_survival_plot<-ggsurvplot(fit.surv_ASHC, data = ASHC, break.x.by = 1,
-           linetype= c(1, 2, 3),xlab = "Month", ylab= "Survival", xlim = c(5,9), legend.labs= c("bag 1", "bag 2",
+           linetype= c(1, 2, 3),xlab = "Month", ylab= "Survival", xlim = c(5,10), legend.labs= c("bag 1", "bag 2",
                                                                  "bag 3"),
            legend.title = "Replicate:", legend = "top", risk.table =FALSE )+ theme_survminer(base_size = 20,font.legend = c(15))+ggtitle("Ash Creek, CT")
 ASHC_survival_plot
@@ -385,7 +412,7 @@ Surv_FENC <- Surv(time = FENC$Month, event = FENC$Survival)
 fit.surv_FENC <- survfit(formula = Surv_FENC ~ Bag_number, data = FENC)
 
 FENC_survival_plot<-ggsurvplot(fit.surv_FENC, data = FENC,break.x.by = 1,
-           linetype= c(1, 2, 3),xlab = "Month", ylab= "Survival", xlim = c(5,9), legend.labs= c("bag 1", "bag 2",
+           linetype= c(1, 2, 3),xlab = "Month", ylab= "Survival", xlim = c(5,10), legend.labs= c("bag 1", "bag 2",
                                                                  "bag 3"),
            legend.title = "Replicate:", legend = "top", risk.table =FALSE )+ theme_survminer(base_size = 20,font.legend = c(15))+ggtitle("Fence Creek, CT") 
 FENC_survival_plot
@@ -405,7 +432,7 @@ Surv_CT <- Surv(time = data_all$Month, event = data_all$Survival)
 fit.surv_CT <- survfit(formula = Surv_CT ~ Site, data = data_all)
 
 CT_survival_plot<-ggsurvplot(fit.surv_CT, data = data_all, break.x.by = 1,
-           linetype= c(1, 2),xlab = "Month", ylab= "Survival", xlim = c(5,9), legend.labs= c("Ash Creek", "Fence Creek"),
+           linetype= c(1, 2),xlab = "Month", ylab= "Survival", xlim = c(5,10), legend.labs= c("Ash Creek", "Fence Creek"),
            legend.title = "Replicate:", legend = "top", risk.table =FALSE )+ theme_survminer(base_size = 20,font.legend = c(15))+ggtitle("Survival between Ash Creek, CT and Fence Creek, CT")
 CT_survival_plot
 
