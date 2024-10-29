@@ -376,6 +376,53 @@ Anova(lme_size)
 summary(lme_size)
 
 ```
+#Generalized Additive Models (https://m-clark.github.io/generalized-additive-models/introduction.html) to compare environmental data to growth
+#https://cran.r-project.org/web/packages/gam/gam.pdf
+```{r}
+#Pull in environmental data - monthly means created in "Raw_Plotting.RMD" in the sonde code
+CT_sonde<- read.csv("C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data/output/Sonde_monthly_means_CT.csv")%>% mutate(
+    year = year(year_month),
+    Month = month(year_month, label = TRUE, abbr = FALSE)) %>% filter(`year_month` > '2024-05-01' & `year_month` < '2024-11-01' ) #filter what date ranges are needed
+CT_sonde
+
+#Seperate by variable 
+pH_jg          <- CT_sonde %>% dplyr::filter(variable == 'pH' & Site %in% c('FENC', 'ASHC'))
+Salinity_jg    <- CT_sonde %>% dplyr::filter(variable == 'Salinity' & Site %in% c('FENC', 'ASHC'))
+Temperature_jg <- CT_sonde %>% dplyr::filter(variable == 'Temperature' & Site %in% c('FENC', 'ASHC'))
+DO_jg          <- CT_sonde %>% dplyr::filter(variable == 'RDO Concentration' & Site %in% c('FENC', 'ASHC'))
+CHLA_jg       <- CT_sonde %>% dplyr::filter(variable == 'Chlorophyll-a Fluorescence' & Site %in% c('FENC', 'ASHC'))
+
+#before we conduct our models we will need to combine environmental data to our growth data
+ pH_merged <- pH_jg %>% inner_join(growth_master, by = c("Month", "Site"))
+ salinity_merged <- Salinity_jg %>% inner_join(growth_master, by = c("Month", "Site"))
+ temperature_merged <- Temperature_jg %>% inner_join(growth_master, by = c("Month", "Site"))
+ CHLA_merged <- CHLA_jg %>% inner_join(growth_master, by = c("Month", "Site"))
+ DO_merged <- DO_jg %>% inner_join(growth_master, by = c("Month", "Site"))
+
+
+#library(gam)
+#library(mgcv)
+
+#gam_ph_jg <- gamm(Shell_length ~ mean + Site + Month, random = list(Bag_number = ~ 1), family =gaussian, pH_merged )
+ 
+#gam() not working so I decided to try an lmer() since I used this in my perkinsus study to see if this works and it does but we should definitely talk about if this makes sense to use
+ 
+lme_ph_jg <- lmer(Shell_length ~ mean + Site + Month + (1 | Bag_number), data = pH_merged)
+Anova(lme_ph_jg)
+
+lme_salinity_jg <- lmer(Shell_length ~ mean + Site + Month + (1 | Bag_number), data = salinity_merged)
+Anova(lme_salinity_jg)
+
+lme_temp_jg <- lmer(Shell_length ~ mean + Site + Month + (1 | Bag_number), data = temperature_merged)
+Anova(lme_salinity_jg)
+
+lme_CHLA_jg <- lmer(Shell_length ~ mean + Site + Month + (1 | Bag_number), data = CHLA_merged)
+Anova(lme_salinity_jg)
+
+lme_DO_jg <- lmer(Shell_length ~ mean + Site + Month + (1 | Bag_number), data = DO_merged)
+Anova(lme_salinity_jg)
+
+```
 
 #Kaplan Meier Survival Statistics
 ```{r}
