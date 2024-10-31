@@ -445,6 +445,7 @@ Anova(lme_DO_jg)
 ```
 
 #Kaplan Meier Survival curves, log rank tests, and cox proportional hazard analysis
+#The Kaplan-Meier method is a non-parametric approach that's commonly used to analyze time-to-event data, such as the time until death or a specific event. It's a straightforward way to estimate survival rates and probabilities by tabulating and discussing the results
 ```{r}
 
 #View(ASHC)
@@ -452,6 +453,7 @@ Anova(lme_DO_jg)
 
 #we want to use the original data set here because it accounted for the individiuals even with lost height data
 
+#Lets take a look at each site separately first to see what is going on 
 
 #We can look at the data by each site only
 # Create a survival object per bag and plot 
@@ -492,12 +494,12 @@ print(FENC_survival_plot) #specify the graph
 dev.off()
 
 
-#Survival comparing sites - this is what we will report in our manuscript.
+###########Survival comparing sites - this is what we will report in our manuscript.##################
 
 data_all$Month<-as.numeric(data_all$Month)
 data_all$Survival<-as.numeric(data_all$Survival)
 
-Surv_CT <- Surv(time = data_all$Month, event = data_all$Survival) #create your survival object using surv()
+Surv_CT <- Surv(time = data_all$Month, event = data_all$Survival) #create your survival object using surv(). The survival object is the estimated survival function showing the probability of surviving beyond a certain point
 fit.surv_CT <- survfit(formula = Surv_CT ~ Site, data = data_all) #Computes an estimate of a survival curve from the survival object
 
 CT_survival_plot<-ggsurvplot(fit.surv_CT, data = data_all,  conf.int = TRUE, break.x.by = 1,
