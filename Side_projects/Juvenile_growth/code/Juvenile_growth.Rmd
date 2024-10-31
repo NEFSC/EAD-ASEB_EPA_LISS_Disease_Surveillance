@@ -443,12 +443,16 @@ Anova(lme_DO_jg)
 
 ```
 
-#Kaplan Meier Survival Statistics
+#Kaplan Meier Survival curves, log rank tests, and cox proportional hazard analysis
 ```{r}
 
 #View(ASHC)
 #View(FENC)
 
+#we want to use the original data set here because it accounted for the individiuals even with lost height data
+
+
+#We can look at the data by each site only
 # Create a survival object per bag and plot 
 ASHC$Survival <-as.numeric(ASHC$Survival) #need to make sure everything is in numeric format
 ASHC$Month <-as.numeric(ASHC$Month)
@@ -456,9 +460,8 @@ FENC$Survival <-as.numeric(FENC$Survival) #need to make sure everything is in nu
 FENC$Month <-as.numeric(FENC$Month)
 
 # Ash Creek survival by bag
-
-Surv_ASHC <- Surv(time = ASHC$Month, event = ASHC$Survival)
-fit.surv_ASHC <- survfit(formula = Surv_ASHC ~ Bag_number, data = ASHC)
+Surv_ASHC <- Surv(time = ASHC$Month, event = ASHC$Survival) #create your survival object using surv()
+fit.surv_ASHC <- survfit(formula = Surv_ASHC ~ Bag_number, data = ASHC) #Computes an estimate of a survival curve from the survival object
 
 ASHC_survival_plot<-ggsurvplot(fit.surv_ASHC, data = ASHC, break.x.by = 1,
            linetype= c(1, 2, 3),xlab = "Month", ylab= "Survival", xlim = c(5,10), legend.labs= c("bag 1", "bag 2",
@@ -472,10 +475,9 @@ print(ASHC_survival_plot) #specify the graph
 dev.off()
 
 
-
 # Fence Creek survival
-Surv_FENC <- Surv(time = FENC$Month, event = FENC$Survival)
-fit.surv_FENC <- survfit(formula = Surv_FENC ~ Bag_number, data = FENC)
+Surv_FENC <- Surv(time = FENC$Month, event = FENC$Survival) #create your survival object using surv()
+fit.surv_FENC <- survfit(formula = Surv_FENC ~ Bag_number, data = FENC) #Computes an estimate of a survival curve from the survival object
 
 FENC_survival_plot<-ggsurvplot(fit.surv_FENC, data = FENC,break.x.by = 1,
            linetype= c(1, 2, 3),xlab = "Month", ylab= "Survival", xlim = c(5,10), legend.labs= c("bag 1", "bag 2",
@@ -489,13 +491,13 @@ print(FENC_survival_plot) #specify the graph
 dev.off()
 
 
-#Survival comparing sites
+#Survival comparing sites - this is what we will report in our manuscript.
 
 data_all$Month<-as.numeric(data_all$Month)
 data_all$Survival<-as.numeric(data_all$Survival)
 
-Surv_CT <- Surv(time = data_all$Month, event = data_all$Survival)
-fit.surv_CT <- survfit(formula = Surv_CT ~ Site, data = data_all)
+Surv_CT <- Surv(time = data_all$Month, event = data_all$Survival) #create your survival object using surv()
+fit.surv_CT <- survfit(formula = Surv_CT ~ Site, data = data_all) #Computes an estimate of a survival curve from the survival object
 
 CT_survival_plot<-ggsurvplot(fit.surv_CT, data = data_all, break.x.by = 1,
            linetype= c(1, 2),xlab = "Month", ylab= "Survival", xlim = c(5,10), legend.labs= c("Ash Creek", "Fence Creek"),
@@ -523,7 +525,7 @@ summary(survfit(Surv(Month, Survival) ~ Site, data = data_all))
 summary(survfit(Surv(Month, Survival) ~ Site + Bag_number, data = data_all))
 
 
-#Cox proportional hazard
+#Cox proportional hazard - estimates how various factors affect the time it takes for an event to occur. The model's main output is a hazard rate (HR) that can be used to generate survival curves for groups or individuals within a population
 fit.coxph <- coxph(Surv_CT ~ Site, data = data_all)
 fit.coxph
 ggforest(fit.coxph, data = data_all, fontsize = 1.5)
