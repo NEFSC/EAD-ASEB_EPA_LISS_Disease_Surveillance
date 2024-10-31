@@ -121,24 +121,7 @@ ggplot(data=st_height, aes(x=Month, y=Shell_length, fill=Site)) +
                  geom_point()
 ```
 
-```{r}
-#Average shell height per month per site
-  
 
-ggplot(data=st_height, aes(x=Month, y=Shell_length, color=Site)) +
-                 geom_point()+geom_line()+
-        geom_errorbar(aes(ymin=Shell_length-se, ymax=Shell_length+se), width=.2,
-          position=position_dodge(0)) +  
-  # scale_color_manual(values=c("green4", "darkorange1"))+
-  theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
-  #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  labs( x ="Month", y = "Mean Shell Height (mm)") 
-
-
-# In June we lost some of the data from fence creek causing this weird discrepancy in the data. We need to combine ASHC & FENC for June to be the "starting point". 
-
-
-```
 
 ```{r}
 #Average shell height per month per site
@@ -318,7 +301,24 @@ growthrate
 
 
 ```
+```{r}
+#Average shell height per month per site
+# In June we lost some of the data from fence creek causing this weird discrepancy in the data. We need to combine ASHC & FENC for June to be the "starting point". 
+  
 
+ggplot(data=growth_summary, aes(x=Month, y=Shell_length, color=Site)) +
+                 geom_point(position = position_dodge(width = 0.3))+
+                  geom_line()+ #added position_dodge to be able to see the first points since they are the same
+                  geom_errorbar(aes(ymin=Shell_length-se, ymax=Shell_length+se), width=.2, position=position_dodge(0.3)) +  
+  # scale_color_manual(values=c("green4", "darkorange1"))+
+  theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  labs( x ="Month", y = "Mean Shell Height (mm)") 
+
+
+#I would add a text box with "t0" next to the June points
+
+```
 #graphing growth rate
 #this needs to be fixed/updated
 ```{r}
@@ -393,34 +393,53 @@ DO_jg          <- CT_sonde %>% dplyr::filter(variable == 'RDO Concentration' & S
 CHLA_jg       <- CT_sonde %>% dplyr::filter(variable == 'Chlorophyll-a Fluorescence' & Site %in% c('FENC', 'ASHC'))
 
 #before we conduct our models we will need to combine environmental data to our growth data
- pH_merged <- pH_jg %>% inner_join(growth_master, by = c("Month", "Site"))
- salinity_merged <- Salinity_jg %>% inner_join(growth_master, by = c("Month", "Site"))
- temperature_merged <- Temperature_jg %>% inner_join(growth_master, by = c("Month", "Site"))
- CHLA_merged <- CHLA_jg %>% inner_join(growth_master, by = c("Month", "Site"))
- DO_merged <- DO_jg %>% inner_join(growth_master, by = c("Month", "Site"))
+pH_merged <- pH_jg %>% inner_join(growth_master, by = c("Month", "Site"))
+salinity_merged <- Salinity_jg %>% inner_join(growth_master, by = c("Month", "Site"))
+temperature_merged <- Temperature_jg %>% inner_join(growth_master, by = c("Month", "Site"))
+CHLA_merged <- CHLA_jg %>% inner_join(growth_master, by = c("Month", "Site"))
+DO_merged <- DO_jg %>% inner_join(growth_master, by = c("Month", "Site"))
 
 
 #library(gam)
 #library(mgcv)
 
+#Is the monthly means of each environmental parameter different between sites?
+
+lme_ph <- lmer(mean ~ Site + (1 | Month), data = pH_jg) #No
+Anova(lme_ph)
+
+lme_temp <- lmer(mean ~ Site + (1 | Month), data = Temperature_jg) #No
+Anova(lme_temp )
+
+lme_salinity <- lmer(mean ~ Site + (1 | Month), data = Salinity_jg) #No
+Anova(lme_salinity)
+
+lme_CHLA <- lmer(mean ~ Site + (1 | Month), data = CHLA_jg) #Yes
+Anova(lme_CHLA)
+
+lme_DO <- lmer(mean ~ Site + (1 | Month), data = DO_jg) #No
+Anova(lme_DO)
+
 #gam_ph_jg <- gamm(Shell_length ~ mean + Site + Month, random = list(Bag_number = ~ 1), family =gaussian, pH_merged )
  
 #gam() not working so I decided to try an lmer() since I used this in my perkinsus study to see if this works and it does but we should definitely talk about if this makes sense to use
+
+#Thinking about the best way to set up this model - what is our big questions? 
  
-lme_ph_jg <- lmer(Shell_length ~ mean + Site + Month + (1 | Bag_number), data = pH_merged)
+lme_ph_jg <- lmer(Shell_length ~ mean + Site +  (1 | Month), data = pH_merged)
 Anova(lme_ph_jg)
 
 lme_salinity_jg <- lmer(Shell_length ~ mean + Site + Month + (1 | Bag_number), data = salinity_merged)
 Anova(lme_salinity_jg)
 
 lme_temp_jg <- lmer(Shell_length ~ mean + Site + Month + (1 | Bag_number), data = temperature_merged)
-Anova(lme_salinity_jg)
+Anova(lme_temp_jg)
 
 lme_CHLA_jg <- lmer(Shell_length ~ mean + Site + Month + (1 | Bag_number), data = CHLA_merged)
-Anova(lme_salinity_jg)
+Anova(lme_CHLA_jg)
 
 lme_DO_jg <- lmer(Shell_length ~ mean + Site + Month + (1 | Bag_number), data = DO_merged)
-Anova(lme_salinity_jg)
+Anova(lme_DO_jg)
 
 ```
 
@@ -512,21 +531,7 @@ ggforest(fit.coxph, data = data_all, fontsize = 1.5)
 ```
 
 
-#ALL OF THE CODE BELOW IS OLD CODE 
 
-
-Testing assumptions for statistical analysis (Survival and Growth rate)
-
-  #### Code not working - resume edits here (km, 7/14/2024).
-```{r}
-library(rstatix)
-
-leveneTest(Survival ~ Site, data=df)
-shapiro.test(df$Survival)
-
-leveneTest(Growth_rate ~ Site, data=df
-shapiro.test(df$Growth_rate)
-```
 
 
 ```{r}
