@@ -464,7 +464,7 @@ FENC$Month <-as.numeric(FENC$Month)
 Surv_ASHC <- Surv(time = ASHC$Month, event = ASHC$Survival) #create your survival object using surv()
 fit.surv_ASHC <- survfit(formula = Surv_ASHC ~ Bag_number, data = ASHC) #Computes an estimate of a survival curve from the survival object
 
-ASHC_survival_plot<-ggsurvplot(fit.surv_ASHC, data = ASHC, break.x.by = 1,
+ASHC_survival_plot<-ggsurvplot(fit.surv_ASHC, data = ASHC, , conf.int = TRUE, break.x.by = 1,
            linetype= c(1, 2, 3),xlab = "Month", ylab= "Survival", xlim = c(5,10), legend.labs= c("bag 1", "bag 2",
                                                                  "bag 3"),
            legend.title = "Replicate:", legend = "top", risk.table =FALSE )+ theme_survminer(base_size = 20,font.legend = c(15))+ggtitle("Ash Creek, CT")
@@ -500,7 +500,7 @@ data_all$Survival<-as.numeric(data_all$Survival)
 Surv_CT <- Surv(time = data_all$Month, event = data_all$Survival) #create your survival object using surv()
 fit.surv_CT <- survfit(formula = Surv_CT ~ Site, data = data_all) #Computes an estimate of a survival curve from the survival object
 
-CT_survival_plot<-ggsurvplot(fit.surv_CT, data = data_all, break.x.by = 1,
+CT_survival_plot<-ggsurvplot(fit.surv_CT, data = data_all,  conf.int = TRUE, break.x.by = 1,
            linetype= c(1, 2),xlab = "Month", ylab= "Survival", xlim = c(5,10), legend.labs= c("Ash Creek", "Fence Creek"),
            legend.title = "Replicate:", legend = "top", risk.table =FALSE )+ theme_survminer(base_size = 20,font.legend = c(15))+ggtitle("Survival between Ash Creek, CT and Fence Creek, CT")
 CT_survival_plot
