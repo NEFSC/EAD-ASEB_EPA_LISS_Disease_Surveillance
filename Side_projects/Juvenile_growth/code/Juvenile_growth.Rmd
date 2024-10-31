@@ -9,9 +9,10 @@ description: This code is for the Juvenille Growth Study looking at growth rates
 Important Notes: Fence Creek 06/10/24 measurements for height after individual 50 were deleted/lost due to tablet glitch. Total counts should be based on the survival metric taken to determine live counts. 
 
 ---
-Last updated 10/28/24 by M.Kachmar
+Last updated 10/31/24 by M.Kachmar
 - calculated growth rate & graphed, I think? Need someone to check the math. I combined June to be t0 to do these calculations. 
 - also need to standardize to 30 day time lapse??
+- Updated Kaplan Meier survival
   
  
 
@@ -528,7 +529,12 @@ summary(survfit(Surv(Month, Survival) ~ Site + Bag_number, data = data_all))
 #Cox proportional hazard - estimates how various factors affect the time it takes for an event to occur. The model's main output is a hazard rate (HR) that can be used to generate survival curves for groups or individuals within a population
 fit.coxph <- coxph(Surv_CT ~ Site, data = data_all)
 fit.coxph
-ggforest(fit.coxph, data = data_all, fontsize = 1.5)
+jg_coxph<-ggforest(fit.coxph, data = data_all, fontsize = 1.5)
+jg_coxph
+
+pdf(paste0(path = "Side_projects/Juvenile_growth/outputs/" ,"jg_coxph.pdf"), height = 7, width = 11) #printing a PDF within the path of the code, with specific dimensions of PDF
+print(jg_coxph) #specify the graph
+dev.off()
 
 ```
 
