@@ -433,17 +433,27 @@ lme_ph_jg <- lmer(Shell_length ~ mean * Site +  (1|Month)+ (1 | Bag_number), dat
 Anova(lme_ph_jg)
 #Site is significant. Shell length differs between sites but pH does not have a detectable influence. However, the interaction (*) between site and pH is significant. So this is telling us that pH does impact shell growth but it is dependent on specific site conditions. 
 
-lme_salinity_jg <- lmer(Shell_length ~ mean + Site  +  (1|Month)+ (1 | Bag_number), data = salinity_merged)
+lme_salinity_jg <- lmer(Shell_length ~ mean * Site  +  (1|Month)+ (1 | Bag_number), data = salinity_merged)
 Anova(lme_salinity_jg)
+#salinity and the interaction between site and salinity is significant. So salinity impacts growth and has site dependencies - salinity is interacting with other factors. 
 
-lme_temp_jg <- lmer(Shell_length ~ mean + Site  +  (1|Month) + (1 | Bag_number), data = temperature_merged)
+lme_temp_jg <- lmer(Shell_length ~ mean * Site  +  (1|Month) + (1 | Bag_number), data = temperature_merged)
 Anova(lme_temp_jg)
+#Temperature is significant so it has a consistent effect  on growth across sites. Site differences in shell growth exist independently of temperature. 
+#Is there a positive or negative relationship with temperature? positive - both growth and temperature increase. 
+#The interaction of temperature and site was not significant so the sites do not vary
 
-lme_CHLA_jg <- lmer(Shell_length ~ mean + Site  +  (1|Month) + (1 | Bag_number), data = CHLA_merged)
+lme_CHLA_jg <- lmer(Shell_length ~ mean* Site  +  (1|Month) + (1 | Bag_number), data = CHLA_merged)
 Anova(lme_CHLA_jg)
+#CHLA influences shell growth but differently at each site - what is the food availability like between the sites (we know they are different from the model above)? We also know that the growth rate varies between sites - fence creek is larger. More food = more growth? 
+#The interaction indicate that specific site interactions play a role with CHLA
 
-lme_DO_jg <- lmer(Shell_length ~ mean + Site  +  (1|Month) + (1 | Bag_number), data = DO_merged)
+lme_DO_jg <- lmer(Shell_length ~ mean * Site  +  (1|Month) + (1 | Bag_number), data = DO_merged)
 Anova(lme_DO_jg)
+#DO influences shell growth but differently at each site - How does DO differ between sites? The model above indicates there is not a significant difference so this shows us that DO is interacting with other factors at each site - CHLA & salinity? which is confirmed by the significant interaction between site and DO. 
+
+
+#So, what do we know? CHLA is different at each site - one has more food availability than the other. All environmental conditions interact to influence the differences in shell height/growth at each site- aka the combine environmental factors create differences between sites. pH does not impact growth alone and temperature is independent of site (so the same trend is happening at both) with positive relationships with shell length - as temperature increases so does shell length/growth.  
 
 ```
 
