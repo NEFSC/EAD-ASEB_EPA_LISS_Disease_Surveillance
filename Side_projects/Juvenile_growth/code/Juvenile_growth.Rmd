@@ -22,8 +22,8 @@ Last updated 10/31/24 by M.Kachmar
 
 knitr::opts_chunk$set(echo = TRUE) 
 #knitr::opts_knit$set(root.dir = 'C:/Users/kennedy.mcgrath/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kennedy's
-knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
-#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 #knitr::opts_knit$set(root.dir = 'C:/Users/kelly.roper/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kelly's
 #knitr::opts_knit$set(root.dir = 'C:/Users/katherine.mcfarland/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Katie's
 ```
@@ -308,13 +308,21 @@ growthrate
   
 
 ggplot(data=growth_summary, aes(x=Month, y=Shell_length, group=Site, color = Site)) +
-                 geom_point(position = position_dodge(width = 0.3))+
+                 geom_point(position = position_dodge(width = 0.08))+
                   geom_line()+ #added position_dodge to be able to see the first points since they are the same
-                  geom_errorbar(aes(ymin=Shell_length-se, ymax=Shell_length+se), width=.2, position=position_dodge(0.3)) +  
+                  geom_errorbar(aes(ymin=Shell_length-se, ymax=Shell_length+se), width=.2, position=position_dodge(0.08)) +  
   # scale_color_manual(values=c("green4", "darkorange1"))+
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  labs( x ="Month", y = "Mean Shell Height (mm)") 
+  labs( x ="Month", y = "Mean Shell Height (mm)")+
+  geom_label(label="t0", #adding time zero label
+    x=1,
+    y=33,
+    label.padding = unit(0.3, "lines"), # Rectangle size around label
+    label.size = 0.05,
+    color = "darkgray",
+    fill="white"
+  )
 
 
 #I would add a text box with "t0" next to the June points
