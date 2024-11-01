@@ -121,6 +121,9 @@ CT_means<- Master_table_LONG_means[Master_table_LONG_means$Site == "ASHC" | Mast
 
 write.csv(CT_means, "output/Sonde_hourly_means_CT.csv")
 
+
+
+
 for(i in 1:nrow(vars)) {
   
   # filter table for each variable
@@ -186,7 +189,43 @@ for(i in 1:nrow(vars)) {
 #dev.off()
   
 ```
+#Creating monthly means for juvenile growth stud
+```{r}
+Master_monthly_means <- Master_table %>%
+  # Convert Date Time to date-time format and extract the month and year
+  dplyr::mutate(`Date Time` = ymd_hms(`Date Time`),
+                year_month = floor_date(`Date Time`, "month")) %>%
+  # Melt the data
+  melt(id.vars = c("year_month", "Site"),
+       measure.vars = c("Actual Conductivity", "Salinity", "Resistivity", 
+                        "Total Dissolved Solids", "RDO Concentration", "RDO Saturation",
+                        "Oxygen Partial Pressure", "Chlorophyll-a Fluorescence", "pH", "pH mV", 
+                        "Temperature")) %>%
+  # Group by year_month, Site, and variable
+  dplyr::group_by(year_month, Site, variable) %>%
+  # Summarize using across() to get mean, sd, and standard error (se)
+  dplyr::summarize(
+    mean = mean(value, na.rm = TRUE),
+    sd = sd(value, na.rm = TRUE),
+    se = sd(value, na.rm = TRUE) / sqrt(n()),
+    .groups = "drop"
+  )
 
+View(Master_monthly_means)
+
+Sonde_monthly_means_CT<- Master_monthly_means[Master_monthly_means$Site == "ASHC" | Master_monthly_means$Site =="FENC", ]
+
+write.csv(Sonde_monthly_means_CT, "output/Sonde_monthly_means_CT_long.csv")
+
+## We don't want this in long format for all analysis
+
+#we still want means
+
+Sonde_monthly_means_wide <- Sonde_monthly_means_CT %>% pivot_wider(names_from = variable, values_from = c("mean", "sd", "se"))
+write.csv(Sonde_monthly_means_CT, "output/Sonde_monthly_means_CT_wide.csv")
+
+
+```
 # Clean CT sites (ASHC and FENC) 
 ```{r, figs for LISS proposal}
 
