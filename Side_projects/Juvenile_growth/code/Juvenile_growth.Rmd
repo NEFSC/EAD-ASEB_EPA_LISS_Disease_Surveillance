@@ -223,7 +223,7 @@ dev.off()
 
 # we want June to be t0 for both sites. We need to combine ASHC & FENC. To do this, first change the site name in June to initial to combined the data.
 data_adjusted <- data_all %>%
-  mutate(Site = case_when(
+  dplyr::mutate(Site = case_when(
    Month == "June" ~ "Initial",      # If Month is 6, set Site to "Initial"
     Site == "ASHC" ~ "ASHC",      # If Site is ASHC, keep ASHC
     TRUE ~ "FENC"                 # Otherwise, set Site to "FENC"
@@ -307,7 +307,7 @@ growthrate
 # In June we lost some of the data from fence creek causing this weird discrepancy in the data. We need to combine ASHC & FENC for June to be the "starting point". 
   
 
-ggplot(data=growth_summary, aes(x=Month, y=Shell_length, color=Site)) +
+ggplot(data=growth_summary, aes(x=Month, y=Shell_length, group=Site, color = Site)) +
                  geom_point(position = position_dodge(width = 0.3))+
                   geom_line()+ #added position_dodge to be able to see the first points since they are the same
                   geom_errorbar(aes(ymin=Shell_length-se, ymax=Shell_length+se), width=.2, position=position_dodge(0.3)) +  
