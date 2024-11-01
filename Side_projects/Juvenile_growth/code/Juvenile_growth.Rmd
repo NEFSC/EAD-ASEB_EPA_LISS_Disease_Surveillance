@@ -381,9 +381,9 @@ summary(lme_size)
 #https://cran.r-project.org/web/packages/gam/gam.pdf
 ```{r}
 #Pull in environmental data - monthly means created in "Raw_Plotting.RMD" in the sonde code
-CT_sonde<- read.csv("C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data/output/Sonde_monthly_means_CT.csv")%>% mutate(
+CT_sonde<- read.csv("C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data/output/Sonde_monthly_means_CT.csv")%>% dplyr::mutate(
     year = year(year_month),
-    Month = month(year_month, label = TRUE, abbr = FALSE)) %>% filter(`year_month` > '2024-05-01' & `year_month` < '2024-11-01' ) #filter what date ranges are needed
+    Month = month(year_month, label = FALSE, abbr = FALSE)) %>% filter(`year_month` > '2024-05-01' & `year_month` < '2024-11-01' ) #filter what date ranges are needed
 CT_sonde
 
 #Seperate by variable 
@@ -415,7 +415,7 @@ Anova(lme_temp )
 lme_salinity <- lmer(mean ~ Site + (1 | Month), data = Salinity_jg) #No
 Anova(lme_salinity)
 
-lme_CHLA <- lmer(mean ~ Site + (1 | Month), data = CHLA_jg) #Yes
+lme_CHLA <- lmer(mean ~ Site + (1 | Month), data = CHLA_jg) #Yes - was this important for growth at each site? 
 Anova(lme_CHLA)
 
 lme_DO <- lmer(mean ~ Site + (1 | Month), data = DO_jg) #No
@@ -426,20 +426,23 @@ Anova(lme_DO)
 #gam() not working so I decided to try an lmer() since I used this in my perkinsus study to see if this works and it does but we should definitely talk about if this makes sense to use
 
 #Thinking about the best way to set up this model - what is our big questions? 
+#What are my assumptions? Shell length is our predicted variable (response). mean (of the environmental parameter) is hypothesized to influence shell length. Site is categorical and we want to assess site-specific impacts on shell length. Month and bag number are random effects. Month assumes that shell length varies by month and we want to account for month specific influences on shell height. Bag number is our experimental replicates and there may be variability among replicates. 
+#Hypothesis: Shell length can be explained by mean environmental conditions, site differences, and random variation across months and bags. 
  
-lme_ph_jg <- lmer(Shell_length ~ mean + Site +  (1 | Month), data = pH_merged)
+lme_ph_jg <- lmer(Shell_length ~ mean * Site +  (1|Month)+ (1 | Bag_number), data = pH_merged)
 Anova(lme_ph_jg)
+#Site is significant. Shell length differs between sites but pH does not have a detectable influence. However, the interaction (*) between site and pH is significant. So this is telling us that pH does impact shell growth but it is dependent on specific site conditions. 
 
-lme_salinity_jg <- lmer(Shell_length ~ mean + Site + Month + (1 | Bag_number), data = salinity_merged)
+lme_salinity_jg <- lmer(Shell_length ~ mean + Site  +  (1|Month)+ (1 | Bag_number), data = salinity_merged)
 Anova(lme_salinity_jg)
 
-lme_temp_jg <- lmer(Shell_length ~ mean + Site + Month + (1 | Bag_number), data = temperature_merged)
+lme_temp_jg <- lmer(Shell_length ~ mean + Site  +  (1|Month) + (1 | Bag_number), data = temperature_merged)
 Anova(lme_temp_jg)
 
-lme_CHLA_jg <- lmer(Shell_length ~ mean + Site + Month + (1 | Bag_number), data = CHLA_merged)
+lme_CHLA_jg <- lmer(Shell_length ~ mean + Site  +  (1|Month) + (1 | Bag_number), data = CHLA_merged)
 Anova(lme_CHLA_jg)
 
-lme_DO_jg <- lmer(Shell_length ~ mean + Site + Month + (1 | Bag_number), data = DO_merged)
+lme_DO_jg <- lmer(Shell_length ~ mean + Site  +  (1|Month) + (1 | Bag_number), data = DO_merged)
 Anova(lme_DO_jg)
 
 ```
