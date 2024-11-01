@@ -307,26 +307,30 @@ growthrate
 # In June we lost some of the data from fence creek causing this weird discrepancy in the data. We need to combine ASHC & FENC for June to be the "starting point". 
   
 
-ggplot(data=growth_summary, aes(x=Month, y=Shell_length, group=Site, color = Site)) +
+MeanHeight_dotplot<- ggplot(data=growth_summary, aes(x=Month, y=Shell_length, group=Site, color = Site)) +
                  geom_point(position = position_dodge(width = 0.08))+
                   geom_line()+ #added position_dodge to be able to see the first points since they are the same
                   geom_errorbar(aes(ymin=Shell_length-se, ymax=Shell_length+se), width=.2, position=position_dodge(0.08)) +  
   # scale_color_manual(values=c("green4", "darkorange1"))+
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
-  #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  theme(axis.text = element_text(size = 15), axis.title = element_text(size = 20), legend.text = element_text(size=15), 
+        legend.title = element_text(size=20))+
   labs( x ="Month", y = "Mean Shell Height (mm)")+
   geom_label(label="t0", #adding time zero label
     x=1,
-    y=33,
-    label.padding = unit(0.3, "lines"), # Rectangle size around label
-    label.size = 0.05,
+    y=31.5,
+    label.padding = unit(0.2, "lines"), # Rectangle size around label
+    label.size = 0.5,
     color = "darkgray",
-    fill="white"
+    fill="white",
+    
   )
+MeanHeight_dotplot
 
-
-#I would add a text box with "t0" next to the June points
-
+#output of graph
+pdf(paste0(path = "Side_projects/Juvenile_growth/outputs/" ,"MeanHeight_dotplot.pdf"), height = 7, width = 11) #printing a PDF within the path of the code, with specific dimensions of PDF
+print(MeanHeight_dotplot) #specify the graph
+dev.off()
 ```
 #graphing growth rate
 #this needs to be fixed/updated
