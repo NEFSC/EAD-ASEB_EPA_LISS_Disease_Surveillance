@@ -476,7 +476,6 @@ Anova(lme_DO_jg)
 
 #So, what do we know? CHLA is different at each site - one has more food availability than the other. All environmental conditions interact to influence the differences in shell height/growth at each site- aka the combine environmental factors create differences between sites. pH does not impact growth alone and temperature is independent of site (so the same trend is happening at both) with positive relationships with shell length - as temperature increases so does shell length/growth.  
 
-#Are all of the parameters correlated? Pearson's correlations? Does a significant interaction mean that it is correlated with the other parameters? 
 
 
 
