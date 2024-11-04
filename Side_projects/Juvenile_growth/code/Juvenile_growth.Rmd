@@ -253,13 +253,13 @@ st_height_bag_FENC <- st_height_bag_FENC %>%
 # Calculate the number of days between sampling dates and the monthly growth rate per site per replicate
 st_height_bag_ASHC <- st_height_bag_ASHC %>%
   group_by(Site, Bag_number) %>%
-  mutate(Days_between = c(NA, diff(Date)), H1 = lag(Shell_length), H2 = Shell_length, monthly_growth_rate = (H2-H1)/(Days_between))
+  mutate(Days_between = c(NA, diff(Date)), H1 = lag(Shell_length), H2 = Shell_length, monthly_growth_rate = ((H2-H1)/(Days_between)*30))
 
 st_height_bag_ASHC
 
 st_height_bag_FENC <- st_height_bag_FENC %>%
   group_by(Site, Bag_number) %>%
-  mutate(Days_between = c(NA, diff(Date)), H1 = lag(Shell_length), H2 = Shell_length, monthly_growth_rate = (H2-H1)/(Days_between))
+  mutate(Days_between = c(NA, diff(Date)), H1 = lag(Shell_length), H2 = Shell_length, monthly_growth_rate = ((H2-H1)/(Days_between)*30))
 
 st_height_bag_FENC
 
@@ -272,12 +272,12 @@ st_height_FENC <- summarySE(FENC_gr%>% filter(!is.na(Shell_length)), measurevar=
 
 st_height_ASHC <- st_height_ASHC %>%
   group_by(Site) %>%
-  mutate(Days_between = c(NA, diff(Date)), H1 = lag(Shell_length), H2 = Shell_length, monthly_growth_rate = (H2-H1)/(Days_between))
+  mutate(Days_between = c(NA, diff(Date)), H1 = lag(Shell_length), H2 = Shell_length, monthly_growth_rate = ((H2-H1)/(Days_between)*30))
 st_height_ASHC
 
 st_height_FENC <- st_height_FENC %>%
   group_by(Site) %>%
-  mutate(Days_between = c(NA, diff(Date)), H1 = lag(Shell_length), H2 = Shell_length, monthly_growth_rate = (H2-H1)/(Days_between))
+  mutate(Days_between = c(NA, diff(Date)), H1 = lag(Shell_length), H2 = Shell_length, monthly_growth_rate = ((H2-H1)/(Days_between)*30))
 st_height_FENC
 
 
@@ -285,23 +285,24 @@ st_height_FENC
 growth_summary<-rbind(st_height_ASHC, st_height_FENC)
 
 # TOTAL GROWTH RATE - growth rate across the entire sample period
-growthrate <- st_height_ASHC  %>%
-  group_by(Site) %>%
-  summarise(datemax = max(Date), 
-             datemin = min(Date),
-             time.elapsed = datemax - datemin, 
-             lengthmax = max(Shell_length), 
-             lengthmin = min(Shell_length), 
-             growthrate = (lengthmax-lengthmin)/as.numeric(time.elapsed)) %>%
-  ungroup()
+#growthrate <- st_height_ASHC  %>%
+#  group_by(Site) %>%
+#  summarise(datemax = max(Date), 
+#             datemin = min(Date),
+#             time.elapsed = datemax - datemin, 
+#             lengthmax = max(Shell_length), 
+#             lengthmin = min(Shell_length), 
+#             growthrate = (lengthmax-lengthmin)/as.numeric(time.elapsed)) %>%
+#  ungroup()
   
-growthrate
+#growthrate
 
 #Need to standardize the time lapsed to 30 days???? 
 #Interpolate shell length at 30-day intervals for each month separately
 
 
 ```
+
 ```{r}
 #Average shell height per month per site
 # In June we lost some of the data from fence creek causing this weird discrepancy in the data. We need to combine ASHC & FENC for June to be the "starting point". 
@@ -330,7 +331,7 @@ growth.rate <- ggplot(data=growth_summary, aes(x=Site, y=monthly_growth_rate, fi
   labs(x ="Site", y = "Growth Rate (mm / month)") +
 # could add a facet_wrap for date
   theme(axis.title = element_text(size = rel(1.7)), axis.text = element_text(size = rel(1.3)), plot.margin = margin(10, 150, 10, 150))+
-  ylim(0,1)
+  ylim(0,20)
   
 
 growth.rate
@@ -338,11 +339,19 @@ growth.rate
 
 ggplot(data=growth_summary, aes(x=Month, y=monthly_growth_rate, color=Site, group = Site)) +
                  geom_point()+ geom_line(size = 1) +
-        #geom_errorbar(aes(ymin=Shell_length-se, ymax=Shell_length+se), width=.2, position=position_dodge(0)) +  
+        geom_errorbar(aes(ymin=monthly_growth_rate-se, ymax=monthly_growth_rate+se), width=.2, position=position_dodge(0)) +  
   # scale_color_manual(values=c("green4", "darkorange1"))+
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  labs( x ="Month", y = "Growth Rate (mm/month") #+ facet_wrap(~Site, nrow = 2)
+  labs( x ="Month", y = "Growth Rate (mm/month")+ylim(0,20) #+ facet_wrap(~Site, nrow = 2)+
+
+ggplot(data=growth_summary, aes(x=Month, y=monthly_growth_rate, fill=Site)) +
+                 geom_bar(stat = "identity",position= "dodge")+
+        geom_errorbar(aes(ymin=monthly_growth_rate-se, ymax=monthly_growth_rate+se), width=.2, position=position_dodge(1)) +  
+  # scale_color_manual(values=c("green4", "darkorange1"))+
+  theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  labs( x ="Month", y = "Growth Rate (mm/month")+ylim(0,20) #+ facet_wrap(~Site, nrow = 2)+
 
 ```
 
@@ -454,6 +463,11 @@ Anova(lme_DO_jg)
 
 
 #So, what do we know? CHLA is different at each site - one has more food availability than the other. All environmental conditions interact to influence the differences in shell height/growth at each site- aka the combine environmental factors create differences between sites. pH does not impact growth alone and temperature is independent of site (so the same trend is happening at both) with positive relationships with shell length - as temperature increases so does shell length/growth.  
+
+#Are all of the parameters correlated? Pearson's correlations? Does a significant interaction mean that it is correlated with the other parameters? 
+
+
+
 
 ```
 
