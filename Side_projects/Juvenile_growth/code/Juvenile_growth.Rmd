@@ -45,6 +45,9 @@ library("tidyr")
 library("survminer")
 library("survival")
 library("ggpubr")
+library(glmm)
+library(glmmTMB)
+library(effectsize)
 ```
 
 ### This code chunk merges all .csv files within the Tissue processing folder into one data fram and outputs the full dataset into a .csv master file. This allows us to download the raw data as a .csv, add it to the repository folder, and create the master data file without copying and pasting data in excel.
@@ -81,7 +84,7 @@ write.csv(data_all, "Master_files\\juv_growth_all_data.csv", row.names=FALSE)  #
 ```{r}
 #The dates in the data files are reading as a character "chr" so we need to change them to date format
 
-data_all <- data_all %>% dplyr::mutate(Month = month(Date,label = TRUE, abbr = FALSE))
+data_all <- data_all %>% dplyr::mutate(Month = month(Date,label = FALSE, abbr = FALSE))
 
 
 
@@ -284,6 +287,9 @@ st_height_FENC
 #Combine ASHC & FENC 
 growth_summary<-rbind(st_height_ASHC, st_height_FENC)
 
+
+
+
 # TOTAL GROWTH RATE - growth rate across the entire sample period
 #growthrate <- st_height_ASHC  %>%
 #  group_by(Site) %>%
@@ -368,120 +374,211 @@ ggplot(data=growth_summary, aes(x=Month, y=monthly_growth_rate, fill=Site)) +
 ```
 
 
-
-#Linear mixed effects models to look at size between sites over time
+#Generalized linear mixed models - using glmmTMB package
+#Suggestions from Sam
+       #use glm instead of lme - done
+       #run effect sizes for the above models - done
+      #Kruskel-Wallis for each month with sites -done
+      #run one large individual model with and without replicate and run AIC to see which model is better -DONE
+      #use backwards elimination method - smallest p values are removed from the model - DONE
+      #run these same models with growth rate - done
+     
 ```{r}
+################################ Environmental Data #########################################
 
-#We want to use the below data sheets with the standardized t0 - combining 
-ASHC_gr
-FENC_gr
-
-library(lme4)
-library(car)
-
-#Lets look at differences within sites - Is shell length significantly different over time? 
-
-lme_size_ASHC <- lmer(Shell_length ~ Date + (1|Bag_number), ASHC_gr)
-Anova(lme_size_ASHC)
-summary(lme_size_ASHC)
-
-lme_size_FENC <- lmer(Shell_length ~ Date + (1|Bag_number), FENC_gr)
-Anova(lme_size_FENC)
-summary(lme_size_ASHC)
-
-
-#We want to compare between the sites as well - lets combine the data & run a model. Is there a significant difference in growth over time and between sites?
-growth_master <- rbind(ASHC_gr, FENC_gr)
-
-lme_size <- lmer(Shell_length ~ Date + Site + (1|Bag_number), growth_master)
-Anova(lme_size)
-summary(lme_size)
-
-```
-#Generalized Additive Models (https://m-clark.github.io/generalized-additive-models/introduction.html) to compare environmental data to growth
-#https://cran.r-project.org/web/packages/gam/gam.pdf
-```{r}
 #Pull in environmental data - monthly means created in "Raw_Plotting.RMD" in the sonde code
 CT_sonde<- read.csv("C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data/output/Sonde_monthly_means_CT.csv")%>% dplyr::mutate(
     year = year(year_month),
     Month = month(year_month, label = FALSE, abbr = FALSE)) %>% filter(`year_month` > '2024-05-01' & `year_month` < '2024-11-01' ) #filter what date ranges are needed
 CT_sonde
 
-#Seperate by variable 
+#pull in 'wide' data - use for additive models
+CT_sonde_wide<- read.csv("C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data/output/Sonde_monthly_means_CT_wide.csv")%>% dplyr::mutate(
+    year = year(year_month),
+    Month = month(year_month, label = FALSE, abbr = FALSE)) %>% filter(`year_month` > '2024-05-01' & `year_month` < '2024-11-01' ) #filter what date ranges are needed
+CT_sonde_wide
+
+#Separate into individual data sheets by variable 
 pH_jg          <- CT_sonde %>% dplyr::filter(variable == 'pH' & Site %in% c('FENC', 'ASHC'))
 Salinity_jg    <- CT_sonde %>% dplyr::filter(variable == 'Salinity' & Site %in% c('FENC', 'ASHC'))
 Temperature_jg <- CT_sonde %>% dplyr::filter(variable == 'Temperature' & Site %in% c('FENC', 'ASHC'))
 DO_jg          <- CT_sonde %>% dplyr::filter(variable == 'RDO Concentration' & Site %in% c('FENC', 'ASHC'))
 CHLA_jg       <- CT_sonde %>% dplyr::filter(variable == 'Chlorophyll-a Fluorescence' & Site %in% c('FENC', 'ASHC'))
 
-#before we conduct our models we will need to combine environmental data to our growth data
+
+#Is the monthly means of each environmental parameter different between sites?
+
+glm_ph <- glmmTMB(mean ~ Site + (1 | Month), data = pH_jg ) #No
+Anova(glm_ph)
+
+glm_temp<- glmmTMB(mean ~ Site + (1 | Month), data = Temperature_jg) #No
+Anova(glm_temp )
+
+glm_salinity <- glmmTMB(mean ~ Site + (1 | Month), data = Salinity_jg) #NO
+Anova(glm_salinity)
+
+glm_CHLA <- glmmTMB(mean ~ Site + (1 | Month), data = CHLA_jg) #Yes
+Anova(glm_CHLA)
+
+glm_DO <- glmmTMB(mean ~ Site + (1 | Month), data = DO_jg) #No
+Anova(glm_DO)
+
+#Kruskal-Wallis tests by month (P-value sig. 0.0125 for four tests)
+#Does environmental data vary monthly?
+kruskal.test(mean ~ Month, pH_jg)
+kruskal.test(mean ~ Month, Salinity_jg)
+kruskal.test(mean ~ Month, Temperature_jg)
+kruskal.test(mean ~ Month, CHLA_jg)
+kruskal.test(mean ~ Month, DO_jg)
+
+
+################################  Shell length ######################################################
+
+#before we conduct our models we will need to combine environmental data to our shell length data
 pH_merged <- pH_jg %>% inner_join(growth_master, by = c("Month", "Site"))
 salinity_merged <- Salinity_jg %>% inner_join(growth_master, by = c("Month", "Site"))
 temperature_merged <- Temperature_jg %>% inner_join(growth_master, by = c("Month", "Site"))
 CHLA_merged <- CHLA_jg %>% inner_join(growth_master, by = c("Month", "Site"))
 DO_merged <- DO_jg %>% inner_join(growth_master, by = c("Month", "Site"))
 
+#Is shell length different between sites and months?
+glm_size <- glmmTMB(Shell_length ~ Site + (1|Month) +(1|Bag_number), data = growth_master)
+Anova(glm_size)
 
-#library(gam)
-#library(mgcv)
+#What month has the most significant difference in shell length between sites?
+July <- jg_merged %>% filter(Month == 7)
+Aug <- jg_merged %>% filter(Month == 8)
+Sept<- jg_merged %>% filter(Month == 9)
+Oct<- jg_merged %>% filter(Month == 10)
 
-#Is the monthly means of each environmental parameter different between sites?
+kruskal.test(Shell_length ~ Site, data = July) # p = .002
+kruskal.test(Shell_length ~ Site, data = Aug) # p = 5.377e-06
+kruskal.test(Shell_length ~ Site, data = Sept)# p = 8.419e-05
+kruskal.test(Shell_length ~ Site, data = Oct)# p = 0.00412
+#all of these are significant so which month is the most significant? August has the smallest p value (<0.0001).
 
-lme_ph <- lmer(mean ~ Site + (1 | Month), data = pH_jg) #No
-Anova(lme_ph)
+#Hypothesis: Shell length can be influenced by mean environmental conditions, site differences, and random variation across months and bags. 
+        #What are my assumptions? Shell length is our predicted variable (response). mean (of the environmental parameter) is hypothesized to influence           shell   length. Site is categorical and we want to assess site-specific impacts on shell length. Month and bag number are random effects.               Month assumes that    shell length varies by month and we want to account for month specific influences on shell height. Bag number is our              experimental replicates and there   may be variability among replicates. 
 
-lme_temp <- lmer(mean ~ Site + (1 | Month), data = Temperature_jg) #No
-Anova(lme_temp )
+glm_ph_jg <- glmmTMB(Shell_length ~ mean * Site +  (1|Month)+ (1 | Bag_number), data = pH_merged)
+Anova(glm_ph_jg)
+summary(glm_ph_jg)
+#shell length is dependent on sites independent of pH. The interaction shows that the relationship between pH and shell length varies between sites.
 
-lme_salinity <- lmer(mean ~ Site + (1 | Month), data = Salinity_jg) #No
-Anova(lme_salinity)
+glm_salinity_jg <- glmmTMB(Shell_length ~ mean * Site  +  (1|Month)+ (1 | Bag_number), data = salinity_merged)
+Anova(glm_salinity_jg)
+summary(glm_ph_jg)
+#Shell length is impacted by salinity. The interaction shows that relationship between salinity and shell length varies between sites.  
 
-lme_CHLA <- lmer(mean ~ Site + (1 | Month), data = CHLA_jg) #Yes - was this important for growth at each site? 
-Anova(lme_CHLA)
+glm_temp_jg <- glmmTMB(Shell_length ~ mean * Site  +  (1|Month) + (1 | Bag_number), data = temperature_merged)
+Anova(glm_temp_jg)
+summary(glm_ph_jg)
+#Temp influences shell length and dependent on sites. The interaction between temperature and site does not vary between sites. There is positive relationship with temperature and shell length - as one increases so does the other. 
 
-lme_DO <- lmer(mean ~ Site + (1 | Month), data = DO_jg) #No
-Anova(lme_DO)
+glm_CHLA_jg <- glmmTMB(Shell_length ~ mean* Site  +  (1|Month) + (1 | Bag_number), data = CHLA_merged)
+Anova(glm_CHLA_jg)
+summary(glm_ph_jg)
+#chla influences shell length and is dependent on site. The interaction shows that the relationship between chla and shell length varies between sites.
 
-#gam_ph_jg <- gamm(Shell_length ~ mean + Site + Month, random = list(Bag_number = ~ 1), family =gaussian, pH_merged )
- 
-#gam() not working so I decided to try an lmer() since I used this in my perkinsus study to see if this works and it does but we should definitely talk about if this makes sense to use
+glm_DO_jg <- glmmTMB(Shell_length ~ mean * Site  +  (1|Month) + (1 | Bag_number), data = DO_merged)
+Anova(glm_DO_jg)
+summary(glm_ph_jg)
+#DO influences shell length and is dependent on site. The interaction shows that the relationship between DO and shell length varies between sites.
 
-#Thinking about the best way to set up this model - what is our big questions? 
-#What are my assumptions? Shell length is our predicted variable (response). mean (of the environmental parameter) is hypothesized to influence shell length. Site is categorical and we want to assess site-specific impacts on shell length. Month and bag number are random effects. Month assumes that shell length varies by month and we want to account for month specific influences on shell height. Bag number is our experimental replicates and there may be variability among replicates. 
+
+#So what did we learn from these models? 
+  #CHLA is different at each site - one has more food availability than the other. All environmental conditions interact to influence the differences in shell heigh at each site- aka the combine environmental factors create differences between sites. pH does not impact shell length alone and its relationship with shell length is dependent on site.  temperature is independent of site (so the same trend is happening at both) with positive relationships with shell length - as temperature increases so does shell length/growth. 
+
+
+#Lets do an additive model with all environmental parameters included with shell length
+
+#merge this with shell length data
+jg_merged  <- CT_sonde_wide %>% inner_join(growth_master, by = c("Month", "Site"))
+jg_merged
+
 #Hypothesis: Shell length can be explained by mean environmental conditions, site differences, and random variation across months and bags. 
+glm_ALL <- glmmTMB(Shell_length ~ Site + mean_Salinity + mean_RDO.Concentration + mean_Chlorophyll.a.Fluorescence + mean_pH + mean_Temperature + (1|Month) + (1 | Bag_number), data = jg_merged )
+Anova(glm_ALL)
+summary(glm_ALL)
+
+#using backward elimination lets remove ph 
+reduced_glm <- update(glm_ALL, .~. - mean_pH)
+Anova(reduced_glm)
+#By removing pH which had the largest p value all other parameters had equal significance. 
+
+AIC(glm_be, glm_ALL) #glm_ALL has a slightly lower AIC so it is a better fit model
+
+
+
+
+################################################ Growth Rate ###############################################
+
+#growth rate different between sites and months?
+glm_growth <- glmmTMB(monthly_growth_rate ~  Site + Month, data=growth_summary) #growth rate is not different between sites but varies monthly
+Anova(glm_growth)
+
+#Which month has the most significant difference in growth rate between sites?
+July <- gr_merged %>% filter(Month == 7)
+Aug <- gr_merged %>% filter(Month == 8)
+Sept<- gr_merged %>% filter(Month == 9)
+Oct<- gr_merged %>% filter(Month == 10)
+
+kruskal.test(monthly_growth_rate ~ Site, data = July)
+kruskal.test(monthly_growth_rate ~ Site, data = Aug)
+kruskal.test(monthly_growth_rate ~ Site, data = Sept)
+kruskal.test(monthly_growth_rate ~ Site, data = Oct)
+
+#before we conduct our models we will need to combine environmental data to our growth data
+pH_gr <- pH_jg %>% inner_join(growth_summary, by = c("Month", "Site"))
+salinity_gr <- Salinity_jg %>% inner_join(growth_summary, by = c("Month", "Site"))
+temperature_gr <- Temperature_jg %>% inner_join(growth_summary, by = c("Month", "Site"))
+CHLA_gr <- CHLA_jg %>% inner_join(growth_summary, by = c("Month", "Site"))
+DO_gr <- DO_jg %>% inner_join(growth_summary, by = c("Month", "Site"))
+
+glm_ph_gr <- glmmTMB(monthly_growth_rate ~ mean * Site , data = pH_gr)
+Anova(glm_ph_gr)
+summary(glm_ph_gr)
+
+glm_salinity_gr <- glmmTMB(monthly_growth_rate ~ mean * Site, data = salinity_gr)
+Anova(glm_salinity_gr)
+summary(glm_Salinity_gr)
  
-lme_ph_jg <- lmer(Shell_length ~ mean * Site +  (1|Month)+ (1 | Bag_number), data = pH_merged)
-Anova(lme_ph_jg)
-#Site is significant. Shell length differs between sites but pH does not have a detectable influence. However, the interaction (*) between site and pH is significant. So this is telling us that pH does impact shell growth but it is dependent on specific site conditions. 
 
-lme_salinity_jg <- lmer(Shell_length ~ mean * Site  +  (1|Month)+ (1 | Bag_number), data = salinity_merged)
-Anova(lme_salinity_jg)
-#salinity and the interaction between site and salinity is significant. So salinity impacts growth and has site dependencies - salinity is interacting with other factors. 
-
-lme_temp_jg <- lmer(Shell_length ~ mean * Site  +  (1|Month) + (1 | Bag_number), data = temperature_merged)
-Anova(lme_temp_jg)
-#Temperature is significant so it has a consistent effect  on growth across sites. Site differences in shell growth exist independently of temperature. 
-#Is there a positive or negative relationship with temperature? positive - both growth and temperature increase. 
-#The interaction of temperature and site was not significant so the sites do not vary
-
-lme_CHLA_jg <- lmer(Shell_length ~ mean* Site  +  (1|Month) + (1 | Bag_number), data = CHLA_merged)
-Anova(lme_CHLA_jg)
-#CHLA influences shell growth but differently at each site - what is the food availability like between the sites (we know they are different from the model above)? We also know that the growth rate varies between sites - fence creek is larger. More food = more growth? 
-#The interaction indicate that specific site interactions play a role with CHLA
-
-lme_DO_jg <- lmer(Shell_length ~ mean * Site  +  (1|Month) + (1 | Bag_number), data = DO_merged)
-Anova(lme_DO_jg)
-#DO influences shell growth but differently at each site - How does DO differ between sites? The model above indicates there is not a significant difference so this shows us that DO is interacting with other factors at each site - CHLA & salinity? which is confirmed by the significant interaction between site and DO. 
+glm_temp_gr <- glmmTMB(monthly_growth_rate ~ mean * Site , data = temperature_gr)
+Anova(glm_temp_gr)
+summary(glm_temp_gr)
 
 
-#So, what do we know? CHLA is different at each site - one has more food availability than the other. All environmental conditions interact to influence the differences in shell height/growth at each site- aka the combine environmental factors create differences between sites. pH does not impact growth alone and temperature is independent of site (so the same trend is happening at both) with positive relationships with shell length - as temperature increases so does shell length/growth.  
+glm_CHLA_gr <- glmmTMB(monthly_growth_rate ~ mean* Site , data = CHLA_gr) #CHLA significant
+Anova(glm_CHLA_gr)
+summary(glm_CHLA_gr)
 
 
+glm_DO_gr <- glmmTMB(monthly_growth_rate ~ mean * Site  , data = DO_gr)
+Anova(glm_DO_gr)
+summary(glm_DO_gr)
 
+#Now lets do a big additive model
+gr_merged  <- CT_sonde_wide %>% inner_join(growth_summary, by = c("Month", "Site"))
+gr_merged
+
+#Hypothesis: Shell length can be explained by mean environmental conditions, site differences, and random variation across months and bags. 
+glm_gr_ALL <- glmmTMB(monthly_growth_rate ~ Site + mean_Salinity + mean_RDO.Concentration + mean_Chlorophyll.a.Fluorescence + mean_pH + mean_Temperature + (1|Month), data = gr_merged )
+Anova(glm_gr_ALL)
+summary(glm_gr_ALL)
+
+#using backward elimination - Temperature, salinity and DO were significant in the above model but temperature had the largest (closer to 0.05) p value so lets remove temperature and all insignificant attributes
+
+reduced_glm_gr <- update(glm_gr_ALL, .~. - mean_temperature)
+summary(reduced_glm_gr)
+#When you remove temperature everything becomes insignificant so I dont think that removing temperature is key here. 
+
+#Temperature, Salinity, and CHL-A are all significant equally. 
+
+AIC(glm_be, glm_ALL) #glm_ALL has a lower AIC so it is a better fit model
 
 
 ```
-
 #Kaplan Meier Survival curves, log rank tests, and cox proportional hazard analysis
 #The Kaplan-Meier method is a non-parametric approach that's commonly used to analyze time-to-event data, such as the time until death or a specific event. It's a straightforward way to estimate survival rates and probabilities by tabulating and discussing the results
 ```{r}
