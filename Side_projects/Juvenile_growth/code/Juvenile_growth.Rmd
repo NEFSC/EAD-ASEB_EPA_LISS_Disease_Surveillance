@@ -9,10 +9,9 @@ description: This code is for the Juvenille Growth Study looking at growth rates
 Important Notes: Fence Creek 06/10/24 measurements for height after individual 50 were deleted/lost due to tablet glitch. Total counts should be based on the survival metric taken to determine live counts. 
 
 ---
-Last updated 10/31/24 by M.Kachmar
-- calculated growth rate & graphed, I think? Need someone to check the math. I combined June to be t0 to do these calculations. 
-- also need to standardize to 30 day time lapse??
-- Updated Kaplan Meier survival
+Last updated 11/7/24 by M.Kachmar
+- Growth rate and glms
+
   
  
 
@@ -377,8 +376,7 @@ ggplot(data=growth_summary, aes(x=Month, y=monthly_growth_rate, fill=Site)) +
 #Generalized linear mixed models - using glmmTMB package
 #Suggestions from Sam
        #use glm instead of lme - done
-       #run effect sizes for the above models - done
-      #Kruskel-Wallis for each month with sites -done
+      #Kruskel-Wallis for each month with sites -done, did I do this correctly?
       #run one large individual model with and without replicate and run AIC to see which model is better -DONE
       #use backwards elimination method - smallest p values are removed from the model - DONE
       #run these same models with growth rate - done
@@ -430,6 +428,8 @@ kruskal.test(mean ~ Month, Salinity_jg)
 kruskal.test(mean ~ Month, Temperature_jg)
 kruskal.test(mean ~ Month, CHLA_jg)
 kruskal.test(mean ~ Month, DO_jg)
+
+#they do not vary monthly
 
 
 ################################  Shell length ######################################################
