@@ -8,9 +8,8 @@ description: This R code is used to import and summarize recruitment data collec
 ---
 
 
-last updated 10/24/2023 by M. Kachmar
-- Uploaded the data
-
+last updated 11/7/2023 by M. Kachmar
+- calculations for Gold Star report
 
 
 ## R Markdown
@@ -74,8 +73,11 @@ st_rec
 ```
 
 ```{r}
-Avg_spat_stringer <- summarySE(data_all, measurevar="Count_1", groupvars=c("Site", "date_collected"))
+Avg_spat_stringer <- summarySE(data_all, measurevar="Count_1", groupvars=c("Site", "date_collected", "Shell"))
 Avg_spat_stringer
+
+View(Avg_spat_stringer)
+
 ```
 
 ```{r}
