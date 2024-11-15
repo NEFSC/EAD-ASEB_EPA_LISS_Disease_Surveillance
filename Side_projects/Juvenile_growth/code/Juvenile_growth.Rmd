@@ -21,8 +21,8 @@ Last updated 11/7/24 by M.Kachmar
 
 knitr::opts_chunk$set(echo = TRUE) 
 #knitr::opts_knit$set(root.dir = 'C:/Users/kennedy.mcgrath/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kennedy's
-#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
-knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 #knitr::opts_knit$set(root.dir = 'C:/Users/kelly.roper/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kelly's
 #knitr::opts_knit$set(root.dir = 'C:/Users/katherine.mcfarland/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Katie's
 ```
@@ -403,11 +403,14 @@ Temperature_jg <- CT_sonde %>% dplyr::filter(variable == 'Temperature' & Site %i
 DO_jg          <- CT_sonde %>% dplyr::filter(variable == 'RDO Concentration' & Site %in% c('FENC', 'ASHC'))
 CHLA_jg       <- CT_sonde %>% dplyr::filter(variable == 'Chlorophyll-a Fluorescence' & Site %in% c('FENC', 'ASHC'))
 
+library(car)
 
 #Is the monthly means of each environmental parameter different between sites?
 
 glm_ph <- glmmTMB(mean ~ Site + (1 | Month), data = pH_jg ) #No
+glm_ph <- glmmTMB(mean ~ Month + (1 | Site), data = pH_jg ) #This is significant but the kruskal wallace is not, should I do this instead? this will take into account the variability across sites as well. 
 Anova(glm_ph)
+summary(glm_ph)
 
 glm_temp<- glmmTMB(mean ~ Site + (1 | Month), data = Temperature_jg) #No
 Anova(glm_temp )
