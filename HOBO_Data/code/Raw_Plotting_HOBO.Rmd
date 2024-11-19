@@ -11,9 +11,9 @@ Last updated: 9/18/24 M.Kachmar
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
- #knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
 #knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
-knitr::opts_knit$set(root.dir = 'C:/Users/kelly.roper/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance')  #Kelly's
+#knitr::opts_knit$set(root.dir = 'C:/Users/kelly.roper/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance')  #Kelly's
 ```
 
 
@@ -50,9 +50,9 @@ df1<-read_csv("HOBO_Data\\raw_data\\062024_FENC_HOBO.csv", col_names = TRUE)%>% 
   dplyr::rename(Temperature = `Ch:1 - Temperature   (°C)`) %>%
   dplyr::rename(Date_Time = `Date-Time (EST/EDT)`)
 
-df2<-read_csv("HOBO_Data\\raw_data\\102024_FENC_HOBO.csv", col_names = TRUE)%>%  # update this csv when new data comes in from the new HOBO
+df2<-read_csv("HOBO_Data\\raw_data\\112024_FENC_HOBO.csv", col_names = TRUE)%>%  # update this csv when new data comes in from the new HOBO
   dplyr::rename(Temperature = `Temperature   (°C)`) %>%
-  dplyr::rename(Date_Time = `Date-Time (EDT)`) %>%
+  dplyr::rename(Date_Time = `Date-Time (EST/EDT)`) %>%
   dplyr::select( -c("Host Connected", "Button Down", "Button Up", "End of File", "Started Offset"))
 
 FENC_HOBO <- rbind(df1,df2)   #Combine the two data sheets
@@ -140,30 +140,31 @@ print(FENC_plot)
 
 #### Ash Creek ####
 ```{r}
-ASHC_HOBO <- read_csv("HOBO_Data\\raw_data\\082024_ASHC_HOBO.csv", col_names = TRUE)   
+ASHC_HOBO <- read_csv("HOBO_Data\\raw_data\\112024_ASHC_HOBO.csv", col_names = TRUE)   
 
 as.data.frame(ASHC_HOBO)
 
 ## removing unneeded columns with NAs
 
 ASHC_HOBO <- ASHC_HOBO %>%
-  dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset"))
+  dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset", "Host Connected"))
 
 ASHC_HOBO <- na.omit(ASHC_HOBO)
 
 
 #Change column names
 
-if ("Date-Time (EDT)" %in% names(ASHC_HOBO) && "Ch:1 - Temperature (°C)" %in% names(ASHC_HOBO)) {
+if ("Date-Time (EDT)" %in% names(ASHC_HOBO) && "Temperature (°C)" %in% names(ASHC_HOBO)) {
   ASHC_HOBO <- ASHC_HOBO %>%
-    rename(
+    dplyr::rename(
       Date_Time = `Date-Time (EDT)`,
-      Temperature = `Ch:1 - Temperature (°C)`
+      Temperature = `Temperature (°C)`
     )
 } else {
   warning("One or more columns to rename do not exist.")
 }
 
+ASHC_HOBO
 
 ASHC_HOBO$Date_Time <- as.character(ASHC_HOBO$Date_Time)
 date_time <- strsplit(ASHC_HOBO$Date_Time, " ")  # Split at the space
