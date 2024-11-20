@@ -354,19 +354,19 @@ growth.rate <- ggplot(data=growth_summary, aes(x=Site, y=monthly_growth_rate, fi
 
 growth.rate
 
-#output of graph
-pdf(paste0(path = "Side_projects/Juvenile_growth/outputs/" ,"JuvenileGrowthRate.pdf"), height = 7, width = 11) #printing a PDF within the path of the code, with specific dimensions of PDF
-print(growth.rate) #specify the graph
-dev.off()
 
-
-ggplot(data=growth_summary, aes(x=Month, y=monthly_growth_rate, color=Site, group = Site)) +
+growth<-ggplot(data=growth_summary, aes(x=Month, y=monthly_growth_rate, color=Site, group = Site)) +
                  geom_point()+ geom_line(size = 1) +
         geom_errorbar(aes(ymin=monthly_growth_rate-se, ymax=monthly_growth_rate+se), width=.2, position=position_dodge(0)) +  
   # scale_color_manual(values=c("green4", "darkorange1"))+
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   labs( x ="Month", y = "Growth Rate (mm/month")+ylim(0,20) #+ facet_wrap(~Site, nrow = 2)+
+
+#output of graph
+pdf(paste0(path = "Side_projects/Juvenile_growth/outputs/" ,"JuvenileGrowthRate.pdf"), height = 7, width = 11) #printing a PDF within the path of the code, with specific dimensions of PDF
+print(growth) #specify the graph
+dev.off()
 
 ggplot(data=growth_summary, aes(x=Month, y=monthly_growth_rate, fill=Site)) +
                  geom_bar(stat = "identity",position= "dodge")+
