@@ -9,8 +9,8 @@ description: This code is for the Juvenille Growth Study looking at growth rates
 Important Notes: Fence Creek 06/10/24 measurements for height after individual 50 were deleted/lost due to tablet glitch. Total counts should be based on the survival metric taken to determine live counts. 
 
 ---
-Last updated 11/7/24 by M.Kachmar
-- Growth rate and glms
+Last updated 11/20/24 by K. Lenderman
+- Growth rate graph updates
 
   
  
@@ -21,8 +21,8 @@ Last updated 11/7/24 by M.Kachmar
 
 knitr::opts_chunk$set(echo = TRUE) 
 #knitr::opts_knit$set(root.dir = 'C:/Users/kennedy.mcgrath/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kennedy's
-knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
-#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 #knitr::opts_knit$set(root.dir = 'C:/Users/kelly.roper/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kelly's
 #knitr::opts_knit$set(root.dir = 'C:/Users/katherine.mcfarland/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Katie's
 ```
@@ -354,27 +354,32 @@ growth.rate <- ggplot(data=growth_summary, aes(x=Site, y=monthly_growth_rate, fi
 
 growth.rate
 
+#removing starting month in the graph since it doesn't apply to the growth rate graph
+growth_rate_graph <- growth_summary %>% filter(!Month=="6")
 
-growth<-ggplot(data=growth_summary, aes(x=Month, y=monthly_growth_rate, color=Site, group = Site)) +
+growth<-ggplot(data=growth_rate_graph, aes(x=Month, y=monthly_growth_rate, color=Site, group = Site)) +
                  geom_point()+ geom_line(size = 1) +
         geom_errorbar(aes(ymin=monthly_growth_rate-se, ymax=monthly_growth_rate+se), width=.2, position=position_dodge(0)) +  
   # scale_color_manual(values=c("green4", "darkorange1"))+
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  labs( x ="Month", y = "Growth Rate (mm/month")+ylim(0,20) #+ facet_wrap(~Site, nrow = 2)+
+  theme(axis.text = element_text(size = 15), axis.title = element_text(size = 20), legend.text = element_text(size=15), 
+        legend.title = element_text(size=20))+
+  labs( x ="Month", y = "Growth Rate (mm/month")+ylim(-0.5,15) #+ facet_wrap(~Site, nrow = 2)+
+growth
 
 #output of graph
 pdf(paste0(path = "Side_projects/Juvenile_growth/outputs/" ,"JuvenileGrowthRate.pdf"), height = 7, width = 11) #printing a PDF within the path of the code, with specific dimensions of PDF
 print(growth) #specify the graph
 dev.off()
 
-ggplot(data=growth_summary, aes(x=Month, y=monthly_growth_rate, fill=Site)) +
+ggplot(data=growth_rate_graph, aes(x=Month, y=monthly_growth_rate, fill=Site)) +
                  geom_bar(stat = "identity",position= "dodge")+
         geom_errorbar(aes(ymin=monthly_growth_rate-se, ymax=monthly_growth_rate+se), width=.2, position=position_dodge(1)) +  
   # scale_color_manual(values=c("green4", "darkorange1"))+
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  labs( x ="Month", y = "Growth Rate (mm/month")+ylim(0,20) #+ facet_wrap(~Site, nrow = 2)+
+  labs( x ="Month", y = "Growth Rate (mm/month")+ylim(-0.5,20) #+ facet_wrap(~Site, nrow = 2)+
 
 ```
 
