@@ -354,6 +354,11 @@ growth.rate <- ggplot(data=growth_summary, aes(x=Site, y=monthly_growth_rate, fi
 
 growth.rate
 
+#output of graph
+pdf(paste0(path = "Side_projects/Juvenile_growth/outputs/" ,"JuvenileGrowthRate.pdf"), height = 7, width = 11) #printing a PDF within the path of the code, with specific dimensions of PDF
+print(growth.rate) #specify the graph
+dev.off()
+
 
 ggplot(data=growth_summary, aes(x=Month, y=monthly_growth_rate, color=Site, group = Site)) +
                  geom_point()+ geom_line(size = 1) +
@@ -386,9 +391,9 @@ ggplot(data=growth_summary, aes(x=Month, y=monthly_growth_rate, fill=Site)) +
 ################################ Environmental Data #########################################
 
 #Pull in environmental data - monthly means created in "Raw_Plotting.RMD" in the sonde code
-CT_sonde<- read.csv("C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data/output/Sonde_monthly_means_CT.csv")%>% dplyr::mutate(
+CT_sonde<- read.csv("C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data/output/Sonde_monthly_means_CT_long.csv")%>% dplyr::mutate(
     year = year(year_month),
-    Month = month(year_month, label = FALSE, abbr = FALSE)) %>% filter(`year_month` > '2024-05-01' & `year_month` < '2024-12-01' ) #filter what date ranges are needed
+    Month = month(year_month, label = FALSE, abbr = FALSE)) %>% dplyr::filter(`year_month` > '2024-05-01' & `year_month` < '2024-12-01' ) #filter what date ranges are needed
 CT_sonde
 
 #pull in 'wide' data - use for additive models
@@ -467,9 +472,9 @@ kruskal.test(Shell_length ~ Site, data = July) # p = .002
 kruskal.test(Shell_length ~ Site, data = Aug) # p = 5.377e-06
 kruskal.test(Shell_length ~ Site, data = Sept)# p = 8.419e-05
 kruskal.test(Shell_length ~ Site, data = Oct)# p = 0.00412
-kruskal.test(Shell_length ~ Site, data = Nov)
+kruskal.test(Shell_length ~ Site, data = Nov)# p = 0.2222
 
-#all of these are significant so which month is the most significant? August has the smallest p value (<0.0001).
+#all of these are significant, except November. So which month is the most significant? August has the smallest p value (<0.0001).
 
 #Hypothesis: Shell length can be influenced by mean environmental conditions, site differences, and random variation across months and bags. 
         #What are my assumptions? Shell length is our predicted variable (response). mean (of the environmental parameter) is hypothesized to influence           shell   length. Site is categorical and we want to assess site-specific impacts on shell length. Month and bag number are random effects.               Month assumes that    shell length varies by month and we want to account for month specific influences on shell height. Bag number is our              experimental replicates and there   may be variability among replicates. 
@@ -482,7 +487,7 @@ summary(glm_ph_jg)
 glm_salinity_jg <- glmmTMB(Shell_length ~ mean * Site  +  (1|Month)+ (1 | Bag_number), data = salinity_merged)
 Anova(glm_salinity_jg)
 summary(glm_ph_jg)
-#Shell length is impacted by salinity. The interaction shows that relationship between salinity and shell length varies between sites.  
+#Shell length is impacted by salinity. The interaction shows that relationship between salinity and shell length does not vary between sites.  
 
 glm_temp_jg <- glmmTMB(Shell_length ~ mean * Site  +  (1|Month) + (1 | Bag_number), data = temperature_merged)
 Anova(glm_temp_jg)
@@ -501,7 +506,7 @@ summary(glm_ph_jg)
 
 
 #So what did we learn from these models? 
-  #CHLA is different at each site - one has more food availability than the other. All environmental conditions interact to influence the differences in shell heigh at each site- aka the combine environmental factors create differences between sites. pH does not impact shell length alone and its relationship with shell length is dependent on site.  temperature is independent of site (so the same trend is happening at both) with positive relationships with shell length - as temperature increases so does shell length/growth. 
+  #CHLA is different at each site - one has more food availability than the other. All environmental conditions interact to influence the differences in shell height at each site- aka the combine environmental factors create differences between sites. pH does not impact shell length alone and its relationship with shell length is dependent on site.  temperature and salinity is independent of site (so the same trend is happening at both) with positive relationships with shell length - as temperature and increases so does shell length/growth. 
 
 
 #Lets do an additive model with all environmental parameters included with shell length
@@ -521,7 +526,7 @@ reduced_glm <- update(glm_ALL, .~. - mean_pH)
 Anova(reduced_glm)
 #By removing pH which had the largest p value all other parameters had equal significance. 
 
-AIC(glm_be, glm_ALL) #glm_ALL has a slightly lower AIC so it is a better fit model
+AIC(reduced_glm, glm_ALL) #glm_ALL has a slightly lower AIC so it is a better fit model
 
 
 
@@ -531,6 +536,7 @@ AIC(glm_be, glm_ALL) #glm_ALL has a slightly lower AIC so it is a better fit mod
 #growth rate different between sites and months?
 glm_growth <- glmmTMB(monthly_growth_rate ~  Site + Month, data=growth_summary) #growth rate is not different between sites but varies monthly
 Anova(glm_growth)
+#Growth rates do not vary between sites but vary monthly
 
 #Which month has the most significant difference in growth rate between sites?
 gr_merged  <- CT_sonde_wide %>% inner_join(growth_summary, by = c("Month", "Site"))
@@ -540,11 +546,14 @@ July <- gr_merged %>% filter(Month == 7)
 Aug <- gr_merged %>% filter(Month == 8)
 Sept<- gr_merged %>% filter(Month == 9)
 Oct<- gr_merged %>% filter(Month == 10)
+Nov<- gr_merged %>% filter(Month == 11)
 
 kruskal.test(monthly_growth_rate ~ Site, data = July)
 kruskal.test(monthly_growth_rate ~ Site, data = Aug)
 kruskal.test(monthly_growth_rate ~ Site, data = Sept)
 kruskal.test(monthly_growth_rate ~ Site, data = Oct)
+kruskal.test(monthly_growth_rate ~ Site, data = Nov)
+#None of these are significant
 
 #before we conduct our models we will need to combine environmental data to our growth data
 pH_gr <- pH_jg %>% inner_join(growth_summary, by = c("Month", "Site"))
@@ -556,25 +565,27 @@ DO_gr <- DO_jg %>% inner_join(growth_summary, by = c("Month", "Site"))
 glm_ph_gr <- glmmTMB(monthly_growth_rate ~ mean * Site , data = pH_gr)
 Anova(glm_ph_gr)
 summary(glm_ph_gr)
+#None significant
 
 glm_salinity_gr <- glmmTMB(monthly_growth_rate ~ mean * Site, data = salinity_gr)
 Anova(glm_salinity_gr)
 summary(glm_Salinity_gr)
- 
+#growth rate is impacted by salinity (mean significant)
 
 glm_temp_gr <- glmmTMB(monthly_growth_rate ~ mean * Site , data = temperature_gr)
 Anova(glm_temp_gr)
 summary(glm_temp_gr)
-
+#growth rate is impacted by temperature (mean significant)
 
 glm_CHLA_gr <- glmmTMB(monthly_growth_rate ~ mean* Site , data = CHLA_gr) #CHLA significant
 Anova(glm_CHLA_gr)
 summary(glm_CHLA_gr)
-
+#none significant
 
 glm_DO_gr <- glmmTMB(monthly_growth_rate ~ mean * Site  , data = DO_gr)
 Anova(glm_DO_gr)
 summary(glm_DO_gr)
+#growth rate is impacted by DO (mean significant)
 
 #Now lets do a big additive model
 #gr_merged  <- CT_sonde_wide %>% inner_join(growth_summary, by = c("Month", "Site"))
@@ -593,7 +604,7 @@ summary(reduced_glm_gr)
 
 #Temperature, Salinity, and CHL-A are all significant equally. 
 
-AIC(glm_be, glm_ALL) #glm_ALL has a lower AIC so it is a better fit model
+AIC(reduced_glm_gr, glm_ALL) #glm_ALL has a lower AIC so it is a better fit model
 
 
 ```
@@ -620,7 +631,7 @@ Surv_ASHC <- Surv(time = ASHC$Month, event = ASHC$Survival) #create your surviva
 fit.surv_ASHC <- survfit(formula = Surv_ASHC ~ Bag_number, data = ASHC) #Computes an estimate of a survival curve from the survival object
 
 ASHC_survival_plot<-ggsurvplot(fit.surv_ASHC, data = ASHC, , conf.int = TRUE, break.x.by = 1,
-           linetype= c(1, 2, 3),xlab = "Month", ylab= "Survival", xlim = c(5,10), legend.labs= c("bag 1", "bag 2",
+           linetype= c(1, 2, 3),xlab = "Month", ylab= "Survival", xlim = c(5,11), legend.labs= c("bag 1", "bag 2",
                                                                  "bag 3"),
            legend.title = "Replicate:", legend = "top", risk.table =FALSE )+ theme_survminer(base_size = 20,font.legend = c(15))+ggtitle("Ash Creek, CT")
 ASHC_survival_plot
@@ -636,7 +647,7 @@ Surv_FENC <- Surv(time = FENC$Month, event = FENC$Survival) #create your surviva
 fit.surv_FENC <- survfit(formula = Surv_FENC ~ Bag_number, data = FENC) #Computes an estimate of a survival curve from the survival object
 
 FENC_survival_plot<-ggsurvplot(fit.surv_FENC, data = FENC,break.x.by = 1,
-           linetype= c(1, 2, 3),xlab = "Month", ylab= "Survival", xlim = c(5,10), legend.labs= c("bag 1", "bag 2",
+           linetype= c(1, 2, 3),xlab = "Month", ylab= "Survival", xlim = c(5,11), legend.labs= c("bag 1", "bag 2",
                                                                  "bag 3"),
            legend.title = "Replicate:", legend = "top", risk.table =FALSE )+ theme_survminer(base_size = 20,font.legend = c(15))+ggtitle("Fence Creek, CT") 
 FENC_survival_plot
@@ -656,7 +667,7 @@ Surv_CT <- Surv(time = data_all$Month, event = data_all$Survival) #create your s
 fit.surv_CT <- survfit(formula = Surv_CT ~ Site, data = data_all) #Computes an estimate of a survival curve from the survival object
 
 CT_survival_plot<-ggsurvplot(fit.surv_CT, data = data_all,  conf.int = TRUE, break.x.by = 1,
-           linetype= c(1, 2),xlab = "Month", ylab= "Survival", xlim = c(5,10), legend.labs= c("Ash Creek", "Fence Creek"),
+           linetype= c(1, 2),xlab = "Month", ylab= "Survival", xlim = c(5,11), legend.labs= c("Ash Creek", "Fence Creek"),
            legend.title = "Replicate:", legend = "top", risk.table =FALSE )+ theme_survminer(base_size = 20,font.legend = c(15))+ggtitle("Survival between Ash Creek, CT and Fence Creek, CT")
 CT_survival_plot
 
@@ -671,10 +682,12 @@ dev.off()
 #H: There is a significant difference in survival between sites
 pc_site <- pairwise_survdiff(Surv(Month, Survival)~ Site, data = data_all)
 pc_site
+#Survival between sites is significantly different
 
 #Chi sq values
 surv_diff_site<-survdiff(Surv(Month, Survival) ~ Site, data = data_all)
 surv_diff_site
+
 
 ## Survival probability for all of sites & bags
 summary(survfit(Surv(Month, Survival) ~ Site, data = data_all))
@@ -684,6 +697,7 @@ summary(survfit(Surv(Month, Survival) ~ Site + Bag_number, data = data_all))
 #Cox proportional hazard - estimates how various factors affect the time it takes for an event to occur. The model's main output is a hazard rate (HR) that can be used to generate survival curves for groups or individuals within a population
 fit.coxph <- coxph(Surv_CT ~ Site, data = data_all)
 fit.coxph
+#There is an intcreased risk of mortality at Fence Creek
 jg_coxph<-ggforest(fit.coxph, data = data_all, fontsize = 1.5)
 jg_coxph
 
