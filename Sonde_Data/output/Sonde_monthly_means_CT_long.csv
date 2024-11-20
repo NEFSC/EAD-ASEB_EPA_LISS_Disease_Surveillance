@@ -318,25 +318,3 @@
 "317",2024-11-01,"ASHC","pH",7.81468429438017,0.113639492984961,0.00462010238623605
 "318",2024-11-01,"ASHC","pH mV",-65.7431468181818,6.48486083156745,0.263647084436557
 "319",2024-11-01,"ASHC","Temperature",14.4422603305785,1.31380998448265,0.0534139715422026
-"320",NA,"ASHC","Actual Conductivity",NA,NA,NA
-"321",NA,"ASHC","Salinity",NA,NA,NA
-"322",NA,"ASHC","Resistivity",NA,NA,NA
-"323",NA,"ASHC","Total Dissolved Solids",NA,NA,NA
-"324",NA,"ASHC","RDO Concentration",NA,NA,NA
-"325",NA,"ASHC","RDO Saturation",NA,NA,NA
-"326",NA,"ASHC","Oxygen Partial Pressure",NA,NA,NA
-"327",NA,"ASHC","Chlorophyll-a Fluorescence",NA,NA,NA
-"328",NA,"ASHC","pH",NA,NA,NA
-"329",NA,"ASHC","pH mV",NA,NA,NA
-"330",NA,"ASHC","Temperature",NA,NA,NA
-"331",NA,"FENC","Actual Conductivity",NA,NA,NA
-"332",NA,"FENC","Salinity",NA,NA,NA
-"333",NA,"FENC","Resistivity",NA,NA,NA
-"334",NA,"FENC","Total Dissolved Solids",NA,NA,NA
-"335",NA,"FENC","RDO Concentration",NA,NA,NA
-"336",NA,"FENC","RDO Saturation",NA,NA,NA
-"337",NA,"FENC","Oxygen Partial Pressure",NA,NA,NA
-"338",NA,"FENC","Chlorophyll-a Fluorescence",NA,NA,NA
-"339",NA,"FENC","pH",NA,NA,NA
-"340",NA,"FENC","pH mV",NA,NA,NA
-"341",NA,"FENC","Temperature",NA,NA,NA

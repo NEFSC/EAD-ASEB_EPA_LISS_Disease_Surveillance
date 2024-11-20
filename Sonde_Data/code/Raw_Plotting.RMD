@@ -221,8 +221,8 @@ write.csv(Sonde_monthly_means_CT, "output/Sonde_monthly_means_CT_long.csv")
 
 #we still want means
 
-Sonde_monthly_means_wide <- Sonde_monthly_means_CT %>% pivot_wider(names_from = variable, values_from = c("mean", "sd", "se"))
-write.csv(Sonde_monthly_means_CT, "output/Sonde_monthly_means_CT_wide.csv")
+Sonde_monthly_means_CT_wide <- Sonde_monthly_means_CT %>% pivot_wider(names_from = variable, values_from = c("mean", "sd", "se"))
+write.csv(Sonde_monthly_means_CT_wide, "output/Sonde_monthly_means_CT_wide.csv")
 
 
 ```

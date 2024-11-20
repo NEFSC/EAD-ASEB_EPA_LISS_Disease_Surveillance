@@ -134,7 +134,7 @@ ggplot(data=data_all, aes(x=Site, y=Shell_length, fill=Site)) +
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   labs(title="Mean Shell Height ", x ="Site", y = "Mean Shell Height (mm)") +
-  facet_wrap(~Month, ncol = 5)
+  facet_wrap(~Month, ncol = 6)
 ```
 ```{r}
 #Average shell height per month per site
@@ -226,7 +226,7 @@ dev.off()
 # we want June to be t0 for both sites. We need to combine ASHC & FENC. To do this, first change the site name in June to initial to combined the data.
 data_adjusted <- data_all %>%
   dplyr::mutate(Site = case_when(
-   Month == "June" ~ "Initial",      # If Month is 6, set Site to "Initial"
+   Month == "6" ~ "Initial",      # If Month is 6, set Site to "Initial"
     Site == "ASHC" ~ "ASHC",      # If Site is ASHC, keep ASHC
     TRUE ~ "FENC"                 # Otherwise, set Site to "FENC"
   ))
@@ -236,8 +236,9 @@ data_adjusted
 ASHC_gr<- data_adjusted %>% filter(Site %in% c("ASHC", "Initial")) %>%   mutate(Site = ifelse(Site == "Initial", "ASHC", Site))
 FENC_gr<- data_adjusted %>% filter(Site %in% c("FENC", "Initial"))%>%   mutate(Site = ifelse(Site == "Initial", "FENC", Site))
 
+growth_master <- rbind(ASHC_gr, FENC_gr) %>% select(-"Survival") %>%na.omit()
 
-#Now that our data sets are adjusted we can rreate summary of height per bag per time period per site for each data set
+#Now that our data sets are adjusted we can create summary of height per bag per time period per site for each data set
 
 st_height_bag_ASHC <- summarySE(ASHC_gr%>% filter(!is.na(Shell_length)), measurevar="Shell_length", groupvars=c("Site", "Date", "Bag_number", "Month"))
 st_height_bag_FENC <- summarySE(FENC_gr%>% filter(!is.na(Shell_length)), measurevar="Shell_length", groupvars=c("Site", "Date", "Bag_number", "Month"))
@@ -387,13 +388,13 @@ ggplot(data=growth_summary, aes(x=Month, y=monthly_growth_rate, fill=Site)) +
 #Pull in environmental data - monthly means created in "Raw_Plotting.RMD" in the sonde code
 CT_sonde<- read.csv("C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data/output/Sonde_monthly_means_CT.csv")%>% dplyr::mutate(
     year = year(year_month),
-    Month = month(year_month, label = FALSE, abbr = FALSE)) %>% filter(`year_month` > '2024-05-01' & `year_month` < '2024-11-01' ) #filter what date ranges are needed
+    Month = month(year_month, label = FALSE, abbr = FALSE)) %>% filter(`year_month` > '2024-05-01' & `year_month` < '2024-12-01' ) #filter what date ranges are needed
 CT_sonde
 
 #pull in 'wide' data - use for additive models
 CT_sonde_wide<- read.csv("C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data/output/Sonde_monthly_means_CT_wide.csv")%>% dplyr::mutate(
     year = year(year_month),
-    Month = month(year_month, label = FALSE, abbr = FALSE)) %>% filter(`year_month` > '2024-05-01' & `year_month` < '2024-11-01' ) #filter what date ranges are needed
+    Month = month(year_month, label = FALSE, abbr = FALSE)) %>% filter(`year_month` > '2024-05-01' & `year_month` < '2024-12-01' ) #filter what date ranges are needed
 CT_sonde_wide
 
 #Separate into individual data sheets by variable 
@@ -437,8 +438,10 @@ kruskal.test(mean ~ Month, DO_jg)
 
 ################################  Shell length ######################################################
 
+
+
 #before we conduct our models we will need to combine environmental data to our shell length data
-pH_merged <- pH_jg %>% inner_join(growth_master, by = c("Month", "Site"))
+pH_merged <- pH_jg %>% dplyr::inner_join(growth_master, by = c("Month", "Site"))
 salinity_merged <- Salinity_jg %>% inner_join(growth_master, by = c("Month", "Site"))
 temperature_merged <- Temperature_jg %>% inner_join(growth_master, by = c("Month", "Site"))
 CHLA_merged <- CHLA_jg %>% inner_join(growth_master, by = c("Month", "Site"))
@@ -447,17 +450,25 @@ DO_merged <- DO_jg %>% inner_join(growth_master, by = c("Month", "Site"))
 #Is shell length different between sites and months?
 glm_size <- glmmTMB(Shell_length ~ Site + (1|Month) +(1|Bag_number), data = growth_master)
 Anova(glm_size)
+# Yes 
 
 #What month has the most significant difference in shell length between sites?
+#merge this with shell length data
+jg_merged  <- CT_sonde_wide %>% inner_join(growth_master, by = c("Month", "Site"))
+jg_merged
+
 July <- jg_merged %>% filter(Month == 7)
 Aug <- jg_merged %>% filter(Month == 8)
 Sept<- jg_merged %>% filter(Month == 9)
 Oct<- jg_merged %>% filter(Month == 10)
+Nov<-jg_merged %>% dplyr::filter(Month == 11)
 
 kruskal.test(Shell_length ~ Site, data = July) # p = .002
 kruskal.test(Shell_length ~ Site, data = Aug) # p = 5.377e-06
 kruskal.test(Shell_length ~ Site, data = Sept)# p = 8.419e-05
 kruskal.test(Shell_length ~ Site, data = Oct)# p = 0.00412
+kruskal.test(Shell_length ~ Site, data = Nov)
+
 #all of these are significant so which month is the most significant? August has the smallest p value (<0.0001).
 
 #Hypothesis: Shell length can be influenced by mean environmental conditions, site differences, and random variation across months and bags. 
@@ -496,8 +507,9 @@ summary(glm_ph_jg)
 #Lets do an additive model with all environmental parameters included with shell length
 
 #merge this with shell length data
-jg_merged  <- CT_sonde_wide %>% inner_join(growth_master, by = c("Month", "Site"))
-jg_merged
+
+#jg_merged  <- CT_sonde_wide %>% inner_join(growth_master, by = c("Month", "Site"))
+#jg_merged
 
 #Hypothesis: Shell length can be explained by mean environmental conditions, site differences, and random variation across months and bags. 
 glm_ALL <- glmmTMB(Shell_length ~ Site + mean_Salinity + mean_RDO.Concentration + mean_Chlorophyll.a.Fluorescence + mean_pH + mean_Temperature + (1|Month) + (1 | Bag_number), data = jg_merged )
@@ -521,6 +533,9 @@ glm_growth <- glmmTMB(monthly_growth_rate ~  Site + Month, data=growth_summary) 
 Anova(glm_growth)
 
 #Which month has the most significant difference in growth rate between sites?
+gr_merged  <- CT_sonde_wide %>% inner_join(growth_summary, by = c("Month", "Site"))
+gr_merged
+
 July <- gr_merged %>% filter(Month == 7)
 Aug <- gr_merged %>% filter(Month == 8)
 Sept<- gr_merged %>% filter(Month == 9)
@@ -562,8 +577,8 @@ Anova(glm_DO_gr)
 summary(glm_DO_gr)
 
 #Now lets do a big additive model
-gr_merged  <- CT_sonde_wide %>% inner_join(growth_summary, by = c("Month", "Site"))
-gr_merged
+#gr_merged  <- CT_sonde_wide %>% inner_join(growth_summary, by = c("Month", "Site"))
+#gr_merged
 
 #Hypothesis: Shell length can be explained by mean environmental conditions, site differences, and random variation across months and bags. 
 glm_gr_ALL <- glmmTMB(monthly_growth_rate ~ Site + mean_Salinity + mean_RDO.Concentration + mean_Chlorophyll.a.Fluorescence + mean_pH + mean_Temperature + (1|Month), data = gr_merged )
