@@ -605,14 +605,16 @@ GOLD_BCS_proportions<- df_GOLD %>%
 GOLD_BCS_proportions<- na.omit(GOLD_BCS_proportions)
 
 BCS_proportion_GOLD <- ggplot(data=GOLD_BCS_proportions, aes(x=month, y= Proportion, fill=condition_score_bin)) +
-  geom_bar(width = .5, stat="identity", position = "fill")+  
+  geom_bar(width = .5, stat="identity", position = "fill", colour = "black")+  
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
   labs(title="Gold Star Beach Proportion of body condition scores", x ="month", y = "Proportion of body condition scores ")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
   theme(axis.text=element_text(size=12))+
- #scale_fill_brewer() +
+scale_fill_brewer(palette = "Blues", direction = -1)+
   facet_wrap(~ year)
 BCS_proportion_GOLD
+
+
   
 pdf(paste0(path = "Lab_Data_TissueProcessing/output" ,"/GOLD_BCS_proportion.pdf"), height = 7, width = 13)
 print(BCS_proportion_GOLD)
@@ -667,7 +669,7 @@ ggplot(data=df_GOLD, aes(x=month, y=height_mm, group= month)) +
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   labs(title="Goldstar Beach Mean Shell Height ", x ="month", y = "Mean Shell Height (mm)") + #scale_x_continuous(limits= c(4,11), breaks = seq(5,10, by =1))+
-  geom_smooth(method = "lm", se = FALSE)
+  geom_smooth(method = "lm", se = FALSE)+ facet_wrap(~year)
 
 ```
 
