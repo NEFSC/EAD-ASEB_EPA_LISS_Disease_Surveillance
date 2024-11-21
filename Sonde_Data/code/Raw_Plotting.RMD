@@ -2329,7 +2329,7 @@ GOLD_pH_2024 <- GOLD_pH %>% na.omit() %>%
               labs(x = "Time", y = "pH") +
               theme_classic() +
               theme(legend.position = "none", axis.text= element_text(size= 15))+  
-  geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1)
+  geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1) +ylim(6,9)
 
 
 
@@ -2397,7 +2397,7 @@ GOLD_Salinity_2024 <- GOLD_Salinity %>% na.omit() %>%
               theme_classic() +
               theme(legend.position = "none", axis.text= element_text(size= 15))+
               scale_y_continuous(breaks = seq(0,30, by = 2))+  
-  geom_hline(yintercept = 12, color = "red", linetype = "solid", size = 1)
+  geom_hline(yintercept = 12, color = "red", linetype = "solid", size = 1)+ylim(16,30)
 
 GOLD_Salinity_2024
 
@@ -2460,7 +2460,7 @@ GOLD_Temperature_2024 <-GOLD_Temperature %>% na.omit() %>%
               labs(x = "Time", y = "Temperature (Celcius)") +
               theme_classic() +
               theme(legend.position = "none", axis.text= element_text(size= 15))+  
-  geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)
+  geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1) 
 GOLD_Temperature_2024
 
 
@@ -2520,8 +2520,9 @@ GOLD_DO_2024 <- GOLD_DO %>% na.omit() %>%
               ggtitle("DO Concentration 2024") +
               labs(x = "Time", y = "DO Concentration (mg/L)") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))
-GOLD_DO_2023
+              theme(legend.position = "none", axis.text= element_text(size= 15))+  geom_hline(yintercept = 5, color = "red", linetype = "solid", size = 1) 
+
+GOLD_DO_2024
 pdf(paste0(path="output/raw_plots/Report_plots/GOLD_DO_2024.pdf"), height = 7, width = 14)
 print(GOLD_DO_2024)
 dev.off()
