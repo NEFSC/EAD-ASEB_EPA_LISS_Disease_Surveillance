@@ -574,7 +574,7 @@ dev.off()
 ```{r}
 df_GOLD<- data_all%>%
   filter(site=="GOLD")
-df_GOLD <- df_GOLD %>% filter(!is.na(condition))
+df_GOLD <- df_GOLD %>% filter(!is.na(height_mm))
 
 #2023 data
 df_GOLD2023 <- df_GOLD%>%  filter(!year=="2024")
@@ -582,6 +582,10 @@ df_GOLD2023 <- df_GOLD%>%  filter(!year=="2024")
 #2024 data
 df_GOLD2024 <- df_GOLD%>%  filter(!year=="2023")
 
+df_GOLD$height_mm<-as.numeric(df_GOLD$height_mm)
+
+mean_shell_height <- df_GOLD %>% mutate(year = year(date_collected)) %>% group_by(year)%>% dplyr::summarise(mean_height = mean(height_mm)) #summarySE(measurevar="height_mm", groupvars=c("year"))
+mean_shell_height
 
 ## Shell Height ##
 st_height_GOLD <- summarySE(df_GOLD, measurevar="height_mm", groupvars=c("date_collected"))
