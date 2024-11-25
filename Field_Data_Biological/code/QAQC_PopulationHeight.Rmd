@@ -655,6 +655,16 @@ ggplot(data=mean_total_oysters_GOLD, aes(x= Survival_status, y = Total_Density, 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   labs(title="Gold Star Density ", x ="Survival status", y= "Density (# oyster / meter squared)")+
   facet_wrap(~ Year, scales = "free")
+
+
+#Mortality calculations
+
+#survival_gold <- mean_total_oysters_GOLD %>% dplyr::group_by(Year, Date_collected) %>% mutate(mortality_precentage = )
+  
+  
+
+
+
 ```
 
 
