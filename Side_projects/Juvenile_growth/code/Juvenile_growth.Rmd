@@ -4,7 +4,6 @@ author: "Kyra Lenderman + Mariah Kachmar"
 date: "6/20/2024"
 output:
   html_document: default
-  pdf_document: default
 description: This code is for the Juvenille Growth Study looking at growth rates and
   survival of ~1 year old spat produced from the natural oyster bed at Ash Creek.
   The spat were divided into replicates of 3 spat bags with 100 individuals per bag
