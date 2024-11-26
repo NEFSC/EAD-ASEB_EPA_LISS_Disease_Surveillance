@@ -3,8 +3,8 @@ title: "Juvenile Growth"
 author: "Kyra Lenderman + Mariah Kachmar"
 date: "6/20/2024"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 description: This code is for the Juvenille Growth Study looking at growth rates and
   survival of ~1 year old spat produced from the natural oyster bed at Ash Creek.
   The spat were divided into replicates of 3 spat bags with 100 individuals per bag
@@ -727,15 +727,6 @@ pdf(paste0(path = "Side_projects/Juvenile_growth/outputs/" ,"jg_coxph.pdf"), hei
 print(jg_coxph) #specify the graph
 dev.off()
 
-```
-
-#Create a PDF output
-```{r}
-install.packages("rmarkdown")
-install.packages("tinytex")
-
-file.create("Juvenile_growth.Rmd")
-rmarkdown::render("Juvenile_growth.Rmd", output_format = "pdf_document")
 ```
 
 
