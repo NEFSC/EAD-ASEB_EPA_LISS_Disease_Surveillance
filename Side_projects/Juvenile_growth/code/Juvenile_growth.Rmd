@@ -1,16 +1,22 @@
 ---
 title: "Juvenile Growth"
-author: Kyra Lenderman + Mariah Kachmar
+author: "Kyra Lenderman + Mariah Kachmar"
 date: "6/20/2024"
-output: html_document
-
-description: This code is for the Juvenille Growth Study looking at growth rates and survival of ~1 year old spat produced from the natural oyster bed at Ash Creek. The spat were divided into replicates of 3 spat bags with 100 individuals per bag and placed at Ash Creek, Fairfield CT and Fence Creek, Madison CT. The goal is to compare growth and survival at each site and determine if and what environmental factors may influence the population. 
-
-Important Notes: Fence Creek 06/10/24 measurements for height after individual 50 were deleted/lost due to tablet glitch. Total counts should be based on the survival metric taken to determine live counts. 
-
+output:
+  html_document: default
+  pdf_document: default
+description: This code is for the Juvenille Growth Study looking at growth rates and
+  survival of ~1 year old spat produced from the natural oyster bed at Ash Creek.
+  The spat were divided into replicates of 3 spat bags with 100 individuals per bag
+  and placed at Ash Creek, Fairfield CT and Fence Creek, Madison CT. The goal is to
+  compare growth and survival at each site and determine if and what environmental
+  factors may influence the population.
+Important Notes: Fence Creek 06/10/24 measurements for height after individual 50
+  were deleted/lost due to tablet glitch. Total counts should be based on the survival
+  metric taken to determine live counts.
 ---
-Last updated 11/20/24 by K. Lenderman
-- Growth rate graph updates
+Last updated 11/26/24 by M.Kachmar
+- Working on Katie's suggestions
 
   
  
@@ -21,8 +27,8 @@ Last updated 11/20/24 by K. Lenderman
 
 knitr::opts_chunk$set(echo = TRUE) 
 #knitr::opts_knit$set(root.dir = 'C:/Users/kennedy.mcgrath/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kennedy's
-#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
-knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 #knitr::opts_knit$set(root.dir = 'C:/Users/kelly.roper/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kelly's
 #knitr::opts_knit$set(root.dir = 'C:/Users/katherine.mcfarland/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Katie's
 ```
@@ -287,6 +293,7 @@ st_height_FENC
 #Combine ASHC & FENC 
 growth_summary<-rbind(st_height_ASHC, st_height_FENC)
 
+write.csv(growth_summary, "Side_projects/Juvenile_growth/outputs\\juvenilegrowth_summary", row.names=FALSE)  #creating/printing csv file of all raw data merged together
 
 
 
@@ -338,6 +345,9 @@ MeanHeight_dotplot
 pdf(paste0(path = "Side_projects/Juvenile_growth/outputs/" ,"MeanHeight_dotplot.pdf"), height = 7, width = 11) #printing a PDF within the path of the code, with specific dimensions of PDF
 print(MeanHeight_dotplot) #specify the graph
 dev.off()
+
+#Some food for thought when analyzing this:
+# From Katie: it is interesting that ASH catches up between October and November, while FENC seems to be entering into the slow / no growth period expected in the winter months. Is there anything in the environmental data to help understand this OR does the survival data tell us anything interesting, eg. Was there a mortality event possibly targeting small oysters? - While Kaplan Meier will be the preferred way to report these data in the manuscript, I also like to look at a line plot of raw survival data during these early data interpretation stages/
 ```
 #graphing growth rate
 #this needs to be fixed/updated
@@ -357,8 +367,9 @@ growth.rate
 #removing starting month in the graph since it doesn't apply to the growth rate graph
 growth_rate_graph <- growth_summary %>% filter(!Month=="6")
 
+#I removed the lines connecting the dots per suggestion from Katie as the growth rates are independent values each month
 growth<-ggplot(data=growth_rate_graph, aes(x=Month, y=monthly_growth_rate, color=Site, group = Site)) +
-                 geom_point()+ geom_line(size = 1) +
+                 geom_point()+
         geom_errorbar(aes(ymin=monthly_growth_rate-se, ymax=monthly_growth_rate+se), width=.2, position=position_dodge(0)) +  
   # scale_color_manual(values=c("green4", "darkorange1"))+
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
@@ -419,31 +430,35 @@ library(car)
 #Is the monthly means of each environmental parameter different between sites?
 
 glm_ph <- glmmTMB(mean ~ Site + (1 | Month), data = pH_jg ) #No
-glm_ph <- glmmTMB(mean ~ Month + (1 | Site), data = pH_jg ) #This is significant but the kruskal wallace is not, should I do this instead? this will take into account the variability across sites as well. 
 Anova(glm_ph)
 summary(glm_ph)
+glm_ph_month <- glmmTMB(mean ~ Month + (1 | Site), data = pH_jg ) #Yes
+Anova(glm_ph_month)
+summary(glm_ph_month)
 
 glm_temp<- glmmTMB(mean ~ Site + (1 | Month), data = Temperature_jg) #No
 Anova(glm_temp )
+glm_temp_month <- glmmTMB(mean ~ Month + (1 | Site), data = Temperature_jg ) #Yes
+Anova(glm_temp_month)
+summary(glm_temp_month)
 
-glm_salinity <- glmmTMB(mean ~ Site + (1 | Month), data = Salinity_jg) #NO
+glm_salinity <- glmmTMB(mean ~ Site + (1 | Month), data = Salinity_jg) #No
 Anova(glm_salinity)
+glm_salinity_month <- glmmTMB(mean ~ Month + (1 | Site), data = Salinity_jg ) #Yes
+Anova(glm_salinity_month)
+summary(glm_salinity_month)
 
 glm_CHLA <- glmmTMB(mean ~ Site + (1 | Month), data = CHLA_jg) #Yes
 Anova(glm_CHLA)
+glm_CHLA_month <- glmmTMB(mean ~ Month + (1 | Site), data = CHLA_jg ) #No
+Anova(glm_CHLA_month)
+summary(glm_CHLA_month)
 
 glm_DO <- glmmTMB(mean ~ Site + (1 | Month), data = DO_jg) #No
 Anova(glm_DO)
-
-#Kruskal-Wallis tests by month (P-value sig. 0.0125 for four tests)
-#Does environmental data vary monthly?
-kruskal.test(mean ~ Month, pH_jg)
-kruskal.test(mean ~ Month, Salinity_jg)
-kruskal.test(mean ~ Month, Temperature_jg)
-kruskal.test(mean ~ Month, CHLA_jg)
-kruskal.test(mean ~ Month, DO_jg)
-
-#they do not vary monthly
+glm_DO_month <- glmmTMB(mean ~ Month + (1 | Site), data = DO_jg ) #No
+Anova(glm_DO_month)
+summary(glm_DO_month)
 
 
 ################################  Shell length ######################################################
@@ -458,9 +473,11 @@ CHLA_merged <- CHLA_jg %>% inner_join(growth_master, by = c("Month", "Site"))
 DO_merged <- DO_jg %>% inner_join(growth_master, by = c("Month", "Site"))
 
 #Is shell length different between sites and months?
-glm_size <- glmmTMB(Shell_length ~ Site + (1|Month) +(1|Bag_number), data = growth_master)
+glm_size <- glmmTMB(Shell_length ~ Site +(1|Bag_number), data = growth_master)
 Anova(glm_size)
 # Yes 
+glm_size_month <- glmmTMB(Shell_length ~ Month + (1|Bag_number), data = growth_master)
+Anova(glm_size_month) #Yes
 
 #What month has the most significant difference in shell length between sites?
 #merge this with shell length data
@@ -484,7 +501,7 @@ kruskal.test(Shell_length ~ Site, data = Nov)# p = 0.2222
 #Hypothesis: Shell length can be influenced by mean environmental conditions, site differences, and random variation across months and bags. 
         #What are my assumptions? Shell length is our predicted variable (response). mean (of the environmental parameter) is hypothesized to influence           shell   length. Site is categorical and we want to assess site-specific impacts on shell length. Month and bag number are random effects.               Month assumes that    shell length varies by month and we want to account for month specific influences on shell height. Bag number is our              experimental replicates and there   may be variability among replicates. 
 
-glm_ph_jg <- glmmTMB(Shell_length ~ mean * Site +  (1|Month)+ (1 | Bag_number), data = pH_merged)
+glm_ph_jg <- glmmTMB(Shell_length ~ mean * Site +  (1 | Bag_number), data = pH_merged)
 Anova(glm_ph_jg)
 summary(glm_ph_jg)
 #shell length is dependent on sites independent of pH. The interaction shows that the relationship between pH and shell length varies between sites.
@@ -712,7 +729,14 @@ dev.off()
 
 ```
 
+#Create a PDF output
+```{r}
+install.packages("rmarkdown")
+install.packages("tinytex")
 
+file.create("Juvenile_growth.Rmd")
+rmarkdown::render("Juvenile_growth.Rmd", output_format = "pdf_document")
+```
 
 
 
