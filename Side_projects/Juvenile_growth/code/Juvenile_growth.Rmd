@@ -4,6 +4,9 @@ author: "Kyra Lenderman + Mariah Kachmar"
 date: "6/20/2024"
 output:
   html_document: default
+    keep_md:true
+  pdf_document: 
+    keep_tex:true
 description: This code is for the Juvenille Growth Study looking at growth rates and
   survival of ~1 year old spat produced from the natural oyster bed at Ash Creek.
   The spat were divided into replicates of 3 spat bags with 100 individuals per bag
@@ -226,7 +229,7 @@ dev.off()
 
 #GR = ((Ht2 - Ht1 )/ (t2-t1)) x 30 growth rate standaridized in mm / month (to a 30-day month)
 #SPG = ln L2 - lnL1 / t2-t1
-```{r, results='markup'}
+```{r}
 
 # we want June to be t0 for both sites. We need to combine ASHC & FENC. To do this, first change the site name in June to initial to combined the data.
 data_adjusted <- data_all %>%
