@@ -226,7 +226,7 @@ dev.off()
 
 #GR = ((Ht2 - Ht1 )/ (t2-t1)) x 30 growth rate standaridized in mm / month (to a 30-day month)
 #SPG = ln L2 - lnL1 / t2-t1
-```{r}
+```{r, results='markup'}
 
 # we want June to be t0 for both sites. We need to combine ASHC & FENC. To do this, first change the site name in June to initial to combined the data.
 data_adjusted <- data_all %>%
