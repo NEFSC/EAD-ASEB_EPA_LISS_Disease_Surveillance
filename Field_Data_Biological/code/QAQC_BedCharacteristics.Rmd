@@ -865,6 +865,71 @@ leaflet(cleaned_tempmap) %>%
 addLayersControl(baseGroups=c("One", "Two"), 
                    overlayGroups=c(cleaned_tempmap$"Site"), 
                    options=layersControlOptions(collapsed=FALSE))
+
+######### Trying Chatgpt example for heatmap w/o api and on leaflet with a timeseries
+
+# Install the necessary packages (run only once)
+install.packages("leaflet")
+install.packages("leaflet.extras")
+install.packages("dplyr")
+install.packages("lubridate")
+
+# Load the libraries
+library(leaflet)
+library(leaflet.extras)
+library(leaflet.extras2)
+library(dplyr)
+library(lubridate)
+library(sf)
+install.packages("shiny")
+library(shiny)
+# Example dataset with time, lat, long, and a value to heatmap
+set.seed(42)
+data <- data.frame(
+  lat = runif(100, min = 37.5, max = 37.9),    # Random latitudes in San Francisco
+  lon = runif(100, min = -122.5, max = -123),  # Random longitudes
+  value = rnorm(100),                          # Random values to represent some heatmap intensity
+  timestamp = seq(from = as.POSIXct("2024-01-01"), 
+                  by = "hour", length.out = 100)
+)
+
+# View the first few rows
+head(data)
+
+# Create a color palette for time-based coloring
+library(RColorBrewer)
+
+# Define a color palette (you can adjust this according to your needs)
+pal <- colorBin("YlOrRd", domain = data$value, bins = 5)
+
+# Create the leaflet map
+leaflet(data) %>%
+  addTiles() %>%
+  addHeatmap(lng = ~lon, lat = ~lat, intensity = ~value, radius = 15, blur = 20, max = 0.05) %>%
+  addControl('<b>Time Series Heatmap</b>', position = 'topright') %>%
+  addTimeSlider(
+    data$timestamp,  # time variable
+    # Set some time range options
+    start_time = min(data$timestamp), 
+    end_time = max(data$timestamp), 
+    onTimeChange = function(timestamp) {
+      # Here we can filter the data based on the selected time
+      filtered_data <- data %>% filter(timestamp <= timestamp)
+      
+      # Update the heatmap layer based on the filtered data
+      leafletProxy() %>% 
+        clearHeatmap() %>%
+        addHeatmap(
+          lng = filtered_data$lon, 
+          lat = filtered_data$lat, 
+          intensity = filtered_data$value, 
+          radius = 15, blur = 20, max = 0.05
+        )
+    }
+  ) %>%
+  setView(lng = mean(data$lon), lat = mean(data$lat), zoom = 10) # Initial map view
+
+
 ```
 
 
