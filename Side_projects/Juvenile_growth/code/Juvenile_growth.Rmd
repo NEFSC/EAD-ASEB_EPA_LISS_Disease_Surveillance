@@ -26,8 +26,8 @@ Last updated 11/26/24 by M.Kachmar
 
 knitr::opts_chunk$set(echo = TRUE) 
 #knitr::opts_knit$set(root.dir = 'C:/Users/kennedy.mcgrath/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kennedy's
-knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
-#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 #knitr::opts_knit$set(root.dir = 'C:/Users/kelly.roper/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kelly's
 #knitr::opts_knit$set(root.dir = 'C:/Users/katherine.mcfarland/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Katie's
 ```
@@ -329,6 +329,8 @@ MeanHeight_dotplot<- ggplot(data=growth_summary, aes(x=Month, y=Shell_length, gr
   theme(axis.text = element_text(size = 15), axis.title = element_text(size = 20), legend.text = element_text(size=15), 
         legend.title = element_text(size=20))+
   labs( x ="Month", y = "Mean Shell Height (mm)")+
+  scale_x_continuous(breaks = seq_along(month.name),
+                     labels = month.name)+
   geom_label(label="t0", #adding time zero label
     x=1,
     y=31.5,
@@ -368,14 +370,16 @@ growth_rate_graph <- growth_summary %>% filter(!Month=="6")
 
 #I removed the lines connecting the dots per suggestion from Katie as the growth rates are independent values each month
 growth<-ggplot(data=growth_rate_graph, aes(x=Month, y=monthly_growth_rate, color=Site, group = Site)) +
-                 geom_point()+
-        geom_errorbar(aes(ymin=monthly_growth_rate-se, ymax=monthly_growth_rate+se), width=.2, position=position_dodge(0)) +  
+                 geom_point(size = 3)+
+        geom_errorbar(aes(ymin=monthly_growth_rate-se, ymax=monthly_growth_rate+se), width=.4, position=position_dodge(0), linewidth = 1) +  
   # scale_color_manual(values=c("green4", "darkorange1"))+
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   theme(axis.text = element_text(size = 15), axis.title = element_text(size = 20), legend.text = element_text(size=15), 
         legend.title = element_text(size=20))+
-  labs( x ="Month", y = "Growth Rate (mm/month")+ylim(-0.5,15) #+ facet_wrap(~Site, nrow = 2)+
+  scale_x_continuous(breaks = seq_along(month.name),
+                     labels = month.name)+
+  labs( x ="Month", y = "Growth Rate (mm/month)")+ylim(-0.5,15) #+ facet_wrap(~Site, nrow = 2)+
 growth
 
 #output of graph
