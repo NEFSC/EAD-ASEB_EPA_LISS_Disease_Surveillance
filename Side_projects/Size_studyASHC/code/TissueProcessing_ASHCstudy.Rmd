@@ -131,9 +131,9 @@ BCS_prop<- ggplot(data=df_BCS_prop, aes(x=sizeclass, y= Proportion, fill=conditi
 
 BCS_prop
 
-pdf(paste0(path = "Lab_Data_TissueProcessing/output" ,"/all_BCS_proportion_2024.pdf"), height = 7, width = 13)
-print(BCS_proportion_all_2024)
-dev.off()
+#pdf(paste0(path = "Lab_Data_TissueProcessing/output" ,"/all_BCS_proportion_2024.pdf"), height = 7, width = 13)
+#print(BCS_proportion_all_2024)
+#dev.off()
 ```
 ```{r}
 #Proportion of RFTM scores
@@ -249,7 +249,7 @@ ggplot(data=df_intensity_proportions, aes(x=condition_score, y= Proportion, fill
   theme(axis.text=element_text(size=12))+
  scale_fill_brewer("RFTM Score")+
    scale_x_continuous("Body Condition Score", breaks = c(1,2,3,4,5,6,7,8,9))+
-  scale_fill_brewer(palette="Dark2")
+scale_fill_brewer(palette = "YlOrBr")
 
 
 ```
@@ -274,7 +274,7 @@ ggplot(data=df_intensity_proportions_size, aes(x=condition_score, y= Proportion,
  scale_fill_brewer("RFTM Score")+
   facet_wrap(~sizeclass)+
    scale_x_continuous("Body Condition Score", breaks = c(1,2,3,4,5,6,7,8,9))+
-  scale_fill_brewer(palette="Dark2")+
+scale_fill_brewer(palette = "YlOrBr")+
    facet_grid(~factor(sizeclass, levels=c('small', 'medium', 'large')))
 ```
 
