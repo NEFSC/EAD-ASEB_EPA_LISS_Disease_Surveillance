@@ -2397,7 +2397,7 @@ GOLD_Salinity_2024 <- GOLD_Salinity %>% na.omit() %>%
               theme_classic() +
               theme(legend.position = "none", axis.text= element_text(size= 15))+
               scale_y_continuous(breaks = seq(0,30, by = 2))+  
-  geom_hline(yintercept = 12, color = "red", linetype = "solid", size = 1)+ylim(16,30)
+  geom_hline(yintercept = 12, color = "red", linetype = "solid", size = 1)+ylim(20,30)
 
 GOLD_Salinity_2024
 
@@ -2809,7 +2809,7 @@ GOLD_DO$time <- sapply(date_time, function(x) {
 })
 print(GOLD_DO)
 
-GOLD_DO$year<- year(GOLD_DO$date_time)
+GOLD_DO$year<- year(GOLD_DO$date)
 
 GOLD_DO_avg <- GOLD_DO %>% na.omit() %>%
   dplyr::group_by(date , year, Site)%>%
@@ -2821,7 +2821,7 @@ class(GOLD_DO_avg$Date)
 GOLD_DO_avg$date <- as.Date(GOLD_DO_avg$date)
 
 GOLD_DAILY_DO_2023 <- GOLD_DO_avg %>% 
-   dplyr::filter(Date Time > '2023-04-01 00:00:00' & `Date Time` < '2023-11-30 00:00:00' ) %>%
+   dplyr::filter(`Date Time` > '2023-04-01 00:00:00' & `Date Time` < '2023-11-30 00:00:00' ) %>%
   ggplot(aes(x= date, 
                        y=Daily_mean, # the mean values
                        group=Site)) + # call the new mean
@@ -2850,7 +2850,7 @@ pdf(paste0(path="/raw_plots/Report_plots/GOLD_daily_DO_2023.pdf"), height = 7, w
 print(GOLD_DAILY_DO_2023)
 
 GOLD_DAILY_DO_2024 <- GOLD_DO_avg %>% 
-   dplyr::filter(`Date Time` > '2024-04-01 00:00:00' & `Date Time` < '2024-11-30 00:00:00' ) %>%
+   dplyr::filter(`date` > '2024-04-01 00:00:00' & `date` < '2024-11-30' ) %>%
   ggplot(aes(x= date, 
                        y=Daily_mean, # the mean values
                        group=Site)) + # call the new mean
@@ -2870,7 +2870,8 @@ GOLD_DAILY_DO_2024 <- GOLD_DO_avg %>%
               ggtitle("DO Concentration 2024") +
               labs(x = "Time", y = "Daily Mean DO Concentration (mg/L)") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 10),axis.text.x = element_text(angle = 45, hjust = 1))+scale_x_date(date_breaks = "1 week", date_labels = "%b %d")
+              theme(legend.position = "none", axis.text= element_text(size= 10),axis.text.x = element_text(angle = 45, hjust = 1))+scale_x_date(date_breaks = "1 week", date_labels = "%b %d")+geom_hline(yintercept = 5, color = "red", linetype = "solid", size = 1)+
+  geom_hline(yintercept = 3, color = "blue", linetype = "solid", size = 1) 
 
 
 GOLD_DAILY_DO_2024
@@ -2895,7 +2896,7 @@ GOLD_Temperature$time <- sapply(date_time, function(x) {
 print(GOLD_Temperature)
 
 GOLD_Temperature$Month <- month(GOLD_Temperature$date, label = TRUE)
-GOLD_Temperature$Year <- year(GOLD_Temperature$date, label = TRUE)
+GOLD_Temperature$Year <- year(GOLD_Temperature$date)
 head(GOLD_Temperature)
 
 
