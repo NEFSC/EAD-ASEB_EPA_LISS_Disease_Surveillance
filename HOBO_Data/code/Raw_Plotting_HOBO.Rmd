@@ -161,7 +161,14 @@ df5<-read_csv("HOBO_Data\\raw_data\\102024_ASHC_HOBO.csv", col_names = TRUE)%>% 
   dplyr::rename(Date_Time = `Date-Time (EDT)`) %>%
   dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset"))
 
-ASHC_HOBO <- rbind(df3,df4,df5)
+#For some reason the HOBO is only downloading new data so this is a bit excessive but were going to trouble shoot it next time were out. 
+#112024
+df6<-read_csv("HOBO_Data\\raw_data\\112024_ASHC_HOBO.csv", col_names = TRUE)%>%  # update this csv when new data comes in from the new HOBO
+  dplyr::rename(Temperature = `Temperature   (°C)`) %>%
+  dplyr::rename(Date_Time = `Date-Time (EST/EDT)`) %>%
+  dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset","Stopped"))
+
+ASHC_HOBO <- rbind(df3,df4,df5,df6)
 
 #ASHC_HOBO <- read_csv("HOBO_Data\\raw_data\\112024_ASHC_HOBO.csv", col_names = TRUE)   
 
@@ -311,8 +318,8 @@ FENC_plot_juv
 ```
 
 ```{r}
-CT_plot<-ggarrange(ASHC_plot, FENC_plot,nrow=2 ) %>%
-  annotate_figure(left=text_grob("Temperature", rot=90, size = 15), bottom = text_grob("Time", size = 15))
+CT_plot<-ggarrange(ASHC_plot, FENC_plot,nrow=2, align = "v" ) %>%
+  annotate_figure(left=text_grob("Temperature", rot=90, size = 30), bottom = text_grob("Time", size = 30))
 CT_plot
 
 pdf(paste0(path_out,"CT_HOBO.pdf"), height = 12, width = 14)
