@@ -33,6 +33,7 @@ library(readr)
 library(reshape2)
 library(readr)
 library(tidyr)
+library(data.table)
 ```
 
 #Set Path
@@ -127,7 +128,7 @@ FENC_plot <- FENC_means %>%
     ggtitle("Fence Creek, CT") +
     labs(x = "", y = "") + 
     theme_classic() + 
-    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12)) +
+    theme(axis.text = element_text(size = 25), axis.title = element_text(size = 12),axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1) ) +
     scale_x_datetime(date_labels = "%b/%Y", 
                      date_breaks = "1 month", 
                      limits = as.POSIXct(c('2023-06-01', '2024-11-30')))+geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)+
@@ -141,23 +142,40 @@ print(FENC_plot)
 
 #### Ash Creek ####
 ```{r}
-ASHC_HOBO <- read_csv("HOBO_Data\\raw_data\\112024_ASHC_HOBO.csv", col_names = TRUE)   
+#Clean up and merged data sheets
+#072024_ASHC_HOBO - has data from 7/2023 to 7/2024
+df3<-read_csv("HOBO_Data\\raw_data\\072024_ASHC_HOBO.csv", col_names = TRUE)%>% # do not change this df 2023-2024 data before we changed out the HOBO
+  dplyr::select( -c("Host Connected", "Button Down", "Button Up", "End of File"))%>% 
+  dplyr::rename(Temperature = `Ch:1 - Temperature   (°C)`) %>%
+  dplyr::rename(Date_Time = `Date-Time (EST/EDT)`)
+
+#082024 - has data from 7/24 to 8/24
+df4<-fread("HOBO_Data\\raw_data\\082024_ASHC_HOBO.csv",encoding = "UTF-8")%>%  # update this csv when new data comes in from the new HOBO
+  dplyr::rename(Temperature = `Temperature`) %>%
+  dplyr::rename(Date_Time = `Date-Time (EDT)`) %>%
+  dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset"))
+
+#102024 - has data from 8/26/24 to 10/21/2024
+df5<-read_csv("HOBO_Data\\raw_data\\102024_ASHC_HOBO.csv", col_names = TRUE)%>%  # update this csv when new data comes in from the new HOBO
+  dplyr::rename(Temperature = `Temperature   (°C)`) %>%
+  dplyr::rename(Date_Time = `Date-Time (EDT)`) %>%
+  dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset"))
+
+ASHC_HOBO <- rbind(df3,df4,df5)
+
+#ASHC_HOBO <- read_csv("HOBO_Data\\raw_data\\112024_ASHC_HOBO.csv", col_names = TRUE)   
 
 as.data.frame(ASHC_HOBO)
 
 ## removing unneeded columns with NAs
 
-ASHC_HOBO <- ASHC_HOBO %>%
-  dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset", "Host Connected"))
+#ASHC_HOBO <- ASHC_HOBO %>%
+ # dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset", "Host Connected"))
 
 ASHC_HOBO <- na.omit(ASHC_HOBO)
 
 
 #Change column names
-ASHC_HOBO <- ASHC_HOBO %>%
-    dplyr::rename(
-      Date_Time = `Date-Time (EDT)`,
-      Temperature = `Temperature (°C)` )
 
 if ("Date-Time (EDT)" %in% names(ASHC_HOBO) && "Temperature (°C)" %in% names(ASHC_HOBO)) {
   ASHC_HOBO <- ASHC_HOBO %>%
@@ -231,7 +249,7 @@ ASHC_plot <- ASHC_means %>%
     ggtitle("Ash Creek, CT") +
     labs(x = "", y = "") + 
     theme_classic() + 
-    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12)) +
+    theme(axis.text = element_text(size = 25), axis.title = element_text(size = 12),axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1) ) +
     scale_x_datetime(date_labels = "%b/%Y", 
                      date_breaks = "1 month", 
                      limits = as.POSIXct(c('2023-06-01', '2024-11-30')))+geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)+
