@@ -49,7 +49,7 @@ Master_table <- read.csv("output/Sonde_master.csv",check.names=FALSE) %>% dplyr:
 
 Master_table$`Date Time` <- lubridate::ymd_hms(Master_table$`Date Time`)
 
-View(Master_table)
+#View(Master_table)
 
 ```
 
@@ -1108,7 +1108,7 @@ ASHC_pH_2024 <- ASHC_pH %>% na.omit() %>%
               ggtitle("pH 2024") +
               labs(x = "Time", y = "pH") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))
+              theme(legend.position = "none", axis.text= element_text(size= 15))+geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1)
 
 ASHC_pH_callout_2024 <- ASHC_pH %>% na.omit() %>%
              dplyr::filter(`Date Time` > '2024-08-03 00:00:00' & `Date Time` < '2024-08-06 00:00:00' ) %>% # change date range needed here
@@ -1167,7 +1167,7 @@ ASHC_Salinity_2023 <- ASHC_Salinity %>% na.omit() %>%
               ggtitle("Salinity 2023") +
               labs(x = "Time", y = "Salinity") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))
+              theme(legend.position = "none", axis.text= element_text(size= 15))+geom_hline(yintercept = 10, color = "red", linetype = "solid", size = 1)
 
 ASHC_Salinity_2023
 
@@ -1225,7 +1225,7 @@ ASHC_Salinity_2024 <- ASHC_Salinity %>% na.omit() %>%
               ggtitle("Salinity 2024") +
               labs(x = "Time", y = "Salinity") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))
+              theme(legend.position = "none", axis.text= element_text(size= 15))+geom_hline(yintercept = 10, color = "red", linetype = "solid", size = 1)
 
 ASHC_Salinity_2024
 
@@ -1341,7 +1341,7 @@ ASHC_Temperature_2024 <-ASHC_Temperature %>% na.omit() %>%
               ggtitle("Temperature 2024") +
               labs(x = "Time", y = "Temperature (Celcius)") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))
+              theme(legend.position = "none", axis.text= element_text(size= 15))+geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)
 ASHC_Temperature_2024
 
 ASHC_Temperature_callout_2024 <- ASHC_Temperature %>% na.omit() %>%
@@ -1453,7 +1453,7 @@ ASHC_DO_2024 <- ASHC_DO %>% na.omit() %>%
               ggtitle("DO Concentration") +
               labs(x = "Time", y = "DO Concentration (mg/L)") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))
+              theme(legend.position = "none", axis.text= element_text(size= 15))+geom_hline(yintercept = 5, color = "red", linetype = "solid", size = 1)
 
 ASHC_DO_callout_2024 <- ASHC_DO %>% na.omit() %>%
              dplyr::filter(`Date Time` > '2024-08-03 00:00:00' & `Date Time` < '2024-08-06 00:00:00' ) %>% # change date range needed here
@@ -1593,7 +1593,7 @@ ASHC_DAILY_DO_2023 <- ASHC_DO_avg %>%
               labs(x = "Time", y = "Daily Mean DO Concentration (mg/L)") +
               theme_classic() +
               theme(legend.position = "none", axis.text= element_text(size= 10),axis.text.x = element_text(angle = 45, hjust = 1))+scale_x_date(date_breaks = "1 week", date_labels = "%b %d") +
-  scale_y_continuous(limits= c(2,10), breaks = seq(2,10, by= 1))
+  scale_y_continuous(limits= c(2,10), breaks = seq(2,10, by= 1))+geom_hline(yintercept = 5, color = "red", linetype = "solid", size = 1)+geom_hline(yintercept = 3, color = "blue", linetype = "solid", size = 1)
 
 
 
@@ -1625,7 +1625,7 @@ ASHC_DAILY_DO_2024 <- ASHC_DO_avg %>%
               labs(x = "Time", y = "Daily Mean DO Concentration (mg/L)") +
               theme_classic() +
               theme(legend.position = "none", axis.text= element_text(size= 10),axis.text.x = element_text(angle = 45, hjust = 1))+scale_x_date(date_breaks = "1 week", date_labels = "%b %d") +
-  scale_y_continuous(limits= c(2,10), breaks = seq(2,10, by= 1))
+  scale_y_continuous(limits= c(2,10), breaks = seq(2,10, by= 1))+geom_hline(yintercept = 5, color = "red", linetype = "solid", size = 1)+geom_hline(yintercept = 3, color = "blue", linetype = "solid", size = 1)
 
 
 ASHC_DAILY_DO_2024
