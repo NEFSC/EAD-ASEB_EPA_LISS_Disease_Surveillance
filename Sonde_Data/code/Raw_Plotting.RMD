@@ -1052,7 +1052,7 @@ ASHC_pH_2023 <- ASHC_pH %>% na.omit() %>%
               ggtitle("pH 2023 ") +
               labs(x = "Time ", y = "pH") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))
+              theme(legend.position = "none", axis.text= element_text(size= 15))+scale_x_datetime(breaks="1 month", date_labels = "%B")
 
 ASHC_pH_callout_2023 <- ASHC_pH %>% na.omit() %>%
              dplyr::filter(`Date Time` > '2023-08-03 00:00:00' & `Date Time` < '2023-08-06 00:00:00' ) %>% # change date range needed here
@@ -1108,7 +1108,7 @@ ASHC_pH_2024 <- ASHC_pH %>% na.omit() %>%
               ggtitle("pH 2024") +
               labs(x = "Time", y = "pH") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))+geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1)
+              theme(legend.position = "none", axis.text= element_text(size= 15))+geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
 
 ASHC_pH_callout_2024 <- ASHC_pH %>% na.omit() %>%
              dplyr::filter(`Date Time` > '2024-08-03 00:00:00' & `Date Time` < '2024-08-06 00:00:00' ) %>% # change date range needed here
@@ -1167,7 +1167,7 @@ ASHC_Salinity_2023 <- ASHC_Salinity %>% na.omit() %>%
               ggtitle("Salinity 2023") +
               labs(x = "Time", y = "Salinity") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))+geom_hline(yintercept = 10, color = "red", linetype = "solid", size = 1)
+              theme(legend.position = "none", axis.text= element_text(size= 15))+geom_hline(yintercept = 10, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
 
 ASHC_Salinity_2023
 
@@ -1194,7 +1194,7 @@ ASHC_Salinity_2023 <- ASHC_Salinity %>% na.omit() %>%
               #ggtitle(NA) +
               labs(x = "Time") +
               theme_classic() +
-              theme(legend.position = "none", axis.title.y = element_blank())
+              theme(legend.position = "none", axis.title.y = element_blank())+scale_x_datetime(breaks="1 month", date_labels = "%B")
 
 ASHC_Salinity_2023
 
@@ -1225,7 +1225,7 @@ ASHC_Salinity_2024 <- ASHC_Salinity %>% na.omit() %>%
               ggtitle("Salinity 2024") +
               labs(x = "Time", y = "Salinity") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))+geom_hline(yintercept = 10, color = "red", linetype = "solid", size = 1)
+              theme(legend.position = "none", axis.text= element_text(size= 15))+geom_hline(yintercept = 10, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
 
 ASHC_Salinity_2024
 
@@ -1252,7 +1252,7 @@ ASHC_Salinity_callout_2024 <- ASHC_Salinity %>% na.omit() %>%
               #ggtitle(NA) +
               labs(x = "Time") +
               theme_classic() +
-              theme(legend.position = "none", axis.title.y = element_blank())
+              theme(legend.position = "none", axis.title.y = element_blank())+scale_x_datetime(breaks="1 month", date_labels = "%B")
 
 #ASHC_Salinity_callout_2024
 
@@ -1285,7 +1285,7 @@ ASHC_Temperature_2023 <-ASHC_Temperature %>% na.omit() %>%
               ggtitle("Temperature 2023") +
               labs(x = "Time", y = "Temperature (Celcius)") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))
+              theme(legend.position = "none", axis.text= element_text(size= 15))+scale_x_datetime(breaks="1 month", date_labels = "%B")
 ASHC_Temperature_2023
 
 ASHC_Temperature_callout_2023 <- ASHC_Temperature %>% na.omit() %>%
@@ -1311,7 +1311,7 @@ ASHC_Temperature_callout_2023 <- ASHC_Temperature %>% na.omit() %>%
               #ggtitle(NA) +
               labs(x = "Time") +
               theme_classic() +
-              theme(legend.position = "none", axis.title.y = element_blank())
+              theme(legend.position = "none", axis.title.y = element_blank())+scale_x_datetime(breaks="1 month", date_labels = "%B")
 ASHC_Temperature_callout_2023
 
 pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_Temperature_2023.pdf"), height = 7, width = 14)
@@ -1341,7 +1341,7 @@ ASHC_Temperature_2024 <-ASHC_Temperature %>% na.omit() %>%
               ggtitle("Temperature 2024") +
               labs(x = "Time", y = "Temperature (Celcius)") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))+geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)
+              theme(legend.position = "none", axis.text= element_text(size= 15))+geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
 ASHC_Temperature_2024
 
 ASHC_Temperature_callout_2024 <- ASHC_Temperature %>% na.omit() %>%
@@ -1367,7 +1367,7 @@ ASHC_Temperature_callout_2024 <- ASHC_Temperature %>% na.omit() %>%
               #ggtitle(NA) +
               labs(x = "Time") +
               theme_classic() +
-              theme(legend.position = "none", axis.title.y = element_blank())
+              theme(legend.position = "none", axis.title.y = element_blank())+scale_x_datetime(breaks="1 month", date_labels = "%B")
 #ASHC_Temperature_callout_2024
 
 pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_Temperature_2024.pdf"), height = 7, width = 14)
@@ -1399,7 +1399,7 @@ ASHC_DO_2023 <- ASHC_DO %>% na.omit() %>%
               ggtitle("DO Concentration 2023") +
               labs(x = "Time", y = "DO Concentration (mg/L)") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))
+              theme(legend.position = "none", axis.text= element_text(size= 15))+scale_x_datetime(breaks="1 month", date_labels = "%B")
 
 ASHC_DO_callout_2023 <- ASHC_DO %>% na.omit() %>%
              dplyr::filter(`Date Time` > '2023-08-03 00:00:00' & `Date Time` < '2023-08-06 00:00:00' ) %>% # change date range needed here
@@ -1453,7 +1453,7 @@ ASHC_DO_2024 <- ASHC_DO %>% na.omit() %>%
               ggtitle("DO Concentration") +
               labs(x = "Time", y = "DO Concentration (mg/L)") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))+geom_hline(yintercept = 5, color = "red", linetype = "solid", size = 1)
+              theme(legend.position = "none", axis.text= element_text(size= 15))+geom_hline(yintercept = 5, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
 
 ASHC_DO_callout_2024 <- ASHC_DO %>% na.omit() %>%
              dplyr::filter(`Date Time` > '2024-08-03 00:00:00' & `Date Time` < '2024-08-06 00:00:00' ) %>% # change date range needed here
@@ -1478,7 +1478,7 @@ ASHC_DO_callout_2024 <- ASHC_DO %>% na.omit() %>%
               #ggtitle(NA) +
               labs(x = "Time") +
               theme_classic() +
-              theme(legend.position = "none", axis.title.y = element_blank())
+              theme(legend.position = "none", axis.title.y = element_blank())+scale_x_datetime(breaks="1 month", date_labels = "%B")
 
 pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_DO_2024.pdf"), height = 7, width = 14)
 print(ASHC_DO_2024)
@@ -1509,7 +1509,7 @@ ASHC_CHLA_2023 <- ASHC_CHLA %>% na.omit() %>%
               ggtitle("Chlorophyll-a flourescences 2023 ") +
               labs(x = "Time", y = "Chlorophyll-a (RFU)") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))
+              theme(legend.position = "none", axis.text= element_text(size= 15))+scale_x_datetime(breaks="1 month", date_labels = "%B")
 
 ASHC_CHLA_2023
 
@@ -1538,7 +1538,7 @@ ASHC_CHLA_2024 <- ASHC_CHLA %>% na.omit() %>%
               ggtitle("Chlorophyll-a flourescences 2024 ") +
               labs(x = "Time", y = "Chlorophyll-a (RFU)") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))
+              theme(legend.position = "none", axis.text= element_text(size= 15))+scale_x_datetime(breaks="1 month", date_labels = "%B")
 
 ASHC_CHLA_2024
 
