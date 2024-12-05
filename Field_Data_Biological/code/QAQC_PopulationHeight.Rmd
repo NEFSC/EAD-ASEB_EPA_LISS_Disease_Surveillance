@@ -352,21 +352,24 @@ ggplot(height_ASHC, aes(x=factor(Season, levels = c("Spring", "Fall")), y=Height
   labs(title="Shell Height", x ="Season", y = "Height (mm)")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
   theme(axis.text=element_text(size=12)) + facet_wrap(~Year)
 
-#Distribution Live
-ASHC_Distribution_Live<-ggplot(data=height_ASHC_Live, aes(x= Height)) +
+#Distribution Live 
+ASHC_Distribution_Live<-height_ASHC_Live %>% 
+  dplyr::filter(Year == "2024" ) %>%
+  ggplot(aes(x= Height)) +
   geom_histogram()+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   labs(title="Ash Creek Height Live Oysters ", x ="Height (mm)")+ scale_x_continuous(limits= c(0,190), breaks = seq(0,190, by =10) )+
   #scale_y_continuous( breaks = seq(0,20, by = 5))+
- facet_wrap(~ factor(Season, levels = c("Spring", "Fall")) + Year, scales = "free", ncol = 2, nrow=2)
+ facet_wrap(~ factor(Season, levels = c("Spring", "Fall")) + Year, scales = "free",  nrow=2)
 ASHC_Distribution_Live
+
 pdf(paste0(path = "Field_Data_Biological/Output/ASHC_Distribution_Live.pdf"), height = 6, width = 11)
 print(ASHC_Distribution_Live)
 dev.off()
 
-#Distribution Dead
-ASHC_Distribution_Dead<-ggplot(data=height_ASHC_Dead, aes(x= Height)) +
+#Distribution Dead 
+ASHC_Distribution_Dead<- ggplot(data=height_ASHC_Dead, aes(x= Height)) +
   geom_histogram()+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
@@ -374,6 +377,7 @@ ASHC_Distribution_Dead<-ggplot(data=height_ASHC_Dead, aes(x= Height)) +
   scale_y_continuous(limits = c(0,20), breaks = seq(0,20, by = 5))+
    facet_wrap(~ factor(Season, levels = c("Spring", "Fall")) + Year, scales = "free", ncol = 2, nrow=2)
 ASHC_Distribution_Dead
+
 pdf(paste0(path = "Field_Data_Biological/Output/ASHC_Distribution_Dead.pdf"), height = 6, width = 11)
 print(ASHC_Distribution_Dead)
 dev.off()

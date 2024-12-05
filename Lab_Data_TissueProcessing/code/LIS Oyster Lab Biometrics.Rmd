@@ -405,7 +405,9 @@ ASHC_precent_greater_3 <- df_ASHC %>%
   dplyr::summarise(Percentage = mean(condition_score <= 3)*100)
 ASHC_precent_greater_3
 
-ASHC_BCS_percentage <- ggplot(ASHC_precent_greater_3,aes(x = month, y = Percentage)) +
+ASHC_BCS_percentage <- ASHC_precent_greater_3%>% 
+  filter(year =="2024")%>%
+  ggplot(aes(x = month, y = Percentage)) +
   #geom_bar(width = 0.5, stat = "identity", position = "fill") +
     geom_col()+
   theme_bw() +
