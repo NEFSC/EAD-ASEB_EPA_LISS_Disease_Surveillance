@@ -318,7 +318,9 @@ FENC_plot_juv
 ```
 
 ```{r}
-CT_plot<-ggarrange(ASHC_plot, FENC_plot,nrow=2, align = "v" ) %>%
+ASHC_plot1 <- ASHC_plot + theme(axis.text.x = element_blank())
+
+CT_plot<-ggarrange(ASHC_plot1, FENC_plot,nrow=2) %>%
   annotate_figure(left=text_grob("Temperature", rot=90, size = 30), bottom = text_grob("Time", size = 30))
 CT_plot
 

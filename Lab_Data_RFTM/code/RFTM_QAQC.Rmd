@@ -179,13 +179,17 @@ df_wp_summary <- data_all %>%
   dplyr::summarize( Weighted_prevalence = mean(rftm_final))
 df_wp_summary
 
+df_wp_summary <- df_wp_summary %>% filter(!site=="LAUR", !site =="GOLD")
+
 ggplot(data=df_wp_summary, aes(x=month, y=Weighted_prevalence, color=site)) +
   geom_point()+  
   geom_line(aes(group = site))+
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
   labs(title="Weighted Prevalence of Dermo infection", x ="Month", y = "Weighted Prevalence Score")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
-  theme(axis.text=element_text(size=12)) + facet_wrap(~ year, scales = "free", ncol=1)
+  theme(axis.text=element_text(size=12)) + facet_wrap(~ year, scales = "fixed", ncol=1,)+scale_x_continuous(breaks = c(3,4,5,6,7,8,9,10,11))
+
+
 
 ```
 
@@ -263,6 +267,7 @@ ggplot(data=df_intensity_summary, aes(x=month, y=intensity, color=site)) +
   labs(title="Intensity of Dermo infection", x ="Month", y = "Intensity score")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
   theme(axis.text=element_text(size=12)) + scale_y_continuous(limits = c(0, 3))+ facet_wrap(~ year, scales = "free", ncol=1)
 
+
 ```
 ```{r}
 
@@ -312,7 +317,7 @@ scale_fill_brewer(palette = "YlOrBr")+
 
 
 # Proportion per month of intensity scores at three sites during 2023 & 2024
-df_intensity_proportions_new<- df_intensity_proportions %>% filter(!site=="LAUR")
+df_intensity_proportions_new<- df_intensity_proportions %>% filter(!site=="LAUR", !site =="GOLD")
 
 ggplot(data=df_intensity_proportions_new, aes(x=month, y= Proportion, fill=intensity_bin)) +
   geom_bar(width = .5, stat="identity", position = "fill",colour = "black")+  
@@ -363,13 +368,15 @@ ggplot(data=df_ASHC, aes(x=month, y=rftm_final, group= month)) +
 
 
 #Weighted prevalence
-ggplot(data=st_intensity_ASHC, aes(x=month, y=rftm_final)) +
+wp_ashc <- st_intensity_ASHC %>% filter(year == "2024")%>%
+ggplot(aes(x=month, y=rftm_final)) +
   geom_point()+  
   geom_line()+
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
   labs(title="Weighted Prevalence of Dermo infection", x ="Month", y = "Weighted Prevalence Score")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
-  theme(axis.text=element_text(size=12))+ facet_wrap(~ year, scales = "free", ncol=1)
+  theme(axis.text=element_text(size=12))+ facet_wrap(~ year, scales = "free", ncol=1)+scale_x_continuous(breaks = c(3,4,5,6,7,8,9,10, 11))
+wp_ashc
 
 ##Prevalence
 ggplot(data=df_ASHC_prevalence, aes(x=month, y=prevalence_precentage)) +
