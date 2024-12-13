@@ -26,8 +26,8 @@ Last updated 11/26/24 by M.Kachmar
 
 knitr::opts_chunk$set(echo = TRUE) 
 #knitr::opts_knit$set(root.dir = 'C:/Users/kennedy.mcgrath/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kennedy's
-#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
-knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 #knitr::opts_knit$set(root.dir = 'C:/Users/kelly.roper/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kelly's
 #knitr::opts_knit$set(root.dir = 'C:/Users/katherine.mcfarland/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Katie's
 ```
@@ -435,6 +435,7 @@ library(car)
 glm_ph <- glmmTMB(mean ~ Site + (1 | Month), data = pH_jg ) #No
 Anova(glm_ph)
 summary(glm_ph)
+
 glm_ph_month <- glmmTMB(mean ~ Month + (1 | Site), data = pH_jg ) #Yes
 Anova(glm_ph_month)
 summary(glm_ph_month)
@@ -504,7 +505,7 @@ kruskal.test(Shell_length ~ Site, data = Nov)# p = 0.2222
 #Hypothesis: Shell length can be influenced by mean environmental conditions, site differences, and random variation across months and bags. 
         #What are my assumptions? Shell length is our predicted variable (response). mean (of the environmental parameter) is hypothesized to influence           shell   length. Site is categorical and we want to assess site-specific impacts on shell length. Month and bag number are random effects.               Month assumes that    shell length varies by month and we want to account for month specific influences on shell height. Bag number is our              experimental replicates and there   may be variability among replicates. 
 
-glm_ph_jg <- glmmTMB(Shell_length ~ mean * Site +  (1 | Bag_number), data = pH_merged)
+glm_ph_jg <- glmmTMB(Shell_length ~ mean * Site + (1|Month)+ (1| Bag_number), data = pH_merged)
 Anova(glm_ph_jg)
 summary(glm_ph_jg)
 #shell length is dependent on sites independent of pH. The interaction shows that the relationship between pH and shell length varies between sites.
@@ -617,7 +618,7 @@ summary(glm_DO_gr)
 #gr_merged
 
 #Hypothesis: Shell length can be explained by mean environmental conditions, site differences, and random variation across months and bags. 
-glm_gr_ALL <- glmmTMB(monthly_growth_rate ~ Site + mean_Salinity + mean_RDO.Concentration + mean_Chlorophyll.a.Fluorescence + mean_pH + mean_Temperature + (1|Month), data = gr_merged )
+glm_gr_ALL <- glmmTMB(monthly_growth_rate ~ Site + mean_Salinity + mean_RDO.Concentration + mean_Chlorophyll.a.Fluorescence + mean_pH + mean_Temperature , data = gr_merged )
 Anova(glm_gr_ALL)
 summary(glm_gr_ALL)
 
