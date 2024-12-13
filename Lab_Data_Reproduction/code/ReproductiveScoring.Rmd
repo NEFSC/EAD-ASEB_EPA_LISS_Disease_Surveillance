@@ -1,0 +1,123 @@
+---
+title: "Reproductive Scoring"
+author: "Kyra Lenderman"
+date: "2024-12-13"
+output: html_document
+---
+
+#Set working directory
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+```
+
+#run packages
+```{r}
+library("ggplot2")
+library("readxl")
+library("plyr")                                     
+library("dplyr")
+library("Rmisc")
+library("readr")  
+library("lubridate")
+library("purrr")
+library(reshape2)
+library(stringr)
+library("RColorBrewer")
+```
+
+#### This code chunk merges all .csv files within the qubit folder into one data fram and outputs the full dataset into a .csv master file. This allows us to download the raw data as a .csv, add it to the repository folder, and create the master data file without copying and pasting data in excel.
+# reading in .csv files from local folder
+```{r}
+
+data_all <- list.files(path = "Lab_Data_Reproduction/raw_data",                           # Identify all CSV files
+  pattern = "*.csv", full.names = TRUE) %>% 
+  lapply(read_csv) %>%                              # Store all files in list
+  bind_rows                                         # Combine data sets into one data set 
+data_all                                            # Print data to RStudio console
+
+as.data.frame(data_all)                            # Convert tibble to data.frame
+
+
+data_all <- data_all %>% filter(!is.na('Sample_ID'))
+
+write.csv(data_all, "Master_files\\gonad_scoring_all_data.csv", row.names=FALSE)
+
+
+```
+```{r}
+data_all$sex_results = ifelse(data_all$Sex1 < data_all$Sex2, 'FALSE',
+  ifelse(data_all$Sex1 > data_all$Sex2, 'FALSE',
+  ifelse(data_all$Sex1 == data_all$Sex2, 'TRUE', NA)))
+
+data_all$score_results = ifelse(data_all$Stage1 < data_all$Stage2, 'FALSE',
+  ifelse(data_all$Stage1 > data_all$Stage2, 'FALSE',
+  ifelse(data_all$Stage1 == data_all$Stage2, 'TRUE', NA)))
+  
+data_all
+
+```
+```{r}
+Data_Accuracy = data.frame(data_all$Sample_ID,data_all$Date_collected, data_all$Site, data_all$Sex1, data_all$Stage1,
+                          data_all$Sex2, data_all$Stage2 ,data_all$sex_results, data_all$score_results)
+
+Data_Accuracy <- na.omit(Data_Accuracy)
+Data_Accuracy
+```
+# Accuracy Output
+```{r}
+#count TRUE values in vector
+
+#Need to fix this code to count data accuracy. Since there is two comparisons, need to figure out how to code it.
+x <- Data_Accuracy %>% 
+  dplyr::group_by(data_all$site, data_all$date_collected, data_all$sex_results, data_all$score_results) %>% 
+  dplyr::summarise(count = n())
+x2 <- x %>% 
+  dplyr::group_by()
+x
+T <- nrow(Data_Accuracy %>% filter(data_all.sex_results == 'TRUE', data_all.results == 'TRUE'))
+F <- nrow(Data_Accuracy %>% filter(data_all.results == 'FALSE'))
+
+Accuracy <- T/(T+F)
+Accuracy
+
+#write.csv(Data_Accuracy, "C:/Users/katherine.mcfarland/Documents/4. GitHub/EAD-ASEB_EPA_LISS_Disease_Surveillance/Lab_Data_RFTM\\Accuracy_RFTM_intenisty_data.csv", row.names=FALSE)
+```
+```{r}
+#need to change date_collected to date or POSXCT
+data_all$Date_collected <- as.Date(data_all$Date_collected, format = "YY-MM")
+
+#month
+data_all <- data_all %>%
+  mutate(Date_collected= as.Date(Date_collected), month = month(Date_collected))
+
+#year
+data_all <- data_all %>%
+  mutate(Date_collected= as.Date(Date_collected), year = year(Date_collected))
+
+data_all
+```
+
+```{r}
+ASHC_repro <- data_all%>% filter(Site == "ASHC")
+ggplot(ASHC_repro, aes(x=Stage_final, fill=Sex_final))+
+  labs(title = "Gonadal Scoring - ASHC")+
+  geom_histogram(stat = "count")
+
+FENC_repro <- data_all%>% filter(Site == "FENC")
+ggplot(FENC_repro, aes(x=Stage_final, fill=Sex_final))+
+  labs(title = "Gonadal Scoring - FENC")+
+  geom_histogram(stat = "count")
+```
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0423ASHC_01,23-Apr,ASHC,1,12/3/2024,Kelly Roper,Female,3_Early_Active,TRUE,12/5/2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0423ASHC_02,23-Apr,ASHC,2,12/3/2024,Kelly Roper,Female,3_Early_Active,TRUE,12/5/2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0423ASHC_03,23-Apr,ASHC,3,12/3/2024,Kelly Roper,Female,3_Early_Active,TRUE,12/5/2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0423ASHC_04,23-Apr,ASHC,4,12/3/2024,Kelly Roper,Female,3_Early_Active,TRUE,12/5/2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0423ASHC_05,23-Apr,ASHC,5,12/3/2024,Kelly Roper,Female,3_Early_Active,TRUE,12/5/2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0423ASHC_06,23-Apr,ASHC,6,12/3/2024,Kelly Roper,Female,3_Early_Active,TRUE,12/3/2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0423ASHC_07,23-Apr,ASHC,7,12/3/2024,Kelly Roper,Female,3_Early_Active,TRUE,12/3/2024,Kyra Lenderman,Male,3_Early_Active,very late development ,Male,3_Early_Active
+0423ASHC_08,23-Apr,ASHC,8,12/3/2024,,,,TRUE,12/3/2024,Kyra Lenderman,Male,3_Early_Active,could be 2,Male,3_Early_Active
+0423ASHC_09,23-Apr,ASHC,9,12/3/2024,Kelly Roper,Female,3_Early_Active,TRUE,12/3/2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0423ASHC_10,23-Apr,ASHC,10,12/3/2024,,,,TRUE,12/3/2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0423ASHC_11,23-Apr,ASHC,11,12/3/2024,Mariah Kachmar,Female,3_Early_Active,TRUE,12/3/2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0423ASHC_12,23-Apr,ASHC,12,12/3/2024,Mariah Kachmar,Male,3_Early_Active,TRUE,12/3/2024,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0423ASHC_13,23-Apr,ASHC,13,12/3/2024,Mariah Kachmar,NA,2_Developing,TRUE,12/3/2024,Kyra Lenderman,Female,3_Early_Active,,NA,2_Developing
+0423ASHC_14,23-Apr,ASHC,14,12/3/2024,Mariah Kachmar,Female,3_Early_Active,TRUE,12/3/2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0423ASHC_15,23-Apr,ASHC,15,12/3/2024,Mariah Kachmar,Female,3_Early_Active,TRUE,12/3/2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0423ASHC_16,23-Apr,ASHC,16,12/3/2024,Mariah Kachmar,Male,3_Early_Active,TRUE,12/3/2024,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0423ASHC_17,23-Apr,ASHC,17,12/3/2024,Mariah Kachmar,Female,3_Early_Active,TRUE,12/3/2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0423ASHC_18,23-Apr,ASHC,18,12/3/2024,Mariah Kachmar,Female,3_Early_Active,TRUE,12/3/2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0423ASHC_19,23-Apr,ASHC,19,12/3/2024,Mariah Kachmar,NA,2_Developing,TRUE,12/3/2024,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0423ASHC_20,23-Apr,ASHC,20,12/3/2024,Mariah Kachmar,Female,3_Early_Active,TRUE,12/3/2024,Kyra Lenderman,Female,3_Early_Active,Bad cut,Female,3_Early_Active
+0423ASHC_21,23-Apr,ASHC,21,12/3/2024,Mariah Kachmar,Female,3_Early_Active,TRUE,12/3/2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0423ASHC_22,23-Apr,ASHC,22,,,,,TRUE,12/3/2024,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0423ASHC_23,23-Apr,ASHC,23,,,,,TRUE,12/3/2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0423ASHC_24,23-Apr,ASHC,24,,,,,TRUE,12/3/2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0423ASHC_25,23-Apr,ASHC,25,,,,,TRUE,12/3/2024,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0423ASHC_26,23-Apr,ASHC,26,,,,,TRUE,12/3/2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0423ASHC_27,23-Apr,ASHC,27,,,,,TRUE,12/3/2024,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0423ASHC_28,23-Apr,ASHC,28,,,,,TRUE,12/3/2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0423ASHC_29,23-Apr,ASHC,29,,,,,TRUE,12/3/2024,Kyra Lenderman,NA,2_Developing,Bucephalus present,NA,2_Developing
+0423ASHC_30,23-Apr,ASHC,30,,,,,TRUE,12/3/2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
