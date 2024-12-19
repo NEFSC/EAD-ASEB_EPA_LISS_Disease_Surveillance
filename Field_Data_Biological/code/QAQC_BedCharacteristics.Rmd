@@ -10,9 +10,9 @@ description: This R code is used to important and summarize bed characteristics 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
 #knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
-knitr::opts_knit$set(root.dir = 'C:/Users/kelly.roper/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kelly's
+#knitr::opts_knit$set(root.dir = 'C:/Users/kelly.roper/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kelly's
 ```
 
 
@@ -75,12 +75,12 @@ data_all <- select(data_all, -c("month"))
 
 ```{r}
 #Bed Height - creating master file
-
+bed_all <- data_all %>% filter(!is.na(Quadrat))
 #removing unnecessary columns
 bed_all <- select(data_all, -c("Field ID", "Quadrat_size", "Percent_coverage", "Live_count",
                                   "Box_count", "Gaper_count", "Rugosity", "Quadrat"))
 
-bed_all <- na.omit(bed_all)
+
 head(bed_all)
 
 #renaming column
@@ -90,6 +90,7 @@ head(bed_all)
 #reordering columns
 bed_all <- bed_all %>% select("Date_collected", "Site", "State", "Bed_height_cm", "Season")
 
+st_bed_height <- summarySE(bed_all, measurevar="Bed_height_cm", groupvars=c("Site", "Date_collected", "Season"))
 
 ```
 

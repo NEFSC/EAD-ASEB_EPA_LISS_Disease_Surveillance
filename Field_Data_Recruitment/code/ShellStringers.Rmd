@@ -150,18 +150,18 @@ st_rec_ASHC
 
 #Mean spat per shell per replicate
 ASHC_spat <- df_ASHC %>%
-  group_by(Replicate, Shell, date_collected) %>%
-  summarize(sum_count_1 = sum(Count_1),sum_count_2 = sum(Count_2))
+  dplyr::group_by(Replicate, Shell, date_collected) %>%
+  dplyr::summarize(sum_count_1 = sum(Count_1),sum_count_2 = sum(Count_2))
 ASHC_spat
 
 ASHC_spat_avg <- ASHC_spat %>%
-  group_by(Replicate, date_collected)%>%
-  summarize(Mean_1 = mean(sum_count_1), Mean_2 = mean(sum_count_2))
+  dplyr::group_by(date_collected, Replicate)%>%
+  dplyr::summarize(Mean_1 = mean(sum_count_1), Mean_2 = mean(sum_count_2))
 ASHC_spat_avg
 
 ASHC_spat_avg2 <- ASHC_spat_avg %>%
-  group_by(date_collected)%>%
-  summarize(mean_1 = mean(Mean_1), mean_2 = mean(Mean_2))
+  dplyr::group_by(date_collected)%>%
+  dplyr::summarize(mean_1 = mean(Mean_1), mean_2 = mean(Mean_2))
 ASHC_spat_avg2
 
 
