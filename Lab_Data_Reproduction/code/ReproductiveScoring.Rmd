@@ -5,6 +5,14 @@ date: "2024-12-13"
 output: html_document
 ---
 
+Graphs to make:
+Proportion of each month (with scores only; no sex)
+Greater than 4 (for spawning)
+
+#need to change date collected to exact date.
+
+
+
 #Set working directory
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -41,6 +49,8 @@ as.data.frame(data_all)                            # Convert tibble to data.fram
 
 
 data_all <- data_all %>% filter(!is.na('Sample_ID'))
+
+data_all$Date_collected <- as.Date(data_all$Date_collected, format = "%m-%d-%Y")
 
 write.csv(data_all, "Master_files\\gonad_scoring_all_data.csv", row.names=FALSE)
 
@@ -85,8 +95,6 @@ Accuracy
 #write.csv(Data_Accuracy, "C:/Users/katherine.mcfarland/Documents/4. GitHub/EAD-ASEB_EPA_LISS_Disease_Surveillance/Lab_Data_RFTM\\Accuracy_RFTM_intenisty_data.csv", row.names=FALSE)
 ```
 ```{r}
-#need to change date_collected to date or POSXCT
-data_all$Date_collected <- as.Date(data_all$Date_collected, format = "YY-MM")
 
 #month
 data_all <- data_all %>%
@@ -109,6 +117,82 @@ FENC_repro <- data_all%>% filter(Site == "FENC")
 ggplot(FENC_repro, aes(x=Stage_final, fill=Sex_final))+
   labs(title = "Gonadal Scoring - FENC")+
   geom_histogram(stat = "count")
+```
+```{r}
+#Creating proportions
+df_score_proportions<- data_all %>%
+  mutate(stage_final_numeric = as.factor(Stage_final),stage_bin = case_when(Stage_final == 0 ~ "0_Castrated", Stage_final == 1 ~ "1_Inactive_Indeterminate", Stage_final == 2 ~"2_Developing",Stage_final == 3 ~ "3_Early_Active", Stage_final == 4 ~"4_Late_Mature",Stage_final == 5 ~ "5_Spawning", Stage_final == 6 ~ "6_Post_Spawning", Stage_final == 7 ~ "7_Reabsorbing", TRUE ~ as.character(Stage_final))) %>%
+  group_by(Site, month,year, stage_bin) %>%
+  dplyr::summarise(Count= n()) %>%
+  ungroup() %>%
+  dplyr::mutate(Proportion = Count/sum(Count))
+
+df_score_proportions<- na.omit(df_score_proportions)
+
+df_score_proportions
+
+df_sex_proportions<- data_all %>%
+  group_by(Site, month,year, Sex_final) %>%
+  dplyr::summarise(Count= n()) %>%
+  ungroup() %>%
+  dplyr::mutate(Proportion = Count/sum(Count))
+
+df_sex_proportions<- na.omit(df_sex_proportions)
+
+df_sex_proportions
+```
+
+```{r}
+#Proportion graphs of just scores
+#will need to separate by years, once we have 2024 reproductive data
+ggplot(data=df_score_proportions, aes(x=month, y= Proportion, fill=stage_bin)) +
+  geom_bar(width = .5, stat="identity", position = "fill",colour = "black")+  
+   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  labs(fill ="Gonadal Score")+
+  labs(title="Proportion of gonadal scores", x ="month", y = "Proportion")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  theme(axis.text=element_text(size=12))+
+scale_fill_brewer(palette = "YlGnBu")+
+   scale_x_continuous("Month", breaks = c(3,4,5,6,7,8,9,10,11))+ 
+  facet_wrap(~Site)
+
+#Proportion graphs of sex
+#will need to separate by years, once we have 2024 reproductive data
+ggplot(data=df_sex_proportions, aes(x=month, y= Proportion, fill=Sex_final)) +
+  geom_bar(width = .5, stat="identity", position = "fill",colour = "black")+  
+   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  labs(fill ="Sex")+
+  labs(title="Proportion of sex ratios", x ="month", y = "Proportion")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  theme(axis.text=element_text(size=12))+
+scale_fill_brewer(palette = "Pastel1")+
+   scale_x_continuous("Month", breaks = c(3,4,5,6,7,8,9,10,11))+ 
+  facet_wrap(~Site)
+```
+#ASHC Summary
+```{r}
+df_ASHC<- data_all%>%
+  filter(Site=="ASHC")
+df_ASHC
+
+ASHC_mature_spawning <- df_ASHC %>%
+  dplyr::mutate(stage = recode(Stage_final, "0_Castrated" = 0, "1_Inactive_Inderterminate" = 1, "2_Developing" = 2, "3_Early_Active" = 3, "4_Late_Mature" = 4, "5_Spawning" = 5, "6_Post_Spawning" = 6, "7_Reabsorbing" = 7)) %>%
+  dplyr::group_by(month, Site, year) %>%
+  dplyr::summarise(Percentage = mean(stage >= 4)*100)
+ASHC_mature_spawning
+```
+#FENC Summary
+```{r}
+df_FENC<- data_all%>%
+  filter(Site=="FENC")
+df_FENC
+
+FENC_mature_spawning <- df_FENC %>%
+  dplyr::mutate(stage = recode(Stage_final, "0_Castrated" = 0, "1_Inactive_Inderterminate" = 1, "2_Developing" = 2, "3_Early_Active" = 3, "4_Late_Mature" = 4, "5_Spawning" = 5, "6_Post_Spawning" = 6, "7_Reabsorbing" = 7)) %>%
+  dplyr::group_by(month, Site, year) %>%
+  dplyr::summarise(Percentage = mean(stage >= 4)*100)
+#need to try an just have 4 and 5 be the scores for percentage because that is when spawning is happening
+FENC_mature_spawning
 ```
 
 

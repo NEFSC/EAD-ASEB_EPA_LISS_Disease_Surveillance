@@ -232,7 +232,7 @@ ggplot(data=df_prevalence_summary, aes(x=month, y=prevalence_precentage, color=s
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
   labs(title="Prevalence of Dermo infection", x ="Month", y = "Dermo Prevaence %")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
-  theme(axis.text=element_text(size=12)) + facet_wrap(~ year, scales = "free", ncol=1)
+  theme(axis.text=element_text(size=12)) + facet_wrap(~ year, scales = "free", ncol=1)+scale_x_continuous(breaks = c(3,4,5,6,7,8,9,10,11,12))
 ```
 ```{r}
 
