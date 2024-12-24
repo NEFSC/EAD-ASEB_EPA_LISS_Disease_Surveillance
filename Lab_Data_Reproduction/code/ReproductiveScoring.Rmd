@@ -137,7 +137,7 @@ df_sex_proportions<- data_all %>%
   ungroup() %>%
   dplyr::mutate(Proportion = Count/sum(Count))
 
-df_sex_proportions<- na.omit(df_sex_proportions)
+#df_sex_proportions<- na.omit(df_sex_proportions)
 
 df_sex_proportions
 ```
@@ -178,8 +178,31 @@ df_ASHC
 ASHC_mature_spawning <- df_ASHC %>%
   dplyr::mutate(stage = recode(Stage_final, "0_Castrated" = 0, "1_Inactive_Inderterminate" = 1, "2_Developing" = 2, "3_Early_Active" = 3, "4_Late_Mature" = 4, "5_Spawning" = 5, "6_Post_Spawning" = 6, "7_Reabsorbing" = 7)) %>%
   dplyr::group_by(month, Site, year) %>%
-  dplyr::summarise(Percentage = mean(stage >= 4)*100)
+  dplyr::summarise(Percentage = mean(stage == 4)*100)
 ASHC_mature_spawning
+
+ASHC_spawning <- ASHC_mature_spawning%>% 
+  #filter(year =="2024")%>%
+  ggplot(aes(x = month, y = Percentage)) +
+  #geom_bar(width = 0.5, stat = "identity", position = "fill") +
+    geom_col()+
+  theme_bw() +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1),
+    axis.title.y = element_text(size = rel(1.3), angle = 90),
+    axis.title.x = element_text(size = rel(1.3), angle = 0),
+    axis.text = element_text(size = 12)
+  ) +
+  labs(
+    title = "Ash Creek % of spawning",
+    x = "month",
+    y = "Percentage of spawning scores 4 & 5"
+  ) #+
+    #facet_wrap(~year)
+
+ASHC_spawning
 ```
 #FENC Summary
 ```{r}
@@ -193,6 +216,29 @@ FENC_mature_spawning <- df_FENC %>%
   dplyr::summarise(Percentage = mean(stage >= 4)*100)
 #need to try an just have 4 and 5 be the scores for percentage because that is when spawning is happening
 FENC_mature_spawning
+
+FENC_spawning <- FENC_mature_spawning%>% 
+  #filter(year =="2024")%>%
+  ggplot(aes(x = month, y = Percentage)) +
+  #geom_bar(width = 0.5, stat = "identity", position = "fill") +
+    geom_col()+
+  theme_bw() +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1),
+    axis.title.y = element_text(size = rel(1.3), angle = 90),
+    axis.title.x = element_text(size = rel(1.3), angle = 0),
+    axis.text = element_text(size = 12)
+  ) +
+  labs(
+    title = "Fence Creek % of spawning",
+    x = "month",
+    y = "Percentage of spawning scores 4 & 5"
+  ) #+
+    #facet_wrap(~year)
+
+FENC_spawning
 ```
 
 
