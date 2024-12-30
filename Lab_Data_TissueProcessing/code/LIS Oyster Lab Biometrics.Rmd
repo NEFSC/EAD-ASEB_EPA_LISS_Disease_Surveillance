@@ -117,9 +117,23 @@ data_all
 ```{r}
 
 data_all<- data_all %>%
- dplyr::mutate(condition_score = recode(condition, "1_very_good" == 1, "2_good" == 2, "3_good_minus"== 3, "4_fair_plus"== 4, "5_fair"== 5,"6_fair_minus"==6,"7_poor_plus"==7, "8_poor"== 8, "9_very_poor"== 9))
+ dplyr::mutate(condition_score = recode(as.character(condition), "1_very_good" == 1, "2_good" == 2, "3_good_minus"== 3, "4_fair_plus"== 4, "5_fair"== 5,"6_fair_minus"== 6,"7_poor_plus"== 7,"8_poor" == 8, "9_very_poor" == 9))
 head(data_all)
 
+
+data_all <- data_all %>%
+  dplyr::mutate(condition_score = dplyr::case_when(
+    condition == "1_very_good" ~ 1,
+    condition == "2_good" ~ 2,
+    condition == "3_good_minus" ~ 3,
+    condition == "4_fair_plus" ~ 4,
+    condition == "5_fair" ~ 5,
+    condition == "6_fair_minus" ~ 6,
+    condition == "7_poor_plus" ~ 7,
+    condition == "8_poor" ~ 8,
+    condition == "9_very_poor" ~ 9,
+    TRUE ~ NA_real_
+  ))
 
 ```
 #This chunk of code is removing 0723LAUR_20 and 0723LAUR_26 from the datasheet as they have been identified as spat on shell to avoid bias in the data. During this sample collection there were animals that were significantly smaller than the single set oysters. These individuals should be removed from all monthly sampling related datasheets including disease analysis. All tissue amples will be disgarded. 
@@ -533,7 +547,10 @@ dev.off()
 #removing 0823FENC_28 bcs was NA
 df_FENC <- df_FENC %>% drop_na(condition)
 
-FENC_precent_greater_3 <- df_FENC %>%
+df_FENC.2024 <- df_FENC%>%  filter(!year=="2023")
+
+
+FENC_precent_greater_3 <- df_FENC.2024 %>%
   dplyr::group_by(month, year) %>%
   dplyr::summarise(Percentage = mean(condition_score <= 3)*100)
 FENC_precent_greater_3

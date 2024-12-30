@@ -519,13 +519,13 @@ df_quadrat_FENC
 #Quadrat size is 25 x25cm (.0625 m^2). To calculate density (oysters per m^2) multiply number of oysters counted X 16
 
 df_density_FENC <- df_quadrat_FENC %>%
-  dplyr::group_by(Site, Season, Quadrat, Survival_status) %>% 
+  dplyr::group_by(Site, Season, Quadrat, Survival_status, Year) %>% 
   dplyr::summarize(Density = sum(Count)*16)
 df_density_FENC
 
 #Mean of Oysters per m^2 across all quadrats
 mean_total_oysters_FENC <- df_density_FENC %>%
-  dplyr::group_by(Site, Season, Survival_status) %>%
+  dplyr::group_by(Site, Season, Survival_status, Year) %>%
   dplyr::summarize(Total_Density = mean(Density))
 mean_total_oysters_FENC
 
