@@ -5,9 +5,9 @@ Authot : Mariah Kachmar
 description: This R code is used to import and summarize tissue processing data (body condition, height/length/width, weight, sample collection) from the LISS Oyster Health Project's monthly sampling at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. 
 ---
 
-Updated 12/11/24 by K. Lenderman
+Updated 1/08/25 by K. Lenderman
 - all code up to date & graphs generated
-
+- 2025 code added
 
  
 
@@ -179,7 +179,7 @@ mean_body_condition
   #filter(year == "2024")
 
 #Mean body condtion scores - 2023
-data_2023 <- data_all%>%  filter(!year=="2024")
+data_2023 <- data_all%>%  filter(year=="2023")
   
 ggplot(data=data_2023, aes(x=month, y=condition_score, group = month, fill = site)) +
   geom_boxplot()+ 
@@ -188,7 +188,7 @@ ggplot(data=data_2023, aes(x=month, y=condition_score, group = month, fill = sit
   labs(title="Mean Condition Score - 2023", x ="month", y = "Mean Body Condition Score")+ scale_y_reverse()+facet_wrap(~site)
 
 #Mean body condtion scores - 2024
-data_2024 <- data_all%>%  filter(!year=="2023")
+data_2024 <- data_all%>%  filter(year=="2024")
   
 ggplot(data=data_2024, aes(x=month, y=condition_score, group = month, fill = site)) +
   geom_boxplot()+ 
@@ -197,13 +197,13 @@ ggplot(data=data_2024, aes(x=month, y=condition_score, group = month, fill = sit
   labs(title="Mean Condition Score - 2024", x ="month", y = "Mean Body Condition Score")+ scale_y_reverse()+facet_wrap(~site)
 
 #Mean body condition scores - 2025
-#data_2025 <- data_all%>%  filter(year=="2025")
+data_2025 <- data_all%>%  filter(year=="2025")
   
-#ggplot(data=data_2025, aes(x=month, y=condition_score, group = month, fill = site)) +
-  #geom_boxplot()+ 
-  #theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
-  #theme(axis.text.x = element_text(angle = -35, vjust = 0.5, hjust=1))+
-  #labs(title="Mean Condition Score - 2025", x ="month", y = "Mean Body Condition Score")+ scale_y_reverse()+facet_wrap(~site)
+ggplot(data=data_2025, aes(x=month, y=condition_score, group = month, fill = site)) +
+  geom_boxplot()+ 
+  theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(angle = -35, vjust = 0.5, hjust=1))+
+  labs(title="Mean Condition Score - 2025", x ="month", y = "Mean Body Condition Score")+ scale_y_reverse()+facet_wrap(~site)
 ```
 #Proportions graph Body condition scores
 
@@ -290,8 +290,8 @@ print(BCS_proportion_all_2025)
 dev.off()
 ```
 ```{r}
-# Proportion per month of intensity scores at three sites during 2023 & 2024
-df_bcs_proportions_new <- rbind(df_BCS_proportions2023, df_BCS_proportions2024)
+# Proportion per month of intensity scores at three sites during 2023 & 2024 & 2025
+df_bcs_proportions_new <- rbind(df_BCS_proportions2023, df_BCS_proportions2024, df_BCS_proportions2025)
 
 df_bcs_proportions_new<- df_bcs_proportions_new %>% filter(!site=="LAUR")
 
@@ -389,7 +389,7 @@ print(ASHC_BCS_dist2024)
 dev.off()
 
 #Condition distribution across all sample months - 2025
-df_ASHC_2024 <- df_ASHC%>%  filter(year=="2025")
+df_ASHC_2025 <- df_ASHC%>%  filter(year=="2025")
 
 ASHC_BCS_dist2025 <-ggplot(data=df_ASHC_2025, aes(x= condition)) +
   geom_bar()+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
@@ -397,7 +397,7 @@ ASHC_BCS_dist2025 <-ggplot(data=df_ASHC_2025, aes(x= condition)) +
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   labs(title="Ash Creek Body Condition Score - 2025", x ="Condition categorization")+
   facet_wrap(~ month, scales = "free")
-ASHC_BCS_dist2024
+ASHC_BCS_dist2025
 
 pdf(paste0(path = "Lab_Data_TissueProcessing/output" ,"/ASHC_BCS_dist_2025.pdf"), height = 7, width = 13)
 print(ASHC_BCS_dist2025)
@@ -456,7 +456,7 @@ ASHC_precent_greater_3 <- df_ASHC %>%
 ASHC_precent_greater_3
 
 ASHC_BCS_percentage <- ASHC_precent_greater_3%>% 
-  filter(year =="2024")%>%
+  #filter(year =="2024")%>%
   ggplot(aes(x = month, y = Percentage)) +
   #geom_bar(width = 0.5, stat = "identity", position = "fill") +
     geom_col()+
