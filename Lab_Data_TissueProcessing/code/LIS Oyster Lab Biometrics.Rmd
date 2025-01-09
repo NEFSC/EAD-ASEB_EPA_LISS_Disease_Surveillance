@@ -8,6 +8,7 @@ description: This R code is used to import and summarize tissue processing data 
 Updated 1/08/25 by K. Lenderman
 - all code up to date & graphs generated
 - 2025 code added
+- added shell pathology counts for each month
 
  
 
@@ -319,8 +320,50 @@ lapply(read_csv) %>%   # Store all files in list
 
 shell_path <- shell_path %>% filter(!is.na(lab_id))
 
+shell_path <- shell_path %>% select(-c("...14":"...26"))
+
 write.csv(shell_path, "Master_files/shell_pathology_all_data.csv", row.names=FALSE)
 
+
+#Writing summary for shell pathology
+shell_path_summary <- shell_path%>% separate(lab_id, c('Date_Site', 'ID'))
+shell_path_summary <- select(shell_path_summary, -c("pathology_notes","ID",))
+shell_path_summary$boring_sponge <- as.integer(as.logical(shell_path_summary$boring_sponge))
+shell_path_summary$polydora <- as.integer(as.logical(shell_path_summary$polydora))
+shell_path_summary$conchiolin_mod_severe <- as.integer(as.logical(shell_path_summary$conchiolin_mod_severe))
+shell_path_summary$mud_blister <- as.integer(as.logical(shell_path_summary$mud_blister))
+shell_path_summary$pea_crab <- as.integer(as.logical(shell_path_summary$pea_crab))
+shell_path_summary$gill_erosion <- as.integer(as.logical(shell_path_summary$gill_erosion))
+shell_path_summary$pale_digestive <- as.integer(as.logical(shell_path_summary$pale_digestive))
+shell_path_summary$discoloration <- as.integer(as.logical(shell_path_summary$discoloration))
+shell_path_summary$horn_add <- as.integer(as.logical(shell_path_summary$horn_add))
+shell_path_summary$cyst_abscess <- as.integer(as.logical(shell_path_summary$cyst_abscess))
+shell_path_summary$tumor <- as.integer(as.logical(shell_path_summary$tumor))
+shell_path_summary$oyster_drill <- as.integer(as.logical(shell_path_summary$oyster_drill))
+shell_path_summary$boring_snail <- as.integer(as.logical(shell_path_summary$boring_snail))
+shell_path_summary$shell_scarring <- as.integer(as.logical(shell_path_summary$shell_scarring))
+shell_path_count<- shell_path_summary %>%
+  dplyr::group_by(Date_Site) %>%
+  dplyr::summarize(Sample_count = n(),
+              Boring_sponge =sum(boring_sponge),
+              Polydora = sum(polydora),
+              Conchiolin =sum(conchiolin_mod_severe),
+              Mud_blister =sum(mud_blister),
+              Pea_crab =sum(pea_crab),
+              Gill_erosion =sum(gill_erosion),
+              Pale_digestive =sum(pale_digestive),
+              Discoloration =sum(discoloration),
+              Horn =sum(horn_add),
+              Cyst =sum(cyst_abscess),
+              Tumor =sum(tumor),
+              Oyster_drill =sum(oyster_drill),
+              Boring_snail =sum(boring_snail),
+              Shell_scarring =sum(shell_scarring),
+              Pathogen_count = sum(boring_sponge,polydora,conchiolin_mod_severe, mud_blister, pea_crab,
+                                    gill_erosion, pale_digestive, discoloration, horn_add, cyst_abscess,
+                                    tumor, oyster_drill, boring_snail, shell_scarring, na.rm = TRUE)) %>%
+  ungroup()
+write.csv(shell_path_count, "Lab_Data_TissueProcessing/output/shell_pathology_counts.csv", row.names=FALSE)
 ```
 
 
