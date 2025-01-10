@@ -5,10 +5,8 @@ Authot : Mariah Kachmar
 description: This R code is used to import and summarize tissue processing data (body condition, height/length/width, weight, sample collection) from the LISS Oyster Health Project's monthly sampling at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. 
 ---
 
-Updated 1/08/25 by K. Lenderman
+Updated 1/10/25 by K. Lenderman
 - all code up to date & graphs generated
-- 2025 code added
-- added shell pathology counts for each month
 
  
 
@@ -364,6 +362,8 @@ shell_path_count<- shell_path_summary %>%
                                     tumor, oyster_drill, boring_snail, shell_scarring, na.rm = TRUE)) %>%
   ungroup()
 write.csv(shell_path_count, "Lab_Data_TissueProcessing/output/shell_pathology_counts.csv", row.names=FALSE)
+
+shell_path_summary
 ```
 
 
