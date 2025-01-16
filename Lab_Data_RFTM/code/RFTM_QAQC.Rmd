@@ -6,9 +6,9 @@ output: html_document
 
 description: This R code is used to import and summarize RFTM (Rays Fluid Thioglycollate Medium) intensity scoring from the LISS Oyster Health Project's monthly sampling at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. The scale used to score intensity for individuals is the Mackins Scale (citation). This score can be used to calculate prevalence, weighted prevalence and intensity across the population. 
 ---
-Last updated 1/9/25 by K. Lenderman
+Last updated 1/16/25 by K. Lenderman
   - Added code for 2025 data
-  - Accuracy 80.5%
+  - Accuracy 80.8%
   - Master file and Completeness file are up to date.
 
 
@@ -171,16 +171,15 @@ ggplot(data=data_2024, aes(x=month, y=rftm_final, fill=site)) +
   theme(axis.text=element_text(size=12))+
   facet_wrap(~site)
 
-#Weighted prevalence of dermo infection in 2024
-#data_2025 <- data_all %>% filter(year=="2025")
-#ggplot(data=data_2025, aes(x=month, y=rftm_final, fill=site)) +
- # geom_boxplot()+  
-  # theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
-  #theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
-  #labs(title="Weighted prevalence of Dermo infection in 2025", x ="Date", y = "Weighted prevalence")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
-  #theme(axis.text=element_text(size=12))+
-  #
-facet_wrap(~site)
+#Weighted prevalence of dermo infection in 2025
+data_2025 <- data_all %>% filter(year=="2025")
+ggplot(data=data_2025, aes(x=month, y=rftm_final, fill=site)) +
+  geom_boxplot()+  
+ theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  labs(title="Weighted prevalence of Dermo infection in 2025", x ="Date", y = "Weighted prevalence")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  theme(axis.text=element_text(size=12))+
+  facet_wrap(~site)
 ```
 
 ```{r}
@@ -198,7 +197,7 @@ ggplot(data=df_wp_summary, aes(x=month, y=Weighted_prevalence, color=site)) +
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
   labs(title="Weighted Prevalence of Dermo infection", x ="Month", y = "Weighted Prevalence Score")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
-  theme(axis.text=element_text(size=12)) + facet_wrap(~ year, scales = "fixed", ncol=1,)+scale_x_continuous(breaks = c(3,4,5,6,7,8,9,10,11,12))
+  theme(axis.text=element_text(size=12)) + facet_wrap(~ year, scales = "fixed", ncol=1,)+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))
 
 
 
@@ -243,7 +242,7 @@ ggplot(data=df_prevalence_summary, aes(x=month, y=prevalence_precentage, color=s
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
   labs(title="Prevalence of Dermo infection", x ="Month", y = "Dermo Prevaence %")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
-  theme(axis.text=element_text(size=12)) + facet_wrap(~ year, scales = "free", ncol=1)+scale_x_continuous(breaks = c(3,4,5,6,7,8,9,10,11,12))
+  theme(axis.text=element_text(size=12)) + facet_wrap(~ year, scales = "free", ncol=1)+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))
 ```
 ```{r}
 
@@ -327,18 +326,18 @@ scale_fill_brewer(palette = "YlOrBr")+
   facet_wrap(~site)
 
 # Proportion per month of intensity scores in 2025
-#df_intensity_proportions2025<- df_intensity_proportions %>% filter(year=="2025")
+df_intensity_proportions2025<- df_intensity_proportions %>% filter(year=="2025")
 
-#ggplot(data=df_intensity_proportions2025, aes(x=month, y= Proportion, fill=intensity_bin)) +
- # geom_bar(width = .5, stat="identity", position = "fill",colour = "black")+  
-  # theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
-  #theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
-  #labs(fill ="Dermo Intensity")+
+ggplot(data=df_intensity_proportions2025, aes(x=month, y= Proportion, fill=intensity_bin)) +
+  geom_bar(width = .5, stat="identity", position = "fill",colour = "black")+  
+   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  labs(fill ="Dermo Intensity")+
   #labs(title="Proportion of Intensity scores of Dermo infection in 2025", x ="month", y = "Proportion")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
-  #theme(axis.text=element_text(size=12))+
-#scale_fill_brewer(palette = "YlOrBr")+
-   #scale_x_continuous("Month", breaks = c(1,2,3,4,5,6,7,8,9,10,11))+ 
-  #facet_wrap(~site)
+  theme(axis.text=element_text(size=12))+
+scale_fill_brewer(palette = "YlOrBr")+
+   scale_x_continuous("Month", breaks = c(1,2,3,4,5,6,7,8,9,10,11))+ 
+  facet_wrap(~site)
 
 # Proportion per month of intensity scores at three sites during 2023 & 2024
 df_intensity_proportions_new<- df_intensity_proportions %>% filter(!site=="LAUR")
@@ -351,7 +350,7 @@ ggplot(data=df_intensity_proportions_new, aes(x=month, y= Proportion, fill=inten
   labs(title="Proportion of Intensity scores of Dermo infection", x ="month", y = "Proportion")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
   theme(axis.text=element_text(size=12))+
 scale_fill_brewer(palette = "YlOrBr")+
-   scale_x_continuous("Month", breaks = c(3,4,5,6,7,8,9,10,11,12))+ 
+   scale_x_continuous("Month", breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))+ 
   facet_grid(year ~site)
 
 ```
