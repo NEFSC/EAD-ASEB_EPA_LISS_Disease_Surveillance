@@ -5,7 +5,7 @@ Authot : Mariah Kachmar
 description: This R code is used to import and summarize tissue processing data (body condition, height/length/width, weight, sample collection) from the LISS Oyster Health Project's monthly sampling at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. 
 ---
 
-Updated 1/10/25 by K. Lenderman
+Updated 2/7/25 by K. Lenderman
 - all code up to date & graphs generated
 
  
@@ -301,7 +301,7 @@ ggplot(data=df_bcs_proportions_new, aes(x=month, y= Proportion, fill=condition_s
   labs(fill ="Body condition scores")+
   labs(title="Proportion of body condition scores", x ="month", y = "Proportion")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
   theme(axis.text=element_text(size=12))+
-scale_fill_brewer(palette = "Blues")+
+scale_fill_brewer(palette = "Blues", direction = -1)+
    #scale_x_continuous("Month", breaks = c(3,4,5,6,7,8,9,10))+ 
   facet_grid(year ~site)
 ```
