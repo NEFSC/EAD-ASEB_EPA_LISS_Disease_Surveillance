@@ -8,7 +8,7 @@ description: This R code is used to import and summarize RFTM (Rays Fluid Thiogl
 ---
 Last updated 2/12/25 by K. Lenderman
   - Added code for 2025 data changed graph formats
-  - Accuracy 81.0%
+  - Accuracy 80.8%
   - Master file and Completeness file are up to date.
 
 
