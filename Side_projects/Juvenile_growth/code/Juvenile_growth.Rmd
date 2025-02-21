@@ -653,7 +653,7 @@ FENC$Survival <-as.numeric(FENC$Survival) #need to make sure everything is in nu
 FENC$Month <-as.numeric(FENC$Month)
 
 # Ash Creek survival by bag
-Surv_ASHC <- Surv(time = ASHC$Month, event = ASHC$Survival) #create your survival object using surv()
+Surv_ASHC <- Surv(time = ASHC$Month, event = ASHC$Survival) #create your survival object using surv() - represents the time until a specific event occurs for a set of individuals; "survival time"
 fit.surv_ASHC <- survfit(formula = Surv_ASHC ~ Bag_number, data = ASHC) #Computes an estimate of a survival curve from the survival object
 
 ASHC_survival_plot<-ggsurvplot(fit.surv_ASHC, data = ASHC, , conf.int = TRUE, break.x.by = 1,
@@ -689,7 +689,7 @@ dev.off()
 data_all$Month<-as.numeric(data_all$Month)
 data_all$Survival<-as.numeric(data_all$Survival)
 
-Surv_CT <- Surv(time = data_all$Month, event = data_all$Survival) #create your survival object using surv(). The survival object is the estimated survival function showing the probability of surviving beyond a certain point
+Surv_CT <- Surv(time = data_all$Month, event = data_all$Survival) #create your survival object using surv(). The survival object is the estimated survival function showing the probability of surviving beyond a certain point; represents the time until a specific event occurs for a set of individuals; "survival time"
 fit.surv_CT <- survfit(formula = Surv_CT ~ Site, data = data_all) #Computes an estimate of a survival curve from the survival object
 
 CT_survival_plot<-ggsurvplot(fit.surv_CT, data = data_all,  conf.int = TRUE, break.x.by = 1,
@@ -704,27 +704,28 @@ dev.off()
 
 
 #Statistics
-#Pairwise comparisons using long rank tests
+#Pairwise comparisons using long rank tests 
+    #a pairwise comparison is a method of comparing a set of options by directly pitting each option against every other option one-one-one ; a log rank     test is used in survival analysis to compare the survival curves of two or more groups to determine if there is a significant difference in the time     it takes for an event to occur
 #H: There is a significant difference in survival between sites
 pc_site <- pairwise_survdiff(Surv(Month, Survival)~ Site, data = data_all)
 pc_site
 #Survival between sites is significantly different
 
-#Chi sq values
+#Chi sq values for log rank test above
 surv_diff_site<-survdiff(Surv(Month, Survival) ~ Site, data = data_all)
 surv_diff_site
 
 
 ## Survival probability for all of sites & bags
-summary(survfit(Surv(Month, Survival) ~ Site, data = data_all))
+summary(survfit(Surv(Month, Survival) ~ Site, data = data_all)) #we know that surv() creates our object and survfit() calculates our survival curve probabilities, summary will output those numbers for us
 summary(survfit(Surv(Month, Survival) ~ Site + Bag_number, data = data_all))
 
 
 #Cox proportional hazard - estimates how various factors affect the time it takes for an event to occur. The model's main output is a hazard rate (HR) that can be used to generate survival curves for groups or individuals within a population
 fit.coxph <- coxph(Surv_CT ~ Site, data = data_all)
 fit.coxph
-#There is an intcreased risk of mortality at Fence Creek
-jg_coxph<-ggforest(fit.coxph, data = data_all, fontsize = 1.5)
+#There is an increased risk of mortality at Fence Creek
+jg_coxph<-ggforest(fit.coxph, data = data_all, fontsize = 1.5) #plotting the results
 jg_coxph
 
 pdf(paste0(path = "Side_projects/Juvenile_growth/outputs/" ,"jg_coxph.pdf"), height = 7, width = 11) #printing a PDF within the path of the code, with specific dimensions of PDF
