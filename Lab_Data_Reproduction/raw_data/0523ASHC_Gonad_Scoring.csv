@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0523ASHC_01,05-10-2023,ASHC,1,01-03-2025,Kyra Lenderman,Male,4_Late_Mature,,,,,,,Male,4_Late_Mature
+0523ASHC_02,05-10-2023,ASHC,2,01-03-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523ASHC_03,05-10-2023,ASHC,3,01-03-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523ASHC_04,05-10-2023,ASHC,4,01-03-2025,Kyra Lenderman,Male,4_Late_Mature,,,,,,,Male,4_Late_Mature
+0523ASHC_05,05-10-2023,ASHC,5,01-03-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,very full,Female,3_Early_Active
+0523ASHC_06,05-10-2023,ASHC,6,01-03-2025,Kyra Lenderman,Male,3_Early_Active,,,,,,,Male,3_Early_Active
+0523ASHC_07,05-10-2023,ASHC,7,01-03-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,"some parts are mature, some are not ",Female,3_Early_Active
+0523ASHC_08,05-10-2023,ASHC,8,01-03-2025,Kyra Lenderman,NA,1_Inactive_Indeterminate,,,,,,,NA,1_Inactive_Indeterminate
+0523ASHC_09,05-10-2023,ASHC,9,01-03-2025,Kyra Lenderman,Female,4_Late_Mature,,,,,,,Female,4_Late_Mature
+0523ASHC_10,05-10-2023,ASHC,10,01-03-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523ASHC_11,05-10-2023,ASHC,11,01-03-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523ASHC_12,05-10-2023,ASHC,12,01-03-2025,Kyra Lenderman,Male,3_Early_Active,,,,,,,Male,3_Early_Active
+0523ASHC_13,05-10-2023,ASHC,13,01-03-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523ASHC_14,05-10-2023,ASHC,14,01-03-2025,Kyra Lenderman,Male,4_Late_Mature,,,,,,"gonads look mature, but cannot see tails with the dye ",Male,4_Late_Mature
+0523ASHC_15,05-10-2023,ASHC,15,01-03-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523ASHC_16,05-10-2023,ASHC,16,01-03-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523ASHC_17,05-10-2023,ASHC,17,01-03-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523ASHC_18,05-10-2023,ASHC,18,01-03-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,air in slide. Unable to see parts of the tissue ,Female,3_Early_Active
+0523ASHC_19,05-10-2023,ASHC,19,01-03-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523ASHC_20,05-10-2023,ASHC,20,01-03-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523ASHC_21,05-10-2023,ASHC,21,01-03-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523ASHC_22,05-10-2023,ASHC,22,01-03-2025,Kyra Lenderman,Male,3_Early_Active,,,,,,,Male,3_Early_Active
+0523ASHC_23,05-10-2023,ASHC,23,01-03-2025,Kyra Lenderman,NA,2_Developing,,,,,,,NA,2_Developing
+0523ASHC_24,05-10-2023,ASHC,24,01-03-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523ASHC_25,05-10-2023,ASHC,25,01-03-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523ASHC_26,05-10-2023,ASHC,26,01-03-2025,Kyra Lenderman,NA,2_Developing,,,,,,,NA,2_Developing
+0523ASHC_27,05-10-2023,ASHC,27,01-03-2025,Kyra Lenderman,Female,4_Late_Mature,,,,,,Very early stage of 4.,Female,4_Late_Mature
+0523ASHC_28,05-10-2023,ASHC,28,01-03-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523ASHC_29,05-10-2023,ASHC,29,01-03-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523ASHC_30,05-10-2023,ASHC,30,01-03-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active

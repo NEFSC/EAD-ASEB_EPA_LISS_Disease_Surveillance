@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0623ASHC_01,06-12-2023,ASHC,1,02-20-2025,Kyra Lenderman,NA,7_Reabsorbing,,,,,,double read ,NA,7_Reabsorbing
+0623ASHC_02,06-12-2023,ASHC,2,02-20-2025,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
+0623ASHC_03,06-12-2023,ASHC,3,02-20-2025,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
+0623ASHC_04,06-12-2023,ASHC,4,02-20-2025,Kyra Lenderman,Male,4_Late_Mature,,,,,,not much mantle present,Male,4_Late_Mature
+0623ASHC_05,06-12-2023,ASHC,5,02-20-2025,Kyra Lenderman,Male,5_Spawning,,,,,,great example of male spawning ,Male,5_Spawning
+0623ASHC_06,06-12-2023,ASHC,6,02-20-2025,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
+0623ASHC_07,06-12-2023,ASHC,7,02-20-2025,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
+0623ASHC_08,06-12-2023,ASHC,8,02-20-2025,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
+0623ASHC_09,06-12-2023,ASHC,9,02-20-2025,Kyra Lenderman,Female,5_Spawning,,,,,,~10% of mantle present,Female,5_Spawning
+0623ASHC_10,06-12-2023,ASHC,10,02-20-2025,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
+0623ASHC_11,06-12-2023,ASHC,11,02-20-2025,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
+0623ASHC_12,06-12-2023,ASHC,12,02-20-2025,Kyra Lenderman,Female,6_Post_Spawning,,,,,,still spawning but majority of cells are underdeveloped ,Female,6_Post_Spawning
+0623ASHC_13,06-12-2023,ASHC,13,02-20-2025,Kyra Lenderman,Male,4_Late_Mature,,,,,,,Male,4_Late_Mature
+0623ASHC_14,06-12-2023,ASHC,14,02-20-2025,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
+0623ASHC_15,06-12-2023,ASHC,15,02-20-2025,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
+0623ASHC_16,06-12-2023,ASHC,16,02-20-2025,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
+0623ASHC_17,06-12-2023,ASHC,17,02-20-2025,Kyra Lenderman,Male,5_Spawning,,,,,,,Male,5_Spawning
+0623ASHC_18,06-12-2023,ASHC,18,02-20-2025,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
+0623ASHC_19,06-12-2023,ASHC,19,02-20-2025,Kyra Lenderman,Male,4_Late_Mature,,,,,,majority is not spawning ,Male,4_Late_Mature
+0623ASHC_20,06-12-2023,ASHC,20,02-20-2025,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
+0623ASHC_21,06-12-2023,ASHC,21,02-20-2025,Kyra Lenderman,Male,5_Spawning,,,,,,,Male,5_Spawning
+0623ASHC_22,06-12-2023,ASHC,22,02-20-2025,Kyra Lenderman,Male,5_Spawning,,,,,,,Male,5_Spawning
+0623ASHC_23,06-12-2023,ASHC,23,02-20-2025,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
+0623ASHC_24,06-12-2023,ASHC,24,02-20-2025,Kyra Lenderman,Female,6_Post_Spawning,,,,,,,Female,6_Post_Spawning
+0623ASHC_25,06-12-2023,ASHC,25,02-20-2025,Kyra Lenderman,Female,4_Late_Mature,,,,,,,Female,4_Late_Mature
+0623ASHC_26,06-12-2023,ASHC,26,02-20-2025,Kyra Lenderman,Female,4_Late_Mature,,,,,,bad cut,Female,4_Late_Mature
+0623ASHC_27,06-12-2023,ASHC,27,02-20-2025,Kyra Lenderman,Male,4_Late_Mature,,,,,,,Male,4_Late_Mature
+0623ASHC_28,06-12-2023,ASHC,28,02-20-2025,Kyra Lenderman,Male,5_Spawning,,,,,,,Male,5_Spawning
+0623ASHC_29,06-12-2023,ASHC,29,02-20-2025,Kyra Lenderman,Male,4_Late_Mature,,,,,,majority is not spawning ,Male,4_Late_Mature
+0623ASHC_30,06-12-2023,ASHC,30,02-20-2025,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning

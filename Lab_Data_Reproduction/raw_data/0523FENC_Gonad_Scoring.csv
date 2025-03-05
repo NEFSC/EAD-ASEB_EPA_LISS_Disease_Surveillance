@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0523FENC_01,05-15-2023,FENC,1,12-19-2024,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523FENC_02,05-15-2023,FENC,2,12-19-2024,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523FENC_03,05-15-2023,FENC,3,12-19-2024,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523FENC_04,05-15-2023,FENC,4,12-19-2024,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523FENC_05,05-15-2023,FENC,5,12-19-2024,Kyra Lenderman,Male,3_Early_Active,,,,,,"May be score 4 but did not see presents of tails, could be due to light staining. Ranked 3 also because space between gonads and outside of mantle is fairly large.",Male,3_Early_Active
+0523FENC_06,05-15-2023,FENC,6,12-19-2024,Kyra Lenderman,Female,4_Late_Mature,,,,,,"Double read please. Partially full, but gametes seem to be well developed/mature",Female,4_Late_Mature
+0523FENC_07,05-15-2023,FENC,7,12-19-2024,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523FENC_08,05-15-2023,FENC,8,12-19-2024,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523FENC_09,05-15-2023,FENC,9,12-19-2024,Kyra Lenderman,Male,3_Early_Active,,,,,,,Male,3_Early_Active
+0523FENC_10,05-15-2023,FENC,10,12-19-2024,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523FENC_11,05-15-2023,FENC,11,12-19-2024,Kyra Lenderman,Female,4_Late_Mature,,,,,,,Female,4_Late_Mature
+0523FENC_12,05-15-2023,FENC,12,12-19-2024,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523FENC_13,05-15-2023,FENC,13,12-19-2024,Kyra Lenderman,NA,2_Developing,,,,,,hermaphrodite? Or underdeveloped gonad,NA,2_Developing
+0523FENC_14,05-15-2023,FENC,14,12-19-2024,Kyra Lenderman,Female,4_Late_Mature,,,,,,,Female,4_Late_Mature
+0523FENC_15,05-15-2023,FENC,15,12-19-2024,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523FENC_16,05-15-2023,FENC,16,12-19-2024,Kyra Lenderman,Male,4_Late_Mature,,,,,,,Male,4_Late_Mature
+0523FENC_17,05-15-2023,FENC,17,12-19-2024,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523FENC_18,05-15-2023,FENC,18,12-19-2024,Kyra Lenderman,Female,3_Early_Active,,,,,,bad cut,Female,3_Early_Active
+0523FENC_19,05-15-2023,FENC,19,12-19-2024,Kyra Lenderman,Male,3_Early_Active,,,,,,,Male,3_Early_Active
+0523FENC_20,05-15-2023,FENC,20,12-19-2024,Kyra Lenderman,Female,4_Late_Mature,,,,,,,Female,4_Late_Mature
+0523FENC_21,05-15-2023,FENC,21,12-19-2024,Kyra Lenderman,Male,3_Early_Active,,,,,,,Male,3_Early_Active
+0523FENC_22,05-15-2023,FENC,22,12-19-2024,Kyra Lenderman,Female,4_Late_Mature,,,,,,"bad cut, not much mantle",Female,4_Late_Mature
+0523FENC_23,05-15-2023,FENC,23,12-19-2024,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523FENC_24,05-15-2023,FENC,24,12-19-2024,Kyra Lenderman,Male,3_Early_Active,,,,,,,Male,3_Early_Active
+0523FENC_25,05-15-2023,FENC,25,12-19-2024,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523FENC_26,05-15-2023,FENC,26,12-19-2024,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523FENC_27,05-15-2023,FENC,27,12-19-2024,Kyra Lenderman,Female,4_Late_Mature,,,,,,,Female,4_Late_Mature
+0523FENC_28,05-15-2023,FENC,28,12-19-2024,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523FENC_29,05-15-2023,FENC,29,12-19-2024,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523FENC_30,05-15-2023,FENC,30,12-19-2024,Kyra Lenderman,Female,4_Late_Mature,,,,,,,Female,4_Late_Mature
