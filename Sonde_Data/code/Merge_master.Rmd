@@ -33,6 +33,7 @@ knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-AS
 
 Sonde_2023 <- read.csv("output/Sonde_master_2023.csv", check.names = F) %>% dplyr::select(-1)
 Sonde_2024 <- read.csv("output/Sonde_master_2024.csv", check.names = F) %>% dplyr::select(-1)
+Sonde_2025 <- read.csv("output/Sonde_master_2025.csv", check.names = F) %>% dplyr::select(-1)
 
 ```
 ## Merge 
@@ -45,7 +46,7 @@ Sonde_2024 <- read.csv("output/Sonde_master_2024.csv", check.names = F) %>% dply
 
 ?rbind # 
 
-Sonde_master  <- rbind(Sonde_2023, Sonde_2024)
+Sonde_master  <- rbind(Sonde_2023, Sonde_2024, Sonde_2025)
 
 
 write.csv(Sonde_master, "output/Sonde_master.csv")
