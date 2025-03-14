@@ -25,8 +25,8 @@ Last updated kennedy testing push again
 #this shows the path that R will take to find the data within your files on your computer
 
 knitr::opts_chunk$set(echo = TRUE) 
-knitr::opts_knit$set(root.dir = 'C:/Users/kennedy.mcgrath/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kennedy's
-#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+#knitr::opts_knit$set(root.dir = 'C:/Users/kennedy.mcgrath/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kennedy's
+knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
 #knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 #knitr::opts_knit$set(root.dir = 'C:/Users/kelly.roper/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kelly's
 #knitr::opts_knit$set(root.dir = 'C:/Users/katherine.mcfarland/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Katie's
@@ -52,6 +52,7 @@ library("ggpubr")
 library(glmm)
 library(glmmTMB)
 library(effectsize)
+library("mgcv")
 ```
 
 ### This code chunk merges all .csv files within the Tissue processing folder into one data fram and outputs the full dataset into a .csv master file. This allows us to download the raw data as a .csv, add it to the repository folder, and create the master data file without copying and pasting data in excel.
@@ -72,7 +73,7 @@ data_all <- lapply(file_paths, function(file_path) {
 
 as.data.frame(data_all)  # Convert tibble to data.frame
 
-View(data_all)
+#View(data_all)
 
 data_all <- data_all %>% filter(!is.na(Date))  #filtering NAs only in column "Date"
 
@@ -634,6 +635,163 @@ AIC(reduced_glm_gr, glm_ALL) #glm_ALL has a lower AIC so it is a better fit mode
 
 
 ```
+
+#So lets do everything above (glms) and instead use General Additive Models (gam) 
+#gams are a type of glm that allows for flexible, non-linear relationships between preditor variables and the response variable
+#https://m-clark.github.io/generalized-additive-models/application.html
+#https://cran.r-project.org/web/packages/gam/gam.pdf
+#https://campus.datacamp.com/courses/nonlinear-modeling-with-generalized-additive-models-gams-in-r/interpreting-and-visualizing-gams?ex=1
+#How to read summary? adj R^2 provides a measurement of the model fit by penalizing the addition of unnecesssary predictors, indicating how well the model explains the variance; high = capturing relationships effectively , low = not capturing relationships effectively, negative = poor fit
+#R.sq >0.7 very good, 0.5-0.7 moderate (acceptable), <0.5 Weak (model doesnt explain much variation); Biological/ecological data: R² ~0.5 is often good due to natural variability.
+# 
+```{r}
+#Is the monthly means of each environmental parameter different between sites?
+
+gam_ph <- gam(mean ~ Site + Month , data = pH_jg ) 
+summary(gam_ph)
+
+
+gam_temp<- gam(mean ~ Site + Month , data = Temperature_jg) 
+summary(gam_temp)
+
+
+gam_salinity <- gam(mean ~ Site + Month , data = Salinity_jg) 
+summary(gam_salinity)
+
+
+gam_CHLA <- gam(mean ~ Site + Month , data = CHLA_jg) 
+summary(gam_CHLA)
+
+gam_DO <- gam(mean ~ Site + Month , data = DO_jg) 
+summary(gam_DO)
+
+
+
+################################  Shell length ######################################################
+
+
+#Is shell length different between sites and months?
+gam_size <- gam(Shell_length ~ Site + Month , data = growth_master)
+summary(gam_size)
+# Yes 
+
+
+#What month has the most significant difference in shell length between sites?
+#merge this with shell length data
+jg_merged  <- CT_sonde_wide %>% inner_join(growth_master, by = c("Month", "Site"))
+jg_merged
+
+July <- jg_merged %>% filter(Month == 7)
+Aug <- jg_merged %>% filter(Month == 8)
+Sept<- jg_merged %>% filter(Month == 9)
+Oct<- jg_merged %>% filter(Month == 10)
+Nov<-jg_merged %>% dplyr::filter(Month == 11)
+
+kruskal.test(Shell_length ~ Site, data = July) # p = .002
+kruskal.test(Shell_length ~ Site, data = Aug) # p = 5.377e-06
+kruskal.test(Shell_length ~ Site, data = Sept)# p = 8.419e-05
+kruskal.test(Shell_length ~ Site, data = Oct)# p = 0.00412
+kruskal.test(Shell_length ~ Site, data = Nov)# p = 0.2222
+
+#all of these are significant, except November. So which month is the most significant? August has the smallest p value (<0.0001).
+
+#Hypothesis: Shell length can be influenced by mean environmental conditions, site differences, and random variation across months and bags. 
+        #What are my assumptions? Shell length is our predicted variable (response). mean (of the environmental parameter) is hypothesized to influence           shell   length. Site is categorical and we want to assess site-specific impacts on shell length
+
+gam_ph_jg <- gam(Shell_length ~ s(mean) + Site, data = pH_merged)
+summary(gam_ph_jg)
+
+
+gam_salinity_jg <- gam(Shell_length ~ s(mean) + Site, data = salinity_merged)
+summary(gam_salinity_jg)
+
+gam_temp_jg <- gam(Shell_length ~ s(mean) + Site, data = temperature_merged)
+summary(gam_temp_jg)
+
+gam_CHLA_jg <- gam(Shell_length ~ s(mean) + Site, data = CHLA_merged)
+summary(gam_CHLA_jg)
+
+gam_DO_jg <- gam(Shell_length ~ s(mean) + Site, data = DO_merged)
+summary(gam_DO_jg)
+
+
+#So what did we learn from these models? 
+  #TBD
+
+
+#Lets do an additive model with all environmental parameters included with shell length instead of individual models - how does this differ?
+
+#merge this with shell length data
+
+#jg_merged  <- CT_sonde_wide %>% inner_join(growth_master, by = c("Month", "Site"))
+#jg_merged
+
+#Hypothesis: Shell length can be explained by mean environmental conditions, site differences, and random variation across months and bags. 
+gam_ALL <- glmmTMB(Shell_length ~ Site + mean_Salinity + mean_RDO.Concentration + mean_Chlorophyll.a.Fluorescence + mean_pH + mean_Temperature, data = jg_merged )
+summary(gam_ALL)
+
+gam_ALL_smooth <- gam(Shell_length ~ Site + s(mean_Salinity) + s(mean_RDO.Concentration) + s(mean_Chlorophyll.a.Fluorescence) + s(mean_pH) +s(mean_Temperature), data = jg_merged ) 
+summary(gam_ALL_smooth)
+
+AIC(gam_ALL,gam_ALL_smooth) #AIC lower for gam smooth
+
+
+################################################ Growth Rate ###############################################
+
+#growth rate different between sites and months?
+gam_growth <- gam(monthly_growth_rate ~  Site + Month, data=growth_summary) 
+summary(gam_growth)
+
+#Which month has the most significant difference in growth rate between sites?
+gr_merged  <- CT_sonde_wide %>% inner_join(growth_summary, by = c("Month", "Site"))
+gr_merged
+
+July <- gr_merged %>% filter(Month == 7)
+Aug <- gr_merged %>% filter(Month == 8)
+Sept<- gr_merged %>% filter(Month == 9)
+Oct<- gr_merged %>% filter(Month == 10)
+Nov<- gr_merged %>% filter(Month == 11)
+
+kruskal.test(monthly_growth_rate ~ Site, data = July)
+kruskal.test(monthly_growth_rate ~ Site, data = Aug)
+kruskal.test(monthly_growth_rate ~ Site, data = Sept)
+kruskal.test(monthly_growth_rate ~ Site, data = Oct)
+kruskal.test(monthly_growth_rate ~ Site, data = Nov)
+#None of these are significant
+
+gam_ph_gr <- gam(monthly_growth_rate ~ mean + Site , data = pH_gr)
+summary(gam_ph_gr)
+
+gam_salinity_gr <- gam(monthly_growth_rate ~ mean + Site, data = salinity_gr)
+summary(gam_Salinity_gr)
+
+gam_temp_gr <- gam(monthly_growth_rate ~ mean + Site , data = temperature_gr)
+summary(gam_temp_gr)
+
+gam_CHLA_gr <- gam(monthly_growth_rate ~ mean + Site , data = CHLA_gr) #CHLA significant
+summary(gam_CHLA_gr)
+
+gam_DO_gr <- gam(monthly_growth_rate ~ mean + Site  , data = DO_gr)
+summary(gam_DO_gr)
+
+#Now lets do a big additive model
+#gr_merged  <- CT_sonde_wide %>% inner_join(growth_summary, by = c("Month", "Site"))
+#gr_merged
+
+#Hypothesis: Shell length can be explained by mean environmental conditions, site differences, and random variation across months and bags. 
+gam_gr_all <- gam(monthly_growth_rate ~ Site + mean_Salinity + mean_RDO.Concentration + mean_Chlorophyll.a.Fluorescence + mean_pH + mean_Temperature, data = gr_merged )
+summary(gam_gr_all)
+
+gam_gr_smooth <- gam(monthly_growth_rate ~ Site + s(mean_Salinity) + s(mean_RDO.Concentration) + s(mean_Chlorophyll.a.Fluorescence)
+                     +s(mean_pH) +s(mean_Temperature), data = gr_merged ) 
+summary(gam_gr_smooth)
+
+AIC(gam_ALL,gam_ALL_smooth) 
+```
+
+
+
+
 #Kaplan Meier Survival curves, log rank tests, and cox proportional hazard analysis
 #The Kaplan-Meier method is a non-parametric approach that's commonly used to analyze time-to-event data, such as the time until death or a specific event. It's a straightforward way to estimate survival rates and probabilities by tabulating and discussing the results
 ```{r}
