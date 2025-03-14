@@ -13,8 +13,8 @@ Last updated 3/13/25 by K. Lenderman
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
-knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 #knitr::opts_knit$set(root.dir = 'C:/Users/kelly.roper/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kelly's
 ```
 
@@ -188,7 +188,7 @@ df_wp_summary <- data_all %>%
   dplyr::summarize( Weighted_prevalence = mean(rftm_final))
 df_wp_summary
 
-df_wp_summary <- df_wp_summary %>% filter(!site=="LAUR", !site =="GOLD")
+df_wp_summary <- df_wp_summary %>% filter(!site=="LAUR")
 
 ggplot(data=df_wp_summary, aes(x=month, y=Weighted_prevalence, color=site)) +
   geom_point()+  
@@ -208,7 +208,7 @@ ggplot() +
     geom_point(data=wpd_2023, aes(x=date_collected, y=Weighted_prevalence, color=site))+
     geom_point(data=wp_derm, aes(x=date_collected, y=Weighted_prevalence, color=site))+
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+ scale_x_date(date_labels= "%b %Y", date_breaks = "1 month")+
   labs(title="Weighted Prevalence of Dermo infection 2023-2025", x ="Month", y = "Weighted Prevalence Score")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
   theme(axis.text=element_text(size=12))
 
@@ -256,18 +256,18 @@ ggplot(data=df_prevalence_summary, aes(x=month, y=prevalence_precentage, color=s
   theme(axis.text=element_text(size=12)) + facet_wrap(~ year, scales = "free", ncol=1)+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))
 
 #Continuous mean prevalence graph
-mpd_2023 <- df_prevalence_summary %>% filter(year=="2023")
-mp_derm <- df_prevalence_summary %>% filter(!year=="2023")
+mpd_2023 <- df_prevalence_summary %>% filter(year=="2023",!site == "LAUR")
+mp_derm <- df_prevalence_summary %>% filter(!year=="2023", !site == "LAUR")
 
 ggplot() +
   geom_line(data=mpd_2023, aes(x=date_collected, y=prevalence_precentage, color=site))+
   geom_line(data=mp_derm, aes(x=date_collected, y=prevalence_precentage, color=site))+
   geom_point(data=mpd_2023, aes(x=date_collected, y=prevalence_precentage, color=site))+
   geom_point(data=mp_derm, aes(x=date_collected, y=prevalence_precentage, color=site))+ 
-   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ scale_x_date(date_labels= "%b %Y", date_breaks = "1 month")+
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
   labs(title="Prevalence of Dermo infection", x ="Month", y = "Dermo Prevaence %")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
-  theme(axis.text=element_text(size=12))
+  theme(axis.text=element_text(size=12)) + facet_wrap(~ site, scales = "free_y",ncol = 1)
 ```
 ```{r}
 

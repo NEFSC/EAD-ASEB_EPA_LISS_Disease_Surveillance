@@ -550,7 +550,7 @@ CT_Temperature_2024 <- CT_Temperature %>% na.omit() %>%
               ggtitle("Temperature - 2024") +
               labs(x = "Time", y = "Temperature (Celcius)") +
               theme_classic() +
-              theme(legend.position = "none")+geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
+              theme(legend.position = "none")+geom_hline(yintercept = 16, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
 CT_Temperature_2024
 
 CT_Temperature_callout_2024 <- CT_Temperature %>% na.omit() %>%
@@ -576,7 +576,7 @@ CT_Temperature_callout_2024 <- CT_Temperature %>% na.omit() %>%
               #ggtitle(NA) +
               labs(x = "Time") +
               theme_classic() +
-              theme(legend.position = "none", axis.title.y = element_blank())+geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
+              theme(legend.position = "none", axis.title.y = element_blank())+geom_hline(yintercept = 16, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
 #CT_Temperature_callout_2024
 
 pdf(paste0(path ="output/raw_plots/LISS_proposal_plots/CT_Temperature_2024.pdf"), height = 6, width = 11)
