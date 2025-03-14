@@ -1,13 +1,13 @@
 Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
 0523GOLD_01,05-25-2023,GOLD,1,02-13-2025,Kyra Lenderman,Female,4_Late_Mature,,,,,,some immature cells but most are mature ,Female,4_Late_Mature
 0523GOLD_02,05-25-2023,GOLD,2,02-13-2025,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
-0523GOLD_03,05-25-2023,GOLD,3,02-13-2025,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
+0523GOLD_03,05-25-2023,GOLD,3,02-13-2025,Kyra Lenderman,Female,5_Spawning,TRUE,03-03-2025,Mariah Kachmar,Female,5_Spawning,,Female,5_Spawning
 0523GOLD_04,05-25-2023,GOLD,4,02-13-2025,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
 0523GOLD_05,05-25-2023,GOLD,5,02-13-2025,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
 0523GOLD_06,05-25-2023,GOLD,6,02-13-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,Infection?,Female,3_Early_Active
 0523GOLD_07,05-25-2023,GOLD,7,02-13-2025,Kyra Lenderman,Female,4_Late_Mature,,,,,,Barely mantle present,Female,4_Late_Mature
 0523GOLD_08,05-25-2023,GOLD,8,02-13-2025,Kyra Lenderman,Female,5_Spawning,,,,,,Barely mantle present,Female,5_Spawning
-0523GOLD_09,05-25-2023,GOLD,9,02-13-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523GOLD_09,05-25-2023,GOLD,9,02-13-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,03-03-2025,Mariah Kachmar,Female,3_Early_Active,,Female,3_Early_Active
 0523GOLD_10,05-25-2023,GOLD,10,02-13-2025,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
 0523GOLD_11,05-25-2023,GOLD,11,02-13-2025,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
 0523GOLD_12,05-25-2023,GOLD,12,02-13-2025,Kyra Lenderman,Male,4_Late_Mature,,,,,,,Male,4_Late_Mature
@@ -19,7 +19,7 @@ Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicat
 0523GOLD_18,05-25-2023,GOLD,18,02-13-2025,Kyra Lenderman,Male,5_Spawning,,,,,,"no mantle; a lot of gametes, not many internal organs observed ",Male,5_Spawning
 0523GOLD_19,05-25-2023,GOLD,19,02-13-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
 0523GOLD_20,05-25-2023,GOLD,20,02-13-2025,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
-0523GOLD_21,05-25-2023,GOLD,21,02-13-2025,Kyra Lenderman,Male,5_Spawning,,,,,,,Male,5_Spawning
+0523GOLD_21,05-25-2023,GOLD,21,02-13-2025,Kyra Lenderman,Male,5_Spawning,TRUE,03-03-2025,Mariah Kachmar,Male,5_Spawning,,Male,5_Spawning
 0523GOLD_22,05-25-2023,GOLD,22,02-13-2025,Kyra Lenderman,Male,4_Late_Mature,,,,,,Majority of gametes have not spawned,Male,4_Late_Mature
 0523GOLD_23,05-25-2023,GOLD,23,02-13-2025,Kyra Lenderman,Female,5_Spawning,,,,,,dots through tissue in between gametes ,Female,5_Spawning
 0523GOLD_24,05-25-2023,GOLD,24,02-13-2025,Kyra Lenderman,Male,4_Late_Mature,,,,,,,Male,4_Late_Mature

@@ -180,7 +180,6 @@ scale_fill_brewer(palette = "Pastel1")+
    scale_x_continuous("Month", breaks = c(3,4,5,6,7,8,9,10,11))+ 
   facet_wrap(~Site)
 ```
-#Need to determine code for having two points summarizing spawning (4 & 5)
 #ASHC Summary
 ```{r}
 df_ASHC<- data_all%>%
@@ -190,7 +189,7 @@ df_ASHC
 ASHC_mature_spawning <- df_ASHC %>%
   dplyr::mutate(stage = recode(Stage_final, "0_Castrated" = 0, "1_Inactive_Indeterminate" = 1, "2_Developing" = 2, "3_Early_Active" = 3, "4_Late_Mature" = 4, "5_Spawning" = 5, "6_Post_Spawning" = 6, "7_Reabsorbing" = 7)) %>%
   dplyr::group_by(month, Site, year) %>%
-  dplyr::summarise(Percentage = mean(stage == 5)*100)
+  dplyr::summarise(Percentage = mean(stage == 4|stage == 5)*100)
 ASHC_mature_spawning
 
 ASHC_spawning <- ASHC_mature_spawning%>% 
@@ -225,7 +224,7 @@ df_FENC
 FENC_mature_spawning <- df_FENC %>%
   dplyr::mutate(stage = recode(Stage_final, "0_Castrated" = 0, "1_Inactive_Indeterminate" = 1, "2_Developing" = 2, "3_Early_Active" = 3, "4_Late_Mature" = 4, "5_Spawning" = 5, "6_Post_Spawning" = 6, "7_Reabsorbing" = 7)) %>%
   dplyr::group_by(month, Site, year) %>%
-  dplyr::summarise(Percentage = mean(stage >= 4)*100)
+  dplyr::summarise(Percentage = mean(stage == 4|stage == 5)*100)
 #need to try an just have 4 and 5 be the scores for percentage because that is when spawning is happening
 FENC_mature_spawning
 
@@ -261,7 +260,7 @@ df_LAUR
 LAUR_mature_spawning <- df_LAUR %>%
   dplyr::mutate(stage = recode(Stage_final, "0_Castrated" = 0, "1_Inactive_Indeterminate" = 1, "2_Developing" = 2, "3_Early_Active" = 3, "4_Late_Mature" = 4, "5_Spawning" = 5, "6_Post_Spawning" = 6, "7_Reabsorbing" = 7)) %>%
   dplyr::group_by(month, Site, year)%>%
-  dplyr::summarise(Percentage = mean(stage >= 4)*100)
+  dplyr::summarise(Percentage = mean(stage == 4|stage == 5)*100)
 #need to try an just have 4 and 5 be the scores for percentage because that is when spawning is happening
 LAUR_mature_spawning
 
@@ -297,7 +296,7 @@ df_GOLD
 GOLD_mature_spawning <- df_GOLD %>%
   dplyr::mutate(stage = recode(Stage_final, "0_Castrated" = 0, "1_Inactive_Indeterminate" = 1, "2_Developing" = 2, "3_Early_Active" = 3, "4_Late_Mature" = 4, "5_Spawning" = 5, "6_Post_Spawning" = 6, "7_Reabsorbing" = 7)) %>%
   dplyr::group_by(month, Site, year)%>%
-  dplyr::summarise(Percentage = mean(stage >= 4)*100)
+  dplyr::summarise(Percentage = mean(stage == 4|stage == 5)*100)
 #need to try an just have 4 and 5 be the scores for percentage because that is when spawning is happening
 GOLD_mature_spawning
 
@@ -324,6 +323,19 @@ GOLD_spawning <- GOLD_mature_spawning%>%
 
 GOLD_spawning
 ```
+```{r}
+#Spawning (scores 4 & 5) for all sites
+spawning_all <- rbind(FENC_mature_spawning, ASHC_mature_spawning, GOLD_mature_spawning, LAUR_mature_spawning)
+
+ggplot(data=spawning_all, aes(x=month, y=Percentage, color=Site)) +
+  geom_point()+  
+  geom_line(aes(group = Site))+
+   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  labs(title="Spawning & Mature Stages - all sites", x ="Month", y = "Spawning % (scores 4 & 5)")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  theme(axis.text=element_text(size=12)) #+ facet_wrap(~ year, scales = "free", ncol=1)+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))
+```
+
 
 ## R Markdown
 

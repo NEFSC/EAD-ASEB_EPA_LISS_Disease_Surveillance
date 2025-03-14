@@ -1,13 +1,13 @@
 Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
 0523ASHC_01,05-10-2023,ASHC,1,01-03-2025,Kyra Lenderman,Male,4_Late_Mature,,,,,,,Male,4_Late_Mature
-0523ASHC_02,05-10-2023,ASHC,2,01-03-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0523ASHC_02,05-10-2023,ASHC,2,01-03-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,03-03-2025,Mariah Kachmar,Female,3_Early_Active,,Female,3_Early_Active
 0523ASHC_03,05-10-2023,ASHC,3,01-03-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
 0523ASHC_04,05-10-2023,ASHC,4,01-03-2025,Kyra Lenderman,Male,4_Late_Mature,,,,,,,Male,4_Late_Mature
-0523ASHC_05,05-10-2023,ASHC,5,01-03-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,very full,Female,3_Early_Active
+0523ASHC_05,05-10-2023,ASHC,5,01-03-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,03-03-2025,Mariah Kachmar,Female,3_Early_Active,very full,Female,3_Early_Active
 0523ASHC_06,05-10-2023,ASHC,6,01-03-2025,Kyra Lenderman,Male,3_Early_Active,,,,,,,Male,3_Early_Active
 0523ASHC_07,05-10-2023,ASHC,7,01-03-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,"some parts are mature, some are not ",Female,3_Early_Active
 0523ASHC_08,05-10-2023,ASHC,8,01-03-2025,Kyra Lenderman,NA,1_Inactive_Indeterminate,,,,,,,NA,1_Inactive_Indeterminate
-0523ASHC_09,05-10-2023,ASHC,9,01-03-2025,Kyra Lenderman,Female,4_Late_Mature,,,,,,,Female,4_Late_Mature
+0523ASHC_09,05-10-2023,ASHC,9,01-03-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,03-03-2025,Mariah Kachmar,Female,4_Late_Mature,,Female,4_Late_Mature
 0523ASHC_10,05-10-2023,ASHC,10,01-03-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
 0523ASHC_11,05-10-2023,ASHC,11,01-03-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
 0523ASHC_12,05-10-2023,ASHC,12,01-03-2025,Kyra Lenderman,Male,3_Early_Active,,,,,,,Male,3_Early_Active
