@@ -646,34 +646,75 @@ AIC(reduced_glm_gr, glm_ALL) #glm_ALL has a lower AIC so it is a better fit mode
 # 
 ```{r}
 #Is the monthly means of each environmental parameter different between sites?
-
-gam_ph <- gam(mean ~ Site + Month , data = pH_jg ) 
+#playing around and testing different ways to right the model to see which fits the best. Starting with pH. 
+gam_ph <- gam(mean ~ Site * Month , data = pH_jg ) 
 summary(gam_ph)
+# intercept is significant meaning the base-level mean is significantly different from zero. Fence & Ash are not significantly different. Month has a significant positive trend over time. the effect of month on fence is not different from ash. 
+#R-sq only 36.7% of the variance in the response (mean) is explained by Site and Month - important predictors might be missing. Deviance is 54% suggesting moderate explanatory power. GCV - low - better fitting model
 
+gam_ph_1 <- gam(mean ~ Site + s(Month, k=5) + Site:Month , data = pH_jg ) 
+summary(gam_ph_1)
+# No significant difference between sites. Strong effect of month at Ash and Fence Creek and different across sites. 
+#s(Month) -evidence that month has a nonlinear effect but is almost linear (near 1). Month is s strong predictor. 
+#R-sq only 36.7% of the variance in the response (mean) is explained by Site and Month - important predictors might be missing. Deviance is 54% suggesting moderate explanatory power. GCV - low - better fitting model
 
-gam_temp<- gam(mean ~ Site + Month , data = Temperature_jg) 
+AIC(gam_ph, gam_ph_1) #AIC is identical. 
+plot(gam_ph_1)
+gam.check(gam_ph_1)
+
+#Okay so lets do the same thing for the rest to see what the dealio is
+gam_temp<- gam(mean ~ Site * Month , data = Temperature_jg) 
 summary(gam_temp)
+#Mean values have a slight negative trend (decreasing over time) but isnot statistically significant across months, no sign diff between sites
+#Model fit is moderate
+
+gam_temp_1<- gam(mean ~ Site + s(Month, k=5) + Site:Month , data = Temperature_jg) 
+summary(gam_temp_1)
+# month has a positive effect on ash and fence but no sign diff between sites. Month is non-linear. Month has a strongly significant impact on the response. 
+#Excellent model fit - 98.6% of variance explained
+
+AIC(gam_temp_1, gam_temp) #gam_temp_1 has lower AIC 
 
 
-gam_salinity <- gam(mean ~ Site + Month , data = Salinity_jg) 
+gam_salinity <- gam(mean ~ Site * Month , data = Salinity_jg) 
 summary(gam_salinity)
 
+gam_salinity_1 <- gam(mean ~ Site + s(Month, k=5) + Site:Month , data = Salinity_jg) 
+summary(gam_salinity_1)
+#month has a strong effect on ash and fence salinity and is diff between sites. Month has a significant impact on mean. Fence creek salinity increases at a slightly higher rate than Ash creek (estimate 3.121 vs. 2.795). 
+#Strong model fit
+
+AIC(gam_salinity, gam_salinity_1) #gam_salinity_1 has lower AIC
 
 gam_CHLA <- gam(mean ~ Site + Month , data = CHLA_jg) 
 summary(gam_CHLA)
 
+gam_CHLA_1 <- gam(mean ~ Site + s(Month, k=5) + Site:Month , data = CHLA_jg) 
+summary(gam_CHLA_1)
+#No signifcant different between sites but month has a significant positive effect at each site. Month has a significant non-linear effect on response. 
+#Strong model fit
+
+AIC(gam_CHLA,gam_CHLA_1) #gam_CHLA_1 lower AIC 
+
 gam_DO <- gam(mean ~ Site + Month , data = DO_jg) 
 summary(gam_DO)
 
+gam_DO_1 <- gam(mean ~ Site + s(Month, k=5) + Site:Month , data = DO_jg) 
+summary(gam_DO_1)
+#DO not different between sites but month has a significant effect. Month has a significant non-linear effect on response. 
+#Strong model fit
 
+AIC(gam_DO, gam_DO_1) #as suspected gam-DO_1 is better
 
 ################################  Shell length ######################################################
 
 
 #Is shell length different between sites and months?
-gam_size <- gam(Shell_length ~ Site + Month , data = growth_master)
+gam_size <- gam(Shell_length ~ Site + s(Month, k=5) + Site:Month +s(Bag_number, bs = "re" ), data = growth_master)
 summary(gam_size)
-# Yes 
+#Fence and Ash Creek size are significantly different. Month has a significant positive relationship at each site. Month has a significant non-linear effect on shell length. 
+#model explains 61.5% of variance in shell length. Reasonable for ecological data. 
+#adding bag number as a random effect did not impact the model
 
 
 #What month has the most significant difference in shell length between sites?
@@ -698,25 +739,32 @@ kruskal.test(Shell_length ~ Site, data = Nov)# p = 0.2222
 #Hypothesis: Shell length can be influenced by mean environmental conditions, site differences, and random variation across months and bags. 
         #What are my assumptions? Shell length is our predicted variable (response). mean (of the environmental parameter) is hypothesized to influence           shell   length. Site is categorical and we want to assess site-specific impacts on shell length
 
-gam_ph_jg <- gam(Shell_length ~ s(mean) + Site, data = pH_merged)
+gam_ph_jg <- gam(Shell_length ~ s(mean) + Site + Site:mean, data = pH_merged)
 summary(gam_ph_jg)
+#pH has a significant negative effect on shell lengh at ASH, and a significant positive at FENC. pH is significant and has a strong non-linear effect on shell length
+#model fit good
 
-
-gam_salinity_jg <- gam(Shell_length ~ s(mean) + Site, data = salinity_merged)
+gam_salinity_jg <- gam(Shell_length ~ s(mean) + Site+ Site:mean, data = salinity_merged)
 summary(gam_salinity_jg)
+#Salinity has a significant non-linear effect on shell length.Salinity has a significant positive effect at ash creek but does not have a significant effect on shell length at Fence creek.  
 
-gam_temp_jg <- gam(Shell_length ~ s(mean) + Site, data = temperature_merged)
+gam_temp_jg <- gam(Shell_length ~ s(mean) + Site+ Site:mean, data = temperature_merged)
 summary(gam_temp_jg)
+#Temperature has a significant positive effect on shell lengh at ASH, and a significant negative at FENC. Temperature is significant and has a strong non-linear effect on shell length
+#model fit good
 
-gam_CHLA_jg <- gam(Shell_length ~ s(mean) + Site, data = CHLA_merged)
+gam_CHLA_jg <- gam(Shell_length ~ s(mean) + Site+ Site:mean, data = CHLA_merged)
 summary(gam_CHLA_jg)
+#CHLA has a significant negative effect on shell lengh at ASH, and a significant positive at FENC. CHLA is significant and has a strong non-linear effect on shell length
+#model fit good
 
-gam_DO_jg <- gam(Shell_length ~ s(mean) + Site, data = DO_merged)
+gam_DO_jg <- gam(Shell_length ~ s(mean) + Site+ Site:mean, data = DO_merged)
 summary(gam_DO_jg)
-
+#DO has a significant positive effect on shell lengh at ASH, and a significant negative at FENC. DO is significant and has a strong non-linear effect on shell length
+#model fit good
 
 #So what did we learn from these models? 
-  #TBD
+  #All of these environmental factors impact shell length at ash creek - all positive (has they increase so does shell length) except for CHLA that has a negative effect (as it increases, length decreases). Interesting? Fence creek all are significant except salinity. All have negative effect (as they increase, shell length decreases), except for CHLA (increase together). Interesting again? 
 
 
 #Lets do an additive model with all environmental parameters included with shell length instead of individual models - how does this differ?
@@ -727,19 +775,21 @@ summary(gam_DO_jg)
 #jg_merged
 
 #Hypothesis: Shell length can be explained by mean environmental conditions, site differences, and random variation across months and bags. 
-gam_ALL <- glmmTMB(Shell_length ~ Site + mean_Salinity + mean_RDO.Concentration + mean_Chlorophyll.a.Fluorescence + mean_pH + mean_Temperature, data = jg_merged )
+gam_ALL <- gam(Shell_length ~  mean_Salinity + mean_RDO.Concentration + mean_Chlorophyll.a.Fluorescence + mean_pH + mean_Temperature, data = jg_merged )
 summary(gam_ALL)
 
-gam_ALL_smooth <- gam(Shell_length ~ Site + s(mean_Salinity) + s(mean_RDO.Concentration) + s(mean_Chlorophyll.a.Fluorescence) + s(mean_pH) +s(mean_Temperature), data = jg_merged ) 
+gam_ALL_smooth <- gam(Shell_length ~  s(mean_Salinity) + s(mean_RDO.Concentration) + s(mean_Chlorophyll.a.Fluorescence) + s(mean_pH) +s(mean_Temperature), data = jg_merged ) 
 summary(gam_ALL_smooth)
 
-AIC(gam_ALL,gam_ALL_smooth) #AIC lower for gam smooth
+AIC(gam_ALL,gam_ALL_smooth) #AIC lower for gam smooth, but just barely
 
+#Does the results of this match the individual models? Lets take a look
+#these models are not considering the interactions of site and the mean of each variable. This does not tell use the relationship happening (positive or negative). All are significantly impacting shell_length. 
 
 ################################################ Growth Rate ###############################################
 
 #growth rate different between sites and months?
-gam_growth <- gam(monthly_growth_rate ~  Site + Month, data=growth_summary) 
+gam_growth <- gam(monthly_growth_rate ~  Site + s(Month, k= 5) +Site:Month, data=growth_summary) 
 summary(gam_growth)
 
 #Which month has the most significant difference in growth rate between sites?
@@ -759,19 +809,19 @@ kruskal.test(monthly_growth_rate ~ Site, data = Oct)
 kruskal.test(monthly_growth_rate ~ Site, data = Nov)
 #None of these are significant
 
-gam_ph_gr <- gam(monthly_growth_rate ~ mean + Site , data = pH_gr)
+gam_ph_gr <- gam(monthly_growth_rate ~ s(mean), data = pH_gr)
 summary(gam_ph_gr)
 
-gam_salinity_gr <- gam(monthly_growth_rate ~ mean + Site, data = salinity_gr)
+gam_salinity_gr <- gam(monthly_growth_rate ~ s(mean) , data = salinity_gr)
 summary(gam_Salinity_gr)
 
-gam_temp_gr <- gam(monthly_growth_rate ~ mean + Site , data = temperature_gr)
+gam_temp_gr <- gam(monthly_growth_rate ~ s(mean)  , data = temperature_gr)
 summary(gam_temp_gr)
 
-gam_CHLA_gr <- gam(monthly_growth_rate ~ mean + Site , data = CHLA_gr) #CHLA significant
+gam_CHLA_gr <- gam(monthly_growth_rate ~ s(mean)  , data = CHLA_gr) #CHLA significant
 summary(gam_CHLA_gr)
 
-gam_DO_gr <- gam(monthly_growth_rate ~ mean + Site  , data = DO_gr)
+gam_DO_gr <- gam(monthly_growth_rate ~ s(mean)  , data = DO_gr)
 summary(gam_DO_gr)
 
 #Now lets do a big additive model
@@ -781,12 +831,23 @@ summary(gam_DO_gr)
 #Hypothesis: Shell length can be explained by mean environmental conditions, site differences, and random variation across months and bags. 
 gam_gr_all <- gam(monthly_growth_rate ~ Site + mean_Salinity + mean_RDO.Concentration + mean_Chlorophyll.a.Fluorescence + mean_pH + mean_Temperature, data = gr_merged )
 summary(gam_gr_all)
+#this model ran fine. It says that nothing is significant but there are relationships explained. Salinity, DO, CHLA and temp all ahve negative relationships while pH has a positive relationship. 
+#deviance is saying that the model is capturing variabiliy but the lack of significance and high se indicate low statistical power. - too many predictors in the model? lets try removing site - this had no difference. 
 
-gam_gr_smooth <- gam(monthly_growth_rate ~ Site + s(mean_Salinity) + s(mean_RDO.Concentration) + s(mean_Chlorophyll.a.Fluorescence)
+gam_gr_smooth <- gam(monthly_growth_rate ~  s(mean_Salinity) + s(mean_RDO.Concentration) + s(mean_Chlorophyll.a.Fluorescence)
                      +s(mean_pH) +s(mean_Temperature), data = gr_merged ) 
 summary(gam_gr_smooth)
 
 AIC(gam_ALL,gam_ALL_smooth) 
+
+#smooth options didn't work. multicollinearity? Yes.  
+
+cor(gr_merged[, c("mean_Salinity", "mean_Temperature", "mean_RDO.Concentration", 
+              "mean_Chlorophyll.a.Fluorescence", "mean_pH")])
+#Temp & RDO - negative 
+#Temp  & CHLA- negative
+#Temp & salinity - negative
+#Temp & pH - negative
 ```
 
 

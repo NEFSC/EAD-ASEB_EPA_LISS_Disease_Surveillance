@@ -228,6 +228,35 @@ write.csv(Sonde_monthly_means_CT_wide, "output/Sonde_monthly_means_CT_wide.csv")
 ```
 
 
+```{r}
+All_Sites_Temperature <- Master_table_LONG_means %>% na.omit() %>%
+             dplyr::filter(`Date Time` > '2023-03-01 00:00:00' & `Date Time` < '2025-11-30 00:00:00' ) %>% # change date range needed here
+             dplyr::mutate(Site = case_when(Site == 'ASHC' ~ 'Ash Creek', Site == 'FENC' ~ 'Fence Creek', Site == 'GOLD' ~ 'Gold Star', .default = 'Fence Creek')) %>% 
+             ggplot(aes(x=`Date Time`, 
+                       y=Temperature, # the mean values
+                       group=Site)) + # call the new mean
+              geom_line(aes(group = factor(Site), # lines for site
+                                linetype = Site), 
+                            size = 0.2, 
+                            position=position_dodge(.4)) + 
+              # scale_linetype_manual(values=c("solid", "dashed")) +
+              geom_point(aes(shape=Site, 
+                             fill=Site)) + 
+              scale_shape_manual(values=c(21, 22, 24, 25)) + 
+              scale_fill_manual(values=c("#D55E00",  "#0072B2")) + # "#CC79A7","#009E73"
+              geom_errorbar(aes(ymin=(mean)-(se), 
+                                ymax=(mean)+(se)), 
+                            width=0,position=position_dodge(.4)) +
+              facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+              ggtitle("pH - 2024") +
+              labs(x = "Time", y = "pH") +
+              theme_classic() +
+              theme(legend.position = "none")+geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
+
+All_Sites_Temperature
+
+```
+
 # Clean CT sites (ASHC and FENC) 
 ```{r, figs for LISS proposal}
 
