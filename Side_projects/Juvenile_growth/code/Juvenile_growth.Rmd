@@ -788,6 +788,8 @@ AIC(gam_ALL,gam_ALL_smooth) #AIC lower for gam smooth, but just barely
 
 ################################################ Growth Rate ###############################################
 
+#I tested a bunch of stuff below and I think glm is better for growth rate. the predictors (ph, temp, etc) are showing linear relationships when running a gam() and the fit (R-sq and deviance) are poor (low). 
+
 #growth rate different between sites and months?
 gam_growth <- gam(monthly_growth_rate ~  Site + s(Month, k= 5) +Site:Month, data=growth_summary) 
 summary(gam_growth)
@@ -811,6 +813,14 @@ kruskal.test(monthly_growth_rate ~ Site, data = Nov)
 
 gam_ph_gr <- gam(monthly_growth_rate ~ s(mean), data = pH_gr)
 summary(gam_ph_gr)
+#s(mean) is behaving linearly. so I think GLM is better lets compare AIC
+
+AIC(gam_ph_gr, glm_ph_gr) #GAM has a slightly lower AIC; lets see just removing the s()
+
+gam_ph_gr1 <- gam(monthly_growth_rate ~ mean, data = pH_gr)
+summary(gam_ph_gr1) #still have a poor fit.
+
+#I think all of these should be glm because the fit are poor with gam. 
 
 gam_salinity_gr <- gam(monthly_growth_rate ~ s(mean) , data = salinity_gr)
 summary(gam_Salinity_gr)
@@ -818,7 +828,7 @@ summary(gam_Salinity_gr)
 gam_temp_gr <- gam(monthly_growth_rate ~ s(mean)  , data = temperature_gr)
 summary(gam_temp_gr)
 
-gam_CHLA_gr <- gam(monthly_growth_rate ~ s(mean)  , data = CHLA_gr) #CHLA significant
+gam_CHLA_gr <- gam(monthly_growth_rate ~ s(mean)  , data = CHLA_gr) 
 summary(gam_CHLA_gr)
 
 gam_DO_gr <- gam(monthly_growth_rate ~ s(mean)  , data = DO_gr)
@@ -848,6 +858,9 @@ cor(gr_merged[, c("mean_Salinity", "mean_Temperature", "mean_RDO.Concentration",
 #Temp  & CHLA- negative
 #Temp & salinity - negative
 #Temp & pH - negative
+
+#The individual models might be the best route for this because of the correlations. The data set is also small so this may be effecting things as well. 
+
 ```
 
 
