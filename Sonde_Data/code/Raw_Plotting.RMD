@@ -19,8 +19,8 @@ knitr::opts_chunk$set(echo = TRUE,
                       cache = TRUE)
 
 #knitr::opts_knit$set(root.dir = "C:/Users/samjg/Documents/Github_repositories/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
-#knitr::opts_knit$set(root.dir = "C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
-knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
+knitr::opts_knit$set(root.dir = "C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
+#knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
 
 ```
 
@@ -2962,6 +2962,71 @@ GOLD_Monthly_Salinity
 
 ```
 
+#Overlay graph - temperature and pH of the three sites (ASHC, FENC, GOLD) for the whole study
+```{r}
+#Creating data frames for graph. This method removes the lines during the time with no collections, 2023 season to 2024 season.
+Temp.2023 <- TempvspH %>% filter(Year=="2023") %>% filter(variable=="Temperature")
+Temp.rest <- TempvspH %>% filter(Year!="2023") %>% filter(variable=="Temperature")
+pH.2023 <- TempvspH %>% filter(Year=="2023") %>% filter(variable=="pH")
+pH.rest <- TempvspH %>% filter(Year!="2023") %>% filter(variable=="pH")
+
+#Temperature graph (all sites, all dates)
+All_temp.graph <-ggplot()+
+              geom_line(data=Temp.2023%>% filter(Site == "FENC"), aes(x=`Date Time`, 
+                       y=mean, color = Site))+ #these next lines help determine the order of how the lines will be presented on the graph. FENC on the bottom
+  geom_line(data=Temp.2023%>% filter(Site == "ASHC"), aes(x=`Date Time`, #ASHC middle
+                       y=mean, color = Site))+
+  geom_line(data=Temp.2023%>% filter(Site == "GOLD"), aes(x=`Date Time`, #GOLD on top
+                       y=mean, color = Site))+
+  geom_line(data=Temp.rest%>% filter(Site == "FENC"), aes(x=`Date Time`, #second half of the graph (2024-2025)
+                       y=mean, color = Site))+
+  geom_line(data=Temp.rest%>% filter(Site == "ASHC"), aes(x=`Date Time`, 
+                       y=mean, color = Site))+
+  geom_line(data=Temp.rest%>% filter(Site == "GOLD"), aes(x=`Date Time`, 
+                       y=mean, color = Site))+
+scale_color_manual(values=c(FENC = "darksalmon",ASHC = "cornflowerblue", GOLD = "darkseagreen")) +
+              #ggtitle("Temperature") +
+              labs(x = "Date", y = "Temperature (C)") +
+            scale_x_datetime(date_labels= "%b %Y", date_breaks = "3 month")+ #x axis labels
+  theme(axis.text = element_text(size = 18), axis.title = element_text(size = 22), legend.text = element_text(size=18), 
+        legend.title = element_text(size=20), title = element_text(size = 24), strip.text = element_text(size = 18) )+
+  geom_hline(yintercept = 20, color = "red", size = .5)+ #highlighting 20C for dermo infection
+  geom_hline(yintercept = 16, color = "blue", size = .5) #highlighting 16C for spawning
+
+
+All_temp.graph
+
+#pH graph (all sites, all dates)
+All_pH.graph <-ggplot()+
+              geom_line(data=pH.2023%>% filter(Site == "FENC"), aes(x=`Date Time`, 
+                       y=mean, color = Site))+
+  geom_line(data=pH.2023%>% filter(Site == "ASHC"), aes(x=`Date Time`, 
+                       y=mean, color = Site))+
+  geom_line(data=pH.2023%>% filter(Site == "GOLD"), aes(x=`Date Time`, 
+                       y=mean, color = Site))+
+  geom_line(data=pH.rest%>% filter(Site == "FENC"), aes(x=`Date Time`, 
+                       y=mean, color = Site))+
+  geom_line(data=pH.rest%>% filter(Site == "ASHC"), aes(x=`Date Time`, 
+                       y=mean, color = Site))+
+  geom_line(data=pH.rest%>% filter(Site == "GOLD"), aes(x=`Date Time`, 
+                       y=mean, color = Site))+
+scale_color_manual(values=c("FENC" = "darksalmon",ASHC = "cornflowerblue", "GOLD" = "darkseagreen")) +
+              ggtitle("pH & Temperature (2023 - 2025)") +
+              labs(x = " ", y = "pH") +
+              scale_x_datetime(date_labels= "%b %Y", date_breaks = "3 month")+
+  theme(axis.text = element_text(size = 18), axis.title = element_text(size = 22), legend.text = element_text(size=18), 
+        legend.title = element_text(size=20), title = element_text(size = 24), strip.text = element_text(size = 18) )
+
+All_pH.graph
+
+#combining the two graphs
+all_pHvtemp<-ggarrange(All_pH.graph,All_temp.graph, ncol = 1)
+all_pHvtemp
+
+pdf(paste0(path = "output/raw_plots/Temperature_pH_all.pdf"), height = 7, width = 14)
+print(all_pHvtemp)
+dev.off()
+```
 
 #NO LONGER STUDYING THIS SITE - LAUR
 
