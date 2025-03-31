@@ -6,9 +6,9 @@ Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicat
 0423ASHC_05,04-23-2023,ASHC,5,12-03-2024,Kelly Roper,Female,3_Early_Active,TRUE,12-05-2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
 0423ASHC_06,04-23-2023,ASHC,6,12-03-2024,Kelly Roper,Female,3_Early_Active,TRUE,12-03-2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
 0423ASHC_07,04-23-2023,ASHC,7,12-03-2024,Kelly Roper,Female,3_Early_Active,TRUE,12-03-2024,Kyra Lenderman,Male,3_Early_Active,very late development ,Male,3_Early_Active
-0423ASHC_08,04-23-2023,ASHC,8,12-03-2024,,,,TRUE,12-03-2024,Kyra Lenderman,Male,3_Early_Active,could be 2,Male,3_Early_Active
+0423ASHC_08,04-23-2023,ASHC,8,12-03-2024,Kyra Lenderman,Male,3_Early_Active,FALSE,,,,,could be 2,Male,3_Early_Active
 0423ASHC_09,04-23-2023,ASHC,9,12-03-2024,Kelly Roper,Female,3_Early_Active,TRUE,12-03-2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
-0423ASHC_10,04-23-2023,ASHC,10,12-03-2024,,,,TRUE,12-03-2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0423ASHC_10,04-23-2023,ASHC,10,12-03-2024,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
 0423ASHC_11,04-23-2023,ASHC,11,12-03-2024,Mariah Kachmar,Female,3_Early_Active,TRUE,12-03-2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
 0423ASHC_12,04-23-2023,ASHC,12,12-03-2024,Mariah Kachmar,Male,3_Early_Active,TRUE,12-03-2024,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
 0423ASHC_13,04-23-2023,ASHC,13,12-03-2024,Mariah Kachmar,NA,2_Developing,TRUE,12-03-2024,Kyra Lenderman,Female,3_Early_Active,,NA,2_Developing
@@ -20,12 +20,12 @@ Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicat
 0423ASHC_19,04-23-2023,ASHC,19,12-03-2024,Mariah Kachmar,NA,2_Developing,TRUE,12-03-2024,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
 0423ASHC_20,04-23-2023,ASHC,20,12-03-2024,Mariah Kachmar,Female,3_Early_Active,TRUE,12-03-2024,Kyra Lenderman,Female,3_Early_Active,Bad cut,Female,3_Early_Active
 0423ASHC_21,04-23-2023,ASHC,21,12-03-2024,Mariah Kachmar,Female,3_Early_Active,TRUE,12-03-2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
-0423ASHC_22,04-23-2023,ASHC,22,,,,,TRUE,12-03-2024,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
-0423ASHC_23,04-23-2023,ASHC,23,,,,,TRUE,12-03-2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
-0423ASHC_24,04-23-2023,ASHC,24,,,,,TRUE,12-03-2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
-0423ASHC_25,04-23-2023,ASHC,25,,,,,TRUE,12-03-2024,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
-0423ASHC_26,04-23-2023,ASHC,26,,,,,TRUE,12-03-2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
-0423ASHC_27,04-23-2023,ASHC,27,,,,,TRUE,12-03-2024,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
-0423ASHC_28,04-23-2023,ASHC,28,,,,,TRUE,12-03-2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
-0423ASHC_29,04-23-2023,ASHC,29,,,,,TRUE,12-03-2024,Kyra Lenderman,NA,2_Developing,Bucephalus present,NA,2_Developing
-0423ASHC_30,04-23-2023,ASHC,30,,,,,TRUE,12-03-2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0423ASHC_22,04-23-2023,ASHC,22,12-03-2024,Kyra Lenderman,Male,3_Early_Active,FALSE,,,,,,Male,3_Early_Active
+0423ASHC_23,04-23-2023,ASHC,23,12-03-2024,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
+0423ASHC_24,04-23-2023,ASHC,24,12-03-2024,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
+0423ASHC_25,04-23-2023,ASHC,25,12-03-2024,Kyra Lenderman,NA,2_Developing,FALSE,,,,,,NA,2_Developing
+0423ASHC_26,04-23-2023,ASHC,26,12-03-2024,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
+0423ASHC_27,04-23-2023,ASHC,27,12-03-2024,Kyra Lenderman,NA,2_Developing,FALSE,,,,,,NA,2_Developing
+0423ASHC_28,04-23-2023,ASHC,28,12-03-2024,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
+0423ASHC_29,04-23-2023,ASHC,29,12-03-2024,Kyra Lenderman,NA,2_Developing,FALSE,,,,,Bucephalus present,NA,2_Developing
+0423ASHC_30,04-23-2023,ASHC,30,12-03-2024,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active

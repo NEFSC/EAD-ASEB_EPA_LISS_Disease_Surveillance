@@ -1,31 +1,31 @@
 Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
-0723LAUR_01,07-17-2023,LAUR,1,03-12-2025,Kyra Lenderman,Male,6_Post_Spawning,,,,,,,Male,6_Post_Spawning
-0723LAUR_02,07-17-2023,LAUR,2,03-12-2025,Kyra Lenderman,NA,7_Reabsorbing,,,,,,,NA,7_Reabsorbing
+0723LAUR_01,07-17-2023,LAUR,1,03-12-2025,Kyra Lenderman,Male,6_Post_Spawning,FALSE,,,,,,Male,6_Post_Spawning
+0723LAUR_02,07-17-2023,LAUR,2,03-12-2025,Kyra Lenderman,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
 0723LAUR_03,07-17-2023,LAUR,3,03-12-2025,Kyra Lenderman,NA,7_Reabsorbing,TRUE,03-25-2025,Mariah Kachmar,NA,7_Reabsorbing,Heavily diseased,NA,7_Reabsorbing
-0723LAUR_04,07-17-2023,LAUR,4,03-12-2025,Kyra Lenderman,Male,6_Post_Spawning,,,,,,,Male,6_Post_Spawning
-0723LAUR_05,07-17-2023,LAUR,5,03-12-2025,Kyra Lenderman,NA,2_Developing,,,,,,,NA,2_Developing
+0723LAUR_04,07-17-2023,LAUR,4,03-12-2025,Kyra Lenderman,Male,6_Post_Spawning,FALSE,,,,,,Male,6_Post_Spawning
+0723LAUR_05,07-17-2023,LAUR,5,03-12-2025,Kyra Lenderman,NA,2_Developing,FALSE,,,,,,NA,2_Developing
 0723LAUR_06,07-17-2023,LAUR,6,03-12-2025,Kyra Lenderman,NA,7_Reabsorbing,TRUE,03-25-2025,Mariah Kachmar,NA,7_Reabsorbing,,NA,7_Reabsorbing
-0723LAUR_07,07-17-2023,LAUR,7,03-12-2025,Kyra Lenderman,NA,7_Reabsorbing,,,,,,,NA,7_Reabsorbing
-0723LAUR_08,07-17-2023,LAUR,8,03-12-2025,Kyra Lenderman,NA,2_Developing,,,,,,,NA,2_Developing
-0723LAUR_09,07-17-2023,LAUR,9,03-12-2025,Kyra Lenderman,NA,7_Reabsorbing,,,,,,,NA,7_Reabsorbing
+0723LAUR_07,07-17-2023,LAUR,7,03-12-2025,Kyra Lenderman,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0723LAUR_08,07-17-2023,LAUR,8,03-12-2025,Kyra Lenderman,NA,2_Developing,FALSE,,,,,,NA,2_Developing
+0723LAUR_09,07-17-2023,LAUR,9,03-12-2025,Kyra Lenderman,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
 0723LAUR_10,07-17-2023,LAUR,10,03-12-2025,Kyra Lenderman,NA,2_Developing,TRUE,03-25-2025,Mariah Kachmar,NA,2_Developing,,NA,2_Developing
-0723LAUR_11,07-17-2023,LAUR,11,03-12-2025,Kyra Lenderman,NA,7_Reabsorbing,,,,,,,NA,7_Reabsorbing
-0723LAUR_12,07-17-2023,LAUR,12,03-12-2025,Kyra Lenderman,NA,2_Developing,,,,,,bad cut,NA,2_Developing
-0723LAUR_13,07-17-2023,LAUR,13,03-12-2025,Kyra Lenderman,Male,6_Post_Spawning,,,,,,part is reabsorption ,Male,6_Post_Spawning
+0723LAUR_11,07-17-2023,LAUR,11,03-12-2025,Kyra Lenderman,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0723LAUR_12,07-17-2023,LAUR,12,03-12-2025,Kyra Lenderman,NA,2_Developing,FALSE,,,,,bad cut,NA,2_Developing
+0723LAUR_13,07-17-2023,LAUR,13,03-12-2025,Kyra Lenderman,Male,6_Post_Spawning,FALSE,,,,,part is reabsorption ,Male,6_Post_Spawning
 0723LAUR_14,07-17-2023,LAUR,14,03-12-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,03-25-2025,Mariah Kachmar,Female,6_Post_Spawning,,Female,6_Post_Spawning
-0723LAUR_15,07-17-2023,LAUR,15,03-12-2025,Kyra Lenderman,NA,7_Reabsorbing,,,,,,,NA,7_Reabsorbing
-0723LAUR_16,07-17-2023,LAUR,16,03-12-2025,Kyra Lenderman,Female,7_Reabsorbing,,,,,,,Female,7_Reabsorbing
-0723LAUR_17,07-17-2023,LAUR,17,03-12-2025,Kyra Lenderman,Female,6_Post_Spawning,,,,,,,Female,6_Post_Spawning
-0723LAUR_18,07-17-2023,LAUR,18,03-12-2025,Kyra Lenderman,NA,7_Reabsorbing,,,,,,,NA,7_Reabsorbing
+0723LAUR_15,07-17-2023,LAUR,15,03-12-2025,Kyra Lenderman,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0723LAUR_16,07-17-2023,LAUR,16,03-12-2025,Kyra Lenderman,Female,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0723LAUR_17,07-17-2023,LAUR,17,03-12-2025,Kyra Lenderman,Female,6_Post_Spawning,FALSE,,,,,,Female,6_Post_Spawning
+0723LAUR_18,07-17-2023,LAUR,18,03-12-2025,Kyra Lenderman,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
 0723LAUR_19,07-17-2023,LAUR,19,03-12-2025,Kyra Lenderman,NA,7_Reabsorbing,TRUE,03-25-2025,Mariah Kachmar,NA,7_Reabsorbing,,NA,7_Reabsorbing
-0723LAUR_20,07-17-2023,LAUR,20,03-12-2025,Kyra Lenderman,Hermaphrodite,5_Spawning,,,,,,,Hermaphrodite,5_Spawning
-0723LAUR_21,07-17-2023,LAUR,21,03-12-2025,Kyra Lenderman,Female,6_Post_Spawning,,,,,,,Female,6_Post_Spawning
-0723LAUR_22,07-17-2023,LAUR,22,03-12-2025,Kyra Lenderman,NA,7_Reabsorbing,,,,,,,NA,7_Reabsorbing
-0723LAUR_23,07-17-2023,LAUR,23,03-12-2025,Kyra Lenderman,NA,7_Reabsorbing,,,,,,,NA,7_Reabsorbing
+0723LAUR_20,07-17-2023,LAUR,20,03-12-2025,Kyra Lenderman,Hermaphrodite,5_Spawning,FALSE,,,,,,Hermaphrodite,5_Spawning
+0723LAUR_21,07-17-2023,LAUR,21,03-12-2025,Kyra Lenderman,Female,6_Post_Spawning,FALSE,,,,,,Female,6_Post_Spawning
+0723LAUR_22,07-17-2023,LAUR,22,03-12-2025,Kyra Lenderman,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0723LAUR_23,07-17-2023,LAUR,23,03-12-2025,Kyra Lenderman,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
 0723LAUR_24,07-17-2023,LAUR,24,03-12-2025,Kyra Lenderman,NA,7_Reabsorbing,TRUE,03-25-2025,Mariah Kachmar,NA,7_Reabsorbing,,NA,7_Reabsorbing
 0723LAUR_25,07-17-2023,LAUR,25,03-12-2025,Kyra Lenderman,NA,7_Reabsorbing,TRUE,03-25-2025,Mariah Kachmar,NA,7_Reabsorbing,,NA,7_Reabsorbing
-0723LAUR_26,07-17-2023,LAUR,26,03-12-2025,Kyra Lenderman,Female,3_Early_Active,,,,,,,Female,3_Early_Active
+0723LAUR_26,07-17-2023,LAUR,26,03-12-2025,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
 0723LAUR_27,07-17-2023,LAUR,27,03-12-2025,Kyra Lenderman,NA,2_Developing,TRUE,03-25-2025,Mariah Kachmar,NA,2_Developing,,NA,2_Developing
-0723LAUR_28,07-17-2023,LAUR,28,03-12-2025,Kyra Lenderman,Male,6_Post_Spawning,,,,,,,Male,6_Post_Spawning
-0723LAUR_29,07-17-2023,LAUR,29,03-12-2025,Kyra Lenderman,NA,2_Developing,,,,,,,NA,2_Developing
-0723LAUR_30,07-17-2023,LAUR,30,03-12-2025,Kyra Lenderman,NA,7_Reabsorbing,,,,,,,NA,7_Reabsorbing
+0723LAUR_28,07-17-2023,LAUR,28,03-12-2025,Kyra Lenderman,Male,6_Post_Spawning,FALSE,,,,,,Male,6_Post_Spawning
+0723LAUR_29,07-17-2023,LAUR,29,03-12-2025,Kyra Lenderman,NA,2_Developing,FALSE,,,,,,NA,2_Developing
+0723LAUR_30,07-17-2023,LAUR,30,03-12-2025,Kyra Lenderman,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
