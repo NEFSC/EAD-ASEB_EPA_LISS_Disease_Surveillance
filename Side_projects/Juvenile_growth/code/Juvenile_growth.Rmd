@@ -14,8 +14,7 @@ Important Notes: Fence Creek 06/10/24 measurements for height after individual 5
   were deleted/lost due to tablet glitch. Total counts should be based on the survival
   metric taken to determine live counts.
 ---
-Last updated kennedy testing push again
-- Working on Katie's suggestions
+Mariah testing respository
 
   
  
