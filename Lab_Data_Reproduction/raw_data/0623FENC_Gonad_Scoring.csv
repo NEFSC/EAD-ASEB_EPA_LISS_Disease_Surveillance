@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0623FENC_01,06-14-2023,FENC,1,03-24-2025,Kyra Lenderman,Female,5_Spawning,FALSE,,,,,,Female,5_Spawning
+0623FENC_02,06-14-2023,FENC,2,03-24-2025,Kyra Lenderman,Male,5_Spawning,TRUE,03-27-2025,Mariah Kachmar,Male,5_Spawning,,Male,5_Spawning
+0623FENC_03,06-14-2023,FENC,3,03-24-2025,Kyra Lenderman,Female,6_Post_Spawning,FALSE,,,,,,Female,6_Post_Spawning
+0623FENC_04,06-14-2023,FENC,4,03-24-2025,Kyra Lenderman,Female,5_Spawning,FALSE,,,,,,Female,5_Spawning
+0623FENC_05,06-14-2023,FENC,5,03-24-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,03-27-2025,Mariah Kachmar,Female,5_Spawning,,Female,5_Spawning
+0623FENC_06,06-14-2023,FENC,6,03-24-2025,Kyra Lenderman,NA,1_Inactive_Indeterminate,FALSE,,,,,diseased,NA,1_Inactive_Indeterminate
+0623FENC_07,06-14-2023,FENC,7,03-24-2025,Kyra Lenderman,Female,5_Spawning,FALSE,,,,,,Female,5_Spawning
+0623FENC_08,06-14-2023,FENC,8,03-24-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,03-27-2025,Mariah Kachmar,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0623FENC_09,06-14-2023,FENC,9,03-24-2025,Kyra Lenderman,Female,6_Post_Spawning,FALSE,,,,,,Female,6_Post_Spawning
+0623FENC_10,06-14-2023,FENC,10,03-24-2025,Kyra Lenderman,Female,5_Spawning,FALSE,,,,,,Female,5_Spawning
+0623FENC_11,06-14-2023,FENC,11,03-24-2025,Kyra Lenderman,Male,6_Post_Spawning,TRUE,03-27-2025,Mariah Kachmar,Male,6_Post_Spawning,very diseased. Check reproductive score,Male,6_Post_Spawning
+0623FENC_12,06-14-2023,FENC,12,03-24-2025,Kyra Lenderman,Female,6_Post_Spawning,FALSE,,,,,,Female,6_Post_Spawning
+0623FENC_13,06-14-2023,FENC,13,03-24-2025,Kyra Lenderman,Male,5_Spawning,TRUE,03-27-2025,Mariah Kachmar,Male,5_Spawning,,Male,5_Spawning
+0623FENC_14,06-14-2023,FENC,14,03-24-2025,Kyra Lenderman,Female,6_Post_Spawning,FALSE,,,,,,Female,6_Post_Spawning
+0623FENC_15,06-14-2023,FENC,15,03-24-2025,Kyra Lenderman,Male,5_Spawning,FALSE,,,,,,Male,5_Spawning
+0623FENC_16,06-14-2023,FENC,16,03-24-2025,Kyra Lenderman,Female,5_Spawning,FALSE,,,,,,Female,5_Spawning
+0623FENC_17,06-14-2023,FENC,17,03-24-2025,Kyra Lenderman,Male,5_Spawning,FALSE,,,,,<5% mantle present ,Male,5_Spawning
+0623FENC_18,06-14-2023,FENC,18,03-24-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,03-27-2025,Mariah Kachmar,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0623FENC_19,06-14-2023,FENC,19,03-24-2025,Kyra Lenderman,Male,5_Spawning,FALSE,,,,,,Male,5_Spawning
+0623FENC_20,06-14-2023,FENC,20,03-24-2025,Kyra Lenderman,Female,5_Spawning,FALSE,,,,,,Female,5_Spawning
+0623FENC_21,06-14-2023,FENC,21,03-24-2025,Kyra Lenderman,Male,4_Late_Mature,FALSE,,,,,,Male,4_Late_Mature
+0623FENC_22,06-14-2023,FENC,22,03-24-2025,Kyra Lenderman,Male,5_Spawning,FALSE,,,,,,Male,5_Spawning
+0623FENC_23,06-14-2023,FENC,23,03-24-2025,Kyra Lenderman,Male,5_Spawning,TRUE,03-27-2025,Mariah Kachmar,Male,5_Spawning,,Male,5_Spawning
+0623FENC_24,06-14-2023,FENC,24,03-24-2025,Kyra Lenderman,Female,5_Spawning,FALSE,,,,,,Female,5_Spawning
+0623FENC_25,06-14-2023,FENC,25,03-24-2025,Kyra Lenderman,Female,5_Spawning,FALSE,,,,,,Female,5_Spawning
+0623FENC_26,06-14-2023,FENC,26,03-24-2025,Kyra Lenderman,Male,4_Late_Mature,FALSE,,,,,,Male,4_Late_Mature
+0623FENC_27,06-14-2023,FENC,27,03-24-2025,Kyra Lenderman,Male,5_Spawning,FALSE,,,,,,Male,5_Spawning
+0623FENC_28,06-14-2023,FENC,28,03-24-2025,Kyra Lenderman,Female,6_Post_Spawning,FALSE,,,,,,Female,6_Post_Spawning
+0623FENC_29,06-14-2023,FENC,29,03-24-2025,Kyra Lenderman,Male,5_Spawning,FALSE,,,,,,Male,5_Spawning
+0623FENC_30,06-14-2023,FENC,30,03-24-2025,Kyra Lenderman,Female,6_Post_Spawning,FALSE,,,,,,Female,6_Post_Spawning
