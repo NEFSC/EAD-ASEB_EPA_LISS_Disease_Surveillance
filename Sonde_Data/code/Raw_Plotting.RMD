@@ -5,7 +5,7 @@ date: "2023-10-03"
 output: html_document
 ---
 
-Last updated 4/2/25 by M.Kachmar
+Last updated 4/4/25 by M.Kachmar
 
 
 ## Setup: 
@@ -68,8 +68,9 @@ Master_table$Date.Time <- lubridate::ymd_hms(Master_table$Date.Time)
 # melt is akin to pivot_longer, but I like that its called melt so I prefer it
 # Im melting Im melting
 library(reshape2)
+library(data.table)
 Master_table_LONG <- Master_table %>%  
-                      melt(id.vars = c("Date.Time", "Site"),
+                      reshape2::melt(id.vars = c("Date.Time", "Site"),
                                     measure.vars = c("Actual.Conductivity", "Salinity", "Resistivity", 
                                                      "Total.Dissolved.Solids" ,"RDO.Concentration", "RDO.Saturation",
                                                      "Oxygen.Partial.Pressure", "Chlorophyll.a.Fluorescence", "pH", "pH.mV", 
@@ -96,7 +97,7 @@ ggplot(Master_table_LONG,
 ```{r}
 Master_table_LONG_means <- Master_table %>%  
                       dplyr::mutate(`Date.Time` = as.factor(substr(`Date.Time`,1,13))) %>% # remove minutes and seconds
-                      melt(id.vars = c("Date.Time", "Site"),
+                      reshape2::melt(id.vars = c("Date.Time", "Site"),
                                     measure.vars = c("Actual.Conductivity", "Salinity", "Resistivity", 
                                                      "Total.Dissolved.Solids" ,"RDO.Concentration", "RDO.Saturation",
                                                      "Oxygen.Partial.Pressure", "Chlorophyll.a.Fluorescence", "pH", "pH.mV", 
