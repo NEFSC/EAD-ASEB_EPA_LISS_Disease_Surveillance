@@ -664,7 +664,7 @@ gam.check(gam_ph_1)
 #Okay so lets do the same thing for the rest to see what the dealio is
 gam_temp<- gam(mean ~ Site * Month , data = Temperature_jg) 
 summary(gam_temp)
-#Mean values have a slight negative trend (decreasing over time) but isnot statistically significant across months, no sign diff between sites
+#Mean values have a slight negative trend (decreasing over time) but is not statistically significant across months, no sign diff between sites
 #Model fit is moderate
 
 gam_temp_1<- gam(mean ~ Site + s(Month, k=5) + Site:Month , data = Temperature_jg) 
