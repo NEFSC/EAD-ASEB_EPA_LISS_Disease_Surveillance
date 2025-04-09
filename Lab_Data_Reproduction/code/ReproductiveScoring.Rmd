@@ -215,6 +215,27 @@ ASHC_spawning <- ASHC_mature_spawning%>%
 
 ASHC_spawning
 ```
+```{r}
+#Spawning vs. bcs bar graph - ASHC 2023
+
+ASHC_mature_spawning$month <- factor(ASHC_mature_spawning$month, levels = c("1","2","3","4","5","6","7", "8", "9", "10", "11", "12"),
+        labels=c("Jan","Feb", "March","April","May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"))
+ASHC_mature_spawning <- ASHC_mature_spawning%>%
+                      dplyr::mutate(variable = "Reproduction")%>%
+                      rename(site = Site)
+
+#Need to run tissue processing code for the following
+ASHC_precent_greater_3 <- ASHC_precent_greater_3 %>%
+                          dplyr::mutate(variable = "Body condition")%>%
+                          filter(year == "2023")
+
+ASHC_repro.bcs_2023 <- rbind(ASHC_mature_spawning, ASHC_precent_greater_3)
+
+ggplot(ASHC_repro.bcs, aes(x=factor(month),y=Percentage, fill = variable))+
+  geom_bar(stat = "identity", position = "dodge")
+
+```
+
 #FENC Summary
 ```{r}
 df_FENC<- data_all%>%
@@ -251,41 +272,25 @@ FENC_spawning <- FENC_mature_spawning%>%
 
 FENC_spawning
 ```
-#LAUR Summary
 ```{r}
-df_LAUR<- data_all%>%
-  filter(Site=="LAUR")
-df_LAUR
+#Spawning vs. bcs bar graph - FENC 2023
 
-LAUR_mature_spawning <- df_LAUR %>%
-  dplyr::mutate(stage = recode(Stage_final, "0_Castrated" = 0, "1_Inactive_Indeterminate" = 1, "2_Developing" = 2, "3_Early_Active" = 3, "4_Late_Mature" = 4, "5_Spawning" = 5, "6_Post_Spawning" = 6, "7_Reabsorbing" = 7)) %>%
-  dplyr::group_by(month, Site, year)%>%
-  dplyr::summarise(Percentage = mean(stage == 4|stage == 5)*100)
-#need to try an just have 4 and 5 be the scores for percentage because that is when spawning is happening
-LAUR_mature_spawning
+FENC_mature_spawning$month <- factor(FENC_mature_spawning$month, levels = c("1","2","3","4","5","6","7", "8", "9", "10", "11", "12"),
+        labels=c("Jan","Feb", "March","April","May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"))
+FENC_mature_spawning <- FENC_mature_spawning%>%
+                      dplyr::mutate(variable = "Reproduction")#%>%
+                      #rename(site = Site)
 
-LAUR_spawning <- LAUR_mature_spawning%>% 
-  #filter(year =="2024")%>%
-  ggplot(aes(x = month, y = Percentage)) +
-  #geom_bar(width = 0.5, stat = "identity", position = "fill") +
-    geom_col()+
-  theme_bw() +
-  theme(
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1),
-    axis.title.y = element_text(size = rel(1.3), angle = 90),
-    axis.title.x = element_text(size = rel(1.3), angle = 0),
-    axis.text = element_text(size = 12)
-  ) +
-  labs(
-    title = "Laurel Hollow % of spawning",
-    x = "month",
-    y = "Percentage of spawning scores 4 & 5"
-  ) + ylim(0,100)
-    #facet_wrap(~year)
+#Need to run tissue processing code for the following
+FENC_precent_greater_3 <- FENC_precent_greater_3 %>%
+                          dplyr::mutate(variable = "Body condition")%>%
+                          filter(year == "2023")
 
-LAUR_spawning
+FENC_repro.bcs_2023 <- rbind(FENC_mature_spawning, FENC_precent_greater_3)
+
+ggplot(FENC_repro.bcs_2023, aes(x=factor(month),y=Percentage, fill = variable))+
+  geom_bar(stat = "identity", position = "dodge")
+
 ```
 #GOLD Summary
 ```{r}
@@ -323,6 +328,87 @@ GOLD_spawning <- GOLD_mature_spawning%>%
 
 GOLD_spawning
 ```
+
+```{r}
+#Spawning vs. bcs bar graph - GOLD 2023
+
+GOLD_mature_spawning$month <- factor(GOLD_mature_spawning$month, levels = c("1","2","3","4","5","6","7", "8", "9", "10", "11", "12"),
+        labels=c("Jan","Feb", "March","April","May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"))
+GOLD_mature_spawning <- GOLD_mature_spawning%>%
+                      dplyr::mutate(variable = "Reproduction")#%>%
+                      #rename(site = Site)
+
+#Need to run tissue processing code for the following
+GOLD_precent_greater_3 <- GOLD_precent_greater_3 %>%
+                          dplyr::mutate(variable = "Body condition")%>%
+                          filter(year == "2023")
+
+GOLD_repro.bcs_2023 <- rbind(GOLD_mature_spawning, GOLD_precent_greater_3)
+
+ggplot(GOLD_repro.bcs_2023, aes(x=factor(month),y=Percentage, fill = variable))+
+  geom_bar(stat = "identity", position = "dodge")
+
+```
+
+#LAUR Summary
+```{r}
+df_LAUR<- data_all%>%
+  filter(Site=="LAUR")
+df_LAUR
+
+LAUR_mature_spawning <- df_LAUR %>%
+  dplyr::mutate(stage = recode(Stage_final, "0_Castrated" = 0, "1_Inactive_Indeterminate" = 1, "2_Developing" = 2, "3_Early_Active" = 3, "4_Late_Mature" = 4, "5_Spawning" = 5, "6_Post_Spawning" = 6, "7_Reabsorbing" = 7)) %>%
+  dplyr::group_by(month, Site, year)%>%
+  dplyr::summarise(Percentage = mean(stage == 4|stage == 5)*100)
+#need to try an just have 4 and 5 be the scores for percentage because that is when spawning is happening
+LAUR_mature_spawning
+
+LAUR_spawning <- LAUR_mature_spawning%>% 
+  #filter(year =="2024")%>%
+  ggplot(aes(x = month, y = Percentage)) +
+  #geom_bar(width = 0.5, stat = "identity", position = "fill") +
+    geom_col()+
+  theme_bw() +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1),
+    axis.title.y = element_text(size = rel(1.3), angle = 90),
+    axis.title.x = element_text(size = rel(1.3), angle = 0),
+    axis.text = element_text(size = 12)
+  ) +
+  labs(
+    title = "Laurel Hollow % of spawning",
+    x = "month",
+    y = "Percentage of spawning scores 4 & 5"
+  ) + ylim(0,100)
+    #facet_wrap(~year)
+
+LAUR_spawning
+```
+
+```{r}
+#Spawning vs. bcs bar graph - LAUR 2023
+
+LAUR_mature_spawning$month <- factor(LAUR_mature_spawning$month, levels = c("1","2","3","4","5","6","7", "8", "9", "10", "11", "12"),
+        labels=c("Jan","Feb", "March","April","May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"))
+LAUR_mature_spawning <- LAUR_mature_spawning%>%
+                      dplyr::mutate(variable = "Reproduction")#%>%
+                      #rename(site = Site)
+
+#Need to run tissue processing code for the following
+LAUR_precent_greater_3 <- LAUR_precent_greater_3 %>%
+                          dplyr::mutate(variable = "Body condition")%>%
+                          filter(year == "2023")
+
+LAUR_repro.bcs_2023 <- rbind(LAUR_mature_spawning, LAUR_precent_greater_3)
+
+ggplot(LAUR_repro.bcs_2023, aes(x=factor(month),y=Percentage, fill = variable))+
+  geom_bar(stat = "identity", position = "dodge")
+
+```
+
+
 ```{r}
 #Spawning (scores 4 & 5) for all sites
 spawning_all <- rbind(FENC_mature_spawning, ASHC_mature_spawning, GOLD_mature_spawning, LAUR_mature_spawning)
