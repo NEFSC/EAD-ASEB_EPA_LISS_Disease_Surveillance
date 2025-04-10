@@ -508,6 +508,8 @@ kruskal.test(Shell_length ~ Site, data = Nov)# p = 0.2222
 #Hypothesis: Shell length can be influenced by mean environmental conditions, site differences, and random variation across months and bags. 
         #What are my assumptions? Shell length is our predicted variable (response). mean (of the environmental parameter) is hypothesized to influence           shell   length. Site is categorical and we want to assess site-specific impacts on shell length. Month and bag number are random effects.               Month assumes that    shell length varies by month and we want to account for month specific influences on shell height. Bag number is our              experimental replicates and there   may be variability among replicates. 
 
+library(car)
+
 glm_ph_jg <- glmmTMB(Shell_length ~ mean * Site + (1|Month)+ (1| Bag_number), data = pH_merged)
 Anova(glm_ph_jg)
 summary(glm_ph_jg)
@@ -739,7 +741,7 @@ kruskal.test(Shell_length ~ Site, data = Nov)# p = 0.2222
 #all of these are significant, except November. So which month is the most significant? August has the smallest p value (<0.0001).
 
 #Hypothesis: Shell length can be influenced by mean environmental conditions, site differences, and random variation across months and bags. 
-        #What are my assumptions? Shell length is our predicted variable (response). mean (of the environmental parameter) is hypothesized to influence           shell   length. Site is categorical and we want to assess site-specific impacts on shell length
+        #What are my assumptions? Shell length is our predicted variable (response). mean (of the environmental parameter) is hypothesized to influence shell   length. Site is categorical and we want to assess site-specific impacts on shell length
 
 gam_ph_jg <- gam(Shell_length ~ s(mean) + Site + Site:mean, data = pH_merged)
 summary(gam_ph_jg)
