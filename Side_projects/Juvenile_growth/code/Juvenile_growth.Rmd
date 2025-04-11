@@ -421,6 +421,39 @@ CT_sonde_wide<- read.csv("C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_
     Month = month(year_month, label = FALSE, abbr = FALSE)) %>% filter(`year_month` > '2024-05-01' & `year_month` < '2024-12-01' ) #filter what date ranges are needed
 CT_sonde_wide
 
+#Lets make some plots of this data
+
+CT_sonde_filtered <- CT_sonde %>%
+  filter(variable %in% c("Temperature", "Salinity", "pH", "RDO.Concentration", "Chlorophyll.a.Fluorescence"))
+
+Environmental.data.plot <-ggplot()+
+              geom_line(data=CT_sonde_filtered%>% filter(Site == "FENC"), aes(x=`Month`, 
+                       y=mean, color = Site))+ #these next lines help determine the order of how the lines will be presented on the graph. FENC on the bottom
+    geom_errorbar(data = CT_sonde_filtered %>% filter(Site == "FENC"),
+                aes(x = Month, ymin = mean - se, ymax = mean + se, color = Site), width = 0.2)+
+  
+  geom_line(data=CT_sonde_filtered%>% filter(Site == "ASHC"), aes(x=`Month`, #ASHC middle
+                       y=mean, color = Site))+
+  geom_errorbar(data = CT_sonde_filtered %>% filter(Site == "ASHC"),
+                aes(x = Month, ymin = mean - se, ymax = mean + se, color = Site), width = 0.2) +
+  
+scale_color_manual(values=c(FENC = "darksalmon",ASHC = "cornflowerblue")) +
+              #ggtitle("Temperature") +
+  theme(axis.text = element_text(size = 18), axis.title = element_text(size = 22), legend.text = element_text(size=18), 
+        legend.title = element_text(size=20), title = element_text(size = 24), strip.text = element_text(size = 18), panel.background = element_blank(),axis.line = element_line(color = "black") )+
+  facet_wrap(~variable, scales = "free_y", ncol =2, nrow=3) + labs(x = "Month", y = "Mean Variable")
+  #geom_hline(yintercept = 20, color = "red", size = .5)+ #highlighting 20C for dermo infection
+  #geom_hline(yintercept = 16, color = "blue", size = .5) #highlighting 16C for spawning
+
+
+Environmental.data.plot
+
+#output of graph
+pdf(paste0(path = "Side_projects/Juvenile_growth/outputs/" ,"Environmental.data.plot.pdf"), height = 7, width = 11) #printing a PDF within the path of the code, with specific dimensions of PDF
+print(Environmental.data.plot) #specify the graph
+dev.off()
+
+
 #Separate into individual data sheets by variable 
 pH_jg          <- CT_sonde %>% dplyr::filter(variable == 'pH' & Site %in% c('FENC', 'ASHC'))
 Salinity_jg    <- CT_sonde %>% dplyr::filter(variable == 'Salinity' & Site %in% c('FENC', 'ASHC'))
