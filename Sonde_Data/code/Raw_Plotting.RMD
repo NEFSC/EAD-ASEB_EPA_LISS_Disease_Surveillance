@@ -19,8 +19,8 @@ knitr::opts_chunk$set(echo = TRUE,
                       cache = TRUE)
 
 #knitr::opts_knit$set(root.dir = "C:/Users/samjg/Documents/Github_repositories/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
-#knitr::opts_knit$set(root.dir = "C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
-knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
+knitr::opts_knit$set(root.dir = "C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
+#knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
 
 ```
 
@@ -302,7 +302,7 @@ print(CT_pH_2023)
 dev.off()
 
 CT_pH_2024 <- CT_pH %>% na.omit() %>%
-             dplyr::filter(`Date.Time` > '2024-03-01 00:00:00' & `Date.Time` < '2025-11-30 00:00:00' ) %>% # change date range needed here
+             dplyr::filter(`Date.Time` > '2024-03-01 00:00:00' & `Date.Time` < '2024-12-31 00:00:00' ) %>% # change date range needed here
              dplyr::mutate(Site = case_when(Site == 'ASHC' ~ 'Ash Creek', .default = 'Fence Creek')) %>% 
              ggplot(aes(x=`Date.Time`, 
                        y=mean, # the mean values
@@ -326,6 +326,32 @@ CT_pH_2024 <- CT_pH %>% na.omit() %>%
               theme(legend.position = "none")+geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
 
 CT_pH_2024
+
+CT_pH_2025 <- CT_pH %>% na.omit() %>%
+             dplyr::filter(`Date.Time` > '2025-01-01 00:00:00' & `Date.Time` < '2025-12-31 23:59:00' ) %>% # change date range needed here
+             dplyr::mutate(Site = case_when(Site == 'ASHC' ~ 'Ash Creek', .default = 'Fence Creek')) %>% 
+             ggplot(aes(x=`Date.Time`, 
+                       y=mean, # the mean values
+                       group=Site)) + # call the new mean
+              geom_line(aes(group = factor(Site), # lines for site
+                                linetype = Site), 
+                            size = 0.2, 
+                            position=position_dodge(.4)) + 
+              # scale_linetype_manual(values=c("solid", "dashed")) +
+              geom_point(aes(shape=Site, 
+                             fill=Site)) + 
+              scale_shape_manual(values=c(21, 22, 24, 25)) + 
+              scale_fill_manual(values=c("#D55E00",  "#0072B2")) + # "#CC79A7","#009E73"
+              geom_errorbar(aes(ymin=(mean)-(se), 
+                                ymax=(mean)+(se)), 
+                            width=0,position=position_dodge(.4)) +
+              facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+              ggtitle("pH - 2025") +
+              labs(x = "Time", y = "pH") +
+              theme_classic() +
+              theme(legend.position = "none")+geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
+
+CT_pH_2025
 
 CT_pH_callout_2023 <- CT_pH %>% na.omit() %>%
              dplyr::filter(`Date.Time` > '2023-08-03 00:00:00' & `Date.Time` < '2023-11-06 00:00:00' ) %>% # change date range needed here
@@ -354,7 +380,7 @@ CT_pH_callout_2023 <- CT_pH %>% na.omit() %>%
 CT_pH_callout_2023
 
 CT_pH_callout_2024 <- CT_pH %>% na.omit() %>%
-             dplyr::filter(`Date.Time` > '2024-08-03 00:00:00' & `Date.Time` < '2025-11-06 00:00:00' ) %>% # change date range needed here
+             dplyr::filter(`Date.Time` > '2024-08-03 00:00:00' & `Date.Time` < '2024-12-31 23:59:00' ) %>% # change date range needed here
              dplyr::mutate(Site = case_when(Site == 'ASHC' ~ 'Ash Creek', .default = 'Fence Creek')) %>% 
              ggplot(aes(x=`Date.Time`, 
                        y=mean, # the mean values
@@ -372,7 +398,7 @@ CT_pH_callout_2024 <- CT_pH %>% na.omit() %>%
                                 ymax=(mean)+(se)), 
                             width=0,position=position_dodge(.4)) +
               facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
-              ggtitle("pH - Diurnal cycle") +
+              ggtitle("pH - Diurnal cycle 2024") +
               #ggtitle(NA) +
               labs(x = "Time") +
               theme_classic() +
@@ -384,6 +410,36 @@ pdf(paste0(path = "output/raw_plots/LISS_proposal_plots","/CT_pH_2024.pdf"), hei
 print(CT_pH_2024)
 dev.off()
   
+CT_pH_callout_2025 <- CT_pH %>% na.omit() %>%
+             dplyr::filter(`Date.Time` > '2025-01-01 00:00:00' & `Date.Time` < '2025-12-31 23:59:00' ) %>% # change date range needed here
+             dplyr::mutate(Site = case_when(Site == 'ASHC' ~ 'Ash Creek', .default = 'Fence Creek')) %>% 
+             ggplot(aes(x=`Date.Time`, 
+                       y=mean, # the mean values
+                       group=Site)) + # call the new mean
+              geom_line(aes(group = factor(Site), # lines for site
+                                linetype = Site), 
+                            size = 0.2, 
+                            position=position_dodge(.4)) + 
+              # scale_linetype_manual(values=c("solid", "dashed")) +
+              geom_point(aes(shape=Site, 
+                             fill=Site)) + 
+              scale_shape_manual(values=c(21, 22, 24, 25)) + 
+              scale_fill_manual(values=c("#D55E00",  "#0072B2")) + # "#CC79A7","#009E73"
+              geom_errorbar(aes(ymin=(mean)-(se), 
+                                ymax=(mean)+(se)), 
+                            width=0,position=position_dodge(.4)) +
+              facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+              ggtitle("pH - Diurnal cycle 2025") +
+              #ggtitle(NA) +
+              labs(x = "Time") +
+              theme_classic() +
+              theme(legend.position = "none", axis.title.y = element_blank())+geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
+#CT_pH_callout_2024
+
+pdf(paste0(path = "output/raw_plots/LISS_proposal_plots","/CT_pH_2025.pdf"), height = 6, width = 11)
+#ggarrange(CT_pH_2025, CT_pH_callout_2025, ncol = 2, widths = c(2, 1))
+print(CT_pH_2025)
+dev.off()
 
 
 # Salinity 
@@ -445,7 +501,7 @@ print(CT_Salinity_2023)
 dev.off()
 
 CT_Salinity_2024 <- CT_Salinity %>% na.omit() %>%
-             dplyr::filter(`Date.Time` > '2024-03-01 00:00:00' & `Date.Time` < '2025-11-30 00:00:00' ) %>% # change date range needed here
+             dplyr::filter(`Date.Time` > '2024-03-01 00:00:00' & `Date.Time` < '2024-12-31 23:59:00' ) %>% # change date range needed here
              dplyr::mutate(Site = case_when(Site == 'ASHC' ~ 'Ash Creek', .default = 'Fence Creek')) %>% 
              ggplot(aes(x=`Date.Time`, 
                        y=mean, # the mean values
@@ -468,6 +524,31 @@ CT_Salinity_2024 <- CT_Salinity %>% na.omit() %>%
               theme_classic() +
               theme(legend.position = "none")+geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
 CT_Salinity_2024
+
+CT_Salinity_2025 <- CT_Salinity %>% na.omit() %>%
+             dplyr::filter(`Date.Time` > '2025-01-01 00:00:00' & `Date.Time` < '2025-12-31 23:59:00' ) %>% # change date range needed here
+             dplyr::mutate(Site = case_when(Site == 'ASHC' ~ 'Ash Creek', .default = 'Fence Creek')) %>% 
+             ggplot(aes(x=`Date.Time`, 
+                       y=mean, # the mean values
+                       group=Site)) + # call the new mean
+              geom_line(aes(group = factor(Site), # lines for site
+                                linetype = Site), 
+                            size = 0.2, 
+                            position=position_dodge(.4)) + 
+              # scale_linetype_manual(values=c("solid", "dashed")) +
+              geom_point(aes(shape=Site, 
+                             fill=Site)) + 
+              scale_shape_manual(values=c(21, 22, 24, 25)) + 
+              scale_fill_manual(values=c("#D55E00",  "#0072B2")) + # "#CC79A7","#009E73"
+              geom_errorbar(aes(ymin=(mean)-(se), 
+                                ymax=(mean)+(se)), 
+                            width=0,position=position_dodge(.4)) +
+              facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+              ggtitle("Salinity - 2025") +
+              labs(x = "Time", y = "Salinity") +
+              theme_classic() +
+              theme(legend.position = "none")+geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
+CT_Salinity_2025
 
 CT_Salinity_callout_2024 <- CT_Salinity %>% na.omit() %>%
              dplyr::filter(`Date.Time` > '2024-08-03 00:00:00' & `Date.Time` < '2024-11-06 00:00:00' ) %>% # change date range needed here
@@ -499,6 +580,38 @@ CT_Salinity_callout_2024 <- CT_Salinity %>% na.omit() %>%
 pdf(paste0(path = "output/raw_plots/LISS_proposal_plots/CT_Salinity_2024.pdf"), height = 6, width = 11)
 #ggarrange(CT_Salinity_2024, CT_Salinity_callout_2024, ncol = 2, widths = c(2, 1))
 print(CT_Salinity_2024)
+dev.off()
+
+CT_Salinity_callout_2025 <- CT_Salinity %>% na.omit() %>%
+             dplyr::filter(`Date.Time` > '2025-01-01 00:00:00' & `Date.Time` < '2025-12-31 23:59:00' ) %>% # change date range needed here
+             dplyr::mutate(Site = case_when(Site == 'ASHC' ~ 'Ash Creek', .default = 'Fence Creek')) %>% 
+             ggplot(aes(x=`Date.Time`, 
+                       y=mean, # the mean values
+                       group=Site)) + # call the new mean
+              geom_line(aes(group = factor(Site), # lines for site
+                                linetype = Site), 
+                            size = 0.2, 
+                            position=position_dodge(.4)) + 
+              # scale_linetype_manual(values=c("solid", "dashed")) +
+              geom_point(aes(shape=Site, 
+                             fill=Site)) + 
+              scale_shape_manual(values=c(21, 22, 24, 25)) + 
+              scale_fill_manual(values=c("#D55E00",  "#0072B2")) + # "#CC79A7","#009E73"
+              geom_errorbar(aes(ymin=(mean)-(se), 
+                                ymax=(mean)+(se)), 
+                            width=0,position=position_dodge(.4)) +
+              facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+              ggtitle("Salinity - Diurnal cycle 2025") +
+              #ggtitle(NA) +
+              labs(x = "Time") +
+              theme_classic() +
+#              theme(legend.position = "none", axis.title.y = element_blank())
+#CT_Salinity_callout_2025
+
+  
+pdf(paste0(path = "output/raw_plots/LISS_proposal_plots/CT_Salinity_2025.pdf"), height = 6, width = 11)
+#ggarrange(CT_Salinity_2025, CT_Salinity_callout_2025, ncol = 2, widths = c(2, 1))
+print(CT_Salinity_2025)
 dev.off()
 
 # Temperature 
@@ -560,7 +673,7 @@ print(CT_Temperature_2023)
 dev.off()
 
 CT_Temperature_2024 <- CT_Temperature %>% na.omit() %>%
-             dplyr::filter(`Date.Time` > '2024-03-01 00:00:00' & `Date.Time` < '2025-11-30 00:00:00' ) %>% # change date range needed here
+             dplyr::filter(`Date.Time` > '2024-03-01 00:00:00' & `Date.Time` < '2024-12-31 23:59:00' ) %>% # change date range needed here
              dplyr::mutate(Site = case_when(Site == 'ASHC' ~ 'Ash Creek', .default = 'Fence Creek')) %>% 
              ggplot(aes(x=`Date.Time`, 
                        y=mean, # the mean values
@@ -585,7 +698,7 @@ CT_Temperature_2024 <- CT_Temperature %>% na.omit() %>%
 CT_Temperature_2024
 
 CT_Temperature_callout_2024 <- CT_Temperature %>% na.omit() %>%
-             dplyr::filter(`Date.Time` > '2024-08-03 00:00:00' & `Date.Time` < '2025-11-30 00:00:00' ) %>% # change date range needed here
+             dplyr::filter(`Date.Time` > '2024-08-03 00:00:00' & `Date.Time` < '2024-12-31 23:59:00' ) %>% # change date range needed here
              dplyr::mutate(Site = case_when(Site == 'ASHC' ~ 'Ash Creek', .default = 'Fence Creek')) %>% 
              ggplot(aes(x=`Date.Time`, 
                        y=mean, # the mean values
@@ -613,6 +726,62 @@ CT_Temperature_callout_2024 <- CT_Temperature %>% na.omit() %>%
 pdf(paste0(path ="output/raw_plots/LISS_proposal_plots/CT_Temperature_2024.pdf"), height = 6, width = 11)
 #ggarrange(CT_Temperature_2024, CT_Temperature_callout_2024, ncol = 2, widths = c(2, 1))
 print(CT_Temperature_2024)
+dev.off()
+
+CT_Temperature_2025 <- CT_Temperature %>% na.omit() %>%
+             dplyr::filter(`Date.Time` > '2025-01-01 00:00:00' & `Date.Time` < '2025-12-31 23:59:00' ) %>% # change date range needed here
+             dplyr::mutate(Site = case_when(Site == 'ASHC' ~ 'Ash Creek', .default = 'Fence Creek')) %>% 
+             ggplot(aes(x=`Date.Time`, 
+                       y=mean, # the mean values
+                       group=Site)) + # call the new mean
+              geom_line(aes(group = factor(Site), # lines for site
+                                linetype = Site), 
+                            size = 0.2, 
+                            position=position_dodge(.4)) + 
+              # scale_linetype_manual(values=c("solid", "dashed")) +
+              geom_point(aes(shape=Site, 
+                             fill=Site)) + 
+              scale_shape_manual(values=c(21, 22, 24, 25)) + 
+              scale_fill_manual(values=c("#D55E00",  "#0072B2")) + # "#CC79A7","#009E73"
+              geom_errorbar(aes(ymin=(mean)-(se), 
+                                ymax=(mean)+(se)), 
+                            width=0,position=position_dodge(.4)) +
+              facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+              ggtitle("Temperature - 2025") +
+              labs(x = "Time", y = "Temperature (Celcius)") +
+              theme_classic() +
+              theme(legend.position = "none")+geom_hline(yintercept = 16, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
+CT_Temperature_2025
+
+CT_Temperature_callout_2025 <- CT_Temperature %>% na.omit() %>%
+             dplyr::filter(`Date.Time` > '2025-01-01 00:00:00' & `Date.Time` < '2025-12-31 23:59:00' ) %>% # change date range needed here
+             dplyr::mutate(Site = case_when(Site == 'ASHC' ~ 'Ash Creek', .default = 'Fence Creek')) %>% 
+             ggplot(aes(x=`Date.Time`, 
+                       y=mean, # the mean values
+                       group=Site)) + # call the new mean
+              geom_line(aes(group = factor(Site), # lines for site
+                                linetype = Site), 
+                            size = 0.2, 
+                            position=position_dodge(.4)) + 
+              # scale_linetype_manual(values=c("solid", "dashed")) +
+              geom_point(aes(shape=Site, 
+                             fill=Site)) + 
+              scale_shape_manual(values=c(21, 22, 24, 25)) + 
+              scale_fill_manual(values=c("#D55E00",  "#0072B2")) + # "#CC79A7","#009E73"
+              geom_errorbar(aes(ymin=(mean)-(se), 
+                                ymax=(mean)+(se)), 
+                            width=0,position=position_dodge(.4)) +
+              facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+              ggtitle("Temperature - Diurnal cycle 2025") +
+              #ggtitle(NA) +
+              labs(x = "Time") +
+              theme_classic() +
+              theme(legend.position = "none", axis.title.y = element_blank())+geom_hline(yintercept = 16, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
+#CT_Temperature_callout_2025
+
+pdf(paste0(path ="output/raw_plots/LISS_proposal_plots/CT_Temperature_2025.pdf"), height = 6, width = 11)
+#ggarrange(CT_Temperature_2025, CT_Temperature_callout_2025, ncol = 2, widths = c(2, 1))
+print(CT_Temperature_2025)
 dev.off()
 
 # DO (Dissolved Oxygen) 
@@ -673,7 +842,7 @@ print(CT_DO_2023)
 dev.off()
 
 CT_DO_2024 <- CT_DO %>% na.omit() %>%
-             dplyr::filter(`Date.Time` > '2024-03-01 00:00:00' & `Date.Time` < '2025-11-30 00:00:00' ) %>% # change date range needed here
+             dplyr::filter(`Date.Time` > '2024-03-01 00:00:00' & `Date.Time` < '2024-12-31 23:59:00' ) %>% # change date range needed here
              dplyr::mutate(Site = case_when(Site == 'ASHC' ~ 'Ash Creek', .default = 'Fence Creek')) %>% 
              ggplot(aes(x=`Date.Time`, 
                        y=mean, # the mean values
@@ -727,6 +896,60 @@ pdf(paste0(path = "output/raw_plots/LISS_proposal_plots/CT_DO_2024.pdf"), height
 print(CT_DO_2024)
 dev.off()
 
+CT_DO_2025 <- CT_DO %>% na.omit() %>%
+             dplyr::filter(`Date.Time` > '2025-01-01 00:00:00' & `Date.Time` < '2025-12-31 23:59:00' ) %>% # change date range needed here
+             dplyr::mutate(Site = case_when(Site == 'ASHC' ~ 'Ash Creek', .default = 'Fence Creek')) %>% 
+             ggplot(aes(x=`Date.Time`, 
+                       y=mean, # the mean values
+                       group=Site)) + # call the new mean
+              geom_line(aes(group = factor(Site), # lines for site
+                                linetype = Site), 
+                            size = 0.2, 
+                            position=position_dodge(.4)) + 
+              # scale_linetype_manual(values=c("solid", "dashed")) +
+              geom_point(aes(shape=Site, 
+                             fill=Site)) + 
+              scale_shape_manual(values=c(21, 22, 24, 25)) + 
+              scale_fill_manual(values=c("#D55E00",  "#0072B2")) + # "#CC79A7","#009E73"
+              geom_errorbar(aes(ymin=(mean)-(se), 
+                                ymax=(mean)+(se)), 
+                            width=0,position=position_dodge(.4)) +
+              facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+              ggtitle("DO Concentration - 2025") +
+              labs(x = "Time", y = "DO Concentration (mg/L)") +
+              theme_classic() +
+              theme(legend.position = "none")
+
+CT_DO_2025
+CT_DO_callout_2025 <- CT_DO %>% na.omit() %>%
+             dplyr::filter(`Date.Time` > '2025-01-01 00:00:00' & `Date.Time` < '2025-12-31 23:59:00' ) %>% # change date range needed here
+             dplyr::mutate(Site = case_when(Site == 'ASHC' ~ 'Ash Creek', .default = 'Fence Creek')) %>% 
+             ggplot(aes(x=`Date.Time`, 
+                       y=mean, # the mean values
+                       group=Site)) + # call the new mean
+              geom_line(aes(group = factor(Site), # lines for site
+                                linetype = Site), 
+                            size = 0.2, 
+                            position=position_dodge(.4)) + 
+              # scale_linetype_manual(values=c("solid", "dashed")) +
+              geom_point(aes(shape=Site, 
+                             fill=Site)) + 
+              scale_shape_manual(values=c(21, 22, 24, 25)) + 
+              scale_fill_manual(values=c("#D55E00",  "#0072B2")) + # "#CC79A7","#009E73"
+              geom_errorbar(aes(ymin=(mean)-(se), 
+                                ymax=(mean)+(se)), 
+                            width=0,position=position_dodge(.4)) +
+              facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+              ggtitle("DO Concentration - Diurnal cycle 2025") +
+              #ggtitle(NA) +
+              labs(x = "Time") +
+              theme_classic() +
+              theme(legend.position = "none", axis.title.y = element_blank())
+#CT_DO_callout_2025
+pdf(paste0(path = "output/raw_plots/LISS_proposal_plots/CT_DO_2025.pdf"), height = 6, width = 11)
+#ggarrange(CT_DO_2025, CT_DO_callout_2025, ncol = 2, widths = c(2, 1))
+print(CT_DO_2025)
+dev.off()
 
 ##########################Grid of June and July 2024 temperature and salinity for HOllings Scholar Juvenille Growth project########################################
 Master_table <- Master_table %>% filter(!is.na(Temperature))
