@@ -398,13 +398,6 @@ ggplot(data=growth_rate_graph, aes(x=Month, y=monthly_growth_rate, fill=Site)) +
 ```
 
 
-#Generalized linear mixed models - using glmmTMB package
-#Suggestions from Sam
-       #use glm instead of lme - done
-      #Kruskel-Wallis for each month with sites -done, did I do this correctly?
-      #run one large individual model with and without replicate and run AIC to see which model is better -DONE
-      #use backwards elimination method - smallest p values are removed from the model - DONE
-      #run these same models with growth rate - done
      
 ```{r}
 ################################ Environmental Data #########################################
@@ -458,11 +451,18 @@ dev.off()
 pH_jg          <- CT_sonde %>% dplyr::filter(variable == 'pH' & Site %in% c('FENC', 'ASHC'))
 Salinity_jg    <- CT_sonde %>% dplyr::filter(variable == 'Salinity' & Site %in% c('FENC', 'ASHC'))
 Temperature_jg <- CT_sonde %>% dplyr::filter(variable == 'Temperature' & Site %in% c('FENC', 'ASHC'))
-DO_jg          <- CT_sonde %>% dplyr::filter(variable == 'RDO Concentration' & Site %in% c('FENC', 'ASHC'))
-CHLA_jg       <- CT_sonde %>% dplyr::filter(variable == 'Chlorophyll-a Fluorescence' & Site %in% c('FENC', 'ASHC'))
+DO_jg          <- CT_sonde %>% dplyr::filter(variable == 'RDO.Concentration' & Site %in% c('FENC', 'ASHC'))
+CHLA_jg       <- CT_sonde %>% dplyr::filter(variable == 'Chlorophyll.a.Fluorescence' & Site %in% c('FENC', 'ASHC'))
 ```
 
 ## GLM MODELS
+#Generalized linear mixed models - using glmmTMB package
+#Suggestions from Sam
+       #use glm instead of lme - done
+      #Kruskel-Wallis for each month with sites -done, did I do this correctly?
+      #run one large individual model with and without replicate and run AIC to see which model is better -DONE
+      #use backwards elimination method - smallest p values are removed from the model - DONE
+      #run these same models with growth rate - done
 ```{r}
 library(car)
 
