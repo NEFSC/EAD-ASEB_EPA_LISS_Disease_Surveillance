@@ -402,6 +402,7 @@ ggplot(data=growth_rate_graph, aes(x=Month, y=monthly_growth_rate, fill=Site)) +
 ```{r}
 ################################ Environmental Data #########################################
 
+#Monthly Mean data
 #Pull in environmental data - monthly means created in "Raw_Plotting.RMD" in the sonde code
 CT_sonde<- read.csv("C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data/output/Sonde_monthly_means_CT_long.csv")%>% dplyr::mutate(
     year = year(year_month),
