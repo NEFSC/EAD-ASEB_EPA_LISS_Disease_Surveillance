@@ -170,10 +170,10 @@ df6<-read_csv("HOBO_Data\\raw_data\\112024_ASHC_HOBO.csv", col_names = TRUE)%>% 
 
 #The HOBO did not collect data over winter - the log stopped for some reason. 
 #3/5/25- present
-df7<-read_csv("HOBO_Data\\raw_data\\042025_ASHC_HOBO.csv", col_names = TRUE)%>%  # update this csv when new data comes in from the new HOBO
+df7<-read_csv("HOBO_Data\\raw_data\\052025_ASHC_HOBO.csv", col_names = TRUE)%>%  
   dplyr::rename(Temperature = `Temperature`) %>%
-  dplyr::rename(Date_Time = `Date-Time (EST/EDT)`) #%>%
-  #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset","Stopped"))
+  dplyr::rename(Date_Time = `Date-Time (EST/EDT)`) %>% 
+  dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset","Host Connected"))
 
 ASHC_HOBO <- rbind(df3,df4,df5,df6,df7)
 
