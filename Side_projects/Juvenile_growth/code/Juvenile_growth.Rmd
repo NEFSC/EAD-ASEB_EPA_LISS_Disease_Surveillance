@@ -292,11 +292,11 @@ st_height_FENC
 #Combine ASHC & FENC 
 growth_summary<-rbind(st_height_ASHC, st_height_FENC)
 
-write.csv(growth_summary, "Side_projects/Juvenile_growth/outputs\\juvenilegrowth_summary", row.names=FALSE)  #creating/printing csv file of all raw data merged together
+write.csv(growth_summary, "Side_projects/Juvenile_growth/outputs\\juvenilegrowth_summary.csv", row.names=FALSE)  #creating/printing csv file of all raw data merged together
+print(growth_summary)
 
 
-
-# TOTAL GROWTH RATE - growth rate across the entire sample period
+# TOTAgrowth_summary# TOTAL GROWTH RATE - growth rate across the entire sample period
 #growthrate <- st_height_ASHC  %>%
 #  group_by(Site) %>%
 #  summarise(datemax = max(Date), 
@@ -597,9 +597,9 @@ AIC(reduced_glm, glm_ALL) #glm_ALL has a slightly lower AIC so it is a better fi
 
 
 ################################################ Growth Rate ###############################################
-
+library(car)
 #growth rate different between sites and months?
-glm_growth <- glmmTMB(monthly_growth_rate ~  Site + Month, data=growth_summary) #growth rate is not different between sites but varies monthly
+glm_growth <- glmmTMB(monthly_growth_rate ~  Site * Month, data=growth_summary) #growth rate is not different between sites but varies monthly
 Anova(glm_growth)
 #Growth rates do not vary between sites but vary monthly
 
