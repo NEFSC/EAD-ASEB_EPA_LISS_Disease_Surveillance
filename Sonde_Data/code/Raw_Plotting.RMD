@@ -403,7 +403,7 @@ CT_pH_callout_2024 <- CT_pH %>% na.omit() %>%
               labs(x = "Time") +
               theme_classic() +
               theme(legend.position = "none", axis.title.y = element_blank())+geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
-#CT_pH_callout_2024
+CT_pH_callout_2024
 
 pdf(paste0(path = "output/raw_plots/LISS_proposal_plots","/CT_pH_2024.pdf"), height = 6, width = 11)
 #ggarrange(CT_pH_2024, CT_pH_callout_2024, ncol = 2, widths = c(2, 1))
@@ -955,7 +955,8 @@ dev.off()
 CT_means_filtered <- CT_means %>%
   filter(variable %in% c("Temperature", "Salinity", "pH", "RDO.Concentration", "Chlorophyll.a.Fluorescence")) %>%dplyr::filter(`Date.Time` > '2024-06-01 00:00:00' & `Date.Time` < '2024-11-30 00:00:00' ) 
 
-CT_means_filterCT_means_filterd %>% dplyr::filter(!mean =="231.92899")
+CT_means_filtered<- CT_means_filtered[-c(8868),]
+
 
 CT.data.plot <-ggplot()+
               geom_line(data=CT_means_filtered%>% filter(Site == "FENC"), aes(x=`Date.Time`, 
@@ -980,7 +981,7 @@ scale_color_manual(values=c(FENC = "darksalmon",ASHC = "cornflowerblue")) +
 
 CT.data.plot
   
-pdf(paste0(path = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Side_projects/Juvenile_growth/outputs/" ,"CT.data.plot.pdf"), height = 7, width = 11) #printing a PDF within the path of the code, with specific dimensions of PDF
+pdf(paste0(path = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Side_projects/Juvenile_growth/outputs/" ,"CT.data.plot.pdf"), height = 12, width = 11) #printing a PDF within the path of the code, with specific dimensions of PDF
 print(CT.data.plot) #specify the graph
 dev.off()
 
