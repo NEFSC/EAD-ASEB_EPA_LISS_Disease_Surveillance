@@ -493,6 +493,22 @@ ggplot(data=ASHC_proportion, aes(x=date_collected, y= Proportion, fill=intensity
   labs(title="Proportion of Intensity scores of Dermo infection at Ash Creek", x ="Date", y = "Proportion")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
   theme(axis.text=element_text(size=12))+
 scale_fill_brewer(palette = "YlOrBr")+scale_x_date(date_labels= "%b %Y", date_breaks = "1 month")
+
+
+ASHC_proportion_year <- df_intensity_proportions%>% filter(site == "ASHC")
+
+ASHC_proportion_yearly<- ggplot(data=ASHC_proportion_year, aes(x=month, y= Proportion, fill=intensity_bin)) +
+  geom_bar(width = .5, stat="identity", position = "fill",colour = "black")+  
+   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  labs(fill ="Dermo Intensity")+
+  labs(title="Proportion of Intensity scores of Dermo infection", x ="month", y = "Proportion")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  theme(axis.text=element_text(size=12))+
+scale_fill_brewer(palette = "YlOrBr")+
+   scale_x_continuous("Month", breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))+ 
+  facet_grid(year ~site)
+
+ASHC_proportion_yearly
 ```
 
 
