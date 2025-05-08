@@ -3,7 +3,7 @@ title: "BedCharacteristics_Oct2023Survey"
 author: "Mariah Kachmar"
 date: "12/13/2023"
 output: html_document
-updated: 11/07/2024
+updated: 5/08/2025
 description: This R code is used to important and summarize bed characteristics (height, area, rugosity, density, and coverage) data from the LISS Oyster Health Project's October 2023 oyster population surveys at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar Beach and Laurel Hollow subtidal sites in New York. 
 ---
 
@@ -68,6 +68,10 @@ data_all <- data_all %>%
   mutate(Season = case_when(between(month, 5,6) ~"Spring",
                             between(month, 8,10) ~ "Fall"))
 data_all <- select(data_all, -c("month"))
+
+data_all <- data_all %>% filter(!is.na(Quadrat))
+
+View(data_all)
 ```
 
 
@@ -75,7 +79,7 @@ data_all <- select(data_all, -c("month"))
 
 ```{r}
 #Bed Height - creating master file
-bed_all <- data_all %>% filter(!is.na(Quadrat))
+#bed_all <- data_all %>% filter(!is.na(Quadrat))
 #removing unnecessary columns
 bed_all <- select(data_all, -c("Field ID", "Quadrat_size", "Percent_coverage", "Live_count",
                                   "Box_count", "Gaper_count", "Rugosity", "Quadrat"))
@@ -85,7 +89,7 @@ head(bed_all)
 
 #renaming column
   bed_all <- bed_all %>% 
-    dplyr::rename(Bed_height_cm =Bed_height)
+    dplyr::rename(Bed_height_cm = Bed_height)
   
 #reordering columns
 bed_all <- bed_all %>% select("Date_collected", "Site", "State", "Bed_height_cm", "Season")
@@ -286,7 +290,7 @@ write.csv(Percentcoverage_master, "Master_files/percent_coverage_all_data.csv", 
 ```{r}
 #Summary of percent cover at all sites
 percentcover_summary <-  Percentcoverage_master %>%
-  dplyr::group_by(Site, Season, Percent_coverage) %>%
+  dplyr::group_by(Site, Season, Percent_coverage, Date_collected) %>%
   dplyr::summarize(Count = n())
 percentcover_summary
 
@@ -295,38 +299,134 @@ write.csv(percentcover_summary, "Field_Data_Biological/output/percentcoverage_su
 ```
 
 
-#oyster density metrics. QAQC_PopulationHeight script implements this code.
+#oyster density metrics. 
 ```{r}
 
-#data_all <- data_all %>%
-#  filter(!is.na(Live_count) & !is.na(Box_count) & !is.na(Gaper_count))
-#data_all  
+#pull in spring 2023 quadrat density data
+quadratdensity_2023<- read.csv("Field_Data_Biological\\raw_data\\qry_2023-06_Survey_QuadratDensity.csv") 
 
-density_live_sum <- summarySE(data = data_all, measurevar = "Live_count", groupvars = c(  "Site", "Year", "Season"))
-density_live_sum
+#lets clean up the data from 2023
+quadratdensity_2023 <- quadratdensity_2023 %>% 
+    dplyr::rename(Quadrat = QUADRAT_NUM) %>%
+  dplyr::rename(Live_count = LiveCount_Total) %>%
+  dplyr::rename(Box_count = BoxCount_Total)%>% 
+  dplyr::rename(Gaper_count = GaperCount_Total)%>% 
+  dplyr::rename(Date_collected = TripDate) %>%  
+  dplyr::rename(Site = Site_Name) %>% 
+  select(-c("Quadrat_Type", "Quadrat_Zone", "Bed_Section", "Light_Zone", "Subsample_Measured", "Quadrat_Notes","Oyster_Cover")) %>%
+   mutate(Date_collected = as.Date(Date_collected, format = "%m/%d/%Y")) %>%
+  mutate(Site = recode(Site, "Ash Creek" = "ASHC", "Fence Creek" = "FENC"))
+
+quadratdensity_2023
+
+quadratdensity_2023$Season<- rep("Spring", nrow(quadratdensity_2023))
+
+#data post spring 2023 and clean it up
+quadratdensity <- data_all %>%
+  select(-c("Field ID", "State", "Quadrat_size", "Percent_coverage", "Bed_height", "Rugosity"))%>%
+  filter(!is.na(Live_count)) %>%filter(!is.na(Box_count))%>%filter(!is.na(Gaper_count))
+ quadratdensity <- quadratdensity %>%
+  mutate(month = month(Date_collected))
+ 
+quadratdensity <- quadratdensity %>%
+  mutate(Season = case_when(between(month, 5,6) ~"Spring",
+                            between(month, 8,10) ~ "Fall")) %>% select(-c(month))
+
+quadratdensity <- quadratdensity %>% select(where(~ all(!is.na(.))))
+
+#combine spring 2023 with everything else
+  
+quadratdensity_summary <- rbind(quadratdensity_2023,quadratdensity)
+
+quadratdensity_summary
+
+#######################################
+
+density_live_sum <- summarySE(data = quadratdensity_summary, measurevar = "Live_count", groupvars = c(  "Site", "Date_collected", "Season"))
+
 density_live_sum <- density_live_sum %>%
-  mutate(Count = Live_count) %>%
+  mutate(Count = Live_count) %>%  mutate(survival_status = "live") %>%
   select(-Live_count)
+density_live_sum
 
-
-density_box_sum <- summarySE(data = data_all, measurevar = "Box_count", groupvars = c( "Site", "Year", "Season"))
+density_box_sum <- summarySE(data = quadratdensity_summary, measurevar = "Box_count", groupvars = c( "Site", "Date_collected", "Season"))
 density_box_sum <- density_box_sum %>%
-  mutate(Count = Box_count) %>%
+  mutate(Count = Box_count) %>% mutate(survival_status = "box") %>%
   select(-Box_count)
 density_box_sum
 
-density_gaper_sum <- summarySE(data = data_all, measurevar = "Gaper_count", groupvars = c( "Site", "Year", "Season"))
+density_gaper_sum <- summarySE(data = quadratdensity_summary, measurevar = "Gaper_count", groupvars = c( "Site", "Date_collected", "Season"))
 density_gaper_sum <- density_gaper_sum %>%
-  mutate(Count = Gaper_count) %>%
+  mutate(Count = Gaper_count) %>% mutate(survival_status = "gaper") %>%
   select(-Gaper_count)
-
+density_gaper_sum
 
 
 density_summary<- rbind(density_gaper_sum, density_box_sum, density_live_sum)
 density_summary
 
-#sum total number of oysters counted per quadrat
+
+#summary of each oyster type by site. output = Site, N, Mean, stnd dev, stnd error, and confidence interval
+#all_density_SE <-summarySE(data = density_summary, measurevar = "Count", groupvars=c("Site", "survival_status", "Season", "Date_collected"))
+#all_density_SE
+
+#calculate percent standard error as 100*se/mean
+density_summary$PSE_all <- 100*(density_summary$se/density_summary$Count)
+
+#calculate completeness as 100*N/4, where 4 is the desired number of quadrats per site. 2023 surveys had 12 quadrates measured. 
+  densitysummary <- density_summary %>%
+    mutate(PercentComplete_Quad = ((N/4)*100))
+densitysummary
+
+
+write_csv(densitysummary, "Field_Data_Biological/Output/populationdensity_summary.csv")
+
+#Quadrat size is 25 x25cm (.0625 m^2). To calculate density (oysters per m^2) multiply number of oysters counted X 16
+
+density <- quadratdensity_summary %>%
+  pivot_longer(
+    cols = c(Live_count, Box_count, Gaper_count),
+    names_to = "survival_status",
+    values_to = "Count"
+  ) %>%
+  mutate(survival_status = case_when(
+    survival_status == "Live_count" ~ "live",
+    survival_status == "Box_count" ~ "box",
+    survival_status == "Gaper_count" ~ "gaper",
+    TRUE ~ survival_status
+  ))
+
+density
+
+df_density_all <- density %>%
+  dplyr::group_by(Site, Season, Quadrat, survival_status, Date_collected) %>% 
+  dplyr::summarize(Density = sum(Count)*16)
+df_density_all
+
+#Mean of Oysters per m^2 across all quadrats
+mean_total_oysters_all <- df_density_all %>%
+ dplyr:: group_by(Site, Season, survival_status, Date_collected) %>%
+ dplyr::summarize(Total_Density = mean(Density))
+mean_total_oysters_all
  
+
+#Density per quadrat totals
+ggplot(data=df_density_all, aes(x= survival_status, y = Density, fill = survival_status)) +
+  geom_bar( stat="identity")+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
+  theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  labs(title="Count ", x ="Survival status", y= "Density")+
+  facet_wrap(~ factor(Season, levels = c("Spring", "Fall"))+ Date_collected + Site, scales = "free", nrow=3)
+#+geom_text(aes(label=Count ), vjust=-0.3, size = 3.5)
+
+#Density of oysters per meter squared
+ggplot(data=mean_total_oysters_ASHC, aes(x= Survival_status, y = Total_Density, fill = Survival_status)) +
+  geom_bar( stat="identity")+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
+  theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  labs(title="Ash Creek Density ", x ="Survival status", y= "Density (# oyster / meter squared)")+
+  facet_wrap(~ factor(Season, levels = c("Spring", "Fall"))+ Year, scales = "free")+
+ geom_text(aes(label=Total_Density), vjust=-0.3, size = 3.5)
 
 
 ```

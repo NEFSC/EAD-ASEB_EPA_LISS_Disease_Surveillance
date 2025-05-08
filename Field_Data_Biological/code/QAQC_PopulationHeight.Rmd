@@ -8,7 +8,7 @@ output: html_document
 description: This R code is used to important and summarize shell height data from the LISS Oyster Health Project's 2023 oyster population surveys at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. June 2023 data was originally input into the Access database (LISS_Database_FieldCollectionData_2023-07-18.accb) and files needed to be converted and standardize to the new collection method. All original or raw data can be accessed in the GitHub repository. 
 ---
 
-Last updated 10/11/24 K. Lenderman
+Last updated 5/8/25 by M.Kachmar
 
 Note: Fixed the density code as it was not including the oysters that were counted past 100.
 
@@ -97,8 +97,6 @@ shellsize
 shellsize <- shellsize %>% select("Date_collected", "Site", "State", "Quadrat", "Height", "Survival_status", "Season")
 
 ```
-
-
 # This chunk is exploritory for fall surveys. Thinking about best way to pull, clean, and merge data and best ways to standardize June and October survey data
 
 #Pulling all height data into single sheet
@@ -208,28 +206,30 @@ write_csv(Height_master, path= "Master_files/height_all_data.csv") #row.names=FA
 #Merge all quadrates data from surveys 
 #Sum total number of oyster counter per quadrat
 
-#This code does not include the oysters above 100 (which are not included in the height_master)
+#This code does not include the oysters above 100 count (which are not included in the height_master)
 #quadratdensity_all_old<- Height_master %>%
 #  dplyr::group_by(Quadrat, Season, Year, Survival_status, Site, Date_collected, State) %>%
 #  dplyr::summarize(Count = n())
 #quadratdensity_all_old
 
-quadratdensity_all <- read.csv("Field_Data_Biological//raw_data//Population_survey_density.csv") 
+#quadratdensity_all <- read.csv("Field_Data_Biological//raw_data//Population_survey_density.csv") 
+
+#View(quadratdensity_all)
 
 #summary of each oyster type by site. output = Site, N, Mean, stnd dev, stnd error, and confidence interval
-all_density_SE <-summarySE(data = quadratdensity_all, measurevar = "Count", groupvars=c("Site", "Survival_status", "Season", "Date_collected"))
-all_density_SE
+#all_density_SE <-summarySE(data = quadratdensity_all, measurevar = "Count", groupvars=c("Site", "Survival_status", "Season", "Date_collected"))
+#all_density_SE
 
 #calculate percent standard error as 100*se/mean
-all_density_SE$PSE_all <- 100*(all_density_SE$se/all_density_SE$Count)
+#all_density_SE$PSE_all <- 100*(all_density_SE$se/all_density_SE$Count)
 
 #calculate completeness as 100*N/4, where 4 is the desired number of quadrats per site. 2023 surveys had 12 quadrates measured. 
-  densitysummary <- all_density_SE %>%
-    mutate(PercentComplete_Quad = ((N/4)*100))
-densitysummary
+#  densitysummary <- all_density_SE %>%
+#    mutate(PercentComplete_Quad = ((N/4)*100))
+#densitysummary
 
 
-write_csv(densitysummary, "Field_Data_Biological/Output/populationdensity_summary.csv") #, row.names=FALSE)
+#write_csv(densitysummary, "Field_Data_Biological/Output/populationdensity_summary.csv") #, row.names=FALSE)
 
 ```
 ```{r}
@@ -354,12 +354,12 @@ ggplot(height_ASHC, aes(x=factor(Season, levels = c("Spring", "Fall")), y=Height
 
 #Distribution Live 
 ASHC_Distribution_Live<-height_ASHC_Live %>% 
-  dplyr::filter(Year == "2024" ) %>%
+  #dplyr::filter(Year == "2025" ) %>%
   ggplot(aes(x= Height)) +
   geom_histogram()+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  labs(title="Ash Creek Height Live Oysters ", x ="Height (mm)")+ scale_x_continuous(limits= c(0,190), breaks = seq(0,190, by =10) )+
+  labs(title="Ash Creek Height Live Oysters ", x ="Height (mm)")+ scale_x_continuous(limits= c(0,200), breaks = seq(0,200, by =10) )+
   #scale_y_continuous( breaks = seq(0,20, by = 5))+
  facet_wrap(~ factor(Season, levels = c("Spring", "Fall")) + Year, scales = "free",  nrow=2)
 ASHC_Distribution_Live
@@ -373,9 +373,9 @@ ASHC_Distribution_Dead<- ggplot(data=height_ASHC_Dead, aes(x= Height)) +
   geom_histogram()+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  labs(title="Ash Creek Height Dead Oysters ", x ="Height (mm)")+ scale_x_continuous(limits= c(0,190), breaks = seq(0,190, by =10) )+
+  labs(title="Ash Creek Height Dead Oysters ", x ="Height (mm)")+ scale_x_continuous(limits= c(0,200), breaks = seq(0,200, by =10) )+
   scale_y_continuous(limits = c(0,20), breaks = seq(0,20, by = 5))+
-   facet_wrap(~ factor(Season, levels = c("Spring", "Fall")) + Year, scales = "free", ncol = 2, nrow=2)
+   facet_wrap(~ factor(Season, levels = c("Spring", "Fall")) + Year, scales = "free", nrow=2)
 ASHC_Distribution_Dead
 
 pdf(paste0(path = "Field_Data_Biological/Output/ASHC_Distribution_Dead.pdf"), height = 6, width = 11)
@@ -412,7 +412,7 @@ ggplot(data=df_quadrat_ASHC, aes(x= Survival_status, y = Count, fill = Survival_
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   labs(title="Ash Creek Count ", x ="Survival status", y= "Density")+
-  facet_wrap(~ factor(Season, levels = c("Spring", "Fall")), scales = "free")
+  facet_wrap(~ factor(Season, levels = c("Spring", "Fall"))+ Year, scales = "free", nrow=2)
 #+geom_text(aes(label=Count ), vjust=-0.3, size = 3.5)
 
 #Density of oysters per meter squared
@@ -421,7 +421,7 @@ ggplot(data=mean_total_oysters_ASHC, aes(x= Survival_status, y = Total_Density, 
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   labs(title="Ash Creek Density ", x ="Survival status", y= "Density (# oyster / meter squared)")+
-  facet_wrap(~ factor(Season, levels = c("Spring", "Fall")), scales = "free")+
+  facet_wrap(~ factor(Season, levels = c("Spring", "Fall"))+ Year, scales = "free")+
  geom_text(aes(label=Total_Density), vjust=-0.3, size = 3.5)
 
 ```
@@ -493,7 +493,7 @@ FENC_Distribution_Dead<-ggplot(data=height_FENC_Dead, aes(x= Height)) +
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   labs(title="Fence Creek Height Dead Oysters ", x ="Height (mm)")+ scale_x_continuous(limits= c(0,180), breaks = seq(0,180, by =10) )+
   scale_y_continuous(limits = c(0,50), breaks = seq(0,50, by = 5))+
-   facet_wrap(~ factor(Season, levels = c("Spring", "Fall")) + Year,  scales = "free", ncol = 2, nrow=2)
+   facet_wrap(~ factor(Season, levels = c("Spring", "Fall")) + Year,  scales = "free", nrow=2)
 FENC_Distribution_Dead
 pdf(paste0(path = "Field_Data_Biological/Output/FENC_Distribution_Dead.pdf"), height = 6, width = 11)
 print(FENC_Distribution_Dead)
