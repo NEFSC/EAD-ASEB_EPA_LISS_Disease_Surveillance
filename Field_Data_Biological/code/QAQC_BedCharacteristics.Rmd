@@ -405,6 +405,8 @@ df_density_all <- density %>%
   dplyr::summarize(Density = sum(Count)*16)
 df_density_all
 
+view(df_density_all)
+
 #Mean of Oysters per m^2 across all quadrats
 mean_total_oysters_all <- df_density_all %>%
  dplyr:: group_by(Site, Season, survival_status, Date_collected) %>%
