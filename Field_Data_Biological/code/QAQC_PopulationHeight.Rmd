@@ -372,7 +372,7 @@ ASHC_Distribution_Live<-height_ASHC_Live %>%
  facet_wrap(~ factor(Season, levels = c("Spring", "Fall")) + Year, scales = "free",  nrow=2)
 ASHC_Distribution_Live
 
-pdf(paste0(path = "Field_Data_Biological/Output/ASHC_Distribution_Live.pdf"), height = 6, width = 11)
+pdf(paste0(path = "Field_Data_Biological/Output/ASHC_Distribution_Live.pdf"), height = 6, width = 15)
 print(ASHC_Distribution_Live)
 dev.off()
 
@@ -386,7 +386,7 @@ ASHC_Distribution_Dead<- ggplot(data=height_ASHC_Dead, aes(x= Height)) +
    facet_wrap(~ factor(Season, levels = c("Spring", "Fall")) + Year, scales = "free", nrow=2)
 ASHC_Distribution_Dead
 
-pdf(paste0(path = "Field_Data_Biological/Output/ASHC_Distribution_Dead.pdf"), height = 6, width = 11)
+pdf(paste0(path = "Field_Data_Biological/Output/ASHC_Distribution_Dead.pdf"), height = 6, width = 15)
 print(ASHC_Distribution_Dead)
 dev.off()
 
@@ -482,15 +482,16 @@ ggplot(height_FENC, aes(x=factor(Season, levels = c("Spring", "Fall")), y=Height
 
 #Distribution Live
 FENC_Distribution_Live<- height_FENC_Live %>% 
-  dplyr::filter(Year == "2024" ) %>% ggplot(aes(x= Height)) +
+  #dplyr::filter(Year == "2024" ) %>% 
+  ggplot(aes(x= Height)) +
   geom_histogram()+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   labs(title="Fence Creek Height Live Oysters ", x ="Height (mm)")+ scale_x_continuous(limits= c(0,200), breaks = seq(0,200, by =10) )+
   scale_y_continuous(limits = c(0,50), breaks = seq(0,50, by = 10))+
- facet_wrap(~ factor(Season, levels = c("Spring", "Fall")) + Year,  scales = "free", nrow=4)
+ facet_wrap(~ factor(Season, levels = c("Spring", "Fall")) + Year,  scales = "free", nrow=2)
 FENC_Distribution_Live
-pdf(paste0(path = "Field_Data_Biological/Output/FENC_Distribution_Live.pdf"), height = 6, width = 11)
+pdf(paste0(path = "Field_Data_Biological/Output/FENC_Distribution_Live.pdf"), height = 6, width = 15)
 print(FENC_Distribution_Live)
 dev.off()
 
@@ -503,7 +504,7 @@ FENC_Distribution_Dead<-ggplot(data=height_FENC_Dead, aes(x= Height)) +
   scale_y_continuous(limits = c(0,50), breaks = seq(0,50, by = 5))+
    facet_wrap(~ factor(Season, levels = c("Spring", "Fall")) + Year,  scales = "free", nrow=2)
 FENC_Distribution_Dead
-pdf(paste0(path = "Field_Data_Biological/Output/FENC_Distribution_Dead.pdf"), height = 6, width = 11)
+pdf(paste0(path = "Field_Data_Biological/Output/FENC_Distribution_Dead.pdf"), height = 6, width = 15)
 print(FENC_Distribution_Dead)
 dev.off()
 
