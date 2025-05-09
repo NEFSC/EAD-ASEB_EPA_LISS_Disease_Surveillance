@@ -56,6 +56,7 @@ library(readr)
 ```{r}
 
 #read in all population survey sheets 
+#Spring 2023 data was collected and organized in a different manner using a database called Access compared following surveys. Therefore the sheets are pulled in separately to reformat to the current status quo. Each measurement is in a separate file (see below).
 
 
 #June 2023
@@ -71,13 +72,13 @@ BedHeight <- read.csv("Field_Data_Biological\\raw_data\\qry_2023-06_Survey_BedHe
 #Cleaning up June 2023 survey data to be meragable with other data
 ```{r}
 
-#renaming columns
+#renaming columns to match current spreadsheets
 shellsize <- shellsize %>% dplyr::rename(Date_collected = TripDate) %>% dplyr::rename(Quadrat = QUADRAT_NUM) %>% dplyr::rename(Height = Height_mm) %>% dplyr::rename(Survival_status = SpecimenType)
 colnames(shellsize)
 shellsize$Date_collected <- factor(shellsize$Date_collected, levels = c("6/12/2023","6/14/2023"),
                                      labels = c("2023-06-12","2023-06-14"))
 
-#adding columns
+#adding columns - season and state the sampling took place
 shellsize$Season<- rep("Spring", nrow(shellsize))
 shellsize$State<- rep("CT", nrow(shellsize))
 
@@ -97,8 +98,9 @@ shellsize
 shellsize <- shellsize %>% select("Date_collected", "Site", "State", "Quadrat", "Height", "Survival_status", "Season")
 
 ```
-# This chunk is exploritory for fall surveys. Thinking about best way to pull, clean, and merge data and best ways to standardize June and October survey data
 
+
+#The next code pulls in the current method for collecting and organizing the survey data. This data is from Fall 2023 - present. 
 #Pulling all height data into single sheet
 ```{r}
 
@@ -111,13 +113,13 @@ file_paths <- list.files(path = "Field_Data_Biological/raw_data/Height",
 
 
 height_all <- lapply(file_paths, function(file_path) {
-  read_csv(file_path) %>%
+  read_csv(file_path) %>% #read csv files
     mutate(
-      Date_collected = as.Date(Date_collected,format = "%m/%d/%Y")
+      Date_collected = as.Date(Date_collected,format = "%m/%d/%Y") #format dates
     )
 }) %>%
-  bind_rows
-as.data.frame(height_all) 
+  bind_rows #merge csv files by alike columns
+as.data.frame(height_all) #make sure the new data set is a data frame
 
 #View(height_all)
 
@@ -135,10 +137,11 @@ as.data.frame(height_all)
 
 #height_all$Date_collected <- factor(height_all$Date_collected, levels = c("10/3/2023","10/5/2023", "10/16/2023", "10/17/2023" ),
 #                                     labels = c("2023-10-03","2023-10-05","2023-10-16", "2023-10-17" ))
- height_all <- height_all %>%
-  mutate(month = month(Date_collected))
+
+  height_all <- height_all %>%
+  mutate(month = month(Date_collected)) #lets add a month column to our data to better organize later on for graphing etc. 
  
-height_all <- height_all %>%
+height_all <- height_all %>% # lets add a seasons column to better organize data downstream
   mutate(Season = case_when(between(month, 5,6) ~"Spring",
                             between(month, 8,10) ~ "Fall"))
 height_all <- select(height_all, -c("month"))
@@ -147,6 +150,7 @@ height_all <- select(height_all, -c("month"))
 ```
 
 #Cleaning up height data
+#This chunk of code will reformat into "long" style. We do this by subetting height measurements for live, box (dead), and gapers so that they will then fall under the same column to merge downstream. Live, box, gaper will now be considered "survival status" and all height measurements will be within a single column. 
 ```{r}
 
 # Subset by category height (live, box, gaper)
@@ -184,7 +188,7 @@ Height_all <- Height_all %>% select("Date_collected", "Site", "State", "Quadrat"
 
 ```
 
-#Merging spring and fall 2023,2024 Height data
+#Merging spring and fall 2023- present Height data
 ```{r}
 
 Height_master<- rbind(Height_all, shellsize)
@@ -200,7 +204,10 @@ write_csv(Height_master, path= "Master_files/height_all_data.csv") #row.names=FA
 
 
 ```
-#Oyster density metrics
+
+
+#Oyster density metrics - see QAQC_BedCharacteristics.Rmd
+#this code was moved as it was not including oysters counted past the 100 height measurements 
 ```{r}
 
 #Merge all quadrates data from surveys 
@@ -237,6 +244,7 @@ write_csv(Height_master, path= "Master_files/height_all_data.csv") #row.names=FA
 ```
 
 #oyster size distribution
+#calculating min, max, and 25% & 75% quantiles for data QAQC
 ```{r}
 
 Height_master$Year<- year(Height_master$Date_collected)

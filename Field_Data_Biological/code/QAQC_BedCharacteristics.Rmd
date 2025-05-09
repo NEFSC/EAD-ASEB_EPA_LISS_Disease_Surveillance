@@ -299,13 +299,14 @@ write.csv(percentcover_summary, "Field_Data_Biological/output/percentcoverage_su
 ```
 
 
-#oyster density metrics. 
+#oyster density metrics
+#Spring 2023 data was organized using Microscoft Access database. This is different than our current method of organizing and storing data. We need to pull in the data seperately to organize and merge with the new formatting. Fall 2023 - present are in 'new' formatting methods.
 ```{r}
 
 #pull in spring 2023 quadrat density data
 quadratdensity_2023<- read.csv("Field_Data_Biological\\raw_data\\qry_2023-06_Survey_QuadratDensity.csv") 
 
-#lets clean up the data from 2023
+#lets clean up the data from 2023 - renaming columns to match current data, removing unnecessary columns, reformating date, and reformating site codes throughout
 quadratdensity_2023 <- quadratdensity_2023 %>% 
     dplyr::rename(Quadrat = QUADRAT_NUM) %>%
   dplyr::rename(Live_count = LiveCount_Total) %>%
@@ -319,20 +320,21 @@ quadratdensity_2023 <- quadratdensity_2023 %>%
 
 quadratdensity_2023
 
-quadratdensity_2023$Season<- rep("Spring", nrow(quadratdensity_2023))
+quadratdensity_2023$Season<- rep("Spring", nrow(quadratdensity_2023)) #adding a season column for downstream organization and graphing data
 
-#data post spring 2023 and clean it up
+#data Fall 2023 - present and clean it up ; Removing unnecessary columns as we are just focusing on density information, removing and NAs, creating a month column
 quadratdensity <- data_all %>%
   select(-c("Field ID", "State", "Quadrat_size", "Percent_coverage", "Bed_height", "Rugosity"))%>%
   filter(!is.na(Live_count)) %>%filter(!is.na(Box_count))%>%filter(!is.na(Gaper_count))
  quadratdensity <- quadratdensity %>%
   mutate(month = month(Date_collected))
  
+# adding a seasons column to the data set for downstream organization and graphing
 quadratdensity <- quadratdensity %>%
   mutate(Season = case_when(between(month, 5,6) ~"Spring",
-                            between(month, 8,10) ~ "Fall")) %>% select(-c(month))
+                            between(month, 8,10) ~ "Fall")) %>% select(-c(month)) 
 
-quadratdensity <- quadratdensity %>% select(where(~ all(!is.na(.))))
+quadratdensity <- quadratdensity %>% select(where(~ all(!is.na(.)))) #removing any NA's from the dataset
 
 #combine spring 2023 with everything else
   
