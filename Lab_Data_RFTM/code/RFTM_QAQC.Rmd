@@ -6,11 +6,10 @@ output: html_document
 
 description: This R code is used to import and summarize RFTM (Rays Fluid Thioglycollate Medium) intensity scoring from the LISS Oyster Health Project's monthly sampling at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. The scale used to score intensity for individuals is the Mackins Scale (citation). This score can be used to calculate prevalence, weighted prevalence and intensity across the population. 
 ---
-Last updated 5/08/25 by K. Lenderman
+Last updated 5/12/25 by K. Lenderman
   - Created new proportion graphs
-  - Accuracy 82.1%
+  - Accuracy 82.2%
   - Master file and Completeness file are up to date.
-  - test
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -494,10 +493,10 @@ ggplot(data=ASHC_proportion, aes(x=date_collected, y= Proportion, fill=intensity
   theme(axis.text=element_text(size=12))+
 scale_fill_brewer(palette = "YlOrBr")+scale_x_date(date_labels= "%b %Y", date_breaks = "1 month")
 
+#Proportion of intensity graph for one site - can change site
+FENC_proportion_year <- df_intensity_proportions%>% filter(site == "FENC")
 
-ASHC_proportion_year <- df_intensity_proportions%>% filter(site == "ASHC")
-
-ASHC_proportion_yearly<- ggplot(data=ASHC_proportion_year, aes(x=month, y= Proportion, fill=intensity_bin)) +
+FENC_proportion_yearly<- ggplot(data=FENC_proportion_year, aes(x=month, y= Proportion, fill=intensity_bin)) +
   geom_bar(width = .5, stat="identity", position = "fill",colour = "black")+  
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
@@ -508,7 +507,7 @@ scale_fill_brewer(palette = "YlOrBr")+
    scale_x_continuous("Month", breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))+ 
   facet_grid(year ~site)
 
-ASHC_proportion_yearly
+FENC_proportion_yearly
 ```
 
 
