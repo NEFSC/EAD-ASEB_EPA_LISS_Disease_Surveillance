@@ -12,7 +12,7 @@
 
 library(lubridate)
 library(dplyr)
-
+library(readr)
 
 #User-defined variables:
 
@@ -29,8 +29,6 @@ timeDigits<-5; #specifies the number of decimal places to which the time data ar
 #Define some desired outputs here as booleans. Don't worry about it for now.
 #Might exclude this entirely. Not sure.
 
-#USER SHOULD NOT TOUCH ANYTHING BELOW THIS LINE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 # CHANGES MADE September 26 2023 to cater script for LISS Sonde data - by Samuel Gurr
 # most changes pertain to the inconsistencies in date formatting between sensors 
 
@@ -38,40 +36,53 @@ timeDigits<-5; #specifies the number of decimal places to which the time data ar
 #Note that the following functions expect the columns to be 
 #TIME, TIME_NUM_FORMAT, and Salinity in that order.
 getwd()
-# setwd("C:/Users/samjg/Documents/Github_repositories/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
-filename <- as.character(file.choose())
-D        <- readLines(filename)
-ind      <- grep('Date Time',D)
-raw      <- read_csv(filename,skip=ind-1,col_types = cols()) #header=TRUE, sep = ","));
-columns  <- names(raw)
-raw_df   <- as.data.frame(raw)
-raw_df[2:(ncol(raw_df))] <- lapply(raw_df[2:(ncol(raw_df))],as.numeric)
-names(raw_df) <- gsub(" \\([0-9]+\\)", "", columns) # ommit the numeric information from all column names 
-
-if(gsub(".*/","", (gsub("\\","/",filename, fixed=T))) %in% c('082023_ASHC_Sonde.csv', 
-                                                             '082023_LAUR_Sonde.csv', 
-                                                             '092023_ASHC_Sonde.csv',
-                                                             '102023_ASHC_Sonde.csv',
-                                                             '102023_FENC_Sonde.csv')) { # data files that have date formated as mdy_hm
-  raw_df[,1] <- mdy_hm(raw_df[,1]) # with_tz(force_tz(mdy_hm(raw_df[,1]),tz='America/New_York'),'UTC')
-  } else if (gsub(".*/","", (gsub("\\","/",filename, fixed=T))) %in% '072023_ASHC_Sonde.csv') {
-    raw_df[,1] <- mdy_hms(raw_df[,1]) # with_tz(force_tz(mdy_hms(raw_df[,1]),tz='America/New_York'),'UTC')
-  } else if (gsub(".*/","", (gsub("\\","/",filename, fixed=T))) %in% '0924_GOLD_Sonde.csv') {
-    raw_df[,1] <- dmy_hm(raw_df[,1]) # with_tz(force_tz(mdy_hms(raw_df[,1]),tz='America/New_York'),'UTC')
-  } else (raw_df[,1] <- ymd_hms(raw_df[,1])  #with_tz(force_tz(ymd_hms(raw_df[,1]),tz='America/New_York'),'UTC') # all other data files that are formatted as ymd_hm
-)
+setwd("C:/Users/samuel.gurr/Documents/Github_repositories/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
+filename     <- as.character("output/Sonde_master_2024.csv")
+target_site  <- 'ASHC' # call the site you want
+raw_df       <- as.data.frame(read.csv(filename, sep = ',')) %>%  
+                       dplyr::filter(Site %in% target_site) 
+# raw_df   <- as.data.frame(raw)
+# raw_df[2:(ncol(raw_df))] <- lapply(raw_df[2:(ncol(raw_df))],as.numeric)
+# names(raw_df) <- gsub(" \\([0-9]+\\)", "", columns) # ommit the numeric information from all column names 
+# 
+# if(gsub(".*/","", (gsub("\\","/",filename, fixed=T))) %in% c('082023_ASHC_Sonde.csv', 
+#                                                              '082023_LAUR_Sonde.csv', 
+#                                                              '092023_ASHC_Sonde.csv',
+#                                                              '102023_ASHC_Sonde.csv',
+#                                                              '102023_FENC_Sonde.csv')) { # data files that have date formated as mdy_hm
+#   raw_df[,1] <- mdy_hm(raw_df[,1]) # with_tz(force_tz(mdy_hm(raw_df[,1]),tz='America/New_York'),'UTC')
+#   } else if (gsub(".*/","", (gsub("\\","/",filename, fixed=T))) %in% '072023_ASHC_Sonde.csv') {
+#     raw_df[,1] <- mdy_hms(raw_df[,1]) # with_tz(force_tz(mdy_hms(raw_df[,1]),tz='America/New_York'),'UTC')
+#   } else if (gsub(".*/","", (gsub("\\","/",filename, fixed=T))) %in% '0924_GOLD_Sonde.csv') {
+#     raw_df[,1] <- dmy_hm(raw_df[,1]) # with_tz(force_tz(mdy_hms(raw_df[,1]),tz='America/New_York'),'UTC')
+#   } else (raw_df[,1] <- ymd_hms(raw_df[,1])  #with_tz(force_tz(ymd_hms(raw_df[,1]),tz='America/New_York'),'UTC') # all other data files that are formatted as ymd_hm
+# )
 # with_tz(force_tz(ymd_hms(raw_df[,1]),tz='America/New_York'),'UTC')
 
-data <- as.data.frame(raw_df[!is.na(raw_df$`Date Time`),] %>% 
-  dplyr::mutate(TIME = as_datetime(`Date Time`), # convert time and rename 
+data <- as.data.frame(raw_df[!is.na(raw_df$Date.Time),] %>% 
+  dplyr::mutate(TIME = as_datetime(Date.Time), # convert time and rename 
                 # NOTE: lubraidate as numeric converts to number of seconds since 1/1/1970 - convert this to number of years
                 TIME_NUM_FORMAT = (as.numeric(TIME) / 86400 / 365) ) %>% # get a numeric versoin of time
-  dplyr::select(TIME, TIME_NUM_FORMAT, `Salinity (PSU)`) %>%  # call the three column of interest
-  dplyr::rename(Salinity  = `Salinity (PSU)`)) %>% 
-  na.omit
+  dplyr::select(TIME, TIME_NUM_FORMAT, Salinity) %>%  # call the three column of interest
+  # dplyr::rename(Salinity  = `Salinity (PSU)`)) %>% 
+  na.omit())
 # View(as.data.frame(raw_df[!is.na(raw_df$`Date Time`),]))
 # View(data)
 # View(raw_df)
+
+print(data) # look at it, should be three columns.
+
+
+
+
+
+
+#USER SHOULD NOT TOUCH ANYTHING BELOW THIS LINE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
+
 
 #Sorts the data by time in ascending order before anything else happens.
 data<-data[order(data[[2]]),];
