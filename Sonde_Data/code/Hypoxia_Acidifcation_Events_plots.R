@@ -174,8 +174,8 @@ dev.off()
 
 
 
-path.p              <- "C:/Users/samuel.gurr/Documents/Github_repositories/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data/output/LowSalinity_events" #the location of all your respirometry files 
-file.names.table    <- data.frame(txt.files = (basename(list.files(path = paste(path.p,'/',sep=''), pattern = "Summary.csv$", recursive = FALSE)))) 
+path.p              <- "C:/Users/kyra.lenderman/Documents/GitHub/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data/output" #the location of all your respirometry files 
+file.names.table    <- data.frame(txt.files = (basename(list.files(path = paste(path.p,'/',sep=''), pattern = "Summary_juv.csv$", recursive = FALSE)))) 
 
 
 Summary.table            <- data.frame(matrix(nrow = 1, ncol = 6)) # create dataframe to save cumunalitively during for loop
@@ -203,19 +203,21 @@ Summary.table.final    <- Summary.table.om %>%
                 magnitude = avgAvgSalinity) %>% 
   dplyr::mutate(EQ = (as.numeric(frequency) * as.numeric(duration)) / as.numeric(magnitude) ) %>% 
   mutate_all(funs(ifelse(is.na(.), 0, .)))  %>% # convert remaining NAs to 0
-  dplyr::mutate(Site = gsub(".*_","",filename),
-                Date = gsub("_.*","",filename))
+  dplyr::mutate(Site = gsub("_.*","",filename))
+                #Date = gsub("_.*","",filename))
 Summary.table.final  
 
 library(ggplot2)
 Duration_plot <- Summary.table.final %>% 
-  ggplot(aes(x= as.factor(threshold), y = as.numeric(duration)/60, fill = as.factor(Site))) + 
+  ggplot(aes(x= as.factor(threshold), y = as.numeric(duration)/60, fill=as.factor(Site))) + 
   geom_bar(stat="identity", position = position_dodge2(preserve = "single")) + 
   theme_classic() + 
   ggtitle("Duration of low salinity  events") +
-  ylab("Duration of events (hours; minimum 1 hour)") #+
+  ylab("Duration of events (hours; minimum 1 hour)") +
+  xlab("Salinity threshold (PSU)")+
+  scale_fill_discrete(name="Site")
   # facet_wrap(~Date)
-# Duration_plot
+ #Duration_plot
 
 Frequency_plot <- Summary.table.final %>% 
   dplyr::filter(frequency >0) %>% 
@@ -223,7 +225,9 @@ Frequency_plot <- Summary.table.final %>%
   geom_bar(stat="identity", position = position_dodge2(preserve = "single")) + 
   theme_classic() + 
   ggtitle("Frequency of low salinity  events") +
-  ylab("Number of events") #+
+  ylab("Number of events") +
+  xlab("Salinity threshold (PSU)")+
+  scale_fill_discrete(name="Site")
   # facet_wrap(~Date)
 # Frequency_plot
 
@@ -233,12 +237,14 @@ EQ_plot <- Summary.table.final %>%
   geom_bar(stat="identity", position = position_dodge2(preserve = "single")) + 
   theme_classic() + 
   ggtitle("(F*D)/M of low salinity events") +
-  ylab("[Freq*Duration/Mean_magnitude]") #+
+  ylab("[Freq*Duration/Mean_magnitude]") +
+  xlab("Salinity threshold (PSU)")+
+  scale_fill_discrete(name="Site")
   # facet_wrap(~Date)
 # EQ_plot
 
 library(ggpubr)
-pdf("C:/Users/samuel.gurr/Documents/Github_repositories/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data/output/LowSalinity_events/2023_Summary_plots.pdf", 
+pdf("C:/Users/kyra.lenderman/Documents/GitHub/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data/output/LowSalinity_events/2024_juvenile.pdf", 
     height = 12, width =10)
 ggarrange(Duration_plot,
           Frequency_plot,
