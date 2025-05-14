@@ -42,13 +42,13 @@ library("RColorBrewer")
 data_all <- list.files(path = "Lab_Data_Reproduction/raw_data",                           # Identify all CSV files
   pattern = "*.csv", full.names = TRUE) %>% 
   lapply(read_csv) %>%                              # Store all files in list
-  bind_rows                                         # Combine data sets into one data set 
+  bind_rows                                       # Combine data sets into one data set 
 data_all                                            # Print data to RStudio console
 
 as.data.frame(data_all)                            # Convert tibble to data.frame
 
 
-data_all <- data_all %>% filter(!is.na('Sample_ID'))
+data_all <- data_all %>% filter(!is.na(Date_read1))
 
 data_all$Date_collected <- as.Date(data_all$Date_collected, format = "%m-%d-%Y")
 
