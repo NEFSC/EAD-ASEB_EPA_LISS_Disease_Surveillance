@@ -143,7 +143,7 @@ F <- nrow(Data_Accuracy %>% filter(data_all.results == 'FALSE'))
 Accuracy <- T/(T+F)
 Accuracy
 
-#write.csv(Data_Accuracy, "C:/Users/katherine.mcfarland/Documents/4. GitHub/EAD-ASEB_EPA_LISS_Disease_Surveillance/Lab_Data_RFTM\\Accuracy_RFTM_intenisty_data.csv", row.names=FALSE)
+write.csv(Data_Accuracy, "Lab_Data_RFTM\\output\\Accuracy_RFTM_intensity_data.csv", row.names=FALSE)
 ```
 
 #Graphing Weighted prevalence(= Sum of individual intensity scores / total number of oyster sampled)

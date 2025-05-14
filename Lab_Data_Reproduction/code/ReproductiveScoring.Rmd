@@ -9,8 +9,9 @@ Graphs to make:
 Proportion of each month (with scores only; no sex)
 Greater than 4 (for spawning)
 
-#need to change date collected to exact date.
-
+Last update 5/14/2025 by K. Lenderman
+ - Created accuracy data & completness summary
+ - Current accuracy: 84.1%
 
 
 #Set working directory
@@ -78,24 +79,38 @@ Data_Accuracy
 # Accuracy Output
 ```{r}
 #count TRUE values in vector
-
-#Need to fix this code to count data accuracy. Since there is two comparisons, need to figure out how to code it.
+#For accuracy only using score results and not sex results as some valid choices are NAs
 x <- Data_Accuracy %>% 
-  dplyr::group_by(data_all$site, data_all$date_collected, data_all$sex_results, data_all$score_results) %>% 
+  dplyr::group_by(data_all.Site, data_all.Date_collected, data_all.score_results) %>% 
   dplyr::summarise(count = n())
 x2 <- x %>% 
   dplyr::group_by()
 x
-T <- nrow(Data_Accuracy %>% filter(data_all.sex_results == 'TRUE', data_all.results == 'TRUE'))
-F <- nrow(Data_Accuracy %>% filter(data_all.results == 'FALSE'))
+T <- nrow(Data_Accuracy %>% filter(data_all.score_results == 'TRUE'))
+F <- nrow(Data_Accuracy %>% filter(data_all.score_results == 'FALSE'))
 
 Accuracy <- T/(T+F)
 Accuracy
 
-#write.csv(Data_Accuracy, "C:/Users/katherine.mcfarland/Documents/4. GitHub/EAD-ASEB_EPA_LISS_Disease_Surveillance/Lab_Data_RFTM\\Accuracy_RFTM_intenisty_data.csv", row.names=FALSE)
+write.csv(Data_Accuracy, "Lab_Data_Reproduction\\output\\Accuracy_reproduction_score_data.csv", row.names=FALSE)
 ```
+#Data summary and completeness checks
 ```{r}
+st_repro_score_final <- data_all %>%
+ dplyr::mutate(stage_final = recode(Stage_final, "1_Inactive_Indeterminate" = 1, "2_Developing" = 2, "3_Early_Active"= 3, "4_Late_Mature"= 4, "5_Spawning"= 5,"6_Post_Spawning"=6,"7_Reabsorbing"=7))
 
+st_repro_score_final <- summarySE(st_repro_score_final, measurevar="stage_final", groupvars=c("Site", "Date_collected"))
+st_repro_score_final
+
+#Calculate completeness for QC
+st_repro_score_final$Completeness <- st_repro_score_final$N /30
+
+st_repro_score_final
+
+write.csv(st_repro_score_final, "Lab_Data_Reproduction\\output\\Completeness_reproduction_score_data.csv", row.names=FALSE)
+```
+
+```{r}
 #month
 data_all <- data_all %>%
   mutate(Date_collected= as.Date(Date_collected), month = month(Date_collected))
