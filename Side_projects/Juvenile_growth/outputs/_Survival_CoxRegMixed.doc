@@ -1,0 +1,19 @@
+Cox mixed-effects model fit by maximum likelihood
+  Data: data_all
+  events, n = 1715, 3600
+  Iterations= 16 67 
+                    NULL Integrated    Fitted
+Log-likelihood -12205.35  -11997.56 -11993.43
+
+                   Chisq   df p    AIC    BIC
+Integrated loglik 415.59 2.00 0 411.59 400.70
+ Penalized loglik 423.84 2.92 0 418.01 402.13
+
+Model:  Surv_CT ~ Site + (1 | Bag_number) 
+Fixed coefficients
+               coef exp(coef)   se(coef)      z p
+SiteFENC -0.9826848 0.3743048 0.05264598 -18.67 0
+
+Random effects
+ Group      Variable  Std Dev    Variance  
+ Bag_number Intercept 0.20083762 0.04033575

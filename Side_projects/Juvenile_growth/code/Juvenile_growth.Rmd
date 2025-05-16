@@ -88,7 +88,7 @@ write.csv(data_all, "Master_files/juv_growth_all_data.csv", row.names=FALSE)  #c
 ```{r}
 #The dates in the data files are reading as a character "chr" so we need to change them to date format
 
-data_all <- data_all %>% dplyr::mutate(Month = month(Date,label = FALSE, abbr = FALSE))
+data_all <- data_all %>% dplyr::mutate(Month = month(Date))
 
 
 
@@ -805,6 +805,103 @@ summary(gam_DO_jg)
   #All of these environmental factors impact shell length at ash creek - all positive (has they increase so does shell length) except for CHLA that has a negative effect (as it increases, length decreases). Interesting? Fence creek all are significant except salinity. All have negative effect (as they increase, shell length decreases), except for CHLA (increase together). Interesting again? 
 
 
+####What if we added month because the above models are not considering time.
+gam_ph_jg <- gam(Shell_length ~ s(mean) + Site + Site:mean + Month:mean, data = pH_merged)
+summary(gam_ph_jg)
+
+gam_ph_jg_t <- gam(Shell_length ~ te(mean, Month) + Site +Site:mean, data = pH_merged)
+summary(gam_ph_jg_t)
+#te() - smooth function option, allows the effect of mean on shell length to vary smoothly over month (time). 
+#shows us that fence creek on average has higher shell height compared to ash creek (reference site) and is statistically significant
+# shows that mean ph and oyster shell length varies over time and is highly significant - pH may have a stronger positive effect on shell growth in some months and not others. 
+
+#so what months pH has the most effect? Post hoc...emmeans() , derivatives()
+library(emmeans)
+
+# Define levels to test
+posthoc_grid <- list(
+  Month = unique(pH_merged$Month),
+  mean = mean(pH_merged$mean)  # Fix pH to mean value
+)
+
+em_month <- emmeans(gam_ph_jg_t, ~ Month | Site, at = posthoc_grid)
+summary(em_month)
+
+pairs(em_month)
+
+
+######
+
+gam_salinity_jg_t <- gam(Shell_length ~ te(mean,Month) + Site+ Site:mean, data = salinity_merged)
+summary(gam_salinity_jg_t)
+
+# Define levels to test
+posthoc_grid_s <- list(
+  Month = unique(salinity_merged$Month),
+  mean = mean(salinity_merged$mean)  # Fix pH to mean value
+)
+
+em_month_s <- emmeans(gam_salinity_jg_t, ~ Month | Site, at = posthoc_grid_s)
+summary(em_month_s)
+
+pairs(em_month_s)
+
+df <- as.data.frame(em_month_s)
+
+S_emmeans_plot<-ggplot(df, aes(x = Month, y = emmean, color = Site, group = Site)) +
+  geom_line(size = 1.2) +
+  geom_ribbon(aes(ymin = lower.CL, ymax = upper.CL, fill = Site), alpha = 0.2, color = NA) +
+  labs(y = "Salinity (PSU)", title = "Monthly Changes in Salinity by Site") +
+  theme_minimal()
+
+####
+
+gam_temp_jg_t <- gam(Shell_length ~ te(mean,Month) + Site+ Site:mean, data = temperature_merged)
+summary(gam_temp_jg_t)
+
+# Define levels to test
+posthoc_grid_t <- list(
+  Month = unique(temperature_merged$Month),
+  mean = mean(temperature_merged$mean)  # Fix pH to mean value
+)
+
+em_month_t <- emmeans(gam_temp_jg_t, ~ Month | Site, at = posthoc_grid_t)
+summary(em_month_t)
+
+pairs(em_month_t)
+####
+
+gam_CHLA_jg_t <- gam(Shell_length ~ te(mean,Month) + Site+ Site:mean, data = CHLA_merged)
+summary(gam_CHLA_jg_t)
+
+# Define levels to test
+posthoc_grid_c <- list(
+  Month = unique(CHLA_merged$Month),
+  mean = mean(CHLA_merged$mean)  # Fix pH to mean value
+)
+
+em_month_c <- emmeans(gam_CHLA_jg_t, ~ Month | Site, at = posthoc_grid_c)
+summary(em_month_c)
+
+pairs(em_month_c)
+
+
+###
+gam_DO_jg_t <- gam(Shell_length ~ te(mean,Month) + Site+ Site:mean, data = DO_merged)
+summary(gam_DO_jg_t)
+
+# Define levels to test
+posthoc_grid_d <- list(
+  Month = unique(DO_merged$Month),
+  mean = mean(DO_merged$mean)  # Fix pH to mean value
+)
+
+em_month_d <- emmeans(gam_DO_jg_t, ~ Month | Site, at = posthoc_grid_d)
+summary(em_month_d)
+
+pairs(em_month_d)
+
+
 #Lets do an additive model with all environmental parameters included with shell length instead of individual models - how does this differ?
 
 #merge this with shell length data
@@ -998,9 +1095,35 @@ fit.coxph
 jg_coxph<-ggforest(fit.coxph, data = data_all, fontsize = 1.5) #plotting the results
 jg_coxph
 
+
 pdf(paste0(path = "Side_projects/Juvenile_growth/outputs/" ,"jg_coxph.pdf"), height = 7, width = 11) #printing a PDF within the path of the code, with specific dimensions of PDF
 print(jg_coxph) #specify the graph
 dev.off()
+
+#add random effects to see if results vary
+
+fit.coxph_frailty <- coxph(Surv_CT ~ Site + frailty(Bag_number), data = data_all) #added bag number for replication using the frailty function - incorporating a random effect to the hazard model
+fit.coxph_frailty
+
+hazardratio.coxph.frailty   <- ggforest(fit.coxph_frailty, data = data_all) #not allowing me to create our plot. 
+
+#lets try coxme()
+library(coxme)
+library(gtsummary)
+
+coxme.test <- coxme(Surv_CT ~ Site + (1| Bag_number), data = data_all)
+coxme.test
+
+capture.output(coxme.test,
+               file="Side_projects/Juvenile_growth/outputs/_Survival_CoxRegMixed.doc")
+
+coxme.test.table   <- coxme(Surv_CT ~ Site + (1| Bag_number), data = data_all) %>%  
+                             tbl_regression(exp = TRUE) 
+
+write.csv(as.data.frame(coxme.test.table),file="Side_projects/Juvenile_growth/outputs/Jg_Survival_CoxRegMixed.csv")
+
+
+
 
 ```
 
