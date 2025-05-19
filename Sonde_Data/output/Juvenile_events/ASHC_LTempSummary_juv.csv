@@ -1,0 +1,6 @@
+"type","threshold","numberFound","avgDurMinutes","avgAvgLTemp"
+"Severe",0.99,0,NA,NA
+"Moderately Severe",1.99,0,NA,NA
+"Moderate",2.99,0,NA,NA
+"Marginal",3.99,0,NA,NA
+"Sub-Optimal",4.99,0,NA,NA
