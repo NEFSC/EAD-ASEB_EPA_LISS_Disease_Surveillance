@@ -5,9 +5,6 @@ date: "2024-12-13"
 output: html_document
 ---
 
-Graphs to make:
-Proportion of each month (with scores only; no sex)
-Greater than 4 (for spawning)
 
 Last update 5/14/2025 by K. Lenderman
  - Created accuracy data & completness summary
@@ -171,7 +168,7 @@ df_sex_proportions
 ```{r}
 #Proportion graphs of scores
 #will need to separate by years, once we have 2024 reproductive data
-ggplot(data=df_score_proportions, aes(x=month, y= Proportion, fill=stage_bin)) +
+all_stage_prop <- ggplot(data=df_score_proportions, aes(x=month, y= Proportion, fill=stage_bin)) +
   geom_bar(width = .5, stat="identity", position = "fill",colour = "black")+  
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
@@ -181,19 +178,28 @@ ggplot(data=df_score_proportions, aes(x=month, y= Proportion, fill=stage_bin)) +
 scale_fill_brewer(palette = "YlGnBu")+
    scale_x_continuous("Month", breaks = c(3,4,5,6,7,8,9,10,11))+ 
   facet_wrap(~Site)
+all_stage_prop
+#pdf(paste0(path = "Lab_Data_Reproduction/output" ,"/all_repro_stages_proportion.pdf"), height = 7, width = 13)
+#print(all_stage_prop)
+#dev.off()
 
-#Proportion graphs of sex
+#Proportion graphs of gametes
 #will need to separate by years, once we have 2024 reproductive data
-ggplot(data=df_sex_proportions, aes(x=month, y= Proportion, fill=Sex_final)) +
+all_gamete_prop <- ggplot(data=df_sex_proportions, aes(x=month, y= Proportion, fill=Sex_final)) +
   geom_bar(width = .5, stat="identity", position = "fill",colour = "black")+  
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
   labs(fill ="Sex")+
-  labs(title="Proportion of sex ratios", x ="month", y = "Proportion")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  labs(title="Proportion of gametes ratios", x ="month", y = "Proportion")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
   theme(axis.text=element_text(size=12))+
 scale_fill_brewer(palette = "Pastel1")+
    scale_x_continuous("Month", breaks = c(3,4,5,6,7,8,9,10,11))+ 
   facet_wrap(~Site)
+all_gamete_prop
+
+#pdf(paste0(path = "Lab_Data_Reproduction/output" ,"/all_repro_gametes_proportion.pdf"), height = 7, width = 13)
+#print(all_gamete_prop)
+#dev.off()
 ```
 #ASHC Summary
 ```{r}
