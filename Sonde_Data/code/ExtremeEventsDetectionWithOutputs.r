@@ -274,7 +274,8 @@ report2<-data.frame(
 report2$type<-as.character(report2$type);
 
 #saves out the report files.
-#Title of file needs to change base off site used for both csv
+#Title of file needs to change base off site used for both csv.
+#The structure the file title needs to stay the same "SITE_ParameterEvents.csv
 output1<-gsub("Juvenile_sonde_master.csv","FENC_SalinityEvents_juv.csv",filename);
 write.csv(report1, file=output1,row.names=FALSE);
 
@@ -537,6 +538,7 @@ report2$type<-as.character(report2$type);
 
 #saves out the report files.
 #Title of file needs to change base off site used for both csv
+#The structure the file title needs to stay the same "SITE_ParameterEvents.csv
 output1<-gsub("Juvenile_sonde_master.csv","ASHC_pHEvents_juv.csv",filename);
 write.csv(report1, file=output1,row.names=FALSE);
 
@@ -800,6 +802,7 @@ report2$type<-as.character(report2$type);
 
 #saves out the report files.
 #Title of files needs to change base off site used for both csv
+#The structure the file title needs to stay the same "SITE_ParameterEvents.csv
 output1<-gsub("Juvenile_sonde_master.csv","ASHC_DOEvents_juv.csv",filename);
 write.csv(report1, file=output1,row.names=FALSE);
 
@@ -841,16 +844,16 @@ timeDigits<-5; #specifies the number of decimal places to which the time data ar
 getwd()
 #setwd("C:/Users/sam.gurr/Documents/Github_repositories/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
 filename     <- as.character("GitHub/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data/output/Juvenile_events/Juvenile_sonde_master.csv")
-target_site  <- 'ASHC' # call the site you want
+target_site  <- 'FENC' # call the site you want
 raw_df       <- as.data.frame(read.csv(filename, sep = ',')) %>%  
   dplyr::filter(Site %in% target_site) 
 # raw_df   <- as.data.frame(raw)
 # raw_df[2:(ncol(raw_df))] <- lapply(raw_df[2:(ncol(raw_df))],as.numeric)
 # names(raw_df) <- gsub(" \\([0-9]+\\)", "", columns) # ommit the numeric information from all column names 
 # 
-# if(gsub(".*/","", (gsub("\\","/",filename, fixed=T))) %in% c('082023_ASHC_Sonde.csv', 
+# if(gsub(".*/","", (gsub("\\","/",filename, fixed=T))) %in% c('082023_FENC_Sonde.csv', 
 #                                                              '082023_LAUR_Sonde.csv', 
-#                                                              '092023_ASHC_Sonde.csv',
+#                                                              '092023_FENC_Sonde.csv',
 #                                                              '102023_ASHC_Sonde.csv',
 #                                                              '102023_FENC_Sonde.csv')) { # data files that have date formated as mdy_hm
 #   raw_df[,1] <- mdy_hm(raw_df[,1]) # with_tz(force_tz(mdy_hm(raw_df[,1]),tz='America/New_York'),'UTC')
@@ -1061,10 +1064,11 @@ report2$type<-as.character(report2$type);
 
 #saves out the report files.
 #Title of files needs to change base off site used for both csv
-output1<-gsub("Juvenile_sonde_master.csv","ASHC_LTempEvents_juv.csv",filename);
+#The structure the file title needs to stay the same "SITE_ParameterEvents.csv
+output1<-gsub("Juvenile_sonde_master.csv","FENC_LTempEvents_juv.csv",filename);
 write.csv(report1, file=output1,row.names=FALSE);
 
-output2<-gsub("Juvenile_sonde_master.csv","ASHC_LTempSummary_juv.csv",filename);
+output2<-gsub("Juvenile_sonde_master.csv","FENC_LTempSummary_juv.csv",filename);
 write.csv(report2, file=output2,row.names=FALSE);
 
 #prints the report.
@@ -1087,9 +1091,9 @@ Thresholds<-c(28.99, 29.99, 30.99); #Choose any number of thresholds for High te
 ThresholdLabels<-c("Sub-Optimal","Moderate", "Severe" ); #Choose labels for these thresholds
 #Length of the labels list must be the same as the list of thresholds, and must be in the same order. Format labels as "Label"
 
-MinEvent<-59.9; #defined in minutes, the minimum duration of low temp to be considered an event 
+MinEvent<-29.99; #defined in minutes, the minimum duration of low temp to be considered an event 
 #(slightly shorter than interval because exactly 1 hr events were being discarded for some reason.)
-Interval<-60; #defined in minutes, the maximum distance (<=) between two measured low salinity points that are part of same event
+Interval<-30; #defined in minutes, the maximum distance (<=) between two measured low salinity points that are part of same event
 timeDigits<-5; #specifies the number of decimal places to which the time data are accurate.
 #For reference, 5 decimal places is a resolution of slightly smaller than seconds.
 
@@ -1197,8 +1201,8 @@ for(j in 1:length(Thresholds)){
   for (i in 1:length(timeNum)){
     #if we're not currently in a run...
     if(runEnd==0){
-      #if we've found a starting point, set the start and end of the run to that time.
-      if(HTemp[i]<=Thresholds[j]){
+      #if we've found a starting point, set the start and end of the run to that time. Changed greater than sign
+      if(HTemp[i]>=Thresholds[j]){ 
         runStart<-i;
         runEnd<-i;
       };
@@ -1207,8 +1211,8 @@ for(j in 1:length(Thresholds)){
     else{
       #if we haven't exceeded the maximum allowable gap between hypoxia points...
       if(round(timeNum[i]-timeNum[runEnd],digits=timeDigits)<=intervalNum){
-        #and we've just found another applicable point, reset the end point to this new point.
-        if(HTemp[i]<=Thresholds[j]){
+        #and we've just found another applicable point, reset the end point to this new point. changed >
+        if(HTemp[i]>=Thresholds[j]){
           runEnd<-i;
         };
         #If we hit the end of the file during a run that meets our criteria.
@@ -1325,6 +1329,7 @@ report2$type<-as.character(report2$type);
 
 #saves out the report files.
 #Title of files needs to change base off site used for both csv
+#The structure the file title needs to stay the same "SITE_ParameterEvents.csv
 output1<-gsub("Juvenile_sonde_master.csv","ASHC_HTempEvents_juv.csv",filename);
 write.csv(report1, file=output1,row.names=FALSE);
 
@@ -1339,13 +1344,13 @@ print(dataReport);
 
 
 #######################################################################################
-################################## Chlorophyll-a events ###############################
+############################## Low Chlorophyll-a events ###############################
 #######################################################################################
 
 
 #User-defined variables:
 
-Thresholds<-c(.99,1.99,2.99, 3.99, 4.99); #Choose any number of thresholds for low temp (Chl-a<=Threshold)
+Thresholds<-c(.99,1.99,2.99, 3.99, 4.99); #Choose any number of thresholds for low chla (Chl-a<=Threshold)
 ThresholdLabels<-c("Severe","Moderately Severe", "Moderate","Marginal", "Sub-Optimal"); #Choose labels for these thresholds
 #Length of the labels list must be the same as the list of thresolds, and must be in the same order. Format labels as "Label"
 
@@ -1367,7 +1372,7 @@ timeDigits<-5; #specifies the number of decimal places to which the time data ar
 getwd()
 #setwd("C:/Users/sam.gurr/Documents/Github_repositories/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
 filename     <- as.character("GitHub/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data/output/Juvenile_events/Juvenile_sonde_master.csv")
-target_site  <- 'ASHC' # call the site you want
+target_site  <- 'FENC' # call the site you want
 raw_df       <- as.data.frame(read.csv(filename, sep = ',')) %>%  
   dplyr::filter(Site %in% target_site) 
 # raw_df   <- as.data.frame(raw)
@@ -1393,7 +1398,7 @@ data <- as.data.frame(raw_df[!is.na(raw_df$Date.Time),] %>%
                                       # NOTE: lubraidate as numeric converts to number of seconds since 1/1/1970 - convert this to number of years
                                       TIME_NUM_FORMAT = (as.numeric(TIME) / 86400 / 365) ) %>% # get a numeric versoin of time
                         dplyr::select(TIME, TIME_NUM_FORMAT, Chlorophyll.a.Fluorescence) %>%  # call the three column of interest
-                        dplyr::rename(Chla  = Chlorophyll.a.Fluorescence) %>% 
+                        dplyr::rename(LChla  = Chlorophyll.a.Fluorescence) %>% 
                         na.omit())
 # View(as.data.frame(raw_df[!is.na(raw_df$`Date Time`),]))
 # View(data)
@@ -1414,7 +1419,7 @@ data<-data[order(data[[2]]),];
 #Separates out the elements into their own variables for easy use.
 timeString<-as.character(data[[1]]);
 timeNum<-data[[2]];
-Chla<-(data[[3]]);
+LChla<-(data[[3]]);
 
 #Creates a character vector to store what will eventually be the report.
 dataReport<-character();
@@ -1424,11 +1429,11 @@ type<-character();
 startTime<-character();
 endTime<-character();
 duration<-numeric();
-eventChla<-numeric();
+eventLChla<-numeric();
 startNum<-numeric();
 endNum<-numeric();
 
-avgAvgChla<-numeric();
+avgAvgLChla<-numeric();
 avgDur<-numeric();
 # every hour is 0.000115
 
@@ -1451,7 +1456,7 @@ for(j in 1:length(Thresholds)){
   #Defines and initializes a variable for counting runs.
   NumberOfRuns<-0;
   #Defines and vector for keeping track of Chla.
-  AvgChla<-numeric();
+  AvgLChla<-numeric();
   #defines a vector to keep track of durations
   durs<-numeric();
   
@@ -1460,7 +1465,7 @@ for(j in 1:length(Thresholds)){
     #if we're not currently in a run...
     if(runEnd==0){
       #if we've found a starting point, set the start and end of the run to that time.
-      if(Chla[i]<=Thresholds[j]){
+      if(LChla[i]<=Thresholds[j]){
         runStart<-i;
         runEnd<-i;
       };
@@ -1470,26 +1475,26 @@ for(j in 1:length(Thresholds)){
       #if we haven't exceeded the maximum allowable gap between hypoxia points...
       if(round(timeNum[i]-timeNum[runEnd],digits=timeDigits)<=intervalNum){
         #and we've just found another applicable point, reset the end point to this new point.
-        if(Chla[i]<=Thresholds[j]){
+        if(LChla[i]<=Thresholds[j]){
           runEnd<-i;
         };
         #If we hit the end of the file during a run that meets our criteria.
         if(i==length(timeNum)&&(round(timeNum[runEnd]-timeNum[runStart],digits=timeDigits)>=minEventNum)){
-          #Chla DATA HERE FOR ANALYSIS
+          #LChla DATA HERE FOR ANALYSIS
           NumberOfRuns<-NumberOfRuns+1;
-          avgChla<-mean(Chla[runStart:runEnd]);
-          avgChlaround<-round(avgChla,digits=2);
-          dataReport[length(dataReport)+1]<-(paste("Found",ThresholdLabels[j],"Event #",NumberOfRuns," Avg CHL-A:",
-                                                   avgChlaround," Start/End:",timeString[runStart],"-",timeString[runEnd],"(Cut Off By End Of File)"));
+          avgLChla<-mean(LChla[runStart:runEnd]);
+          avgLChlaround<-round(avgLChla,digits=2);
+          dataReport[length(dataReport)+1]<-(paste("Found",ThresholdLabels[j],"Event #",NumberOfRuns," Avg Low CHL-A:",
+                                                   avgLChlaround," Start/End:",timeString[runStart],"-",timeString[runEnd],"(Cut Off By End Of File)"));
           #for the output reports
           startTime[length(startTime)+1]<-timeString[runStart];#stores the start time
           endTime[length(endTime)+1]<-NA;#stores the end time
           startNum[length(startNum)+1]<-round(timeNum[runStart],digits=timeDigits);#stores the start num
           endNum[length(endNum)+1]<-NA;#stores the end num
           #Actually we don't want to update Chla for incomplete events.
-          #AvgChla[length(AvgLChla)+1]<-avgChla; #stores the avg Chla for each event
+          #AvgLChla[length(AvgLChla)+1]<-avgLChla; #stores the avg Chla for each event
           duration[length(duration)+1]<-NA;
-          eventChla[length(eventChla)+1]<-NA;
+          eventLChla[length(eventLChla)+1]<-NA;
           type[length(type)+1]<-ThresholdLabels[j];
           #Actually we don't want to update durations for averaging because this doesn't count
           #durs[length(durs)+1]<-(timeNum[runEnd]-timeNum[runStart])*24*60; #stores event durations
@@ -1505,36 +1510,36 @@ for(j in 1:length(Thresholds)){
         if(round(timeNum[runEnd]-timeNum[runStart],digits=timeDigits)>=minEventNum){
           #DO DATA HERE FOR ANALYSIS
           NumberOfRuns<-NumberOfRuns+1;
-          avgChla<-mean(Chla[runStart:runEnd]);
-          avgChlaround<-round(avgChla,digits=2);
+          avgLChla<-mean(LChla[runStart:runEnd]);
+          avgLChlaround<-round(avgLChla,digits=2);
           #Contingency for if run starts at beginning of file
           if(runStart==1){dataReport[length(dataReport)+1]<-(
-            paste("Found",ThresholdLabels[j],"Event #",NumberOfRuns," Avg CHL-A:",
-                  avgChlaround," Start/End:",timeString[runStart],"(Cut off by beginning of file)","-",timeString[runEnd]));
+            paste("Found",ThresholdLabels[j],"Event #",NumberOfRuns," Avg Low CHL-A:",
+                  avgLChlaround," Start/End:",timeString[runStart],"(Cut off by beginning of file)","-",timeString[runEnd]));
           #for the output reports
           startTime[length(startTime)+1]<-NA;#stores the start time
           endTime[length(endTime)+1]<-timeString[runEnd];#stores the end time
           startNum[length(startNum)+1]<-NA;#stores the start num
           endNum[length(endNum)+1]<-round(timeNum[runEnd],digits=timeDigits);#stores the end num
           #we don't want to store this in this case.
-          #AvgChla[length(AvgChla)+1]<-avgChla; #stores the avg Chla for each event
+          #AvgLChla[length(AvgLChla)+1]<-avgLChla; #stores the avg low Chla for each event
           duration[length(duration)+1]<-NA;
-          eventChla[length(eventChla)+1]<-NA;
+          eventLChla[length(eventLChla)+1]<-NA;
           type[length(type)+1]<-ThresholdLabels[j];
           #we don't want to store this in this case.
           #durs[length(durs)+1]<-(timeNum[runEnd]-timeNum[runStart])*24*60; #stores event durations
           }
           #Every other case
-          else{dataReport[length(dataReport)+1]<-(paste("Found",ThresholdLabels[j],"Event #",NumberOfRuns," Avg CHL-A:",
-                                                        avgChlaround," Start/End:",timeString[runStart],"-",timeString[runEnd]));
+          else{dataReport[length(dataReport)+1]<-(paste("Found",ThresholdLabels[j],"Event #",NumberOfRuns," Avg Low CHL-A:",
+                                                        avgLChlaround," Start/End:",timeString[runStart],"-",timeString[runEnd]));
           #for the output reports
           startTime[length(startTime)+1]<-timeString[runStart];#stores the start time
           endTime[length(endTime)+1]<-timeString[runEnd];#stores the end time
           startNum[length(startNum)+1]<-round(timeNum[runStart],digits=timeDigits);#stores the start num
           endNum[length(endNum)+1]<-round(timeNum[runEnd],digits=timeDigits);#stores the end num
-          AvgChla[length(AvgChla)+1]<-avgChla; #stores the avg Chla for each event
+          AvgLChla[length(AvgLChla)+1]<-avgLChla; #stores the avg Chla for each event
           duration[length(duration)+1]<-(timeNum[runEnd]-timeNum[runStart])*24*60*365;
-          eventChla[length(eventChla)+1]<-avgChla;
+          eventLChla[length(eventLChla)+1]<-avgLChla;
           type[length(type)+1]<-ThresholdLabels[j];
           durs[length(durs)+1]<-(timeNum[runEnd]-timeNum[runStart])*24*60*365; #stores event durations
           }
@@ -1550,7 +1555,7 @@ for(j in 1:length(Thresholds)){
   runCounts[j]<-NumberOfRuns; #stores the total events for this threshold detected.
   dataReport[length(dataReport)+1]<-"";#adds a blank line to the data file to separate blocks.
   
-  avgAvgChla[j]<-mean(AvgChla); #updates the average average Chla for the second report file.
+  avgAvgLChla[j]<-mean(AvgLChla); #updates the average average Chla for the second report file.
   avgDur[j]=mean(durs);#updates the average average duration for the second report file.
 };
 
@@ -1570,7 +1575,7 @@ report1<-data.frame(
   endTime=endTime,
   startNum=startNum,
   endNum=endNum,
-  eventChla=eventChla);
+  eventLChla=eventLChla);
 
 report1$type<-as.character(report1$type);
 report1$startTime<-as.character(report1$startTime);
@@ -1581,16 +1586,280 @@ report2<-data.frame(
   threshold=Thresholds,
   numberFound=runCounts,
   avgDurMinutes=avgDur,
-  avgAvgChla=avgAvgChla);
+  avgAvgLChla=avgAvgLChla);
 
 report2$type<-as.character(report2$type);
 
 #saves out the report files.
 #Title of files needs to change base off site used for both csv
-output1<-gsub("Juvenile_sonde_master.csv","ASHC_ChlaEvents_juv.csv",filename);
+#The structure the file title needs to stay the same "SITE_ParameterEvents.csv
+output1<-gsub("Juvenile_sonde_master.csv","FENC_LChlaEvents_juv.csv",filename);
 write.csv(report1, file=output1,row.names=FALSE);
 
-output2<-gsub("Juvenile_sonde_master.csv","ASHC_ChlaSummary_juv.csv",filename);
+output2<-gsub("Juvenile_sonde_master.csv","FENC_LChlaSummary_juv.csv",filename);
+write.csv(report2, file=output2,row.names=FALSE);
+
+#prints the report.
+print(dataReport);
+
+
+
+
+
+#######################################################################################
+############################## High Chlorophyll-a events ###############################
+#######################################################################################
+
+
+#User-defined variables:
+
+Thresholds<-c(10.00,15.00,20.00, 25.00, 30.00); #Choose any number of thresholds for high chla (Chl-a<=Threshold)
+ThresholdLabels<-c("Severe","Moderately Severe", "Moderate","Marginal", "Sub-Optimal"); #Choose labels for these thresholds
+#Length of the labels list must be the same as the list of thresolds, and must be in the same order. Format labels as "Label"
+
+MinEvent<-59.9; #defined in minutes, the minimum duration of low temp to be considered an event 
+#(slightly shorter than interval because exactly 1 hr events were being discarded for some reason.)
+Interval<-60; #defined in minutes, the maximum distance (<=) between two measured low salinity points that are part of same event
+timeDigits<-5; #specifies the number of decimal places to which the time data are accurate.
+#For reference, 5 decimal places is a resolution of slightly smaller than seconds.
+
+#Define some desired outputs here as booleans. Don't worry about it for now.
+#Might exclude this entirely. Not sure.
+
+# CHANGES MADE September 26 2023 to cater script for LISS Sonde data - by Samuel Gurr
+# most changes pertain to the inconsistencies in date formatting between sensors 
+
+#Imports the data.
+#Note that the following functions expect the columns to be 
+#TIME, TIME_NUM_FORMAT, and Low temperature in that order.
+getwd()
+#setwd("C:/Users/sam.gurr/Documents/Github_repositories/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
+filename     <- as.character("GitHub/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data/output/Juvenile_events/Juvenile_sonde_master.csv")
+target_site  <- 'FENC' # call the site you want
+raw_df       <- as.data.frame(read.csv(filename, sep = ',')) %>%  
+  dplyr::filter(Site %in% target_site) 
+# raw_df   <- as.data.frame(raw)
+# raw_df[2:(ncol(raw_df))] <- lapply(raw_df[2:(ncol(raw_df))],as.numeric)
+# names(raw_df) <- gsub(" \\([0-9]+\\)", "", columns) # ommit the numeric information from all column names 
+# 
+# if(gsub(".*/","", (gsub("\\","/",filename, fixed=T))) %in% c('082023_ASHC_Sonde.csv', 
+#                                                              '082023_LAUR_Sonde.csv', 
+#                                                              '092023_ASHC_Sonde.csv',
+#                                                              '102023_ASHC_Sonde.csv',
+#                                                              '102023_FENC_Sonde.csv')) { # data files that have date formated as mdy_hm
+#   raw_df[,1] <- mdy_hm(raw_df[,1]) # with_tz(force_tz(mdy_hm(raw_df[,1]),tz='America/New_York'),'UTC')
+#   } else if (gsub(".*/","", (gsub("\\","/",filename, fixed=T))) %in% '072023_ASHC_Sonde.csv') {
+#     raw_df[,1] <- mdy_hms(raw_df[,1]) # with_tz(force_tz(mdy_hms(raw_df[,1]),tz='America/New_York'),'UTC')
+#   } else if (gsub(".*/","", (gsub("\\","/",filename, fixed=T))) %in% '0924_GOLD_Sonde.csv') {
+#     raw_df[,1] <- dmy_hm(raw_df[,1]) # with_tz(force_tz(mdy_hms(raw_df[,1]),tz='America/New_York'),'UTC')
+#   } else (raw_df[,1] <- ymd_hms(raw_df[,1])  #with_tz(force_tz(ymd_hms(raw_df[,1]),tz='America/New_York'),'UTC') # all other data files that are formatted as ymd_hm
+# )
+# with_tz(force_tz(ymd_hms(raw_df[,1]),tz='America/New_York'),'UTC')
+
+data <- as.data.frame(raw_df[!is.na(raw_df$Date.Time),] %>% 
+                        dplyr::mutate(TIME = as_datetime(Date.Time), # convert time and rename 
+                                      # NOTE: lubraidate as numeric converts to number of seconds since 1/1/1970 - convert this to number of years
+                                      TIME_NUM_FORMAT = (as.numeric(TIME) / 86400 / 365) ) %>% # get a numeric versoin of time
+                        dplyr::select(TIME, TIME_NUM_FORMAT, Chlorophyll.a.Fluorescence) %>%  # call the three column of interest
+                        dplyr::rename(HChla  = Chlorophyll.a.Fluorescence) %>% 
+                        na.omit())
+# View(as.data.frame(raw_df[!is.na(raw_df$`Date Time`),]))
+# View(data)
+# View(raw_df)
+
+print(data) # look at it, should be three columns.
+
+
+
+
+#USER SHOULD NOT TOUCH ANYTHING BELOW THIS LINE FOR THIS PARAMETER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+#Sorts the data by time in ascending order before anything else happens.
+data<-data[order(data[[2]]),];
+
+#Separates out the elements into their own variables for easy use.
+timeString<-as.character(data[[1]]);
+timeNum<-data[[2]];
+HChla<-(data[[3]]);
+
+#Creates a character vector to store what will eventually be the report.
+dataReport<-character();
+
+#Creates variables(s) that will eventually be output to (a) file(s) (hopefully if I get this right).
+type<-character();
+startTime<-character();
+endTime<-character();
+duration<-numeric();
+eventHChla<-numeric();
+startNum<-numeric();
+endNum<-numeric();
+
+avgAvgHChla<-numeric();
+avgDur<-numeric();
+# every hour is 0.000115
+
+
+# 0.0001141553*24*365 -- 0.0001141553 == 1 hour to years
+#Defines the minimum event and maximum distance of measurements in terms of time code (new unit=days).
+minEventNum<-round(MinEvent/24/60/365,digits=timeDigits);#Rounded to the same level of precision as the time data
+intervalNum<-round(Interval/24/60/365,digits=timeDigits);#Rounded to the same level of precision as the time data
+
+#Here's where the analysis begins in earnest:
+#Defines and initializes variables to hold the starting and ending row numbers of each run detected
+runStart<-0;#must start at 0 in order to work.
+runEnd<-0;#must start at 0 in order to work.
+
+#Defines a vector for keeping track of the number of runs of each type.
+runCounts<-numeric();
+
+#Loop through for each threshold.
+for(j in 1:length(Thresholds)){
+  #Defines and initializes a variable for counting runs.
+  NumberOfRuns<-0;
+  #Defines and vector for keeping track of Chla.
+  AvgHChla<-numeric();
+  #defines a vector to keep track of durations
+  durs<-numeric();
+  
+  #The loop that iterates through each row of the data and finds runs:
+  for (i in 1:length(timeNum)){
+    #if we're not currently in a run...
+    if(runEnd==0){
+      #if we've found a starting point, set the start and end of the run to that time.
+      if(HChla[i]>=Thresholds[j]){
+        runStart<-i;
+        runEnd<-i;
+      };
+    }#LINE TERMINATOR WILL MESS THIS UP
+    #if we're already in a run...
+    else{
+      #if we haven't exceeded the maximum allowable gap between hypoxia points...
+      if(round(timeNum[i]-timeNum[runEnd],digits=timeDigits)<=intervalNum){
+        #and we've just found another applicable point, reset the end point to this new point.
+        if(HChla[i]>=Thresholds[j]){
+          runEnd<-i;
+        };
+        #If we hit the end of the file during a run that meets our criteria.
+        if(i==length(timeNum)&&(round(timeNum[runEnd]-timeNum[runStart],digits=timeDigits)>=minEventNum)){
+          #HChla DATA HERE FOR ANALYSIS
+          NumberOfRuns<-NumberOfRuns+1;
+          avgHChla<-mean(HChla[runStart:runEnd]);
+          avgHChlaround<-round(avgHChla,digits=2);
+          dataReport[length(dataReport)+1]<-(paste("Found",ThresholdLabels[j],"Event #",NumberOfRuns," Avg High CHL-A:",
+                                                   avgHChlaround," Start/End:",timeString[runStart],"-",timeString[runEnd],"(Cut Off By End Of File)"));
+          #for the output reports
+          startTime[length(startTime)+1]<-timeString[runStart];#stores the start time
+          endTime[length(endTime)+1]<-NA;#stores the end time
+          startNum[length(startNum)+1]<-round(timeNum[runStart],digits=timeDigits);#stores the start num
+          endNum[length(endNum)+1]<-NA;#stores the end num
+          #Actually we don't want to update Chla for incomplete events.
+          #AvgHChla[length(AvgHChla)+1]<-avgHChla; #stores the avg Chla for each event
+          duration[length(duration)+1]<-NA;
+          eventHChla[length(eventHChla)+1]<-NA;
+          type[length(type)+1]<-ThresholdLabels[j];
+          #Actually we don't want to update durations for averaging because this doesn't count
+          #durs[length(durs)+1]<-(timeNum[runEnd]-timeNum[runStart])*24*60; #stores event durations
+          
+          #set these back to 0 for the next file, or else it will go badly if I try to automate.
+          runStart<-0;
+          runEnd<-0;
+        };
+      }#LINE TERMINANTOR WILL MESS THIS UP
+      #if we've exceeded the maximum allowable gap and not found an applicable point...
+      else{
+        #if the run we've found is at least the minimum length we've defined... 
+        if(round(timeNum[runEnd]-timeNum[runStart],digits=timeDigits)>=minEventNum){
+          #DO DATA HERE FOR ANALYSIS
+          NumberOfRuns<-NumberOfRuns+1;
+          avgHChla<-mean(HChla[runStart:runEnd]);
+          avgHChlaround<-round(avgHChla,digits=2);
+          #Contingency for if run starts at beginning of file
+          if(runStart==1){dataReport[length(dataReport)+1]<-(
+            paste("Found",ThresholdLabels[j],"Event #",NumberOfRuns," Avg High CHL-A:",
+                  avgHChlaround," Start/End:",timeString[runStart],"(Cut off by beginning of file)","-",timeString[runEnd]));
+          #for the output reports
+          startTime[length(startTime)+1]<-NA;#stores the start time
+          endTime[length(endTime)+1]<-timeString[runEnd];#stores the end time
+          startNum[length(startNum)+1]<-NA;#stores the start num
+          endNum[length(endNum)+1]<-round(timeNum[runEnd],digits=timeDigits);#stores the end num
+          #we don't want to store this in this case.
+          #AvgHChla[length(AvgHChla)+1]<-avgHChla; #stores the avg high Chla for each event
+          duration[length(duration)+1]<-NA;
+          eventHChla[length(eventHChla)+1]<-NA;
+          type[length(type)+1]<-ThresholdLabels[j];
+          #we don't want to store this in this case.
+          #durs[length(durs)+1]<-(timeNum[runEnd]-timeNum[runStart])*24*60; #stores event durations
+          }
+          #Every other case
+          else{dataReport[length(dataReport)+1]<-(paste("Found",ThresholdLabels[j],"Event #",NumberOfRuns," Avg High CHL-A:",
+                                                        avgHChlaround," Start/End:",timeString[runStart],"-",timeString[runEnd]));
+          #for the output reports
+          startTime[length(startTime)+1]<-timeString[runStart];#stores the start time
+          endTime[length(endTime)+1]<-timeString[runEnd];#stores the end time
+          startNum[length(startNum)+1]<-round(timeNum[runStart],digits=timeDigits);#stores the start num
+          endNum[length(endNum)+1]<-round(timeNum[runEnd],digits=timeDigits);#stores the end num
+          AvgHChla[length(AvgHChla)+1]<-avgHChla; #stores the avg Chla for each event
+          duration[length(duration)+1]<-(timeNum[runEnd]-timeNum[runStart])*24*60*365;
+          eventHChla[length(eventHChla)+1]<-avgHChla;
+          type[length(type)+1]<-ThresholdLabels[j];
+          durs[length(durs)+1]<-(timeNum[runEnd]-timeNum[runStart])*24*60*365; #stores event durations
+          }
+          
+        };
+        #regardless of whether we ran analysis or not, set these varaibles to 0 so the loop
+        #knows we're not currently in a run anymore.
+        runStart<-0;
+        runEnd<-0;
+      };
+    };
+  };
+  runCounts[j]<-NumberOfRuns; #stores the total events for this threshold detected.
+  dataReport[length(dataReport)+1]<-"";#adds a blank line to the data file to separate blocks.
+  
+  avgAvgHChla[j]<-mean(AvgHChla); #updates the average average Chla for the second report file.
+  avgDur[j]=mean(durs);#updates the average average duration for the second report file.
+};
+
+
+
+#adds the summary lines to the data report.
+dataReport[length(dataReport)+1]<-"Events Detected:";
+for(k in 1:length(Thresholds)){
+  dataReport[length(dataReport)+1]<-paste(ThresholdLabels[k],"Events:",runCounts[k]);
+};
+
+#compiles the reports for saving
+report1<-data.frame(
+  type=type,
+  durationMinutes=duration,
+  startTime=startTime,
+  endTime=endTime,
+  startNum=startNum,
+  endNum=endNum,
+  eventHChla=eventHChla);
+
+report1$type<-as.character(report1$type);
+report1$startTime<-as.character(report1$startTime);
+report1$endTime<-as.character(report1$endTime);
+
+report2<-data.frame(
+  type=ThresholdLabels,
+  threshold=Thresholds,
+  numberFound=runCounts,
+  avgDurMinutes=avgDur,
+  avgAvgHChla=avgAvgHChla);
+
+report2$type<-as.character(report2$type);
+
+#saves out the report files.
+#Title of files needs to change base off site used for both csv
+#The structure the file title needs to stay the same "SITE_ParameterEvents.csv
+output1<-gsub("Juvenile_sonde_master.csv","FENC_HChlaEvents_juv.csv",filename);
+write.csv(report1, file=output1,row.names=FALSE);
+
+output2<-gsub("Juvenile_sonde_master.csv","FENC_HChlaSummary_juv.csv",filename);
 write.csv(report2, file=output2,row.names=FALSE);
 
 #prints the report.

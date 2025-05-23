@@ -1,4 +1,4 @@
-"type","durationMinutes","startTime","endTime","startNum","endNum","eventChla"
+"type","durationMinutes","startTime","endTime","startNum","endNum","eventLChla"
 "Severe",NA,NA,"2024-06-12 10:00:00",NA,54.48333,NA
 "Severe",2280.00000000043,"2024-06-12 12:00:00","2024-06-14 02:00:00",54.48356,54.4879,0.155022870883117
 "Severe",12389.9999999952,"2024-06-14 04:00:00","2024-06-22 18:30:00",54.48813,54.5117,0.138333639910628

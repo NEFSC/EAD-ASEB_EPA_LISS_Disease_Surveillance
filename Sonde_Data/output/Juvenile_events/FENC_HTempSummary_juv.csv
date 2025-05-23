@@ -1,6 +1,4 @@
 "type","threshold","numberFound","avgDurMinutes","avgAvgHTemp"
-"Sub-Optimal",28.99,8,10628.6666666666,23.6587362383979
-"Marginal",29.99,2,NA,NA
-"Moderate",30.99,1,NA,NA
-"Moderately Severe",31.99,1,NA,NA
-"Severe",32.99,1,NA,NA
+"Sub-Optimal",28.99,7,98.5714285737288,29.5511980945578
+"Moderate",29.99,1,60.0000000028615,30.3348123333333
+"Severe",30.99,0,NA,NA
