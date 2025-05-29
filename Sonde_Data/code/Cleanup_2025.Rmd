@@ -141,6 +141,7 @@ for (m in 1:nrow(file.names.2025)) { # this is your loop, for each row in th fil
   raw_df[2:(ncol(raw_df))] <- lapply(raw_df[2:(ncol(raw_df))],as.numeric) # convert all data  to numeric
   names(raw_df) <- sapply(strsplit(names(raw_df), '\\s*[()]'), `[`, 1) # ommit all numeric column data, also the format of the units does not pair between datasets
   # raw_df[,1] # remove the # and reun this if you want to see th raw date format of an individual file - rationalize why we have a crazy conditioninal statement below
+  
 
   # As of 6/3/2024, all data is in format mdy_hm, use lubridate to format to POSIXct format 
   raw_df[,1] <- mdy_hm(raw_df[,1])

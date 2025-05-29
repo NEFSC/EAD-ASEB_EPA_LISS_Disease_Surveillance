@@ -2546,6 +2546,40 @@ pdf(paste0(path="output/raw_plots/Report_plots/GOLD_pH_2024.pdf"), height = 7, w
 print(GOLD_pH_2024)
 dev.off()
 
+GOLD_pH_2025 <- GOLD_pH %>% na.omit() %>%
+             dplyr::filter(`Date.Time` > '2025-04-01 00:00:00' & `Date.Time` < '2025-11-30 00:00:00' ) %>% # change date range needed here
+             dplyr::mutate(Site = case_when(Site == 'GOLD' ~ 'Gold Star', .default = 'Fence Creek')) %>% 
+             ggplot(aes(x=`Date.Time`, 
+                       y=mean, # the mean values
+                       group=Site)) + # call the new mean
+              geom_line(aes(group = factor(Site), # lines for site
+                                linetype = Site), 
+                            size = 0.2, 
+                            position=position_dodge(.4)) + 
+              # scale_linetype_manual(values=c("solid", "dashed")) +
+              geom_point(aes(shape=Site, 
+                             fill=Site)) + 
+              scale_shape_manual(values=c(21, 22, 24, 25)) + 
+              scale_fill_manual(values=c("#D55E00",  "#0072B2")) + # "#CC79A7","#009E73"
+              geom_errorbar(aes(ymin=(mean)-(se), 
+                                ymax=(mean)+(se)), 
+                            width=0,position=position_dodge(.4)) +
+              facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+              ggtitle("pH 2025") +
+              labs(x = "Time", y = "pH") +
+              theme_classic() +
+              theme(legend.position = "none", axis.text= element_text(size= 15))+  
+  geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1) +ylim(6,9) +scale_x_datetime(breaks="1 month", date_labels = "%B")
+
+
+
+GOLD_pH_2025
+
+
+pdf(paste0(path="output/raw_plots/Report_plots/GOLD_pH_2025.pdf"), height = 7, width = 14)
+print(GOLD_pH_2025)
+dev.off()
+
 # Salinity 
 
 GOLD_Salinity_2023 <- GOLD_Salinity %>% na.omit() %>%
@@ -2611,6 +2645,37 @@ pdf(paste0(path="output/raw_plots/Report_plots/GOLD_Salinity_2024.pdf"), height 
 print(GOLD_Salinity_2024)
 dev.off()
 
+GOLD_Salinity_2025 <- GOLD_Salinity %>% na.omit() %>%
+             dplyr::filter(`Date.Time` > '2025-04-01 00:00:00' & `Date.Time` < '2025-11-30 00:00:00' ) %>% # change date range needed here
+             dplyr::mutate(Site = case_when(Site == 'GOLD' ~ 'Gold Star', .default = 'Fence Creek')) %>% 
+             ggplot(aes(x=`Date.Time`, 
+                       y=mean, # the mean values
+                       group=Site)) + # call the new mean
+              geom_line(aes(group = factor(Site), # lines for site
+                                linetype = Site), 
+                            size = 0.2, 
+                            position=position_dodge(.4)) + 
+              # scale_linetype_manual(values=c("solid", "dashed")) +
+              geom_point(aes(shape=Site, 
+                             fill=Site)) + 
+              scale_shape_manual(values=c(21, 22, 24, 25)) + 
+              scale_fill_manual(values=c("#D55E00",  "#0072B2")) + # "#CC79A7","#009E73"
+              geom_errorbar(aes(ymin=(mean)-(se), 
+                                ymax=(mean)+(se)), 
+                            width=0,position=position_dodge(.4)) +
+              facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+              ggtitle("Salinity 2025") +
+              labs(x = "Time", y = "Salinity") +
+              theme_classic() +
+              theme(legend.position = "none", axis.text= element_text(size= 15))+
+              scale_y_continuous(breaks = seq(0,30, by = 2))+  
+  geom_hline(yintercept = 12, color = "red", linetype = "solid", size = 1)+ylim(20,30)+scale_x_datetime(breaks="1 month", date_labels = "%B")
+
+GOLD_Salinity_2025
+
+pdf(paste0(path="output/raw_plots/Report_plots/GOLD_Salinity_202.pdf"), height = 7, width = 14)
+print(GOLD_Salinity_2025)
+dev.off()
 # Temperature 
 
 GOLD_Temperature_2023 <-GOLD_Temperature %>% na.omit() %>%
@@ -2674,6 +2739,37 @@ pdf(paste0(path="output/raw_plots/Report_plots/GOLD_Temperature_2024.pdf"), heig
 print(GOLD_Temperature_2024)
 dev.off()
 
+GOLD_Temperature_2025 <-GOLD_Temperature %>% na.omit() %>%
+             dplyr::filter(`Date.Time` > '2025-04-01 00:00:00' & `Date.Time` < '2025-11-30 00:00:00' ) %>% # change date range needed here
+             dplyr::mutate(Site = case_when(Site == 'GOLD' ~ 'Gold Star', .default = 'Fence Creek')) %>% 
+             ggplot(aes(x=`Date.Time`, 
+                       y=mean, # the mean values
+                       group=Site)) + # call the new mean
+              geom_line(aes(group = factor(Site), # lines for site
+                                linetype = Site), 
+                            size = 0.2, 
+                            position=position_dodge(.4)) + 
+              # scale_linetype_manual(values=c("solid", "dashed")) +
+              geom_point(aes(shape=Site, 
+                             fill=Site)) + 
+              scale_shape_manual(values=c(21, 22, 24, 25)) + 
+              scale_fill_manual(values=c("#D55E00",  "#0072B2")) + # "#CC79A7","#009E73"
+              geom_errorbar(aes(ymin=(mean)-(se), 
+                                ymax=(mean)+(se)), 
+                            width=0,position=position_dodge(.4)) +
+              #facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+              ggtitle("Temperature 2025") +
+              labs(x = "Time", y = "Temperature (Celcius)") +
+              theme_classic() +
+              theme(legend.position = "none", axis.text= element_text(size= 15))+  
+  geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1) +scale_x_datetime(breaks="1 month", date_labels = "%B")
+GOLD_Temperature_2025
+
+
+pdf(paste0(path="output/raw_plots/Report_plots/GOLD_Temperature_2025.pdf"), height = 7, width = 14)
+print(GOLD_Temperature_2025)
+dev.off()
+
 # DO 
 
 GOLD_DO_2023 <- GOLD_DO %>% na.omit() %>%
@@ -2731,6 +2827,35 @@ GOLD_DO_2024 <- GOLD_DO %>% na.omit() %>%
 GOLD_DO_2024
 pdf(paste0(path="output/raw_plots/Report_plots/GOLD_DO_2024.pdf"), height = 7, width = 14)
 print(GOLD_DO_2024)
+dev.off()
+
+GOLD_DO_2025 <- GOLD_DO %>% na.omit() %>%
+             dplyr::filter(`Date.Time` > '2025-04-01 00:00:00' & `Date.Time` < '2025-11-30 00:00:00' ) %>% # change date range needed here
+             dplyr::mutate(Site = case_when(Site == 'GOLD' ~ 'Gold Star', .default = 'Fence Creek')) %>% 
+             ggplot(aes(x=`Date.Time`, 
+                       y=mean, # the mean values
+                       group=Site)) + # call the new mean
+              geom_line(aes(group = factor(Site), # lines for site
+                                linetype = Site), 
+                            size = 0.2, 
+                            position=position_dodge(.4)) + 
+              # scale_linetype_manual(values=c("solid", "dashed")) +
+              geom_point(aes(shape=Site, 
+                             fill=Site)) + 
+              scale_shape_manual(values=c(21, 22, 24, 25)) + 
+              scale_fill_manual(values=c("#D55E00",  "#0072B2")) + # "#CC79A7","#009E73"
+              geom_errorbar(aes(ymin=(mean)-(se), 
+                                ymax=(mean)+(se)), 
+                            width=0,position=position_dodge(.4)) +
+              facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+              ggtitle("DO Concentration 2025") +
+              labs(x = "Time", y = "DO Concentration (mg/L)") +
+              theme_classic() +theme(legend.position = "none", axis.text= element_text(size= 15))+  geom_hline(yintercept = 5, color = "red", linetype= "solid", size = 1) +
+  scale_x_datetime(breaks="1 month", date_labels = "%B")
+
+GOLD_DO_2025
+pdf(paste0(path="output/raw_plots/Report_plots/GOLD_DO_2025.pdf"), height = 7, width = 14)
+print(GOLD_DO_2025)
 dev.off()
 #Chlorophyll-a
 
@@ -2791,6 +2916,35 @@ GOLD_CHLA_2024
 
 pdf(paste0(path="output/raw_plots/Report_plots/GOLD_CHLA_2024.pdf"), height = 7, width = 14)
 print(GOLD_CHLA_2024)
+
+GOLD_CHLA_2025 <- GOLD_CHLA %>% na.omit() %>%
+             dplyr::filter(`Date.Time` > '2025-04-01 00:00:00' & `Date.Time` < '2025-11-30 00:00:00' ) %>% # change date range needed here
+             dplyr::mutate(Site = case_when(Site == 'GOLD' ~ 'Gold Star', .default = 'Fence Creek')) %>% 
+             ggplot(aes(x=`Date.Time`, 
+                       y=mean, # the mean values
+                       group=Site)) + # call the new mean
+              geom_line(aes(group = factor(Site), # lines for site
+                                linetype = Site), 
+                            size = 0.2, 
+                            position=position_dodge(.4)) + 
+              # scale_linetype_manual(values=c("solid", "dashed")) +
+              geom_point(aes(shape=Site, 
+                             fill=Site)) + 
+              scale_shape_manual(values=c(21, 22, 24, 25)) + 
+              scale_fill_manual(values=c("#D55E00",  "#0072B2")) + # "#CC79A7","#009E73"
+              geom_errorbar(aes(ymin=(mean)-(se), 
+                                ymax=(mean)+(se)), 
+                            width=0,position=position_dodge(.4)) +
+              facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+              ggtitle("Chlorophyll-a flourescences 2025 ") +
+              labs(x = "Time", y = "Chlorophyll-a (RFU)") +
+              theme_classic() +
+              theme(legend.position = "none", axis.text= element_text(size= 15))+scale_x_datetime(breaks="1 month", date_labels = "%B")
+
+GOLD_CHLA_2025
+
+pdf(paste0(path="output/raw_plots/Report_plots/GOLD_CHLA_2025.pdf"), height = 7, width = 14)
+print(GOLD_CHLA_2025)
 ```
 #Graphed sonde data for GOLD seperated by year
 ```{r}

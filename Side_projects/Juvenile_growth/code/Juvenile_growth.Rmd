@@ -809,7 +809,7 @@ summary(gam_DO_jg)
 gam_ph_jg <- gam(Shell_length ~ s(mean) + Site + Site:mean + Month:mean, data = pH_merged)
 summary(gam_ph_jg)
 
-gam_ph_jg_t <- gam(Shell_length ~ te(mean, Month) + Site +Site:mean, data = pH_merged)
+gam_ph_jg_t <- gam(Shell_length ~ te(mean, Month) + Site + Site:mean, data = pH_merged)
 summary(gam_ph_jg_t)
 #te() - smooth function option, allows the effect of mean on shell length to vary smoothly over month (time). 
 #shows us that fence creek on average has higher shell height compared to ash creek (reference site) and is statistically significant
@@ -824,8 +824,16 @@ posthoc_grid <- list(
   mean = mean(pH_merged$mean)  # Fix pH to mean value
 )
 
-em_month <- emmeans(gam_ph_jg_t, ~ Month | Site, at = posthoc_grid)
+pH_merged_ASHC <- pH_merged %>% filter (Site == "ASHC")
+View(pH_merged_ASHC)
+
+gam_ph_jg_t <- gam(Shell_length ~ te(mean, Month), data = pH_merged_ASHC)
+summary(gam_ph_jg_t)
+
+em_month <- emmeans(gam_ph_jg_t, "Month")
 summary(em_month)
+
+gam_ph_jg_t$model
 
 pairs(em_month)
 
@@ -900,6 +908,7 @@ em_month_d <- emmeans(gam_DO_jg_t, ~ Month | Site, at = posthoc_grid_d)
 summary(em_month_d)
 
 pairs(em_month_d)
+
 
 
 #Lets do an additive model with all environmental parameters included with shell length instead of individual models - how does this differ?
