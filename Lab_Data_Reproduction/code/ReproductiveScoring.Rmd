@@ -6,9 +6,9 @@ output: html_document
 ---
 
 
-Last update 5/14/2025 by K. Lenderman
- - Created accuracy data & completness summary
- - Current accuracy: 84.1%
+Last update 6/6/2025 by K. Lenderman
+ - Note: for more 2024 data, graphs need go be separated by year
+ - Current accuracy: 86.7%
 
 
 #Set working directory
@@ -167,7 +167,7 @@ df_sex_proportions
 
 ```{r}
 #Proportion graphs of scores
-#will need to separate by years, once we have 2024 reproductive data
+#multiple lines within one month becasue we will need to separate by years, once we have more 2024 reproductive data
 all_stage_prop <- ggplot(data=df_score_proportions, aes(x=month, y= Proportion, fill=stage_bin)) +
   geom_bar(width = .5, stat="identity", position = "fill",colour = "black")+  
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 

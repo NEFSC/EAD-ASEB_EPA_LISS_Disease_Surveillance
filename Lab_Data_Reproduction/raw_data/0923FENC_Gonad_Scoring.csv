@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0923FENC_01,09-06-2023,FENC,1,05-19-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923FENC_02,09-06-2023,FENC,2,05-19-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923FENC_03,09-06-2023,FENC,3,05-19-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+0923FENC_04,09-06-2023,FENC,4,05-19-2025,Sarina Dery,Female,7_Reabsorbing,FALSE,,,,,,Female,7_Reabsorbing
+0923FENC_05,09-06-2023,FENC,5,05-19-2025,Sarina Dery,Female,7_Reabsorbing,FALSE,,,,,,Female,7_Reabsorbing
+0923FENC_06,09-06-2023,FENC,6,05-19-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923FENC_07,09-06-2023,FENC,7,05-19-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923FENC_08,09-06-2023,FENC,8,05-19-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923FENC_09,09-06-2023,FENC,9,05-19-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
+0923FENC_10,09-06-2023,FENC,10,05-19-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923FENC_11,09-06-2023,FENC,11,05-19-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923FENC_12,09-06-2023,FENC,12,05-19-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923FENC_13,09-06-2023,FENC,13,05-19-2025,Sarina Dery,Female,7_Reabsorbing,FALSE,,,,,,Female,7_Reabsorbing
+0923FENC_14,09-06-2023,FENC,14,05-19-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923FENC_15,09-06-2023,FENC,15,05-19-2025,Sarina Dery,Female,7_Reabsorbing,FALSE,,,,,,Female,7_Reabsorbing
+0923FENC_16,09-06-2023,FENC,16,05-19-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923FENC_17,09-06-2023,FENC,17,05-19-2025,Sarina Dery,Male,5_Spawning,TRUE,06-04-2025,Kyra Lenderman,Male,5_Spawning,or late mature? - SD,Male,5_Spawning
+0923FENC_18,09-06-2023,FENC,18,05-19-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923FENC_19,09-06-2023,FENC,19,05-19-2025,Sarina Dery,Female,7_Reabsorbing,FALSE,,,,,,Female,7_Reabsorbing
+0923FENC_20,09-06-2023,FENC,20,05-19-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923FENC_21,09-06-2023,FENC,21,05-19-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923FENC_22,09-06-2023,FENC,22,05-19-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
+0923FENC_23,09-06-2023,FENC,23,05-19-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923FENC_24,09-06-2023,FENC,24,05-19-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923FENC_25,09-06-2023,FENC,25,05-19-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923FENC_26,09-06-2023,FENC,26,05-19-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923FENC_27,09-06-2023,FENC,27,05-19-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923FENC_28,09-06-2023,FENC,28,05-19-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923FENC_29,09-06-2023,FENC,29,05-19-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923FENC_30,09-06-2023,FENC,30,05-19-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing

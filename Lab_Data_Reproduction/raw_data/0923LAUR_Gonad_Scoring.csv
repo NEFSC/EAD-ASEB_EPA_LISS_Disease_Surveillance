@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0923LAUR_01,09-27-2023,LAUR,1,05-09-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,05-13-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
+0923LAUR_02,09-27-2023,LAUR,2,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923LAUR_03,09-27-2023,LAUR,3,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923LAUR_04,09-27-2023,LAUR,4,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923LAUR_05,09-27-2023,LAUR,5,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923LAUR_06,09-27-2023,LAUR,6,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923LAUR_07,09-27-2023,LAUR,7,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923LAUR_08,09-27-2023,LAUR,8,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923LAUR_09,09-27-2023,LAUR,9,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923LAUR_10,09-27-2023,LAUR,10,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923LAUR_11,09-27-2023,LAUR,11,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923LAUR_12,09-27-2023,LAUR,12,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923LAUR_13,09-27-2023,LAUR,13,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923LAUR_14,09-27-2023,LAUR,14,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923LAUR_15,09-27-2023,LAUR,15,05-09-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,05-13-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
+0923LAUR_16,09-27-2023,LAUR,16,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923LAUR_17,09-27-2023,LAUR,17,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923LAUR_18,09-27-2023,LAUR,18,05-09-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,05-13-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
+0923LAUR_19,09-27-2023,LAUR,19,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,partial development -SD ,NA,7_Reabsorbing
+0923LAUR_20,09-27-2023,LAUR,20,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923LAUR_21,09-27-2023,LAUR,21,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923LAUR_22,09-27-2023,LAUR,22,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,partial development -SD ,NA,7_Reabsorbing
+0923LAUR_23,09-27-2023,LAUR,23,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923LAUR_24,09-27-2023,LAUR,24,05-09-2025,Sarina Dery,Male,7_Reabsorbing,FALSE,,,,,majority hemocytes -SD,Male,7_Reabsorbing
+0923LAUR_25,09-27-2023,LAUR,25,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,bad cut -SD,NA,7_Reabsorbing
+0923LAUR_26,09-27-2023,LAUR,26,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923LAUR_27,09-27-2023,LAUR,27,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923LAUR_28,09-27-2023,LAUR,28,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923LAUR_29,09-27-2023,LAUR,29,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0923LAUR_30,09-27-2023,LAUR,30,05-09-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,partial development -SD ,NA,7_Reabsorbing
