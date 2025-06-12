@@ -78,7 +78,7 @@ Master_table_LONG <- Master_table %>%
 
 # View the blobs! 
 ggplot(Master_table_LONG,
-         aes(x=`'Date Time'`,
+         aes(x=`Date Time`,
              y=value,
              fill=Site)) +
   geom_point() +
