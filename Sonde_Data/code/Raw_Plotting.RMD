@@ -2942,7 +2942,7 @@ print(GOLD_pH_2023)
 dev.off()
   
 GOLD_pH_2024 <- GOLD_pH %>% na.omit() %>%
-             dplyr::filter(`Date Time` > '2024-04-01 00:00:00' & `Date Time` < '2024-11-30 00:00:00' ) %>% # change date range needed here
+             dplyr::filter(`Date Time` > '2024-04-01 00:00:00' & `Date Time` < '2024-12-31 23:59:00' ) %>% # change date range needed here
              dplyr::mutate(Site = case_when(Site == 'GOLD' ~ 'Gold Star', .default = 'Fence Creek')) %>% 
              ggplot(aes(x=`Date Time`, 
                        y=mean, # the mean values
@@ -2976,7 +2976,7 @@ print(GOLD_pH_2024)
 dev.off()
 
 GOLD_pH_2025 <- GOLD_pH %>% na.omit() %>%
-             dplyr::filter(`Date Time` > '2025-04-01 00:00:00' & `Date Time` < '2025-11-30 00:00:00' ) %>% # change date range needed here
+             dplyr::filter(`Date Time` > '2025-01-01 00:01:00' & `Date Time` < '2025-12-31 23:59:00' ) %>% # change date range needed here
              dplyr::mutate(Site = case_when(Site == 'GOLD' ~ 'Gold Star', .default = 'Fence Creek')) %>% 
              ggplot(aes(x=`Date Time`, 
                        y=mean, # the mean values
@@ -3043,7 +3043,7 @@ print(GOLD_Salinity_2023)
 dev.off()
 
 GOLD_Salinity_2024 <- GOLD_Salinity %>% na.omit() %>%
-             dplyr::filter(`Date Time` > '2024-04-01 00:00:00' & `Date Time` < '2024-11-30 00:00:00' ) %>% # change date range needed here
+             dplyr::filter(`Date Time` > '2024-04-01 00:00:00' & `Date Time` < '2024-12-31 23:59:00' ) %>% # change date range needed here
              dplyr::mutate(Site = case_when(Site == 'GOLD' ~ 'Gold Star', .default = 'Fence Creek')) %>% 
              ggplot(aes(x=`Date Time`, 
                        y=mean, # the mean values
@@ -3075,7 +3075,7 @@ print(GOLD_Salinity_2024)
 dev.off()
 
 GOLD_Salinity_2025 <- GOLD_Salinity %>% na.omit() %>%
-             dplyr::filter(`Date Time` > '2025-04-01 00:00:00' & `Date Time` < '2025-11-30 00:00:00' ) %>% # change date range needed here
+             dplyr::filter(`Date Time` > '2025-01-01 00:01:00' & `Date Time` < '2025-12-31 23:59:00' ) %>% # change date range needed here
              dplyr::mutate(Site = case_when(Site == 'GOLD' ~ 'Gold Star', .default = 'Fence Creek')) %>% 
              ggplot(aes(x=`Date Time`, 
                        y=mean, # the mean values
@@ -3102,7 +3102,7 @@ GOLD_Salinity_2025 <- GOLD_Salinity %>% na.omit() %>%
 
 GOLD_Salinity_2025
 
-pdf(paste0(path="output/raw_plots/Report_plots/GOLD_Salinity_202.pdf"), height = 7, width = 14)
+pdf(paste0(path="output/raw_plots/Report_plots/GOLD_Salinity_2025.pdf"), height = 7, width = 14)
 print(GOLD_Salinity_2025)
 dev.off()
 # Temperature 
@@ -3138,7 +3138,7 @@ print(GOLD_Temperature_2023)
 dev.off()
 
 GOLD_Temperature_2024 <-GOLD_Temperature %>% na.omit() %>%
-             dplyr::filter(`Date Time` > '2024-04-01 00:00:00' & `Date Time` < '2024-11-30 00:00:00' ) %>% # change date range needed here
+             dplyr::filter(`Date Time` > '2024-04-01 00:00:00' & `Date Time` < '2024-12-31 23:59:00' ) %>% # change date range needed here
              dplyr::mutate(Site = case_when(Site == 'GOLD' ~ 'Gold Star', .default = 'Fence Creek')) %>% 
              ggplot(aes(x=`Date Time`, 
                        y=mean, # the mean values
@@ -3169,7 +3169,7 @@ print(GOLD_Temperature_2024)
 dev.off()
 
 GOLD_Temperature_2025 <-GOLD_Temperature %>% na.omit() %>%
-             dplyr::filter(`Date Time` > '2025-04-01 00:00:00' & `Date Time` < '2025-11-30 00:00:00' ) %>% # change date range needed here
+             dplyr::filter(`Date Time` > '2025-01-01 00:00:00' & `Date Time` < '2025-12-31 23:59:00' ) %>% # change date range needed here
              dplyr::mutate(Site = case_when(Site == 'GOLD' ~ 'Gold Star', .default = 'Fence Creek')) %>% 
              ggplot(aes(x=`Date Time`, 
                        y=mean, # the mean values
