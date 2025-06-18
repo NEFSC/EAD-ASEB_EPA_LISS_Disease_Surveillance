@@ -6,7 +6,7 @@ output: html_document
 
 ---
 
-Last updated: 5/7/25 M.Kachmar
+Last updated: 6/18/25 M.Kachmar
 
 
 ```{r setup, include=FALSE}
@@ -51,7 +51,7 @@ df1<-read_csv("HOBO_Data\\raw_data\\062024_FENC_HOBO.csv", col_names = TRUE)%>% 
   dplyr::rename(Temperature = `Ch:1 - Temperature   (°C)`) %>%
   dplyr::rename(Date_Time = `Date-Time (EST/EDT)`)
 
-df2<-read_csv("HOBO_Data\\raw_data\\052025_FENC_HOBO.csv", col_names = TRUE)%>%  # update this csv when new data comes in from the new HOBO
+df2<-read_csv("HOBO_Data\\raw_data\\062025_FENC_HOBO.csv", col_names = TRUE)%>%  # update this csv when new data comes in from the new HOBO
   dplyr::rename(Temperature = `Temperature`) %>%
   dplyr::rename(Date_Time = `Date-Time (EDT)`)# %>%
   #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset"))
@@ -175,12 +175,12 @@ df7<-read_csv("HOBO_Data\\raw_data\\042025_ASHC_HOBO.csv", col_names = TRUE)%>%
   dplyr::rename(Date_Time = `Date-Time (EST/EDT)`) #%>% 
   #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset","Host Connected"))
 
-df8<-read_csv("HOBO_Data\\raw_data\\052025_ASHC_HOBO.csv", col_names = TRUE)%>%  
+df8<-read_csv("HOBO_Data\\raw_data\\062025_ASHC_HOBO.csv", col_names = TRUE)%>%  
   dplyr::rename(Temperature = `Temperature`) %>%
-  dplyr::rename(Date_Time = `Date-Time (EST/EDT)`) #%>% 
+  dplyr::rename(Date_Time = `Date-Time (EDT)`) #%>% 
   #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset","Host Connected"))
 
-ASHC_HOBO <- rbind(df3,df4,df5,df6,df7)
+ASHC_HOBO <- rbind(df3,df4,df5,df6,df7, df8)
 
 #ASHC_HOBO <- read_csv("HOBO_Data\\raw_data\\112024_ASHC_HOBO.csv", col_names = TRUE)   
 
