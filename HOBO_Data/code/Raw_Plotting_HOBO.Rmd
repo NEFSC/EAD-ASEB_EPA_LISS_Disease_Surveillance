@@ -6,7 +6,7 @@ output: html_document
 
 ---
 
-Last updated: 5/7/25 M.Kachmar
+Last updated: 6/18/25 M.Kachmar
 
 
 ```{r setup, include=FALSE}
@@ -51,7 +51,7 @@ df1<-read_csv("HOBO_Data\\raw_data\\062024_FENC_HOBO.csv", col_names = TRUE)%>% 
   dplyr::rename(Temperature = `Ch:1 - Temperature   (°C)`) %>%
   dplyr::rename(Date_Time = `Date-Time (EST/EDT)`)
 
-df2<-read_csv("HOBO_Data\\raw_data\\052025_FENC_HOBO.csv", col_names = TRUE)%>%  # update this csv when new data comes in from the new HOBO
+df2<-read_csv("HOBO_Data\\raw_data\\062025_FENC_HOBO.csv", col_names = TRUE)%>%  # update this csv when new data comes in from the new HOBO
   dplyr::rename(Temperature = `Temperature`) %>%
   dplyr::rename(Date_Time = `Date-Time (EDT)`)# %>%
   #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset"))
@@ -175,12 +175,12 @@ df7<-read_csv("HOBO_Data\\raw_data\\042025_ASHC_HOBO.csv", col_names = TRUE)%>%
   dplyr::rename(Date_Time = `Date-Time (EST/EDT)`) #%>% 
   #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset","Host Connected"))
 
-df8<-read_csv("HOBO_Data\\raw_data\\052025_ASHC_HOBO.csv", col_names = TRUE)%>%  
+df8<-read_csv("HOBO_Data\\raw_data\\062025_ASHC_HOBO.csv", col_names = TRUE)%>%  
   dplyr::rename(Temperature = `Temperature`) %>%
-  dplyr::rename(Date_Time = `Date-Time (EST/EDT)`) #%>% 
+  dplyr::rename(Date_Time = `Date-Time (EDT)`) #%>% 
   #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset","Host Connected"))
 
-ASHC_HOBO <- rbind(df3,df4,df5,df6,df7)
+ASHC_HOBO <- rbind(df3,df4,df5,df6,df7, df8)
 
 #ASHC_HOBO <- read_csv("HOBO_Data\\raw_data\\112024_ASHC_HOBO.csv", col_names = TRUE)   
 
@@ -346,19 +346,29 @@ print(CT_plot)
 
 ## Gold Star Beach
 ```{r}
-GOLD_HOBO <- read_csv("HOBO_Data\\raw_data\\092024_GOLD_HOBO.csv", col_names = TRUE)   
+GOLD_df1 <- read_csv("HOBO_Data\\raw_data\\092024_GOLD_HOBO.csv", col_names = TRUE) 
+GOLD_df1 <- GOLD_df1 %>%
+  dplyr::rename(Temperature = `Temperature   (°C)`) %>%
+  dplyr:: rename(Date_Time = `Date-Time (EST/EDT)`)%>%
+  dplyr::select( -c( "Water Detect", "Button Down", "Button Up", "End of File", "Host Connected"))
+GOLD_df1
+
+GOLD_df2 <- read_csv("HOBO_Data\\raw_data\\062025_GOLD_HOBO.csv", locale = locale(encoding = "Latin1")) 
+GOLD_df2 <- GOLD_df2 %>%
+  dplyr::rename(Temperature = `Temperature , °C`) %>%
+  dplyr:: rename(Date_Time = `Date-Time (EDT)`)
+GOLD_df2
+
+View(GOLD_df2)
+
+GOLD_HOBO <- dplyr::bind_rows(GOLD_df1,GOLD_df2)
 
 as.data.frame(GOLD_HOBO)
 
 View(GOLD_HOBO)
-
-names(GOLD_HOBO)
 #Change column names
 
-GOLD_HOBO <- GOLD_HOBO %>%
-  dplyr::rename(Temperature = `Temperature   (°C)`) %>%
-  dplyr:: rename(Date_Time = `Date-Time (EST/EDT)`)
-GOLD_HOBO
+
 
 GOLD_HOBO$Date_Time <- as.character(GOLD_HOBO$Date_Time)
 date_time <- strsplit(GOLD_HOBO$Date_Time, " ")  # Split at the space
@@ -374,7 +384,7 @@ print(GOLD_HOBO)
 
 ## removing unneeded columns with NAs
 
-GOLD_HOBO <- GOLD_HOBO %>%
+#GOLD_HOBO <- GOLD_HOBO %>%
   dplyr::select( -c("Host Connected", "Water Detect", "Button Down", "Button Up", "End of File"))
 
 GOLD_HOBO <- na.omit(GOLD_HOBO)
