@@ -1,11 +1,11 @@
 lab_id,date_collected,site,lab_sample,date_rftmread1,rftm_reader1,rftm_intensity_read1,duplicate_read,date_rftmread2,rftm_reader2,rftm_intensity_read2,rftm_notes,rftm_final
-0625FENC_01,2025-06-17,FENC,1,2025-06-24,Sarina Dery,0.5,TRUE,,,,,0.5
+0625FENC_01,2025-06-17,FENC,1,2025-06-24,Sarina Dery,0.5,FALSE,,,,,0.5
 0625FENC_02,2025-06-17,FENC,2,2025-06-24,Sarina Dery,0.5,FALSE,,,,,0.5
 0625FENC_03,2025-06-17,FENC,3,2025-06-24,Sarina Dery,0.5,FALSE,,,,,0.5
 0625FENC_04,2025-06-17,FENC,4,2025-06-24,Sarina Dery,1,FALSE,,,,,1
 0625FENC_05,2025-06-17,FENC,5,2025-06-24,Sarina Dery,1,FALSE,,,,,1
 0625FENC_06,2025-06-17,FENC,6,2025-06-24,Sarina Dery,0,FALSE,,,,,0
-0625FENC_07,2025-06-17,FENC,7,2025-06-24,Sarina Dery,0.5,TRUE,,,,,0.5
+0625FENC_07,2025-06-17,FENC,7,2025-06-24,Sarina Dery,0.5,FALSE,,,,,0.5
 0625FENC_08,2025-06-17,FENC,8,2025-06-24,Sarina Dery,0.5,FALSE,,,,,0.5
 0625FENC_09,2025-06-17,FENC,9,2025-06-24,Sarina Dery,0.5,FALSE,,,,,0.5
 0625FENC_10,2025-06-17,FENC,10,2025-06-24,Sarina Dery,0.5,FALSE,,,,,0.5
