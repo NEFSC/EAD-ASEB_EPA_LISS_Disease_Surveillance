@@ -2901,8 +2901,8 @@ FENC_Monthly_Salinity
 GOLD_pH          <- Master_table_LONG_means %>% dplyr::filter(variable == 'pH' & Site %in% c('GOLD')) 
 GOLD_Salinity    <- Master_table_LONG_means %>% dplyr::filter(variable == 'Salinity' & Site %in% c('GOLD'))
 GOLD_Temperature <- Master_table_LONG_means %>% dplyr::filter(variable == 'Temperature' & Site %in% c('GOLD'))
-GOLD_DO          <- Master_table_LONG_means %>% dplyr::filter(variable == 'RDO Concentration' & Site %in% c('GOLD'))
-GOLD_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == 'Chlorophyll-a Fluorescence' & Site %in% c('GOLD'))
+GOLD_DO          <- Master_table_LONG_means %>% dplyr::filter(variable == 'RDO.Concentration' & Site %in% c('GOLD'))
+GOLD_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == 'Chlorophyll.a.Fluorescence' & Site %in% c('GOLD'))
 
 
 
@@ -3247,7 +3247,7 @@ GOLD_DO_2024 <- GOLD_DO %>% na.omit() %>%
               geom_errorbar(aes(ymin=(mean)-(se), 
                                 ymax=(mean)+(se)), 
                             width=0,position=position_dodge(.4)) +
-              facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+             # facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
               ggtitle("DO Concentration 2024") +
               labs(x = "Time", y = "DO Concentration (mg/L)") +
               theme_classic() +theme(legend.position = "none", axis.text= element_text(size= 15))+  geom_hline(yintercept = 5, color = "red", linetype= "solid", size = 1) +
@@ -3276,7 +3276,7 @@ GOLD_DO_2025 <- GOLD_DO %>% na.omit() %>%
               geom_errorbar(aes(ymin=(mean)-(se), 
                                 ymax=(mean)+(se)), 
                             width=0,position=position_dodge(.4)) +
-              facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+              #facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
               ggtitle("DO Concentration 2025") +
               labs(x = "Time", y = "DO Concentration (mg/L)") +
               theme_classic() +theme(legend.position = "none", axis.text= element_text(size= 15))+  geom_hline(yintercept = 5, color = "red", linetype= "solid", size = 1) +
@@ -3306,7 +3306,7 @@ GOLD_CHLA_2023 <- GOLD_CHLA %>% na.omit() %>%
               geom_errorbar(aes(ymin=(mean)-(se), 
                                 ymax=(mean)+(se)), 
                             width=0,position=position_dodge(.4)) +
-              facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+              #facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
               ggtitle("Chlorophyll-a flourescences 2023 ") +
               labs(x = "Time", y = "Chlorophyll-a (RFU)") +
               theme_classic() +
@@ -3335,7 +3335,7 @@ GOLD_CHLA_2024 <- GOLD_CHLA %>% na.omit() %>%
               geom_errorbar(aes(ymin=(mean)-(se), 
                                 ymax=(mean)+(se)), 
                             width=0,position=position_dodge(.4)) +
-              facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+             # facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
               ggtitle("Chlorophyll-a flourescences 2024 ") +
               labs(x = "Time", y = "Chlorophyll-a (RFU)") +
               theme_classic() +
@@ -3364,7 +3364,7 @@ GOLD_CHLA_2025 <- GOLD_CHLA %>% na.omit() %>%
               geom_errorbar(aes(ymin=(mean)-(se), 
                                 ymax=(mean)+(se)), 
                             width=0,position=position_dodge(.4)) +
-              facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+              #facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
               ggtitle("Chlorophyll-a flourescences 2025 ") +
               labs(x = "Time", y = "Chlorophyll-a (RFU)") +
               theme_classic() +
