@@ -1,0 +1,113 @@
+---
+title: "qPCR QAQC of results"
+author: "Mariah Kachmar"
+date: "2025-07-09"
+output: html_document
+Description: The purpose of this script is to import, clean up, and summarize Triplex qPCR data for the detection of Dermo, MSX, and SSO to determine prevalence and infection intensity for the LISS Oyster Health Project's monthly sampling at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. Infection intensity will be reported as copies/ng. This data will then be cross validated with RFTM and Histology data. 
+
+Last updated:7/9/25 by Mariah kachmar
+---
+
+#Set working directory
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+#knitr::opts_knit$set(root.dir = 'C:/Users/sarina.dery/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kelly's
+```
+
+#run packages
+```{r}
+library("ggplot2")
+library("readxl")
+library("plyr")                                     
+library("dplyr")
+library("Rmisc")
+library("readr")  
+library("lubridate")
+library("purrr")
+library(reshape2)
+library(stringr)
+library("RColorBrewer")
+```
+
+#### This code chunk merges all .csv files within the qubit folder into one data fram and outputs the full dataset into a .csv master file. This allows us to download the raw data as a .csv, add it to the repository folder, and create the master data file without copying and pasting data in excel.
+# reading in .csv files from local folder
+```{r}
+
+data_all <- list.files(path = "Lab_Data_qPCR/raw_data",                           # Identify all CSV files
+  pattern = "*.csv", full.names = TRUE) %>% 
+  lapply(read_csv) %>%                              # Store all files in list
+  bind_rows                                         # Combine data sets into one data set 
+data_all                                            # Print data to RStudio console
+
+as.data.frame(data_all)                            # Convert tibble to data.frame
+
+
+data_all <- data_all %>% filter(!is.na('Sample Name'))
+
+data_all<- data_all %>% select(c('Test Date', 'Sample Name', 'Original Sample Conc.', 'Original sample conc. units'))
+
+data_all <- data_all %>% rename(Date = 'Test Date', Sample_ID = 'Sample Name', Concentration = 'Original Sample Conc.', Units = 'Original sample conc. units')
+
+data_all
+
+write.csv(data_all, "Master_files\\qubit_all_data.csv", row.names=FALSE)
+```
+
+```{r}
+path <- "Lab_Data_qPCR/raw_data/"
+
+paste0(getwd(),"/",path)
+```
+
+```{r generate list of file names}
+
+file.names.qpcr         <- data.frame(txt.files = 
+                                         (basename(list.files(path = paste0(getwd(),"/",path), 
+                                                              pattern = "csv$", 
+                                                              recursive = FALSE)))) 
+
+file.names.qpcr
+
+
+
+```
+```{r}
+
+qPCR_master <- data.frame() 
+
+```
+
+```{r}
+for (m in 1:nrow(file.names.qpcr)) { # this is your loop, for each row in th filenames tbale, do the followin!
+  # NOTE: you will 'm' used in this loop to read and assign data
+  
+  
+  # call the dir of the csv file in loop using paste0 to 'paste' the strings for the 
+  # working directry, path to raw data, and the mth file name in the loop
+  raw_qpcr_rootdir        <- paste0(getwd(),"/",path ,file.names.qpcr[m,1]) #reads in the data files
+  
+  # We need to skip some lines, and this can differ each time you pull the data from the machine
+  # to do this we will use readLines then grep to call the row that contains the delimiter 'Date Time', 
+  # becasue this is where the target data begins! (actual measured readings!)
+  D        <- readLines(raw_qpcr_rootdir) 
+  ind      <- grep("Well",D) # the row number containing the start of the data...in this case "Well" however there is another line that says "well group" and it is reading that. need to figure out how fix that. 
+  if (length(ind) < 1) stop("Delimiter 'Well' not found in file: ", raw_qpcr_rootdir)
+  ind <- ind[1]
+  # read the data using read_csv and skip columns based on 'ind' above 
+  raw      <- read_csv(raw_qpcr_rootdir,skip=ind-1,col_types = cols())
+  raw_df   <- as.data.frame(raw) # ocnvert the dataframe now that you skipped the crappola 
+  
+  # add a column for the site 
+  filename      <- file.names.qpcr[m,1]
+  raw_df        <- raw_df %>% 
+                    dplyr::mutate(Site = sub(".*_(.*)_.*","\\1",filename),
+                    Date = gsub("_.*","",filename)) 
+  
+  qPCR_master <- rbind(raw_df, qPCR_master) #bind to a cumulative list dataframe
+}
+
+qPCR_master
+
+```
