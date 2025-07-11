@@ -246,7 +246,8 @@ ASHC_mature_spawning$month <- factor(ASHC_mature_spawning$month, levels = c("1",
         labels=c("Jan","Feb", "March","April","May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"))
 ASHC_mature_spawning <- ASHC_mature_spawning%>%
                       dplyr::mutate(variable = "Reproduction")%>%
-                      rename(site = Site)
+                      rename(site = Site)%>%
+                      filter(year=="2023")
 
 #Need to run tissue processing code for the following
 ASHC_precent_greater_3 <- ASHC_precent_greater_3 %>%
@@ -255,7 +256,8 @@ ASHC_precent_greater_3 <- ASHC_precent_greater_3 %>%
 
 ASHC_repro.bcs_2023 <- rbind(ASHC_mature_spawning, ASHC_precent_greater_3)
 
-ggplot(ASHC_repro.bcs, aes(x=factor(month),y=Percentage, fill = variable))+
+#This graph shows body conditions of >=3 (good/ripe) compared to mature/spawning gametes
+ggplot(ASHC_repro.bcs_2023, aes(x=factor(month),y=Percentage, fill = variable))+
   geom_bar(stat = "identity", position = "dodge")
 
 ```
@@ -302,7 +304,8 @@ FENC_spawning
 FENC_mature_spawning$month <- factor(FENC_mature_spawning$month, levels = c("1","2","3","4","5","6","7", "8", "9", "10", "11", "12"),
         labels=c("Jan","Feb", "March","April","May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"))
 FENC_mature_spawning <- FENC_mature_spawning%>%
-                      dplyr::mutate(variable = "Reproduction")#%>%
+                      dplyr::mutate(variable = "Reproduction")%>%
+                      filter(year=="2023")#%>%
                       #rename(site = Site)
 
 #Need to run tissue processing code for the following
@@ -312,6 +315,7 @@ FENC_precent_greater_3 <- FENC_precent_greater_3 %>%
 
 FENC_repro.bcs_2023 <- rbind(FENC_mature_spawning, FENC_precent_greater_3)
 
+#This graph shows body conditions of >=3 (good/ripe) compared to mature/spawning gametes
 ggplot(FENC_repro.bcs_2023, aes(x=factor(month),y=Percentage, fill = variable))+
   geom_bar(stat = "identity", position = "dodge")
 
