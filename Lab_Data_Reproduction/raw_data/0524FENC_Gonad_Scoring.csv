@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0524FENC_01,05-13-2024,FENC,1,06-06-2025,Sarina Dery,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
+0524FENC_02,05-13-2024,FENC,2,06-06-2025,Sarina Dery,Male,3_Early_Active,FALSE,,,,,,Male,3_Early_Active
+0524FENC_03,05-13-2024,FENC,3,06-06-2025,Sarina Dery,Male,3_Early_Active,FALSE,,,,,,Male,3_Early_Active
+0524FENC_04,05-13-2024,FENC,4,06-06-2025,Sarina Dery,NA,2_Developing,TRUE,06-10-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0524FENC_05,05-13-2024,FENC,5,06-06-2025,Sarina Dery,Hermaphrodite,3_Early_Active,TRUE,06-10-2025,Kyra Lenderman,Hermaphrodite,3_Early_Active,,Hermaphrodite,3_Early_Active
+0524FENC_06,05-13-2024,FENC,6,06-06-2025,Sarina Dery,Female,3_Early_Active,TRUE,06-10-2025,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0524FENC_07,05-13-2024,FENC,7,06-06-2025,Sarina Dery,Female,3_Early_Active,TRUE,06-10-2025,Kyra Lenderman,Female,3_Early_Active,weird cut,Female,3_Early_Active
+0524FENC_08,05-13-2024,FENC,8,06-06-2025,Sarina Dery,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
+0524FENC_09,05-13-2024,FENC,9,06-06-2025,Sarina Dery,NA,2_Developing,TRUE,06-10-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0524FENC_10,05-13-2024,FENC,10,06-06-2025,Sarina Dery,NA,2_Developing,TRUE,06-10-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0524FENC_11,05-13-2024,FENC,11,06-06-2025,Sarina Dery,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
+0524FENC_12,05-13-2024,FENC,12,06-06-2025,Sarina Dery,Male,3_Early_Active,FALSE,,,,,,Male,3_Early_Active
+0524FENC_13,05-13-2024,FENC,13,06-06-2025,Sarina Dery,Male,3_Early_Active,FALSE,,,,,,Male,3_Early_Active
+0524FENC_14,05-13-2024,FENC,14,06-06-2025,Sarina Dery,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
+0524FENC_15,05-13-2024,FENC,15,06-06-2025,Sarina Dery,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
+0524FENC_16,05-13-2024,FENC,16,06-06-2025,Sarina Dery,Female,3_Early_Active,FALSE,,,,,diseased? -SD,Female,3_Early_Active
+0524FENC_17,05-13-2024,FENC,17,06-06-2025,Sarina Dery,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
+0524FENC_18,05-13-2024,FENC,18,06-06-2025,Sarina Dery,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
+0524FENC_19,05-13-2024,FENC,19,06-06-2025,Sarina Dery,Male,3_Early_Active,FALSE,,,,,,Male,3_Early_Active
+0524FENC_20,05-13-2024,FENC,20,06-06-2025,Sarina Dery,Female,2_Developing,TRUE,06-10-2025,Kyra Lenderman,Female,2_Developing,,Female,2_Developing
+0524FENC_21,05-13-2024,FENC,21,06-06-2025,Sarina Dery,Male,3_Early_Active,FALSE,,,,,,Male,3_Early_Active
+0524FENC_22,05-13-2024,FENC,22,06-06-2025,Sarina Dery,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
+0524FENC_23,05-13-2024,FENC,23,06-06-2025,Sarina Dery,NA,2_Developing,TRUE,06-10-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0524FENC_24,05-13-2024,FENC,24,06-06-2025,Sarina Dery,Female,3_Early_Active,TRUE,06-10-2025,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0524FENC_25,05-13-2024,FENC,25,06-06-2025,Sarina Dery,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
+0524FENC_26,05-13-2024,FENC,26,06-06-2025,Sarina Dery,Female,3_Early_Active,TRUE,06-10-2025,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0524FENC_27,05-13-2024,FENC,27,06-06-2025,Sarina Dery,Hermaphrodite,3_Early_Active,TRUE,06-10-2025,Kyra Lenderman,Hermaphrodite,3_Early_Active,,Hermaphrodite,3_Early_Active
+0524FENC_28,05-13-2024,FENC,28,06-06-2025,Sarina Dery,Hermaphrodite,3_Early_Active,TRUE,06-10-2025,Kyra Lenderman,Hermaphrodite,3_Early_Active,,Hermaphrodite,3_Early_Active
+0524FENC_29,05-13-2024,FENC,29,06-06-2025,Sarina Dery,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
+0524FENC_30,05-13-2024,FENC,30,06-06-2025,Sarina Dery,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active

@@ -167,24 +167,27 @@ df_sex_proportions
 
 ```{r}
 #Proportion graphs of scores
-#multiple lines within one month becasue we will need to separate by years, once we have more 2024 reproductive data
+#df_score_proportions_2023 <- df_score_proportions%>% filter(year=="2023")
+#df_score_proportions_2024 <- df_score_proportions%>% filter(year=="2024")
+#df_score_proportions_2025 <- df_score_proportions%>% filter(year=="2025")
+
+
 all_stage_prop <- ggplot(data=df_score_proportions, aes(x=month, y= Proportion, fill=stage_bin)) +
   geom_bar(width = .5, stat="identity", position = "fill",colour = "black")+  
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
   labs(fill ="Gonadal Score")+
-  labs(title="Proportion of gonadal scores - 2023", x ="month", y = "Proportion")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  labs(title="Proportion of gonadal scores", x ="month", y = "Proportion")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
   theme(axis.text=element_text(size=12))+
 scale_fill_brewer(palette = "YlGnBu")+
    scale_x_continuous("Month", breaks = c(3,4,5,6,7,8,9,10,11))+ 
-  facet_wrap(~Site)
+  facet_grid(year~Site)
 all_stage_prop
 #pdf(paste0(path = "Lab_Data_Reproduction/output" ,"/all_repro_stages_proportion.pdf"), height = 7, width = 13)
 #print(all_stage_prop)
 #dev.off()
 
 #Proportion graphs of gametes
-#will need to separate by years, once we have 2024 reproductive data
 all_gamete_prop <- ggplot(data=df_sex_proportions, aes(x=month, y= Proportion, fill=Sex_final)) +
   geom_bar(width = .5, stat="identity", position = "fill",colour = "black")+  
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
@@ -194,7 +197,7 @@ all_gamete_prop <- ggplot(data=df_sex_proportions, aes(x=month, y= Proportion, f
   theme(axis.text=element_text(size=12))+
 scale_fill_brewer(palette = "Pastel1")+
    scale_x_continuous("Month", breaks = c(3,4,5,6,7,8,9,10,11))+ 
-  facet_wrap(~Site)
+  facet_grid(year~Site)
 all_gamete_prop
 
 #pdf(paste0(path = "Lab_Data_Reproduction/output" ,"/all_repro_gametes_proportion.pdf"), height = 7, width = 13)
