@@ -92,11 +92,11 @@ for (m in 1:nrow(file.names.qpcr)) { # this is your loop, for each row in th fil
   # to do this we will use readLines then grep to call the row that contains the delimiter 'Date Time', 
   # becasue this is where the target data begins! (actual measured readings!)
   D        <- readLines(raw_qpcr_rootdir) 
-  ind      <- grep("Well",D) # the row number containing the start of the data...in this case "Well" however there is another line that says "well group" and it is reading that. need to figure out how fix that. 
+  ind      <- grep("^Well$", D, ignore.case = TRUE) # the row number containing the start of the data...in this case "Well" ; exact match to avoid picking up 'Well group'
   if (length(ind) < 1) stop("Delimiter 'Well' not found in file: ", raw_qpcr_rootdir)
   ind <- ind[1]
   # read the data using read_csv and skip columns based on 'ind' above 
-  raw      <- read_csv(raw_qpcr_rootdir,skip=ind-1,col_types = cols())
+  raw      <- read_csv(raw_qpcr_rootdir,skip=ind-1, col_names = TRUE, col_types = cols())
   raw_df   <- as.data.frame(raw) # ocnvert the dataframe now that you skipped the crappola 
   
   # add a column for the site 
@@ -107,6 +107,9 @@ for (m in 1:nrow(file.names.qpcr)) { # this is your loop, for each row in th fil
   
   qPCR_master <- rbind(raw_df, qPCR_master) #bind to a cumulative list dataframe
 }
+
+
+
 
 qPCR_master
 
