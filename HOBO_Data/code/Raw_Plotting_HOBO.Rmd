@@ -180,7 +180,12 @@ df8<-read_csv("HOBO_Data\\raw_data\\062025_ASHC_HOBO.csv", col_names = TRUE)%>%
   dplyr::rename(Date_Time = `Date-Time (EDT)`) #%>% 
   #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset","Host Connected"))
 
-ASHC_HOBO <- rbind(df3,df4,df5,df6,df7, df8)
+df9<-read_csv("HOBO_Data\\raw_data\\072025_ASHC_HOBO.csv", col_names = TRUE)%>%  
+  dplyr::rename(Temperature = `Temperature`) %>%
+  dplyr::rename(Date_Time = `Date-Time (EDT)`) #%>% 
+  #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset","Host Connected"))
+
+ASHC_HOBO <- rbind(df3,df4,df5,df6,df7, df8, df9)
 
 #ASHC_HOBO <- read_csv("HOBO_Data\\raw_data\\112024_ASHC_HOBO.csv", col_names = TRUE)   
 
