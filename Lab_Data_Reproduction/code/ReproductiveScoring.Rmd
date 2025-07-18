@@ -124,22 +124,26 @@ data_all
 LAUR_repro <- data_all%>% filter(Site == "LAUR")
 ggplot(LAUR_repro, aes(x=Stage_final, fill=Sex_final))+
   labs(title = "Gonadal Scoring - LAUR")+
-  geom_histogram(stat = "count")
+  geom_histogram(stat = "count")+
+  facet_grid(~year)
 
 GOLD_repro <- data_all%>% filter(Site == "GOLD")
 ggplot(GOLD_repro, aes(x=Stage_final, fill=Sex_final))+
   labs(title = "Gonadal Scoring - GOLD")+
-  geom_histogram(stat = "count")
+  geom_histogram(stat = "count")+
+  facet_grid(~year)
 
 ASHC_repro <- data_all%>% filter(Site == "ASHC")
 ggplot(ASHC_repro, aes(x=Stage_final, fill=Sex_final))+
   labs(title = "Gonadal Scoring - ASHC")+
-  geom_histogram(stat = "count")
+  geom_histogram(stat = "count")+
+  facet_grid(~year)
 
 FENC_repro <- data_all%>% filter(Site == "FENC")
 ggplot(FENC_repro, aes(x=Stage_final, fill=Sex_final))+
   labs(title = "Gonadal Scoring - FENC")+
-  geom_histogram(stat = "count")
+  geom_histogram(stat = "count")+
+  facet_grid(~year)
 ```
 ```{r}
 #Creating proportions for stages and sex
@@ -234,8 +238,8 @@ ASHC_spawning <- ASHC_mature_spawning%>%
     title = "Ash Creek % of spawning",
     x = "month",
     y = "Percentage of spawning scores 4 & 5"
-  ) #+
-    #facet_wrap(~year)
+  ) +
+    facet_wrap(~year)
 
 ASHC_spawning
 ```
@@ -248,6 +252,7 @@ ASHC_mature_spawning <- ASHC_mature_spawning%>%
                       dplyr::mutate(variable = "Reproduction")%>%
                       rename(site = Site)%>%
                       filter(year=="2023")
+                      
 
 #Need to run tissue processing code for the following
 ASHC_precent_greater_3 <- ASHC_precent_greater_3 %>%
