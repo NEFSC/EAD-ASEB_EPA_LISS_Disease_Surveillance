@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0324ASHC_01,03-14-2024,ASHC,1,05-10-2025,Sarina Dery,NA,2_Developing,TRUE,05-13-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0324ASHC_02,03-14-2024,ASHC,2,05-10-2025,Sarina Dery,NA,2_Developing,TRUE,06-04-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0324ASHC_03,03-14-2024,ASHC,3,05-10-2025,Sarina Dery,NA,2_Developing,TRUE,06-04-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0324ASHC_04,03-14-2024,ASHC,4,05-10-2025,Sarina Dery,NA,2_Developing,TRUE,06-04-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0324ASHC_05,03-14-2024,ASHC,5,05-10-2025,Sarina Dery,NA,2_Developing,TRUE,06-04-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0324ASHC_06,03-14-2024,ASHC,6,05-10-2025,Sarina Dery,Male,3_Early_Active,TRUE,06-04-2025,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0324ASHC_07,03-14-2024,ASHC,7,05-10-2025,Sarina Dery,NA,2_Developing,TRUE,06-04-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0324ASHC_08,03-14-2024,ASHC,8,05-10-2025,Sarina Dery,NA,2_Developing,TRUE,06-04-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0324ASHC_09,03-14-2024,ASHC,9,05-10-2025,Sarina Dery,NA,2_Developing,TRUE,06-04-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0324ASHC_10,03-14-2024,ASHC,10,05-10-2025,Sarina Dery,NA,2_Developing,TRUE,06-04-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0324ASHC_11,03-14-2024,ASHC,11,05-10-2025,Sarina Dery,NA,2_Developing,TRUE,06-04-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0324ASHC_12,03-14-2024,ASHC,12,05-10-2025,Sarina Dery,NA,2_Developing,TRUE,06-04-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0324ASHC_13,03-14-2024,ASHC,13,05-10-2025,Sarina Dery,NA,2_Developing,TRUE,06-04-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0324ASHC_14,03-14-2024,ASHC,14,05-10-2025,Sarina Dery,NA,2_Developing,TRUE,06-04-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0324ASHC_15,03-14-2024,ASHC,15,05-10-2025,Sarina Dery,NA,2_Developing,TRUE,06-04-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0324ASHC_16,03-14-2024,ASHC,16,05-10-2025,Sarina Dery,Female,3_Early_Active,TRUE,06-04-2025,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0324ASHC_17,03-14-2024,ASHC,17,05-10-2025,Sarina Dery,NA,2_Developing,TRUE,06-04-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0324ASHC_18,03-14-2024,ASHC,18,05-10-2025,Sarina Dery,NA,2_Developing,TRUE,06-04-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0324ASHC_19,03-14-2024,ASHC,19,05-10-2025,Sarina Dery,Female,3_Early_Active,TRUE,06-04-2025,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0324ASHC_20,03-14-2024,ASHC,20,05-10-2025,Sarina Dery,NA,2_Developing,TRUE,06-04-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0324ASHC_21,03-14-2024,ASHC,21,05-10-2025,Sarina Dery,NA,2_Developing,TRUE,06-04-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0324ASHC_22,03-14-2024,ASHC,22,05-10-2025,Sarina Dery,NA,2_Developing,TRUE,06-04-2025,Kyra Lenderman,NA,2_Developing,bad cut/ missing parts of mantle - SD,NA,2_Developing
+0324ASHC_23,03-14-2024,ASHC,23,05-10-2025,Sarina Dery,NA,2_Developing,TRUE,06-04-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0324ASHC_24,03-14-2024,ASHC,24,05-10-2025,Sarina Dery,NA,2_Developing,TRUE,06-04-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0324ASHC_25,03-14-2024,ASHC,25,05-10-2025,Sarina Dery,NA,2_Developing,TRUE,06-04-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0324ASHC_26,03-14-2024,ASHC,26,05-10-2025,Sarina Dery,Female,3_Early_Active,TRUE,06-04-2025,Kyra Lenderman,Female,3_Early_Active,partial development -SD,Female,3_Early_Active
+0324ASHC_27,03-14-2024,ASHC,27,05-10-2025,Sarina Dery,NA,2_Developing,TRUE,06-04-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0324ASHC_28,03-14-2024,ASHC,28,05-10-2025,Sarina Dery,Male,3_Early_Active,TRUE,06-04-2025,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0324ASHC_29,03-14-2024,ASHC,29,05-10-2025,Sarina Dery,NA,2_Developing,TRUE,06-04-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0324ASHC_30,03-14-2024,ASHC,30,05-10-2025,Sarina Dery,NA,2_Developing,TRUE,06-04-2025,Kyra Lenderman,NA,2_Developing,,NA,2_Developing

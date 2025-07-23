@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+1023GOLD_01,10-16-2023,GOLD,1,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
+1023GOLD_02,10-16-2023,GOLD,2,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
+1023GOLD_03,10-16-2023,GOLD,3,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,bad cut missing mantle- SD,NA,7_Reabsorbing
+1023GOLD_04,10-16-2023,GOLD,4,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
+1023GOLD_05,10-16-2023,GOLD,5,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
+1023GOLD_06,10-16-2023,GOLD,6,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
+1023GOLD_07,10-16-2023,GOLD,7,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
+1023GOLD_08,10-16-2023,GOLD,8,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,bad cut missing mantle- SD,NA,7_Reabsorbing
+1023GOLD_09,10-16-2023,GOLD,9,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
+1023GOLD_10,10-16-2023,GOLD,10,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
+1023GOLD_11,10-16-2023,GOLD,11,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,bad cut missing mantle- SD,NA,7_Reabsorbing
+1023GOLD_12,10-16-2023,GOLD,12,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
+1023GOLD_13,10-16-2023,GOLD,13,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
+1023GOLD_14,10-16-2023,GOLD,14,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,partially  developing ?-SD,NA,7_Reabsorbing
+1023GOLD_15,10-16-2023,GOLD,15,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,partially  developing ?-SD,NA,7_Reabsorbing
+1023GOLD_16,10-16-2023,GOLD,16,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
+1023GOLD_17,10-16-2023,GOLD,17,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,partially  developing ?-SD,NA,7_Reabsorbing
+1023GOLD_18,10-16-2023,GOLD,18,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
+1023GOLD_19,10-16-2023,GOLD,19,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,bad cut missing mantle- SD,NA,7_Reabsorbing
+1023GOLD_20,10-16-2023,GOLD,20,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
+1023GOLD_21,10-16-2023,GOLD,21,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
+1023GOLD_22,10-16-2023,GOLD,22,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,Male,7_Reabsorbing,,Male,7_Reabsorbing
+1023GOLD_23,10-16-2023,GOLD,23,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,partially  developing ?-SD,NA,7_Reabsorbing
+1023GOLD_24,10-16-2023,GOLD,24,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
+1023GOLD_25,10-16-2023,GOLD,25,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
+1023GOLD_26,10-16-2023,GOLD,26,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,female?-SD,NA,7_Reabsorbing
+1023GOLD_27,10-16-2023,GOLD,27,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,partially  developing ?-SD,NA,7_Reabsorbing
+1023GOLD_28,10-16-2023,GOLD,28,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
+1023GOLD_29,10-16-2023,GOLD,29,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,partially  developing ?-SD,NA,7_Reabsorbing
+1023GOLD_30,10-16-2023,GOLD,30,05-12-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing

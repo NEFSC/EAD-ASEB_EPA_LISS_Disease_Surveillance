@@ -263,7 +263,10 @@ ASHC_repro.bcs_2023 <- rbind(ASHC_mature_spawning, ASHC_precent_greater_3)
 
 #This graph shows body conditions of >=3 (good/ripe) compared to mature/spawning gametes
 ggplot(ASHC_repro.bcs_2023, aes(x=factor(month),y=Percentage, fill = variable))+
-  geom_bar(stat = "identity", position = "dodge")
+  geom_bar(stat = "identity", position = "dodge")+
+  scale_fill_discrete(name = "Factors", labels = c("BCS (1-3 scores)", "Spawning (4-5 scores)"))+
+  labs(title = ">=3 body condtion score compared to histology spawning (5) and mature (4) reproductive score - ASHC 2023",
+       x = "Month", y = "Percentage")
 
 ```
 
@@ -322,7 +325,10 @@ FENC_repro.bcs_2023 <- rbind(FENC_mature_spawning, FENC_precent_greater_3)
 
 #This graph shows body conditions of >=3 (good/ripe) compared to mature/spawning gametes
 ggplot(FENC_repro.bcs_2023, aes(x=factor(month),y=Percentage, fill = variable))+
-  geom_bar(stat = "identity", position = "dodge")
+  geom_bar(stat = "identity", position = "dodge")+
+  scale_fill_discrete(name = "Factors", labels = c("BCS (1-3 scores)", "Spawning (4-5 scores)"))+
+  labs(title = ">=3 body condtion score compared to histology spawning (5) and mature (4) reproductive score - FENC 2023",
+       x = "Month", y = "Percentage")
 
 ```
 #GOLD Summary
@@ -379,7 +385,10 @@ GOLD_precent_greater_3 <- GOLD_precent_greater_3 %>%
 GOLD_repro.bcs_2023 <- rbind(GOLD_mature_spawning, GOLD_precent_greater_3)
 
 ggplot(GOLD_repro.bcs_2023, aes(x=factor(month),y=Percentage, fill = variable))+
-  geom_bar(stat = "identity", position = "dodge")
+  geom_bar(stat = "identity", position = "dodge")+
+  scale_fill_discrete(name = "Factors", labels = c("BCS (1-3 scores)", "Spawning (4-5 scores)"))+
+  labs(title = ">=3 body condtion score compared to histology spawning (5) and mature (4) reproductive score - GOLD 2023",
+       x = "Month", y = "Percentage")
 
 ```
 
@@ -437,7 +446,10 @@ LAUR_precent_greater_3 <- LAUR_precent_greater_3 %>%
 LAUR_repro.bcs_2023 <- rbind(LAUR_mature_spawning, LAUR_precent_greater_3)
 
 ggplot(LAUR_repro.bcs_2023, aes(x=factor(month),y=Percentage, fill = variable))+
-  geom_bar(stat = "identity", position = "dodge")
+  geom_bar(stat = "identity", position = "dodge")+
+  scale_fill_discrete(name = "Factors", labels = c("BCS (1-3 scores)", "Spawning (4-5 scores)"))+
+  labs(title = ">=3 body condtion score compared to histology spawning (5) and mature (4) reproductive score - LAUR 2023",
+       x = "Month", y = "Percentage")
 
 ```
 

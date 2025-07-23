@@ -10,7 +10,7 @@ Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicat
 0923GOLD_09,09-26-2023,GOLD,9,05-23-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,07-09-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
 0923GOLD_10,09-26-2023,GOLD,10,05-23-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,07-09-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
 0923GOLD_11,09-26-2023,GOLD,11,05-23-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,07-09-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
-0923GOLD_12,09-26-2023,GOLD,12,05-23-2025,Sarina Dery,Female,7_Reabsorbing,TRUE,07-09-2025,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0923GOLD_12,09-26-2023,GOLD,12,05-23-2025,Sarina Dery,Female,6_Post_Spawning,TRUE,07-09-2025,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
 0923GOLD_13,09-26-2023,GOLD,13,05-23-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,07-09-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
 0923GOLD_14,09-26-2023,GOLD,14,05-23-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,07-09-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
 0923GOLD_15,09-26-2023,GOLD,15,05-23-2025,Sarina Dery,Female,7_Reabsorbing,TRUE,07-09-2025,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing

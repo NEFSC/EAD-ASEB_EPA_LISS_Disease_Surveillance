@@ -1,31 +1,31 @@
 Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
-0523LAUR_01,05-25-2023,LAUR,1,01-02-2025,Kyra Lenderman,Female,5_Spawning,TRUE,,Mariah Kachmar,Female,5_Spawning,,Female,5_Spawning
+0523LAUR_01,05-25-2023,LAUR,1,01-02-2025,Kyra Lenderman,Female,5_Spawning,TRUE,01-03-2025,Mariah Kachmar,Female,5_Spawning,,Female,5_Spawning
 0523LAUR_02,05-25-2023,LAUR,2,01-02-2025,Kyra Lenderman,Female,4_Late_Mature,FALSE,,,,,May be spawning,Female,4_Late_Mature
 0523LAUR_03,05-25-2023,LAUR,3,01-02-2025,Kyra Lenderman,Female,5_Spawning,FALSE,,,,,,Female,5_Spawning
-0523LAUR_04,05-25-2023,LAUR,4,01-02-2025,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,"found spots that are 3, but more spots with 4",Female,5_Spawning
+0523LAUR_04,05-25-2023,LAUR,4,01-02-2025,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,"found spots that are 3, but more spots with 4",Female,3_Early_Active
 0523LAUR_05,05-25-2023,LAUR,5,01-02-2025,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,partially full but gonads are mature/developed,Female,3_Early_Active
 0523LAUR_06,05-25-2023,LAUR,6,01-02-2025,Kyra Lenderman,Female,4_Late_Mature,FALSE,,,,,"outer layer of mantle is not there, so it may be spawning or may just be mature",Female,4_Late_Mature
-0523LAUR_07,05-25-2023,LAUR,7,01-02-2025,Kyra Lenderman,NA,1_Inactive_Indeterminate,TRUE,,Mariah Kachmar,NA,1_Inactive_Indeterminate,no gonads present,NA,1_Inactive_Indeterminate
-0523LAUR_08,05-25-2023,LAUR,8,01-02-2025,Kyra Lenderman,Female,5_Spawning,TRUE,,Mariah Kachmar,Female,5_Spawning,,Female,4_Late_Mature
+0523LAUR_07,05-25-2023,LAUR,7,01-02-2025,Kyra Lenderman,NA,1_Inactive_Indeterminate,TRUE,01-03-2025,Mariah Kachmar,NA,1_Inactive_Indeterminate,no gonads present,NA,1_Inactive_Indeterminate
+0523LAUR_08,05-25-2023,LAUR,8,01-02-2025,Kyra Lenderman,Female,5_Spawning,TRUE,01-03-2025,Mariah Kachmar,Female,5_Spawning,,Female,5_Spawning
 0523LAUR_09,05-25-2023,LAUR,9,01-02-2025,Kyra Lenderman,Male,4_Late_Mature,FALSE,,,,,potentially hermaphrodite but it may be feeding on eggs that is why they are present,Male,4_Late_Mature
 0523LAUR_10,05-25-2023,LAUR,10,01-02-2025,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
-0523LAUR_11,05-25-2023,LAUR,11,01-02-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,,Mariah Kachmar,Female,4_Late_Mature,"barely any outer layer of the mantle, may be spawning",Female,4_Late_Mature
-0523LAUR_12,05-25-2023,LAUR,12,01-02-2025,Kyra Lenderman,NA,2_Developing,FALSE,,,,,msx,NA,7_Reabsorbing
+0523LAUR_11,05-25-2023,LAUR,11,01-02-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,01-03-2025,Mariah Kachmar,Female,4_Late_Mature,"barely any outer layer of the mantle, may be spawning",Female,4_Late_Mature
+0523LAUR_12,05-25-2023,LAUR,12,01-02-2025,Kyra Lenderman,NA,2_Developing,FALSE,,,,,msx,NA,2_Developing
 0523LAUR_13,05-25-2023,LAUR,13,01-02-2025,Kyra Lenderman,Male,4_Late_Mature,FALSE,,,,,,Male,4_Late_Mature
 0523LAUR_14,05-25-2023,LAUR,14,01-02-2025,Kyra Lenderman,Male,3_Early_Active,FALSE,,,,,"do not see tails, is that from the staining?",Male,3_Early_Active
 0523LAUR_15,05-25-2023,LAUR,15,01-02-2025,Kyra Lenderman,Male,4_Late_Mature,FALSE,,,,,,Male,4_Late_Mature
-0523LAUR_16,05-25-2023,LAUR,16,01-02-2025,Kyra Lenderman,NA,1_Inactive_Indeterminate,FALSE,,,,,msx,NA,7_Reabsorbing
-0523LAUR_17,05-25-2023,LAUR,17,01-02-2025,Kyra Lenderman,NA,1_Inactive_Indeterminate,FALSE,,,,,,NA,7_Reabsorbing
-0523LAUR_18,05-25-2023,LAUR,18,01-02-2025,Kyra Lenderman,Female,5_Spawning,TRUE,,Mariah Kachmar,Female,5_Spawning,,Female,5_Spawning
-0523LAUR_19,05-25-2023,LAUR,19,01-02-2025,Kyra Lenderman,Male,4_Late_Mature,TRUE,,Mariah Kachmar,Male,4_Late_Mature,,Male,5_Spawning
-0523LAUR_20,05-25-2023,LAUR,20,01-02-2025,Kyra Lenderman,Male,4_Late_Mature,FALSE,,,,,,Male,5_Spawning
-0523LAUR_21,05-25-2023,LAUR,21,01-02-2025,Kyra Lenderman,Male,4_Late_Mature,TRUE,,Mariah Kachmar,Male,4_Late_Mature,,Male,5_Spawning
-0523LAUR_22,05-25-2023,LAUR,22,01-02-2025,Kyra Lenderman,Male,4_Late_Mature,TRUE,,Mariah Kachmar,Male,4_Late_Mature,,Male,4_Late_Mature
-0523LAUR_23,05-25-2023,LAUR,23,01-02-2025,Kyra Lenderman,Female,4_Late_Mature,FALSE,,,,,eaten eggs,Female,5_Spawning
-0523LAUR_24,05-25-2023,LAUR,24,01-02-2025,Kyra Lenderman,Female,5_Spawning,TRUE,,Mariah Kachmar,Female,5_Spawning,poor cut only half visible,Female,5_Spawning
+0523LAUR_16,05-25-2023,LAUR,16,01-02-2025,Kyra Lenderman,NA,1_Inactive_Indeterminate,FALSE,,,,,msx,NA,1_Inactive_Indeterminate
+0523LAUR_17,05-25-2023,LAUR,17,01-02-2025,Kyra Lenderman,NA,1_Inactive_Indeterminate,FALSE,,,,,,NA,1_Inactive_Indeterminate
+0523LAUR_18,05-25-2023,LAUR,18,01-02-2025,Kyra Lenderman,Female,5_Spawning,TRUE,01-03-2025,Mariah Kachmar,Female,5_Spawning,,Female,5_Spawning
+0523LAUR_19,05-25-2023,LAUR,19,01-02-2025,Kyra Lenderman,Male,4_Late_Mature,TRUE,01-03-2025,Mariah Kachmar,Male,4_Late_Mature,,Male,4_Late_Mature
+0523LAUR_20,05-25-2023,LAUR,20,01-02-2025,Kyra Lenderman,Male,4_Late_Mature,FALSE,,,,,,Male,4_Late_Mature
+0523LAUR_21,05-25-2023,LAUR,21,01-02-2025,Kyra Lenderman,Male,4_Late_Mature,TRUE,01-03-2025,Mariah Kachmar,Male,4_Late_Mature,,Male,4_Late_Mature
+0523LAUR_22,05-25-2023,LAUR,22,01-02-2025,Kyra Lenderman,Male,4_Late_Mature,TRUE,01-03-2025,Mariah Kachmar,Male,4_Late_Mature,,Male,4_Late_Mature
+0523LAUR_23,05-25-2023,LAUR,23,01-02-2025,Kyra Lenderman,Female,4_Late_Mature,FALSE,,,,,eaten eggs,Female,4_Late_Mature
+0523LAUR_24,05-25-2023,LAUR,24,01-02-2025,Kyra Lenderman,Female,5_Spawning,TRUE,01-03-2025,Mariah Kachmar,Female,5_Spawning,poor cut only half visible,Female,5_Spawning
 0523LAUR_25,05-25-2023,LAUR,25,01-02-2025,Kyra Lenderman,Female,5_Spawning,FALSE,,,,,,Female,5_Spawning
 0523LAUR_26,05-25-2023,LAUR,26,01-02-2025,Kyra Lenderman,Male,4_Late_Mature,FALSE,,,,,,Male,4_Late_Mature
 0523LAUR_27,05-25-2023,LAUR,27,01-02-2025,Kyra Lenderman,Male,4_Late_Mature,FALSE,,,,,Bad cut,Male,4_Late_Mature
-0523LAUR_28,05-25-2023,LAUR,28,01-02-2025,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,there are very mature eggs but not many,Female,4_Late_Mature
-0523LAUR_29,05-25-2023,LAUR,29,01-02-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,,Mariah Kachmar,Female,4_Late_Mature,"some underdeveloped eggs are in different spots on the other layer of mantle. Clean up from spawning, but still many eggs present.",Female,5_Spawning
-0523LAUR_30,05-25-2023,LAUR,30,01-02-2025,Kyra Lenderman,Male,4_Late_Mature,TRUE,,Mariah Kachmar,Male,4_Late_Mature,,Male,4_Late_Mature
+0523LAUR_28,05-25-2023,LAUR,28,01-02-2025,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,there are very mature eggs but not many,Female,3_Early_Active
+0523LAUR_29,05-25-2023,LAUR,29,01-02-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,01-03-2025,Mariah Kachmar,Female,4_Late_Mature,"some underdeveloped eggs are in different spots on the other layer of mantle. Clean up from spawning, but still many eggs present.",Female,4_Late_Mature
+0523LAUR_30,05-25-2023,LAUR,30,01-02-2025,Kyra Lenderman,Male,4_Late_Mature,TRUE,01-03-2025,Mariah Kachmar,Male,4_Late_Mature,,Male,4_Late_Mature
