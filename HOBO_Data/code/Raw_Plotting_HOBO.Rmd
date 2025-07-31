@@ -358,7 +358,7 @@ GOLD_df1 <- GOLD_df1 %>%
   dplyr::select( -c( "#","Water Detect", "Button Down", "Button Up", "End of File", "Host Connected"))
 GOLD_df1
 
-GOLD_df2 <- read_csv("HOBO_Data\\raw_data\\062025_GOLD_HOBO.csv", col_names = TRUE) 
+GOLD_df2 <- read_csv("HOBO_Data\\raw_data\\072025_GOLD_HOBO.csv", col_names = TRUE) 
 GOLD_df2 <- GOLD_df2 %>%
   dplyr::rename(Temperature = `Temperature`) %>%
   dplyr:: rename(Date_Time = `Date-Time (EDT)`)%>%
