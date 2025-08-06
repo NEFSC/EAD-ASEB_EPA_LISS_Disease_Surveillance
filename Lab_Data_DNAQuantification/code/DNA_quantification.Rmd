@@ -7,8 +7,8 @@ output: html_document
 Description: This code is used for molecular sample DNA quanitification quality control and assurance for the LISS funded Oyster Health Project. This samples were extracted using a Qiagen blood and tissue extraction kit. Quanitify of nucleic acids were determined using a Nanodrop2000 and dsDNA using a Qubit Flex. 
 
 
-Updated: 4/11/25 K. Lenderman
-
+Updated: 8/6/25 K. Lenderman
+ - % of samples with standard deviations >10 = 16.9%
 ---
 
 
@@ -18,7 +18,7 @@ Updated: 4/11/25 K. Lenderman
 knitr::opts_chunk$set(echo = TRUE)
 #knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
 knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
-#knitr::opts_knit$set(root.dir = 'C:/Users/kelly.roper/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kelly's
+#knitr::opts_knit$set(root.dir = 'C:/Users/sarina.dery/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Sarina's
 ```
 
 #run packages
@@ -66,6 +66,12 @@ qubit_summary <- summarySE(data = data_all, measurevar = "Concentration", groupv
 qubit_summary <- qubit_summary %>% rename(mean_concentration_ng.uL = Concentration)
 
 write.csv(qubit_summary, "Lab_Data_DNAQuantification//output\\qubit_summary.csv", row.names=FALSE)
+
+#Percentage of standard deviations >10 for qubit
+high_sd <- qubit_summary %>% filter(sd > 10) %>% nrow()
+total_values <- nrow(qubit_summary)
+percentage_highsd <- (high_sd/total_values) * 100
+percentage_highsd
 
 ```
 
