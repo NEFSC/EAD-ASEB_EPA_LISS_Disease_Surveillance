@@ -68,10 +68,10 @@ qubit_summary <- qubit_summary %>% rename(mean_concentration_ng.uL = Concentrati
 write.csv(qubit_summary, "Lab_Data_DNAQuantification//output\\qubit_summary.csv", row.names=FALSE)
 
 #Percentage of standard deviations >10 for qubit
-high_sd <- qubit_summary %>% filter(sd > 10) %>% nrow()
-total_values <- nrow(qubit_summary)
-percentage_highsd <- (high_sd/total_values) * 100
-percentage_highsd
+high_sd <- qubit_summary %>% filter(sd > 10) %>% nrow() #creates number of rows that have sd # >10
+high_sd_list <- qubit_summary %>% filter(sd > 10) #creates list of which samples have high sd
+percentage_highsd <- (high_sd/nrow(qubit_summary)) * 100 # determining percentage of samples have high standard deviation
+percentage_highsd #outputs percentage
 
 ```
 
