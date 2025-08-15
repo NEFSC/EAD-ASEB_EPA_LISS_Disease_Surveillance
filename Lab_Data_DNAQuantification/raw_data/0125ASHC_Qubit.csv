@@ -31,7 +31,6 @@ Run ID,Test Date,Assay Name,Sample Name,Original Sample Conc.,Original sample co
 110825-181931,11/8/2025 18:26,dsDNA BR,0125ASHC_30,68.8,ng/uL,1.72,ug/mL,5,40,N/A,0.8-200,200-400,BLUE,13.02040218,920.6125742,,367,11/8/2025 16:31,,,,,,8,1.9.0,7
 110825-181931,11/8/2025 18:26,dsDNA BR,0125ASHC_BLANK,0.5,ng/uL,0.0125,ug/mL,5,40,N/A,0.8-200,200-400,BLUE,13.40474647,934.1279541,,16.2,11/8/2025 16:31,,,,,,8,1.9.0,7
 110825-182908,11/8/2025 18:29,dsDNA BR,0125ASHC_BLANK,0.46,ng/uL,0.0115,ug/mL,5,40,N/A,0.8-200,200-400,BLUE,13.40474647,934.1279541,,16,11/8/2025 16:31,,,,,,8,1.9.0,1
-Run ID,Test Date,Assay Name,Sample Name,Original Sample Conc.,Original sample conc. units,Qubit Tube Conc.,Qubit tube conc. units,Sample Volume (uL),Dilution Factor,Extended Low Range,Core Range,Extended High Range,Excitation,Std 1 RFU,Std 2 RFU,Std 3 RFU,Sample RFU,Last Read Standards,Reagent Lot#,Plate Barcode,Well,Sample ID,Tags,Calibrated Tubes,Software Version,Selected Samples
 110825-181350,11/8/2025 18:13,dsDNA BR,0125ASHC_01,52,ng/uL,1.3,ug/mL,5,40,N/A,0.8-200,200-400,BLUE,14.70560409,1019.583466,,316,11/8/2025 16:31,,,,,,8,1.9.0,8
 110825-181350,11/8/2025 18:13,dsDNA BR,0125ASHC_02,48.8,ng/uL,1.22,ug/mL,5,40,N/A,0.8-200,200-400,BLUE,15.11951334,1109.71556,,324,11/8/2025 16:31,,,,,,8,1.9.0,8
 110825-181350,11/8/2025 18:13,dsDNA BR,0125ASHC_03,69.2,ng/uL,1.73,ug/mL,5,40,N/A,0.8-200,200-400,BLUE,13.79500376,999.5527982,,401,11/8/2025 16:31,,,,,,8,1.9.0,8

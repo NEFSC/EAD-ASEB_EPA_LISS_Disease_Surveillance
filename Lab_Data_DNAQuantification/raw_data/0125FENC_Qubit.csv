@@ -29,7 +29,6 @@ Run ID,Test Date,Assay Name,Sample Name,Original Sample Conc.,Original sample co
 110825-172136,11/8/2025 17:27,dsDNA BR,0125FENC_28,55.6,ng/uL,1.39,ug/mL,5,40,N/A,0.8-200,200-400,BLUE,14.01969735,984.795848,,325,11/8/2025 16:31,,,,,,8,1.9.0,6
 110825-172136,11/8/2025 17:27,dsDNA BR,0125FENC_29,62.4,ng/uL,1.56,ug/mL,5,40,N/A,0.8-200,200-400,BLUE,13.97830643,1003.478525,,365,11/8/2025 16:31,,,,,,8,1.9.0,6
 110825-172136,11/8/2025 17:27,dsDNA BR,0125FENC_30,71.6,ng/uL,1.79,ug/mL,5,40,N/A,0.8-200,200-400,BLUE,13.02040218,920.6125742,,379,11/8/2025 16:31,,,,,,8,1.9.0,6
-Run ID,Test Date,Assay Name,Sample Name,Original Sample Conc.,Original sample conc. units,Qubit Tube Conc.,Qubit tube conc. units,Sample Volume (uL),Dilution Factor,Extended Low Range,Core Range,Extended High Range,Excitation,Std 1 RFU,Std 2 RFU,Std 3 RFU,Sample RFU,Last Read Standards,Reagent Lot#,Plate Barcode,Well,Sample ID,Tags,Calibrated Tubes,Software Version,Selected Samples
 110825-171550,11/8/2025 17:15,dsDNA BR,0125FENC_01,44.8,ng/uL,1.12,ug/mL,5,40,N/A,0.8-200,200-400,BLUE,14.70560409,1019.583466,,276,11/8/2025 16:31,,,,,,8,1.9.0,8
 110825-171550,11/8/2025 17:15,dsDNA BR,0125FENC_02,88,ng/uL,2.2,ug/mL,5,40,N/A,0.8-200,200-400,BLUE,15.11951334,1109.71556,,551,11/8/2025 16:31,,,,,,8,1.9.0,8
 110825-171550,11/8/2025 17:15,dsDNA BR,0125FENC_03,60,ng/uL,1.5,ug/mL,5,40,N/A,0.8-200,200-400,BLUE,13.79500376,999.5527982,,351,11/8/2025 16:31,,,,,,8,1.9.0,8
