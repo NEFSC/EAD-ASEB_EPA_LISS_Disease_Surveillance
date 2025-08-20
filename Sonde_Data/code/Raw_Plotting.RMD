@@ -2284,8 +2284,8 @@ CT_DO_FENC_all
 FENC_pH          <- Master_table_LONG_means %>% dplyr::filter(variable == 'pH' & Site %in% c('FENC'))
 FENC_Salinity   <- Master_table_LONG_means %>% dplyr::filter(variable == 'Salinity' & Site %in% c('FENC'))
 FENC_Temperature <- Master_table_LONG_means %>% dplyr::filter(variable == 'Temperature' & Site %in% c('FENC'))
-FENC_DO          <- Master_table_LONG_means %>% dplyr::filter(variable == 'RDO Concentration' & Site %in% c('FENC'))
-FENC_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == 'Chlorophyll-a Fluorescence' & Site %in% c('FENC'))
+FENC_DO          <- Master_table_LONG_means %>% dplyr::filter(variable == 'RDO.Concentration' & Site %in% c('FENC'))
+FENC_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == 'Chlorophyll.a.Fluorescence' & Site %in% c('FENC'))
 
 # pH 
 
@@ -2349,9 +2349,9 @@ FENC_pH_2024 <- FENC_pH %>% na.omit() %>%
 FENC_pH_2024
 
 
-pdf(paste0(path = "output/raw_plots/Report_plots/FENC_pH_2024.pdf"), height = 7, width = 14)
-print(FENC_pH_2024)
-dev.off()
+#pdf(paste0(path = "output/raw_plots/Report_plots/FENC_pH_2024.pdf"), height = 7, width = 14)
+#print(FENC_pH_2024)
+#dev.off()
 
 FENC_pH_2025 <- FENC_pH %>% na.omit() %>%
              dplyr::filter(Date.Time > '2025-01-01 00:01:00' & Date.Time < '2025-12-31 23:59:00' ) %>% 
@@ -2445,9 +2445,9 @@ FENC_Salinity_2024 <- FENC_Salinity %>% na.omit() %>%
 
 FENC_Salinity_2024
 
-pdf(paste0(path = "output/raw_plots/Report_plots/FENC_Salinity_2024.pdf"), height = 7, width = 14)
-print(FENC_Salinity_2024)
-dev.off()
+#pdf(paste0(path = "output/raw_plots/Report_plots/FENC_Salinity_2024.pdf"), height = 7, width = 14)
+#print(FENC_Salinity_2024)
+#dev.off()
 
 
 FENC_Salinity_2025 <- FENC_Salinity %>% na.omit() %>%
@@ -2537,9 +2537,9 @@ FENC_Temperature_2024 <-FENC_Temperature %>% na.omit() %>%
               theme(legend.position = "none", axis.text= element_text(size= 15))
 FENC_Temperature_2024
 
-pdf(paste0(path="output/raw_plots/Report_plots/FENC_Temperature_2024.pdf"), height = 7, width = 14)
-print(FENC_Temperature_2024)
-dev.off()
+#pdf(paste0(path="output/raw_plots/Report_plots/FENC_Temperature_2024.pdf"), height = 7, width = 14)
+#print(FENC_Temperature_2024)
+#dev.off()
 
 FENC_Temperature_2025 <-FENC_Temperature %>% na.omit() %>%
              dplyr::filter(Date.Time > '2025-01-01 00:01:00' & Date.Time < '2025-12-31 23:59:00' ) %>% 
@@ -2625,9 +2625,9 @@ FENC_DO_2024 <- FENC_DO %>% na.omit() %>%
               theme_classic() +
               theme(legend.position = "none", axis.text= element_text(size= 15))
 
-pdf(paste0(path = "output/raw_plots/Report_plots/FENC_DO_2024.pdf"), height = 7, width = 14)
-print(FENC_DO_2024)
-dev.off()
+#pdf(paste0(path = "output/raw_plots/Report_plots/FENC_DO_2024.pdf"), height = 7, width = 14)
+#print(FENC_DO_2024)
+#dev.off()
 
 FENC_DO_2025 <- FENC_DO %>% na.omit() %>%
              dplyr::filter(Date.Time > '2025-01-01 00:01:00' & Date.Time < '2025-12-31 23:59:00' ) %>% 
@@ -2686,8 +2686,8 @@ FENC_CHLA_2023 <- FENC_CHLA %>% na.omit() %>%
 
 FENC_CHLA_2023
 
-pdf(paste0(path="output/raw_plots/Report_plots/FENC_CHLA_2023.pdf"), height = 7, width = 14)
-print(FENC_CHLA_2023)
+#pdf(paste0(path="output/raw_plots/Report_plots/FENC_CHLA_2023.pdf"), height = 7, width = 14)
+#print(FENC_CHLA_2023)
 
 
 FENC_CHLA_2024 <- FENC_CHLA %>% na.omit() %>%
@@ -2716,8 +2716,8 @@ FENC_CHLA_2024 <- FENC_CHLA %>% na.omit() %>%
 
 FENC_CHLA_2024
 
-pdf(paste0(path="output/raw_plots/Report_plots/FENC_CHLA_2024.pdf"), height = 7, width = 14)
-print(FENC_CHLA_2024)
+#pdf(paste0(path="output/raw_plots/Report_plots/FENC_CHLA_2024.pdf"), height = 7, width = 14)
+#print(FENC_CHLA_2024)
 
 FENC_CHLA_2025 <- FENC_CHLA %>% na.omit() %>%
              dplyr::filter(Date.Time > '2025-01-01 00:01:00' & Date.Time < '2025-12-31 23:59:00' ) %>% 
@@ -2937,9 +2937,9 @@ GOLD_pH_2023 <- GOLD_pH %>% na.omit() %>%
 GOLD_pH_2023
 
 
-pdf(paste0(path="output/raw_plots/Report_plots/GOLD_pH_2023.pdf"), height = 7, width = 14)
-print(GOLD_pH_2023)
-dev.off()
+#pdf(paste0(path="output/raw_plots/Report_plots/GOLD_pH_2023.pdf"), height = 7, width = 14)
+#print(GOLD_pH_2023)
+#dev.off()
   
 GOLD_pH_2024 <- GOLD_pH %>% na.omit() %>%
              dplyr::filter(Date.Time > '2024-04-01 00:00:00' & Date.Time < '2024-12-31 23:59:00' ) %>% # change date range needed here
@@ -2971,9 +2971,9 @@ GOLD_pH_2024 <- GOLD_pH %>% na.omit() %>%
 GOLD_pH_2024
 
 
-pdf(paste0(path="output/raw_plots/Report_plots/GOLD_pH_2024.pdf"), height = 7, width = 14)
-print(GOLD_pH_2024)
-dev.off()
+#pdf(paste0(path="output/raw_plots/Report_plots/GOLD_pH_2024.pdf"), height = 7, width = 14)
+#print(GOLD_pH_2024)
+#dev.off()
 
 GOLD_pH_2025 <- GOLD_pH %>% na.omit() %>%
              dplyr::filter(Date.Time > '2025-01-01 00:01:00' & Date.Time < '2025-12-31 23:59:00' ) %>% # change date range needed here
@@ -3038,9 +3038,9 @@ GOLD_Salinity_2023 <- GOLD_Salinity %>% na.omit() %>%
 
 GOLD_Salinity_2023
 
-pdf(paste0(path="output/raw_plots/Report_plots/GOLD_Salinity_2023.pdf"), height = 7, width = 14)
-print(GOLD_Salinity_2023)
-dev.off()
+#pdf(paste0(path="output/raw_plots/Report_plots/GOLD_Salinity_2023.pdf"), height = 7, width = 14)
+#print(GOLD_Salinity_2023)
+#dev.off()
 
 GOLD_Salinity_2024 <- GOLD_Salinity %>% na.omit() %>%
              dplyr::filter(Date.Time > '2024-04-01 00:00:00' & Date.Time < '2024-12-31 23:59:00' ) %>% # change date range needed here
@@ -3070,9 +3070,9 @@ GOLD_Salinity_2024 <- GOLD_Salinity %>% na.omit() %>%
 
 GOLD_Salinity_2024
 
-pdf(paste0(path="output/raw_plots/Report_plots/GOLD_Salinity_2024.pdf"), height = 7, width = 14)
-print(GOLD_Salinity_2024)
-dev.off()
+#pdf(paste0(path="output/raw_plots/Report_plots/GOLD_Salinity_2024.pdf"), height = 7, width = 14)
+#print(GOLD_Salinity_2024)
+#dev.off()
 
 GOLD_Salinity_2025 <- GOLD_Salinity %>% na.omit() %>%
              dplyr::filter(Date.Time > '2025-01-01 00:01:00' & Date.Time < '2025-12-31 23:59:00' ) %>% # change date range needed here
@@ -3133,9 +3133,9 @@ GOLD_Temperature_2023 <-GOLD_Temperature %>% na.omit() %>%
 GOLD_Temperature_2023
 
 
-pdf(paste0(path="output/raw_plots/Report_plots/GOLD_Temperature_2023.pdf"), height = 7, width = 14)
-print(GOLD_Temperature_2023)
-dev.off()
+#pdf(paste0(path="output/raw_plots/Report_plots/GOLD_Temperature_2023.pdf"), height = 7, width = 14)
+#print(GOLD_Temperature_2023)
+#dev.off()
 
 GOLD_Temperature_2024 <-GOLD_Temperature %>% na.omit() %>%
              dplyr::filter(Date.Time > '2024-04-01 00:00:00' & Date.Time < '2024-12-31 23:59:00' ) %>% # change date range needed here
@@ -3164,9 +3164,9 @@ GOLD_Temperature_2024 <-GOLD_Temperature %>% na.omit() %>%
 GOLD_Temperature_2024
 
 
-pdf(paste0(path="output/raw_plots/Report_plots/GOLD_Temperature_2024.pdf"), height = 7, width = 14)
-print(GOLD_Temperature_2024)
-dev.off()
+#pdf(paste0(path="output/raw_plots/Report_plots/GOLD_Temperature_2024.pdf"), height = 7, width = 14)
+#print(GOLD_Temperature_2024)
+#dev.off()
 
 GOLD_Temperature_2025 <-GOLD_Temperature %>% na.omit() %>%
              dplyr::filter(Date.Time > '2025-01-01 00:00:00' & Date.Time < '2025-12-31 23:59:00' ) %>% # change date range needed here
@@ -3225,9 +3225,9 @@ GOLD_DO_2023 <- GOLD_DO %>% na.omit() %>%
               theme_classic() +
               theme(legend.position = "none", axis.text= element_text(size= 15))
 
-pdf(paste0(path="output/raw_plots/Report_plots/GOLD_DO_2023.pdf"), height = 7, width = 14)
-print(GOLD_DO_2023)
-dev.off()
+#pdf(paste0(path="output/raw_plots/Report_plots/GOLD_DO_2023.pdf"), height = 7, width = 14)
+#print(GOLD_DO_2023)
+#dev.off()
 
 GOLD_DO_2024 <- GOLD_DO %>% na.omit() %>%
              dplyr::filter(Date.Time > '2024-04-01 00:00:00' & Date.Time < '2024-11-30 00:00:00' ) %>% # change date range needed here
@@ -3254,9 +3254,9 @@ GOLD_DO_2024 <- GOLD_DO %>% na.omit() %>%
   scale_x_datetime(breaks="1 month", date_labels = "%B")
 
 GOLD_DO_2024
-pdf(paste0(path="output/raw_plots/Report_plots/GOLD_DO_2024.pdf"), height = 7, width = 14)
-print(GOLD_DO_2024)
-dev.off()
+#pdf(paste0(path="output/raw_plots/Report_plots/GOLD_DO_2024.pdf"), height = 7, width = 14)
+#print(GOLD_DO_2024)
+#dev.off()
 
 GOLD_DO_2025 <- GOLD_DO %>% na.omit() %>%
              dplyr::filter(Date.Time > '2025-04-01 00:00:00' & Date.Time < '2025-11-30 00:00:00' ) %>% # change date range needed here
@@ -3314,8 +3314,8 @@ GOLD_CHLA_2023 <- GOLD_CHLA %>% na.omit() %>%
 
 GOLD_CHLA_2023
 
-pdf(paste0(path="output/raw_plots/Report_plots/GOLD_CHLA_2023.pdf"), height = 7, width = 14)
-print(GOLD_CHLA_2023)
+#pdf(paste0(path="output/raw_plots/Report_plots/GOLD_CHLA_2023.pdf"), height = 7, width = 14)
+#print(GOLD_CHLA_2023)
 
 GOLD_CHLA_2024 <- GOLD_CHLA %>% na.omit() %>%
              dplyr::filter(Date.Time > '2024-04-01 00:00:00' & Date.Time < '2024-11-30 00:00:00' ) %>% # change date range needed here
@@ -3343,8 +3343,8 @@ GOLD_CHLA_2024 <- GOLD_CHLA %>% na.omit() %>%
 
 GOLD_CHLA_2024
 
-pdf(paste0(path="output/raw_plots/Report_plots/GOLD_CHLA_2024.pdf"), height = 7, width = 14)
-print(GOLD_CHLA_2024)
+#pdf(paste0(path="output/raw_plots/Report_plots/GOLD_CHLA_2024.pdf"), height = 7, width = 14)
+#print(GOLD_CHLA_2024)
 
 GOLD_CHLA_2025 <- GOLD_CHLA %>% na.omit() %>%
              dplyr::filter(Date.Time > '2025-04-01 00:00:00' & Date.Time < '2025-11-30 00:00:00' ) %>% # change date range needed here
