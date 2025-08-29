@@ -8,7 +8,8 @@ description: This R code is used to import and summarize recruitment data collec
 ---
 
 
-last updated 8/28/2025 by K. Lenderman
+last updated 8/29/2025 by K. Lenderman
+- Added graph for overall data
 - QAQC 2025 Aug. data
 
 
@@ -82,7 +83,7 @@ View(Avg_spat_stringer)
 
 ```{r}
 Avg_spat_stringer <- Avg_spat_stringer %>% dplyr::mutate(Year = year(date_collected))
-
+Avg_spat_stringer <- Avg_spat_stringer %>% mutate(Month = month(date_collected))
 
 #2023
 spat_2023<- Avg_spat_stringer%>% filter(Year == 2023)
@@ -111,6 +112,16 @@ ggplot(data=spat_2025, aes( y=Count_1 )) +
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   labs(title="Mean Recruitment 2025", x ="Site", y = "Mean Recruitment (spat/shell)")+
   facet_wrap(~Site)
+
+#Counts graphs - all sites, all years
+Avg_spat_graph <- Avg_spat_stringer %>% filter(!Site == "LAUR", !Year=="2023")
+
+ggplot(Avg_spat_graph, aes(x=Month,y=Count_1, fill = Site))+
+  geom_bar(stat = "identity", position = "dodge")+
+  labs(title = "Spat Counts - All Sites 2024-2025",
+       x = "Month", y = "Count")+
+  scale_fill_brewer(palette = "Set2")+
+  facet_grid(Site~Year)
 
 ```
 
