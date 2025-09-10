@@ -6,9 +6,9 @@ output: html_document
 ---
 
 
-Last update 6/6/2025 by K. Lenderman
+Last update 9/10/2025 by K. Lenderman
  - Note: for more 2024 data, graphs need go be separated by year
- - Current accuracy: 86.7%
+ - Current accuracy: 88.8%
 
 
 #Set working directory
