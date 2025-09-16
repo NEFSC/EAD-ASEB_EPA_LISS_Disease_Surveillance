@@ -23,6 +23,7 @@ library("readr")
 library("Rmisc")
 library("ggplot2")
 library("lubridate")
+library("tidyverse")
 ```
 
 
@@ -53,7 +54,7 @@ as.data.frame(data_all)
 
 data_all <- data_all%>% filter(!is.na(Site))
 
-View(data_all)
+
 
 #cleaning up date date
 data_all <- data_all %>%
@@ -380,6 +381,7 @@ density_summary$PSE_all <- 100*(density_summary$se/density_summary$Count)
     mutate(PercentComplete_Quad = ((N/4)*100))
 densitysummary
 
+View(density_summary)
 
 write_csv(densitysummary, "Field_Data_Biological/Output/populationdensity_summary.csv")
 
@@ -412,7 +414,8 @@ mean_total_oysters_all <- df_density_all %>%
  dplyr:: group_by(Site, Season, survival_status, Date_collected) %>%
  dplyr::summarize(Total_Density = mean(Density))
 mean_total_oysters_all
- 
+
+View(mean_total_oysters_all) 
 
 #Density per quadrat totals
 ggplot(data=df_density_all, aes(x= survival_status, y = Density, fill = survival_status)) +
@@ -424,13 +427,13 @@ ggplot(data=df_density_all, aes(x= survival_status, y = Density, fill = survival
 #+geom_text(aes(label=Count ), vjust=-0.3, size = 3.5)
 
 #Density of oysters per meter squared
-ggplot(data=mean_total_oysters_ASHC, aes(x= Survival_status, y = Total_Density, fill = Survival_status)) +
+ggplot(data=mean_total_oysters_all, aes(x= survival_status, y = Total_Density, fill = survival_status)) +
   geom_bar( stat="identity")+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  labs(title="Ash Creek Density ", x ="Survival status", y= "Density (# oyster / meter squared)")+
-  facet_wrap(~ factor(Season, levels = c("Spring", "Fall"))+ Year, scales = "free")+
- geom_text(aes(label=Total_Density), vjust=-0.3, size = 3.5)
+  labs(title="Mean oyster/m^2 Density ", x ="Survival status", y= "Density (# oyster / meter squared)")+
+  facet_wrap(~ Season + Date_collected + Site, scales = "free", nrow=3) #+
+ #geom_text(aes(label=Total_Density), vjust=-0.3, size = 3.5)
 
 
 ```
