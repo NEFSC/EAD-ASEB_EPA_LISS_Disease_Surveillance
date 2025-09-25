@@ -8,7 +8,7 @@ output: html_document
 
 Last update 9/10/2025 by K. Lenderman
  - Note: for more 2024 data, graphs need go be separated by year
- - Current accuracy: 88.8%
+ - Current accuracy: 88.9%
 
 
 #Set working directory
