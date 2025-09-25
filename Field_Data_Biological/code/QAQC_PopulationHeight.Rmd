@@ -362,7 +362,7 @@ ggplot(height_ASHC, aes(x=factor(Season, levels = c("Spring", "Fall")), y=Height
 
 #Distribution Live 
 ASHC_Distribution_Live<-height_ASHC_Live %>% 
-  #dplyr::filter(Year == "2025" ) %>%
+  dplyr::filter(Year == "2025" ) %>%
   ggplot(aes(x= Height)) +
   geom_histogram()+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
@@ -482,13 +482,13 @@ ggplot(height_FENC, aes(x=factor(Season, levels = c("Spring", "Fall")), y=Height
 
 #Distribution Live
 FENC_Distribution_Live<- height_FENC_Live %>% 
-  #dplyr::filter(Year == "2024" ) %>% 
+  dplyr::filter(Year == "2025" ) %>% 
   ggplot(aes(x= Height)) +
   geom_histogram()+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   labs(title="Fence Creek Height Live Oysters ", x ="Height (mm)")+ scale_x_continuous(limits= c(0,200), breaks = seq(0,200, by =10) )+
-  scale_y_continuous(limits = c(0,50), breaks = seq(0,50, by = 10))+
+  scale_y_continuous(limits = c(0,75), breaks = seq(0,75, by = 10))+
  facet_wrap(~ factor(Season, levels = c("Spring", "Fall")) + Year,  scales = "free", nrow=2)
 FENC_Distribution_Live
 pdf(paste0(path = "Field_Data_Biological/Output/FENC_Distribution_Live.pdf"), height = 6, width = 15)
@@ -613,8 +613,9 @@ GOLD_Distribution_Live<-ggplot(data=height_GOLD_Live, aes(x= Height)) +
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   labs(title="Gold Star Beach Height Live Oysters ", x ="Height (mm)")+ scale_x_continuous(limits= c(0,170), breaks = seq(0,170, by =10) )+
-  scale_y_continuous(limits = c(0,20), breaks = seq(0,20, by = 5))+
+  scale_y_continuous(limits = c(0,30), breaks = seq(0,30, by = 5))+
   facet_wrap(~ Year, scales = "free", ncol = 1)
+
 GOLD_Distribution_Live
 pdf(paste0(path = "Field_Data_Biological/Output/GOLD_Distribution_Live.pdf"), height = 6, width = 11)
 print(GOLD_Distribution_Live)
@@ -626,7 +627,7 @@ GOLD_Distribution_Dead<-ggplot(data=height_GOLD_Dead, aes(x= Height)) +
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   labs(title="Gold Star Beach Height Dead Oysters ", x ="Height (mm)")+ scale_x_continuous(limits= c(0,170), breaks = seq(0,170, by =10) )+
-  scale_y_continuous(limits = c(0,20), breaks = seq(0,20, by = 5))+
+  scale_y_continuous(limits = c(0,50), breaks = seq(0,50, by = 5))+
   facet_wrap(~ Year, scales = "free", ncol = 1)
 GOLD_Distribution_Dead
 pdf(paste0(path = "Field_Data_Biological/Output/GOLD_Distribution_Dead.pdf"), height = 6, width = 11)
