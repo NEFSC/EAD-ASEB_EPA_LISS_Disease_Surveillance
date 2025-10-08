@@ -5,17 +5,17 @@ Author : Mariah Kachmar
 description: This R code is used to import and summarize tissue processing data (body condition, height/length/width, weight, sample collection) from the LISS Oyster Health Project's monthly sampling at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. 
 ---
 
-Updated 5/7/25 by K. Lenderman
-- all code up to date & graphs generated
-- commented out outputs for winter sampling
+Updated 10/7/2025 by M.Kachmar
+ - data check
+ - code clean up if needed
  
 
 This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
 
 ```{r setup, include=FALSE}
 #knitr::opts_chunk$set(echo = TRUE)
-#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
-knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 ```
 
 
@@ -86,7 +86,7 @@ data_all <- data_all %>% filter(!is.na(date_collected))
 data_all <- select(data_all, -light_regime, -oyster_zone)
 
 
-View(data_all)
+data_all
 
 write.csv(data_all, "Master_files/tissue_processing_all_data.csv", row.names=FALSE)
 
@@ -341,46 +341,57 @@ write.csv(shell_path, "Master_files/shell_pathology_all_data.csv", row.names=FAL
 
 
 #Writing summary for shell pathology
-shell_path_summary <- shell_path%>% separate(lab_id, c('Date_Site', 'ID'))
-shell_path_summary <- select(shell_path_summary, -c("pathology_notes","ID",))
-shell_path_summary$boring_sponge <- as.integer(as.logical(shell_path_summary$boring_sponge))
-shell_path_summary$polydora <- as.integer(as.logical(shell_path_summary$polydora))
-shell_path_summary$conchiolin_mod_severe <- as.integer(as.logical(shell_path_summary$conchiolin_mod_severe))
-shell_path_summary$mud_blister <- as.integer(as.logical(shell_path_summary$mud_blister))
-shell_path_summary$pea_crab <- as.integer(as.logical(shell_path_summary$pea_crab))
-shell_path_summary$gill_erosion <- as.integer(as.logical(shell_path_summary$gill_erosion))
-shell_path_summary$pale_digestive <- as.integer(as.logical(shell_path_summary$pale_digestive))
-shell_path_summary$discoloration <- as.integer(as.logical(shell_path_summary$discoloration))
-shell_path_summary$horn_add <- as.integer(as.logical(shell_path_summary$horn_add))
-shell_path_summary$cyst_abscess <- as.integer(as.logical(shell_path_summary$cyst_abscess))
-shell_path_summary$tumor <- as.integer(as.logical(shell_path_summary$tumor))
-shell_path_summary$oyster_drill <- as.integer(as.logical(shell_path_summary$oyster_drill))
-shell_path_summary$boring_snail <- as.integer(as.logical(shell_path_summary$boring_snail))
-shell_path_summary$shell_scarring <- as.integer(as.logical(shell_path_summary$shell_scarring))
-shell_path_count<- shell_path_summary %>%
-  dplyr::group_by(Date_Site) %>%
-  dplyr::summarize(Sample_count = n(),
-              Boring_sponge =sum(boring_sponge),
-              Polydora = sum(polydora),
-              Conchiolin =sum(conchiolin_mod_severe),
-              Mud_blister =sum(mud_blister),
-              Pea_crab =sum(pea_crab),
-              Gill_erosion =sum(gill_erosion),
-              Pale_digestive =sum(pale_digestive),
-              Discoloration =sum(discoloration),
-              Horn =sum(horn_add),
-              Cyst =sum(cyst_abscess),
-              Tumor =sum(tumor),
-              Oyster_drill =sum(oyster_drill),
-              Boring_snail =sum(boring_snail),
-              Shell_scarring =sum(shell_scarring),
-              Pathogen_count = sum(boring_sponge,polydora,conchiolin_mod_severe, mud_blister, pea_crab,
-                                    gill_erosion, pale_digestive, discoloration, horn_add, cyst_abscess,
-                                    tumor, oyster_drill, boring_snail, shell_scarring, na.rm = TRUE)) %>%
+
+# Clean up, convert to integer, drop ID, etc.
+shell_path_summary <- shell_path %>%
+  # split `lab_id` into two parts
+  separate(lab_id, into = c("Date_Site", "ID")) %>%
+  # drop unwanted columns
+  select(-pathology_notes, -ID) %>%
+  # convert a set of logical (or whatever) columns to 0/1
+  mutate(across(
+    c(boring_sponge, polydora, conchiolin_mod_severe, mud_blister,
+      pea_crab, gill_erosion, pale_digestive, discoloration,
+      horn_add, cyst_abscess, tumor, oyster_drill,
+      boring_snail, shell_scarring),
+    ~ as.integer(as.logical(.))
+  ))
+
+
+# Compute a pathogen‐indicator sum *per sample* (row).
+shell_path_summary <- shell_path_summary %>%
+  mutate(
+    Pathogen_count = rowSums(
+      select(., boring_sponge, polydora, conchiolin_mod_severe, mud_blister,
+             pea_crab, gill_erosion, pale_digestive, discoloration,
+             horn_add, cyst_abscess, tumor, oyster_drill,
+             boring_snail, shell_scarring),
+      na.rm = TRUE
+    )
+  )
+
+# Now group + summarise
+shell_path_count <- shell_path_summary %>%
+  group_by(Date_Site) %>%
+  summarise(
+    Sample_count = n(),
+    across(
+      c(boring_sponge, polydora, conchiolin_mod_severe, mud_blister,
+        pea_crab, gill_erosion, pale_digestive, discoloration,
+        horn_add, cyst_abscess, tumor, oyster_drill,
+        boring_snail, shell_scarring, Pathogen_count),
+      sum,
+      na.rm = TRUE
+    )
+  ) %>%
   ungroup()
+
+shell_path_count
+shell_path_summary
+
 write.csv(shell_path_count, "Lab_Data_TissueProcessing/output/shell_pathology_counts.csv", row.names=FALSE)
 
-shell_path_summary
+
 ```
 
 
@@ -402,7 +413,8 @@ st_condition_ASHC<- summarySE(df_ASHC, measurevar = "condition_score", groupvars
 st_condition_ASHC
 
 mean_condition_ASHC <- st_condition_ASHC %>%
-  filter(!is.na(condition_score)) %>%  # Filter out rows where condition_score is NA
+  filter(!is.na(condition_score)) %>% # Filter out rows where condition_score is NA
+  group_by(date_collected)%>%
   summarize(mean_bcs = mean(condition_score, na.rm = TRUE))
 mean_condition_ASHC
 
@@ -742,7 +754,7 @@ dev.off()
 df_GOLD
 
 GOLD_precent_greater_3 <- df_GOLD %>%
-  dplyr::group_by(month, site, year) %>%
+  dplyr::group_by(month, year) %>%
   dplyr::summarise(Percentage = mean(condition_score <= 3)*100)
 GOLD_precent_greater_3
 
@@ -763,10 +775,10 @@ GOLD_BCS_percentage <- GOLD_precent_greater_3 %>%
     title = "Gold Star Beach % of body condition scores >= 3",
     x = "month",
     y = "Percentage of body condition scores >= 3"
-  ) +facet_wrap(~year)
-  #+ scale_x_continuous( breaks = seq(5,12, by =1) )+
-  #ylim(0,60)+ 
-  #scale_y_continuous(limits = c(0,100), breaks = seq(0,100, by = 10)) 
+  ) +facet_wrap(~year) +
+  #scale_x_continuous( breaks = seq(5,12, by =1) )+
+  #ylim(0,100)+ 
+  scale_y_continuous(limits = c(0,100), breaks = seq(0,100, by = 10)) 
 
     
 GOLD_BCS_percentage
