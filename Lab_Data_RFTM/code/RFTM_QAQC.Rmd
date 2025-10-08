@@ -6,15 +6,14 @@ output: html_document
 
 description: This R code is used to import and summarize RFTM (Rays Fluid Thioglycollate Medium) intensity scoring from the LISS Oyster Health Project's monthly sampling at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. The scale used to score intensity for individuals is the Mackins Scale (citation). This score can be used to calculate prevalence, weighted prevalence and intensity across the population. 
 ---
-Last updated 9/30/25 by K. Lenderman
-  - Accuracy 83.7%
-  - Master file and Completeness file are up to date.
-  - 0625FENC was only 3.3% reread
+Last updated 10/8/2025 by M.Kachmar
+ - reviewed data
+ -code clean up if needed
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
-knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 ```
 
 ```{r}
@@ -293,6 +292,7 @@ df_intensity_summary
 #fixing 0823GOLD as intensity is NaN
 df_intensity_summary$intensity[is.nan(df_intensity_summary$intensity)] <- 0
 ```
+
 ```{r}
 
 ggplot(data=df_intensity_summary, aes(x=month, y=intensity, color=site)) +
@@ -317,6 +317,8 @@ ggplot() +
   labs(title="Intensity of Dermo infection", x ="Month", y = "Intensity score")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
   theme(axis.text=element_text(size=12)) + scale_y_continuous(limits = c(0, 3))+scale_x_date(date_labels= "%b %Y", date_breaks = "1 month")
 ```
+
+
 ```{r}
 
 ## Stacked bar graph showing proportions per month of intensity scores
@@ -586,42 +588,6 @@ ggplot(data=FENC_proportion, aes(x=date_collected, y= Proportion, fill=intensity
 scale_fill_brewer(palette = "YlOrBr")
 
 ```
-# Laurel Hollow summary
-```{r}
-df_LAUR <- data_all%>%
-  filter(site=="LAUR")
-df_LAUR 
-
-#weighted prevalence
-st_intensity_LAUR <- summarySE(df_LAUR, measurevar="rftm_final", groupvars=c("date_collected"))
-st_intensity_LAUR
-
-```
-
-```{r, echo=FALSE}
-
-#Graphing weighted prevalence LAUR
-
-ggplot(data=df_LAUR, aes(x=date_collected, y=rftm_final, group= date_collected)) +
-  geom_boxplot()+  
-   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
-  labs(title="Laurel Hollow Weighted prevalence of Dermo infection", x ="Date", y = "Weighted Prevalence")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
-  theme(axis.text=element_text(size=12))
-
-#Intensity proportion
-LAUR_proportion <- intensity_proportions_2%>% filter(site == "LAUR")
-
-ggplot(data=LAUR_proportion, aes(x=date_collected, y= Proportion, fill=intensity_bin)) +
-  geom_bar(width = 15, stat="identity", position = "fill",colour = "black")+  
-   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
-  labs(fill ="Dermo Intensity")+
-  labs(title="Proportion of Intensity scores of Dermo infection at LAUR", x ="Date", y = "Proportion")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
-  theme(axis.text=element_text(size=12))+
-scale_fill_brewer(palette = "YlOrBr")
-
-```
 
 # Gold Star summary
 # 0524GOLD has 45 samples - we attempted to sample from 2022 and 2023 planting and consider them seperate but it appeared that due to a storm the plantings mixed together. 
@@ -720,9 +686,8 @@ scale_fill_brewer(palette = "YlOrBr")
 
 
 
-
+#Comparing body condition scores to rftm scores for all sites 
 ```{r}
-#Comparing body condition scores to rftm scores
 
 #pulling in body condition score data
 file_paths <- list.files(path = "Lab_Data_TissueProcessing/raw_data/Files_by_Month",
@@ -776,9 +741,6 @@ data_rftm.cond_prop$date_collected <- factor(data_rftm.cond_prop$month, levels =
 data_rftm.cond_prop <- data_rftm.cond_prop %>% filter(!is.na(condition_score))
 
 
-```
-
-```{r}
 #plotting the proportion of rftm scores to body condition (all sites, all months)
 ggplot(data_rftm.cond_prop, aes(x=condition_score, y=Proportion, fill=rftm_score))+
   geom_bar(width = .8, stat="identity", position = "fill",colour = "black")+
@@ -791,8 +753,7 @@ ggplot(data_rftm.cond_prop, aes(x=condition_score, y=Proportion, fill=rftm_score
   scale_y_continuous("Proportion", breaks = c(0.00,0.50,1.00))+
    scale_x_continuous("Body Condition Score", breaks = c(1,2,3,4,5,6,7,8,9))+
   facet_grid(~site ~date_collected)
-```
-```{r}
+
 #removing month with NA body condition scores
 data_rftm.cond <- data_rftm.cond %>% filter(!is.na(condition_score))
 
@@ -811,7 +772,11 @@ ggplot(data_rftm.cond, aes(x=condition_score, fill=rftm_final))+
   scale_fill_brewer(palette = "YlOrBr")+
    scale_x_continuous("Body Condition Score", breaks = c(1,2,3,4,5,6,7,8,9))+
   facet_grid(~site ~date_collected)
+
 ```
+
+
+
 
 ```{r}
 #Coding graphs for LIS Confrence - only 2023 data
@@ -889,6 +854,42 @@ mean_rftm_fenc <- mean_rftm_fenc %>%
   dplyr::summarize(mean_rftm = mean(rftm_final, na.rm = TRUE))
 ```
 
+# Laurel Hollow summary - We no longer sample this site
+```{r}
+df_LAUR <- data_all%>%
+  filter(site=="LAUR")
+df_LAUR 
+
+#weighted prevalence
+st_intensity_LAUR <- summarySE(df_LAUR, measurevar="rftm_final", groupvars=c("date_collected"))
+st_intensity_LAUR
+
+```
+
+```{r, echo=FALSE}
+
+#Graphing weighted prevalence LAUR
+
+ggplot(data=df_LAUR, aes(x=date_collected, y=rftm_final, group= date_collected)) +
+  geom_boxplot()+  
+   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  labs(title="Laurel Hollow Weighted prevalence of Dermo infection", x ="Date", y = "Weighted Prevalence")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  theme(axis.text=element_text(size=12))
+
+#Intensity proportion
+LAUR_proportion <- intensity_proportions_2%>% filter(site == "LAUR")
+
+ggplot(data=LAUR_proportion, aes(x=date_collected, y= Proportion, fill=intensity_bin)) +
+  geom_bar(width = 15, stat="identity", position = "fill",colour = "black")+  
+   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  labs(fill ="Dermo Intensity")+
+  labs(title="Proportion of Intensity scores of Dermo infection at LAUR", x ="Date", y = "Proportion")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  theme(axis.text=element_text(size=12))+
+scale_fill_brewer(palette = "YlOrBr")
+
+```
 
 Version
 ```{r}
