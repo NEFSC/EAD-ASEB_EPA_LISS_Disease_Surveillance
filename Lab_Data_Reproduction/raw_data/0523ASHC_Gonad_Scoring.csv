@@ -6,7 +6,7 @@ Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicat
 0523ASHC_05,05-10-2023,ASHC,5,01-03-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,03-03-2025,Mariah Kachmar,Female,3_Early_Active,very full,Female,3_Early_Active
 0523ASHC_06,05-10-2023,ASHC,6,01-03-2025,Kyra Lenderman,Male,3_Early_Active,FALSE,,,,,,Male,3_Early_Active
 0523ASHC_07,05-10-2023,ASHC,7,01-03-2025,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,"some parts are mature, some are not ",Female,3_Early_Active
-0523ASHC_08,05-10-2023,ASHC,8,01-03-2025,Kyra Lenderman,NA,1_Inactive_Indeterminate,FALSE,,,,,,NA,1_Inactive_Indeterminate
+0523ASHC_08,05-10-2023,ASHC,8,01-03-2025,Kyra Lenderman,ND,1_Inactive_Indeterminate,FALSE,,,,,,ND,1_Inactive_Indeterminate
 0523ASHC_09,05-10-2023,ASHC,9,01-03-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,03-03-2025,Mariah Kachmar,Female,4_Late_Mature,,Female,4_Late_Mature
 0523ASHC_10,05-10-2023,ASHC,10,01-03-2025,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
 0523ASHC_11,05-10-2023,ASHC,11,01-03-2025,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
@@ -21,10 +21,10 @@ Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicat
 0523ASHC_20,05-10-2023,ASHC,20,01-03-2025,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
 0523ASHC_21,05-10-2023,ASHC,21,01-03-2025,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
 0523ASHC_22,05-10-2023,ASHC,22,01-03-2025,Kyra Lenderman,Male,3_Early_Active,FALSE,,,,,,Male,3_Early_Active
-0523ASHC_23,05-10-2023,ASHC,23,01-03-2025,Kyra Lenderman,NA,2_Developing,FALSE,,,,,,NA,2_Developing
+0523ASHC_23,05-10-2023,ASHC,23,01-03-2025,Kyra Lenderman,ND,2_Developing,FALSE,,,,,,ND,2_Developing
 0523ASHC_24,05-10-2023,ASHC,24,01-03-2025,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
 0523ASHC_25,05-10-2023,ASHC,25,01-03-2025,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
-0523ASHC_26,05-10-2023,ASHC,26,01-03-2025,Kyra Lenderman,NA,2_Developing,FALSE,,,,,,NA,2_Developing
+0523ASHC_26,05-10-2023,ASHC,26,01-03-2025,Kyra Lenderman,ND,2_Developing,FALSE,,,,,,ND,2_Developing
 0523ASHC_27,05-10-2023,ASHC,27,01-03-2025,Kyra Lenderman,Female,4_Late_Mature,FALSE,,,,,Very early stage of 4.,Female,4_Late_Mature
 0523ASHC_28,05-10-2023,ASHC,28,01-03-2025,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
 0523ASHC_29,05-10-2023,ASHC,29,01-03-2025,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active

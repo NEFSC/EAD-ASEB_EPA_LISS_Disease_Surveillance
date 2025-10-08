@@ -11,7 +11,7 @@ Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicat
 0523FENC_10,05-15-2023,FENC,10,12-19-2024,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
 0523FENC_11,05-15-2023,FENC,11,12-19-2024,Kyra Lenderman,Female,4_Late_Mature,FALSE,,,,,,Female,4_Late_Mature
 0523FENC_12,05-15-2023,FENC,12,12-19-2024,Kyra Lenderman,Female,3_Early_Active,TRUE,03-03-2025,Mariah Kachmar,Female,3_Early_Active,,Female,3_Early_Active
-0523FENC_13,05-15-2023,FENC,13,12-19-2024,Kyra Lenderman,NA,2_Developing,FALSE,,,,,hermaphrodite? Or underdeveloped gonad,NA,2_Developing
+0523FENC_13,05-15-2023,FENC,13,12-19-2024,Kyra Lenderman,ND,2_Developing,FALSE,,,,,hermaphrodite? Or underdeveloped gonad,ND,2_Developing
 0523FENC_14,05-15-2023,FENC,14,12-19-2024,Kyra Lenderman,Female,4_Late_Mature,FALSE,,,,,,Female,4_Late_Mature
 0523FENC_15,05-15-2023,FENC,15,12-19-2024,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
 0523FENC_16,05-15-2023,FENC,16,12-19-2024,Kyra Lenderman,Male,4_Late_Mature,FALSE,,,,,,Male,4_Late_Mature

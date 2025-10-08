@@ -1,8 +1,8 @@
 Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
-0423FENC_01,04-27-2023,FENC,1,11-26-2024,Lydia Bienlien,NA,2_Developing,TRUE,11-26-2024,Kyra Lenderman,NA,2_Developing,,NA,2_Developing
+0423FENC_01,04-27-2023,FENC,1,11-26-2024,Lydia Bienlien,ND,2_Developing,TRUE,11-26-2024,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
 0423FENC_02,04-27-2023,FENC,2,11-26-2024,Lydia Bienlien,Female,3_Early_Active,TRUE,11-26-2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
 0423FENC_03,04-27-2023,FENC,3,11-26-2024,Lydia Bienlien,Female,3_Early_Active,TRUE,11-26-2024,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
-0423FENC_04,04-27-2023,FENC,4,11-26-2024,Lydia Bienlien,NA,2_Developing,FALSE,,,,,,NA,2_Developing
+0423FENC_04,04-27-2023,FENC,4,11-26-2024,Lydia Bienlien,ND,2_Developing,FALSE,,,,,,ND,2_Developing
 0423FENC_05,04-27-2023,FENC,5,11-26-2024,Lydia Bienlien,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
 0423FENC_06,04-27-2023,FENC,6,11-26-2024,Lydia Bienlien,Male,3_Early_Active,FALSE,,,,,,Male,3_Early_Active
 0423FENC_07,04-27-2023,FENC,7,11-26-2024,Lydia Bienlien,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
@@ -11,16 +11,16 @@ Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicat
 0423FENC_10,04-27-2023,FENC,10,11-26-2024,Lydia Bienlien,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
 0423FENC_11,04-27-2023,FENC,11,11-26-2024,Lydia Bienlien,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
 0423FENC_12,04-27-2023,FENC,12,11-26-2024,Lydia Bienlien,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
-0423FENC_13,04-27-2023,FENC,13,11-26-2024,Lydia Bienlien,NA,2_Developing,FALSE,,,,,,NA,2_Developing
+0423FENC_13,04-27-2023,FENC,13,11-26-2024,Lydia Bienlien,ND,2_Developing,FALSE,,,,,,ND,2_Developing
 0423FENC_14,04-27-2023,FENC,14,11-26-2024,Lydia Bienlien,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
 0423FENC_15,04-27-2023,FENC,15,11-26-2024,Lydia Bienlien,Male,3_Early_Active,FALSE,,,,,,Male,3_Early_Active
-0423FENC_16,04-27-2023,FENC,16,11-26-2024,Lydia Bienlien,NA,2_Developing,FALSE,,,,,,NA,2_Developing
+0423FENC_16,04-27-2023,FENC,16,11-26-2024,Lydia Bienlien,ND,2_Developing,FALSE,,,,,,ND,2_Developing
 0423FENC_17,04-27-2023,FENC,17,11-26-2024,Lydia Bienlien,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
-0423FENC_18,04-27-2023,FENC,18,11-26-2024,Lydia Bienlien,NA,2_Developing,FALSE,,,,,,NA,2_Developing
+0423FENC_18,04-27-2023,FENC,18,11-26-2024,Lydia Bienlien,ND,2_Developing,FALSE,,,,,,ND,2_Developing
 0423FENC_19,04-27-2023,FENC,19,11-26-2024,Lydia Bienlien,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
 0423FENC_20,04-27-2023,FENC,20,11-26-2024,Lydia Bienlien,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
-0423FENC_21,04-27-2023,FENC,21,11-26-2024,Lydia Bienlien,NA,2_Developing,FALSE,,,,,,NA,2_Developing
-0423FENC_22,04-27-2023,FENC,22,11-26-2024,Lydia Bienlien,NA,2_Developing,FALSE,,,,,,NA,2_Developing
+0423FENC_21,04-27-2023,FENC,21,11-26-2024,Lydia Bienlien,ND,2_Developing,FALSE,,,,,,ND,2_Developing
+0423FENC_22,04-27-2023,FENC,22,11-26-2024,Lydia Bienlien,ND,2_Developing,FALSE,,,,,,ND,2_Developing
 0423FENC_23,04-27-2023,FENC,23,11-26-2024,Lydia Bienlien,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
 0423FENC_24,04-27-2023,FENC,24,11-26-2024,Lydia Bienlien,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active
 0423FENC_25,04-27-2023,FENC,25,11-26-2024,Lydia Bienlien,Female,3_Early_Active,FALSE,,,,,,Female,3_Early_Active

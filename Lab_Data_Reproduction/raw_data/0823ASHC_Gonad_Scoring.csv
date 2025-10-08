@@ -1,11 +1,11 @@
 Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
-0823ASHC_01,08-07-2023,ASHC,1,05-08-2025,Kyra Lenderman,Female,7_Reabsorbing,TRUE,04-25-2025,Sarina Dery,NA,2_Developing,,NA,7_Reabsorbing
+0823ASHC_01,08-07-2023,ASHC,1,05-08-2025,Kyra Lenderman,Female,7_Reabsorbing,TRUE,04-25-2025,Sarina Dery,ND,2_Developing,,ND,7_Reabsorbing
 0823ASHC_02,08-07-2023,ASHC,2,05-08-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,04-25-2025,Sarina Dery,Female,7_Reabsorbing,partially post spawned -SD. Potentially diseased- KL,Female,6_Post_Spawning
-0823ASHC_03,08-07-2023,ASHC,3,05-08-2025,Kyra Lenderman,NA,2_Developing,TRUE,04-25-2025,Sarina Dery,NA,2_Developing,,NA,2_Developing
+0823ASHC_03,08-07-2023,ASHC,3,05-08-2025,Kyra Lenderman,ND,2_Developing,TRUE,04-25-2025,Sarina Dery,ND,2_Developing,,ND,2_Developing
 0823ASHC_04,08-07-2023,ASHC,4,05-08-2025,Kyra Lenderman,Male,4_Late_Mature,TRUE,04-25-2025,Sarina Dery,Male,4_Late_Mature,,Male,4_Late_Mature
 0823ASHC_05,08-07-2023,ASHC,5,05-08-2025,Kyra Lenderman,Male,4_Late_Mature,TRUE,04-25-2025,Sarina Dery,Male,4_Late_Mature,,Male,4_Late_Mature
 0823ASHC_06,08-07-2023,ASHC,6,05-08-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,04-25-2025,Sarina Dery,Female,5_Spawning,partially post spawned - SD,Female,6_Post_Spawning
-0823ASHC_07,08-07-2023,ASHC,7,05-08-2025,Kyra Lenderman,NA,7_Reabsorbing,TRUE,04-25-2025,Sarina Dery,NA,7_Reabsorbing,,NA,7_Reabsorbing
+0823ASHC_07,08-07-2023,ASHC,7,05-08-2025,Kyra Lenderman,ND,7_Reabsorbing,TRUE,04-25-2025,Sarina Dery,ND,7_Reabsorbing,,ND,7_Reabsorbing
 0823ASHC_08,08-07-2023,ASHC,8,05-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,04-25-2025,Sarina Dery,Female,4_Late_Mature,Check - KL,Female,3_Early_Active
 0823ASHC_09,08-07-2023,ASHC,9,05-08-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,04-25-2025,Sarina Dery,Female,6_Post_Spawning,,Female,6_Post_Spawning
 0823ASHC_10,08-07-2023,ASHC,10,05-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,04-25-2025,Sarina Dery,Female,4_Late_Mature,,Female,4_Late_Mature
@@ -13,19 +13,19 @@ Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicat
 0823ASHC_12,08-07-2023,ASHC,12,05-08-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,04-25-2025,Sarina Dery,Female,4_Late_Mature,Potentially diseased - KL,Female,4_Late_Mature
 0823ASHC_13,08-07-2023,ASHC,13,05-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,04-25-2025,Sarina Dery,Female,4_Late_Mature,May be post spawning,Female,4_Late_Mature
 0823ASHC_14,08-07-2023,ASHC,14,05-08-2025,Kyra Lenderman,Male,6_Post_Spawning,TRUE,04-25-2025,Sarina Dery,Male,4_Late_Mature,,Male,6_Post_Spawning
-0823ASHC_15,08-07-2023,ASHC,15,05-08-2025,Kyra Lenderman,NA,7_Reabsorbing,TRUE,04-25-2025,Sarina Dery,NA,7_Reabsorbing,,NA,7_Reabsorbing
+0823ASHC_15,08-07-2023,ASHC,15,05-08-2025,Kyra Lenderman,ND,7_Reabsorbing,TRUE,04-25-2025,Sarina Dery,ND,7_Reabsorbing,,ND,7_Reabsorbing
 0823ASHC_16,08-07-2023,ASHC,16,05-08-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,04-25-2025,Sarina Dery,Female,6_Post_Spawning,,Female,6_Post_Spawning
 0823ASHC_17,08-07-2023,ASHC,17,05-08-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,04-25-2025,Sarina Dery,Female,6_Post_Spawning,Some sections are reabsorption and others are inactive ,Female,6_Post_Spawning
 0823ASHC_18,08-07-2023,ASHC,18,05-08-2025,Kyra Lenderman,Female,7_Reabsorbing,TRUE,04-25-2025,Sarina Dery,Female,7_Reabsorbing,,Female,7_Reabsorbing
-0823ASHC_19,08-07-2023,ASHC,19,05-08-2025,Kyra Lenderman,NA,7_Reabsorbing,TRUE,04-25-2025,Sarina Dery,NA,7_Reabsorbing,,NA,7_Reabsorbing
+0823ASHC_19,08-07-2023,ASHC,19,05-08-2025,Kyra Lenderman,ND,7_Reabsorbing,TRUE,04-25-2025,Sarina Dery,ND,7_Reabsorbing,,ND,7_Reabsorbing
 0823ASHC_20,08-07-2023,ASHC,20,05-08-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,04-25-2025,Sarina Dery,Female,6_Post_Spawning,Some post-spawning sections,Female,6_Post_Spawning
 0823ASHC_21,08-07-2023,ASHC,21,05-08-2025,Kyra Lenderman,Male,6_Post_Spawning,TRUE,04-25-2025,Sarina Dery,Male,6_Post_Spawning,,Male,6_Post_Spawning
 0823ASHC_22,08-07-2023,ASHC,22,05-08-2025,Kyra Lenderman,Male,4_Late_Mature,TRUE,04-25-2025,Sarina Dery,Male,4_Late_Mature,,Male,4_Late_Mature
 0823ASHC_23,08-07-2023,ASHC,23,05-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,04-25-2025,Sarina Dery,Female,6_Post_Spawning,partially reabsorbing? -SD,Female,3_Early_Active
 0823ASHC_24,08-07-2023,ASHC,24,05-08-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,04-25-2025,Sarina Dery,Female,6_Post_Spawning,Could be post-spawning,Female,6_Post_Spawning
 0823ASHC_25,08-07-2023,ASHC,25,05-08-2025,Kyra Lenderman,Female,7_Reabsorbing,TRUE,04-25-2025,Sarina Dery,Female,7_Reabsorbing,,Female,7_Reabsorbing
-0823ASHC_26,08-07-2023,ASHC,26,05-08-2025,Kyra Lenderman,NA,7_Reabsorbing,TRUE,04-25-2025,Sarina Dery,Female,7_Reabsorbing,,Female,7_Reabsorbing
-0823ASHC_27,08-07-2023,ASHC,27,05-08-2025,Kyra Lenderman,NA,7_Reabsorbing,TRUE,04-25-2025,Sarina Dery,NA,2_Developing,,NA,7_Reabsorbing
+0823ASHC_26,08-07-2023,ASHC,26,05-08-2025,Kyra Lenderman,ND,7_Reabsorbing,TRUE,04-25-2025,Sarina Dery,Female,7_Reabsorbing,,Female,7_Reabsorbing
+0823ASHC_27,08-07-2023,ASHC,27,05-08-2025,Kyra Lenderman,ND,7_Reabsorbing,TRUE,04-25-2025,Sarina Dery,ND,2_Developing,,ND,7_Reabsorbing
 0823ASHC_28,08-07-2023,ASHC,28,05-08-2025,Kyra Lenderman,Male,4_Late_Mature,TRUE,04-25-2025,Sarina Dery,Male,4_Late_Mature,partially spawning - SD,Male,4_Late_Mature
 0823ASHC_29,08-07-2023,ASHC,29,05-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,04-25-2025,Sarina Dery,Female,4_Late_Mature,Some post-spawning sections ,Female,4_Late_Mature
 0823ASHC_30,08-07-2023,ASHC,30,05-08-2025,Kyra Lenderman,Male,4_Late_Mature,TRUE,04-25-2025,Sarina Dery,Male,4_Late_Mature,,Male,4_Late_Mature

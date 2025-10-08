@@ -1,31 +1,31 @@
-Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
-0623LAUR_01,06-20-2023,LAUR,1,03-12-2025,Kyra Lenderman,Female,6_Post_Spawning,FALSE,,,,,,Female,6_Post_Spawning
-0623LAUR_02,06-20-2023,LAUR,2,03-12-2025,Kyra Lenderman,NA,7_Reabsorbing,TRUE,03-25-2025,Mariah Kachmar,NA,2_Developing,,NA,2_Developing
-0623LAUR_03,06-20-2023,LAUR,3,03-12-2025,Kyra Lenderman,Female,5_Spawning,FALSE,,,,,Heavily diseased,Female,5_Spawning
-0623LAUR_04,06-20-2023,LAUR,4,03-13-2025,Kyra Lenderman,Female,5_Spawning,FALSE,,,,,,Female,5_Spawning
-0623LAUR_05,06-20-2023,LAUR,5,03-13-2025,Kyra Lenderman,Female,5_Spawning,TRUE,03-25-2025,Mariah Kachmar,Female,5_Spawning,,Female,5_Spawning
-0623LAUR_06,06-20-2023,LAUR,6,03-13-2025,Kyra Lenderman,Male,4_Late_Mature,FALSE,,,,,,Male,4_Late_Mature
-0623LAUR_07,06-20-2023,LAUR,7,03-13-2025,Kyra Lenderman,Male,5_Spawning,FALSE,,,,,,Male,5_Spawning
-0623LAUR_08,06-20-2023,LAUR,8,03-13-2025,Kyra Lenderman,Female,5_Spawning,FALSE,,,,,,Female,5_Spawning
-0623LAUR_09,06-20-2023,LAUR,9,03-13-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,03-25-2025,Mariah Kachmar,Female,6_Post_Spawning,check ,Female,6_Post_Spawning
-0623LAUR_10,06-20-2023,LAUR,10,03-13-2025,Kyra Lenderman,Male,5_Spawning,FALSE,,,,,bad cut; <25% mantle ,Male,5_Spawning
-0623LAUR_11,06-20-2023,LAUR,11,03-13-2025,Kyra Lenderman,Female,5_Spawning,FALSE,,,,,,Female,5_Spawning
-0623LAUR_12,06-20-2023,LAUR,12,03-13-2025,Kyra Lenderman,Male,5_Spawning,FALSE,,,,,,Male,5_Spawning
-0623LAUR_13,06-20-2023,LAUR,13,03-13-2025,Kyra Lenderman,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
-0623LAUR_14,06-20-2023,LAUR,14,03-13-2025,Kyra Lenderman,Female,5_Spawning,TRUE,03-25-2025,Mariah Kachmar,Female,5_Spawning,,Female,5_Spawning
-0623LAUR_15,06-20-2023,LAUR,15,03-13-2025,Kyra Lenderman,Female,5_Spawning,FALSE,,,,,,Female,5_Spawning
-0623LAUR_16,06-20-2023,LAUR,16,03-13-2025,Kyra Lenderman,Female,5_Spawning,FALSE,,,,,,Female,5_Spawning
-0623LAUR_17,06-20-2023,LAUR,17,03-13-2025,Kyra Lenderman,Male,5_Spawning,FALSE,,,,,,Male,5_Spawning
-0623LAUR_18,06-20-2023,LAUR,18,03-13-2025,Kyra Lenderman,Female,5_Spawning,FALSE,,,,,,Female,5_Spawning
-0623LAUR_19,06-20-2023,LAUR,19,03-13-2025,Kyra Lenderman,Male,5_Spawning,FALSE,,,,,,Male,5_Spawning
-0623LAUR_20,06-20-2023,LAUR,20,03-13-2025,Kyra Lenderman,Female,6_Post_Spawning,FALSE,,,,,,Female,6_Post_Spawning
-0623LAUR_21,06-20-2023,LAUR,21,03-13-2025,Kyra Lenderman,Female,5_Spawning,TRUE,03-25-2025,Mariah Kachmar,Female,5_Spawning,,Female,5_Spawning
-0623LAUR_22,06-20-2023,LAUR,22,03-13-2025,Kyra Lenderman,Female,6_Post_Spawning,FALSE,,,,,,Female,6_Post_Spawning
-0623LAUR_23,06-20-2023,LAUR,23,03-13-2025,Kyra Lenderman,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
-0623LAUR_24,06-20-2023,LAUR,24,03-13-2025,Kyra Lenderman,Female,5_Spawning,TRUE,03-25-2025,Mariah Kachmar,Female,5_Spawning,,Female,5_Spawning
-0623LAUR_25,06-20-2023,LAUR,25,03-13-2025,Kyra Lenderman,Male,5_Spawning,FALSE,,,,,,Male,5_Spawning
-0623LAUR_26,06-20-2023,LAUR,26,03-13-2025,Kyra Lenderman,Male,5_Spawning,FALSE,,,,,,Male,5_Spawning
-0623LAUR_27,06-20-2023,LAUR,27,03-13-2025,Kyra Lenderman,Female,5_Spawning,FALSE,,,,,,Female,5_Spawning
-0623LAUR_28,06-20-2023,LAUR,28,03-13-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,03-25-2025,Mariah Kachmar,Female,6_Post_Spawning,,Female,6_Post_Spawning
-0623LAUR_29,06-20-2023,LAUR,29,03-13-2025,Kyra Lenderman,Male,5_Spawning,FALSE,,,,,,Male,5_Spawning
-0623LAUR_30,06-20-2023,LAUR,30,03-13-2025,Kyra Lenderman,Female,5_Spawning,TRUE,03-25-2025,Mariah Kachmar,Female,6_Post_Spawning,<50% is post spawn stage,Female,6_Post_Spawning
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Date_read3,reader3,Sex3,Stage3,Notes,Sex_final,Stage_final
+0623LAUR_01,06-20-2023,LAUR,1,04-23-2025,Kyra Lenderman,Female,6_Post_Spawning,FALSE,,,,,04-23-2025,Sarina Dery,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0623LAUR_02,06-20-2023,LAUR,2,04-23-2025,Kyra Lenderman,ND,7_Reabsorbing,TRUE,03-25-2025,Mariah Kachmar,ND,2_Developing,04-23-2025,Sarina Dery,ND,7_Reabsorbing,,ND,2_Developing
+0623LAUR_03,06-20-2023,LAUR,3,04-23-2025,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,04-23-2025,Sarina Dery,Female,4_Late_Mature,Heavily diseased,Female,3_Early_Active
+0623LAUR_04,06-20-2023,LAUR,4,04-23-2025,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,04-23-2025,Sarina Dery,Female,3_Early_Active,,Female,3_Early_Active
+0623LAUR_05,06-20-2023,LAUR,5,04-23-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,03-25-2025,Mariah Kachmar,Female,5_Spawning,04-23-2025,Sarina Dery,Female,3_Early_Active,,Female,3_Early_Active
+0623LAUR_06,06-20-2023,LAUR,6,04-23-2025,Kyra Lenderman,Male,4_Late_Mature,FALSE,,,,,04-23-2025,Sarina Dery,Male,4_Late_Mature,,Male,4_Late_Mature
+0623LAUR_07,06-20-2023,LAUR,7,04-23-2025,Kyra Lenderman,Male,3_Early_Active,FALSE,,,,,04-23-2025,Sarina Dery,Male,3_Early_Active,,Male,3_Early_Active
+0623LAUR_08,06-20-2023,LAUR,8,04-23-2025,Kyra Lenderman,Female,3_Early_Active,FALSE,,,,,04-23-2025,Sarina Dery,Female,3_Early_Active,,Female,5_Spawning
+0623LAUR_09,06-20-2023,LAUR,9,04-23-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,03-25-2025,Mariah Kachmar,Female,6_Post_Spawning,04-23-2025,Sarina Dery,Female,6_Post_Spawning,check. heavily diseased? - SD,Female,6_Post_Spawning
+0623LAUR_10,06-20-2023,LAUR,10,04-23-2025,Kyra Lenderman,Male,4_Late_Mature,FALSE,,,,,04-23-2025,Sarina Dery,Male,4_Late_Mature,bad cut; <25% mantle ,Male,4_Late_Mature
+0623LAUR_11,06-20-2023,LAUR,11,04-23-2025,Kyra Lenderman,Female,4_Late_Mature,FALSE,,,,,04-23-2025,Sarina Dery,Female,4_Late_Mature,partially spawned? -SD,Female,4_Late_Mature
+0623LAUR_12,06-20-2023,LAUR,12,04-23-2025,Kyra Lenderman,Male,3_Early_Active,FALSE,,,,,04-23-2025,Sarina Dery,Male,3_Early_Active,,Male,3_Early_Active
+0623LAUR_13,06-20-2023,LAUR,13,04-23-2025,Kyra Lenderman,ND,7_Reabsorbing,FALSE,,,,,04-23-2025,Sarina Dery,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0623LAUR_14,06-20-2023,LAUR,14,04-23-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,03-25-2025,Mariah Kachmar,Female,5_Spawning,04-23-2025,Sarina Dery,Female,4_Late_Mature,,Female,4_Late_Mature
+0623LAUR_15,06-20-2023,LAUR,15,04-23-2025,Kyra Lenderman,Female,4_Late_Mature,FALSE,,,,,04-23-2025,Sarina Dery,Female,4_Late_Mature,,Female,4_Late_Mature
+0623LAUR_16,06-20-2023,LAUR,16,04-23-2025,Kyra Lenderman,Female,4_Late_Mature,FALSE,,,,,04-23-2025,Sarina Dery,Female,4_Late_Mature,,Female,4_Late_Mature
+0623LAUR_17,06-20-2023,LAUR,17,04-23-2025,Kyra Lenderman,Male,4_Late_Mature,FALSE,,,,,04-23-2025,Sarina Dery,Male,4_Late_Mature,,Male,4_Late_Mature
+0623LAUR_18,06-20-2023,LAUR,18,04-23-2025,Kyra Lenderman,Female,4_Late_Mature,FALSE,,,,,04-23-2025,Sarina Dery,Female,4_Late_Mature,,Female,4_Late_Mature
+0623LAUR_19,06-20-2023,LAUR,19,04-23-2025,Kyra Lenderman,Male,4_Late_Mature,FALSE,,,,,04-23-2025,Sarina Dery,Male,4_Late_Mature,,Male,4_Late_Mature
+0623LAUR_20,06-20-2023,LAUR,20,04-23-2025,Kyra Lenderman,Female,4_Late_Mature,FALSE,,,,,04-23-2025,Sarina Dery,Female,4_Late_Mature,,Female,4_Late_Mature
+0623LAUR_21,06-20-2023,LAUR,21,04-23-2025,Kyra Lenderman,Female,5_Spawning,TRUE,03-25-2025,Mariah Kachmar,Female,5_Spawning,04-23-2025,Sarina Dery,Female,5_Spawning,,Female,5_Spawning
+0623LAUR_22,06-20-2023,LAUR,22,04-23-2025,Kyra Lenderman,Female,6_Post_Spawning,FALSE,,,,,04-23-2025,Sarina Dery,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0623LAUR_23,06-20-2023,LAUR,23,04-23-2025,Kyra Lenderman,ND,7_Reabsorbing,FALSE,,,,,04-23-2025,Sarina Dery,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0623LAUR_24,06-20-2023,LAUR,24,04-23-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,03-25-2025,Mariah Kachmar,Female,5_Spawning,04-23-2025,Sarina Dery,Female,4_Late_Mature,partially spawned -SD check disease?,Female,4_Late_Mature
+0623LAUR_25,06-20-2023,LAUR,25,04-23-2025,Kyra Lenderman,Male,4_Late_Mature,FALSE,,,,,04-23-2025,Sarina Dery,Male,4_Late_Mature,,Male,4_Late_Mature
+0623LAUR_26,06-20-2023,LAUR,26,04-23-2025,Kyra Lenderman,Male,4_Late_Mature,FALSE,,,,,04-23-2025,Sarina Dery,Male,4_Late_Mature,,Male,4_Late_Mature
+0623LAUR_27,06-20-2023,LAUR,27,04-23-2025,Kyra Lenderman,Female,4_Late_Mature,FALSE,,,,,04-23-2025,Sarina Dery,Female,4_Late_Mature,partially spawned - SD,Female,4_Late_Mature
+0623LAUR_28,06-20-2023,LAUR,28,04-23-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,03-25-2025,Mariah Kachmar,Female,6_Post_Spawning,04-23-2025,Sarina Dery,Female,4_Late_Mature,Partially post spawn  - KL,Female,4_Late_Mature
+0623LAUR_29,06-20-2023,LAUR,29,04-23-2025,Kyra Lenderman,Male,4_Late_Mature,FALSE,,,,,04-23-2025,Sarina Dery,Male,4_Late_Mature,,Male,4_Late_Mature
+0623LAUR_30,06-20-2023,LAUR,30,04-23-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,03-25-2025,Mariah Kachmar,Female,6_Post_Spawning,04-23-2025,Sarina Dery,Female,4_Late_Mature,,Female,4_Late_Mature

@@ -1,5 +1,5 @@
 Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
-0623ASHC_01,06-12-2023,ASHC,1,02-20-2025,Kyra Lenderman,NA,7_Reabsorbing,FALSE,,,,,double read ,NA,7_Reabsorbing
+0623ASHC_01,06-12-2023,ASHC,1,02-20-2025,Kyra Lenderman,ND,7_Reabsorbing,FALSE,,,,,double read ,ND,7_Reabsorbing
 0623ASHC_02,06-12-2023,ASHC,2,02-20-2025,Kyra Lenderman,Female,5_Spawning,FALSE,,,,,,Female,5_Spawning
 0623ASHC_03,06-12-2023,ASHC,3,02-20-2025,Kyra Lenderman,Female,5_Spawning,FALSE,,,,,,Female,5_Spawning
 0623ASHC_04,06-12-2023,ASHC,4,02-20-2025,Kyra Lenderman,Male,4_Late_Mature,FALSE,,,,,not much mantle present,Male,4_Late_Mature

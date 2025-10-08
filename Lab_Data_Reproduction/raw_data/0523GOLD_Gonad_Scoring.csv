@@ -24,7 +24,7 @@ Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicat
 0523GOLD_23,05-25-2023,GOLD,23,02-13-2025,Kyra Lenderman,Female,5_Spawning,FALSE,,,,,dots through tissue in between gametes ,Female,5_Spawning
 0523GOLD_24,05-25-2023,GOLD,24,02-13-2025,Kyra Lenderman,Male,4_Late_Mature,FALSE,,,,,,Male,4_Late_Mature
 0523GOLD_25,05-25-2023,GOLD,25,02-13-2025,Kyra Lenderman,Female,5_Spawning,FALSE,,,,,,Female,5_Spawning
-0523GOLD_26,05-25-2023,GOLD,26,02-13-2025,Kyra Lenderman,Female,7_Reabsorbing,FALSE,,,,,check with 0523LAUR,NA,7_Reabsorbing
+0523GOLD_26,05-25-2023,GOLD,26,02-13-2025,Kyra Lenderman,Female,7_Reabsorbing,FALSE,,,,,check with 0523LAUR,Female,7_Reabsorbing
 0523GOLD_27,05-25-2023,GOLD,27,02-13-2025,Kyra Lenderman,Male,5_Spawning,FALSE,,,,,,Male,5_Spawning
 0523GOLD_28,05-25-2023,GOLD,28,02-13-2025,Kyra Lenderman,Male,5_Spawning,FALSE,,,,,,Male,5_Spawning
 0523GOLD_29,05-25-2023,GOLD,29,02-13-2025,Kyra Lenderman,Female,5_Spawning,FALSE,,,,,,Female,5_Spawning

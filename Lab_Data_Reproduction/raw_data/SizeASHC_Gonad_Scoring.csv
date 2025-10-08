@@ -1,61 +1,61 @@
 Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
-0823ASHC_01,08-23-2023,ASHC,1,05-14-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
-0823ASHC_02,08-23-2023,ASHC,2,05-14-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0823ASHC_01,08-23-2023,ASHC,1,05-14-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
+0823ASHC_02,08-23-2023,ASHC,2,05-14-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
 0823ASHC_03,08-23-2023,ASHC,3,,,,,,,,,,,,
-0823ASHC_04,08-23-2023,ASHC,4,05-14-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
-0823ASHC_05,08-23-2023,ASHC,5,05-14-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
-0823ASHC_06,08-23-2023,ASHC,6,05-14-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
-0823ASHC_07,08-23-2023,ASHC,7,05-14-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
-0823ASHC_08,08-23-2023,ASHC,8,05-14-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0823ASHC_04,08-23-2023,ASHC,4,05-14-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
+0823ASHC_05,08-23-2023,ASHC,5,05-14-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0823ASHC_06,08-23-2023,ASHC,6,05-14-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
+0823ASHC_07,08-23-2023,ASHC,7,05-14-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
+0823ASHC_08,08-23-2023,ASHC,8,05-14-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
 0823ASHC_09,08-23-2023,ASHC,9,05-14-2025,Sarina Dery,Female,5_Spawning,TRUE,06-04-2025,Kyra Lenderman,Female,5_Spawning,,Female,5_Spawning
 0823ASHC_10,08-23-2023,ASHC,10,,,,,,,,,,,,
-0823ASHC_11,08-23-2023,ASHC,11,05-14-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
-0823ASHC_12,08-23-2023,ASHC,12,05-14-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
-0823ASHC_13,08-23-2023,ASHC,13,05-14-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0823ASHC_11,08-23-2023,ASHC,11,05-14-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
+0823ASHC_12,08-23-2023,ASHC,12,05-14-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
+0823ASHC_13,08-23-2023,ASHC,13,05-14-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
 0823ASHC_14,08-23-2023,ASHC,14,05-14-2025,Sarina Dery,Male,5_Spawning,TRUE,06-04-2025,Kyra Lenderman,Male,5_Spawning,,Male,5_Spawning
 0823ASHC_15,08-23-2023,ASHC,15,,,,,,,,,,,,
-0823ASHC_16,08-23-2023,ASHC,16,05-14-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
-0823ASHC_17,08-23-2023,ASHC,17,05-14-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
-0823ASHC_18,08-23-2023,ASHC,18,05-14-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
-0823ASHC_19,08-23-2023,ASHC,19,05-14-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0823ASHC_16,08-23-2023,ASHC,16,05-14-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
+0823ASHC_17,08-23-2023,ASHC,17,05-14-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
+0823ASHC_18,08-23-2023,ASHC,18,05-14-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
+0823ASHC_19,08-23-2023,ASHC,19,05-14-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
 0823ASHC_20,08-23-2023,ASHC,20,,,,,,,,,,,,
-0823ASHC_21,08-23-2023,ASHC,21,05-14-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0823ASHC_21,08-23-2023,ASHC,21,05-14-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
 0823ASHC_22,08-23-2023,ASHC,22,05-14-2025,Sarina Dery,Female,7_Reabsorbing,FALSE,,,,,,Female,7_Reabsorbing
-0823ASHC_23,08-23-2023,ASHC,23,05-16-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0823ASHC_23,08-23-2023,ASHC,23,05-16-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
 0823ASHC_24,08-23-2023,ASHC,24,05-16-2025,Sarina Dery,Female,6_Post_Spawning,FALSE,,,,,reabsorbing? - SD,Female,6_Post_Spawning
-0823ASHC_25,08-23-2023,ASHC,25,05-16-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
-0823ASHC_26,08-23-2023,ASHC,26,05-16-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0823ASHC_25,08-23-2023,ASHC,25,05-16-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
+0823ASHC_26,08-23-2023,ASHC,26,05-16-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
 0823ASHC_27,08-23-2023,ASHC,27,05-16-2025,Sarina Dery,Female,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
-0823ASHC_28,08-23-2023,ASHC,28,05-16-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
-0823ASHC_29,08-23-2023,ASHC,29,05-16-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
-0823ASHC_30,08-23-2023,ASHC,30,05-16-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0823ASHC_28,08-23-2023,ASHC,28,05-16-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
+0823ASHC_29,08-23-2023,ASHC,29,05-16-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
+0823ASHC_30,08-23-2023,ASHC,30,05-16-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
 0823ASHC_31,08-23-2023,ASHC,31,05-16-2025,Sarina Dery,Female,7_Reabsorbing,FALSE,,,,,,Female,7_Reabsorbing
-0823ASHC_32,08-23-2023,ASHC,32,05-16-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
-0823ASHC_33,08-23-2023,ASHC,33,05-16-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0823ASHC_32,08-23-2023,ASHC,32,05-16-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
+0823ASHC_33,08-23-2023,ASHC,33,05-16-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
 0823ASHC_34,08-23-2023,ASHC,34,05-16-2025,Sarina Dery,Female,6_Post_Spawning,FALSE,,,,,,Female,6_Post_Spawning
-0823ASHC_35,08-23-2023,ASHC,35,05-16-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0823ASHC_35,08-23-2023,ASHC,35,05-16-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
 0823ASHC_36,08-23-2023,ASHC,36,05-16-2025,Sarina Dery,Female,6_Post_Spawning,FALSE,,,,,,Female,6_Post_Spawning
 0823ASHC_37,08-23-2023,ASHC,37,05-16-2025,Sarina Dery,Female,5_Spawning,FALSE,,,,,,Female,5_Spawning
-0823ASHC_38,08-23-2023,ASHC,38,05-16-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
-0823ASHC_39,08-23-2023,ASHC,39,05-16-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0823ASHC_38,08-23-2023,ASHC,38,05-16-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
+0823ASHC_39,08-23-2023,ASHC,39,05-16-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
 0823ASHC_40,08-23-2023,ASHC,40,05-16-2025,Sarina Dery,Female,5_Spawning,FALSE,,,,,partially post spawn,Female,5_Spawning
-0823ASHC_41,08-23-2023,ASHC,41,05-16-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
-0823ASHC_42,08-23-2023,ASHC,42,05-16-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,nematopsis present? - SD,NA,7_Reabsorbing
-0823ASHC_43,08-23-2023,ASHC,43,05-16-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
-0823ASHC_44,08-23-2023,ASHC,44,05-16-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0823ASHC_41,08-23-2023,ASHC,41,05-16-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0823ASHC_42,08-23-2023,ASHC,42,05-16-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,nematopsis present? - SD,ND,7_Reabsorbing
+0823ASHC_43,08-23-2023,ASHC,43,05-16-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
+0823ASHC_44,08-23-2023,ASHC,44,05-16-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
 0823ASHC_45,08-23-2023,ASHC,45,05-16-2025,Sarina Dery,Female,7_Reabsorbing,FALSE,,,,,,Female,7_Reabsorbing
-0823ASHC_46,08-23-2023,ASHC,46,05-16-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
-0823ASHC_47,08-23-2023,ASHC,47,05-16-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
-0823ASHC_48,08-23-2023,ASHC,48,05-16-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
-0823ASHC_49,08-23-2023,ASHC,49,05-16-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
-0823ASHC_50,08-23-2023,ASHC,50,05-16-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
-0823ASHC_51,08-23-2023,ASHC,51,05-16-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
-0823ASHC_52,08-23-2023,ASHC,52,05-16-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0823ASHC_46,08-23-2023,ASHC,46,05-16-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
+0823ASHC_47,08-23-2023,ASHC,47,05-16-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
+0823ASHC_48,08-23-2023,ASHC,48,05-16-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
+0823ASHC_49,08-23-2023,ASHC,49,05-16-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
+0823ASHC_50,08-23-2023,ASHC,50,05-16-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
+0823ASHC_51,08-23-2023,ASHC,51,05-16-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0823ASHC_52,08-23-2023,ASHC,52,05-16-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
 0823ASHC_53,08-23-2023,ASHC,53,05-16-2025,Sarina Dery,Female,7_Reabsorbing,FALSE,,,,,,Female,7_Reabsorbing
-0823ASHC_54,08-23-2023,ASHC,54,05-16-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
-0823ASHC_55,08-23-2023,ASHC,55,05-16-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
-0823ASHC_56,08-23-2023,ASHC,56,05-16-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,,NA,7_Reabsorbing
+0823ASHC_54,08-23-2023,ASHC,54,05-16-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0823ASHC_55,08-23-2023,ASHC,55,05-16-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
+0823ASHC_56,08-23-2023,ASHC,56,05-16-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
 0823ASHC_57,08-23-2023,ASHC,57,05-16-2025,Sarina Dery,Female,7_Reabsorbing,FALSE,,,,,,Female,7_Reabsorbing
-0823ASHC_58,08-23-2023,ASHC,58,05-16-2025,Sarina Dery,NA,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,NA,7_Reabsorbing,,NA,7_Reabsorbing
-0823ASHC_59,08-23-2023,ASHC,59,05-16-2025,Sarina Dery,NA,7_Reabsorbing,FALSE,,,,,nematopsis present? - SD,NA,7_Reabsorbing
+0823ASHC_58,08-23-2023,ASHC,58,05-16-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0823ASHC_59,08-23-2023,ASHC,59,05-16-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,nematopsis present? - SD,ND,7_Reabsorbing
 0823ASHC_60,08-23-2023,ASHC,60,05-16-2025,Sarina Dery,Female,7_Reabsorbing,FALSE,,,,,,Female,7_Reabsorbing
