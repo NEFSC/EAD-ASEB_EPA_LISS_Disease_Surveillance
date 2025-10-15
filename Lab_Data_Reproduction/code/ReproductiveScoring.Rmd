@@ -8,14 +8,14 @@ output: html_document
 
 Last update 9/10/2025 by K. Lenderman
  - Note: for more 2024 data, graphs need go be separated by year
- - Current accuracy: 88.9%
+ - Current accuracy: 90.2%
 
 
 #Set working directory
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
-#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 ```
 
 #run packages
@@ -72,7 +72,6 @@ data_all
 Data_Accuracy = data.frame(data_all$Sample_ID,data_all$Date_collected, data_all$Site, data_all$Sex1, data_all$Stage1,
                           data_all$Sex2, data_all$Stage2 ,data_all$sex_results, data_all$score_results)
 
-#Data_Accuracy <- na.omit(Data_Accuracy) # this removes samples from the dataset, we don't want that
 Data_Accuracy
 ```
 # Accuracy Output
