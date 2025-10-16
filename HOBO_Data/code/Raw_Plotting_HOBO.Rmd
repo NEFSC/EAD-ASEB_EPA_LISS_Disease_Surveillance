@@ -6,7 +6,7 @@ output: html_document
 
 ---
 
-Last updated: 6/26/25 M.Kachmar
+Last updated: 10/16/25 M.Kachmar
 
 
 ```{r setup, include=FALSE}
@@ -51,9 +51,9 @@ df1<-read_csv("HOBO_Data\\raw_data\\062024_FENC_HOBO.csv", col_names = TRUE)%>% 
   dplyr::rename(Temperature = `Ch:1 - Temperature   (°C)`) %>%
   dplyr::rename(Date_Time = `Date-Time (EST/EDT)`)
 
-df2<-read_csv("HOBO_Data\\raw_data\\082025_FENC_HOBO.csv", col_names = TRUE)%>%  # update this csv when new data comes in from the new HOBO
+df2<-read_csv("HOBO_Data\\raw_data\\102025_FENC_HOBO.csv", col_names = TRUE)%>%  # update this csv when new data comes in from the new HOBO
   dplyr::rename(Temperature = `Temperature`) %>%
-  dplyr::rename(Date_Time = `Date-Time (EDT)`)# %>%
+  dplyr::rename(Date_Time = `Date-Time (EST/EDT)`)# %>%
   #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset"))
 
 FENC_HOBO <- rbind(df1,df2)   #Combine the two data sheets
