@@ -5,7 +5,7 @@ date: "2023-10-03"
 output: html_document
 ---
 
-Last updated 8/13/25 by M.Kachmar
+Last updated 10/16/2025 by M.Kachmar
 
 
 ## Setup: 
@@ -604,7 +604,7 @@ CT_Salinity_callout_2025 <- CT_Salinity %>% na.omit() %>%
               ggtitle("Salinity - Diurnal cycle 2025") +
               #ggtitle(NA) +
               labs(x = "Time") +
-              theme_classic() +
+              theme_classic() 
 #              theme(legend.position = "none", axis.title.y = element_blank())
 #CT_Salinity_callout_2025
 
