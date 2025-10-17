@@ -8,9 +8,8 @@ description: This R code is used to import and summarize recruitment data collec
 ---
 
 
-last updated 8/29/2025 by K. Lenderman
-- Added graph for overall data
-- QAQC 2025 Aug. data
+last updated 10/17/25 by M. Kachmar
+- QAQC 2025 Oct. data
 
 
 ## R Markdown
@@ -24,8 +23,8 @@ library("tidyverse")
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
-knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 ```
 ### This code chunk merges all .csv files within the Tissue processing folder into one data frame and outputs the full dataset into a .csv master file. This allows us to download the raw data as a .csv, add it to the repository folder, and create the master data file without copying and pasting data in excel.
 # reading in .csv files from local folder
