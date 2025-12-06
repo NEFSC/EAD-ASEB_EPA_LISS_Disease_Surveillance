@@ -1,0 +1,47 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0524GOLD_01,05-23-2024,GOLD,1,07-03-2025,Sarina Dery,Female,3_Early_Active,TRUE,10-09-2025,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0524GOLD_02,05-23-2024,GOLD,2,07-03-2025,Sarina Dery,Female,3_Early_Active,TRUE,10-09-2025,Kyra Lenderman,Female,3_Early_Active,some areas late mature? - SD,Female,3_Early_Active
+0524GOLD_03,05-23-2024,GOLD,3,07-03-2025,Sarina Dery,Female,3_Early_Active,TRUE,10-09-2025,Kyra Lenderman,Female,3_Early_Active,Recheck when needed for 3 and 4 score boarder,Female,3_Early_Active
+0524GOLD_04,05-23-2024,GOLD,4,07-03-2025,Sarina Dery,Female,3_Early_Active,TRUE,10-09-2025,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0524GOLD_05,05-23-2024,GOLD,5,07-03-2025,Sarina Dery,Female,3_Early_Active,TRUE,10-09-2025,Kyra Lenderman,Female,3_Early_Active,diseased? - SD,Female,3_Early_Active
+0524GOLD_06,05-23-2024,GOLD,6,07-03-2025,Sarina Dery,Female,3_Early_Active,TRUE,10-09-2025,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0524GOLD_07,05-23-2024,GOLD,7,07-03-2025,Sarina Dery,Male,3_Early_Active,TRUE,10-09-2025,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0524GOLD_08,05-23-2024,GOLD,8,07-03-2025,Sarina Dery,ND,2_Developing,TRUE,10-09-2025,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0524GOLD_09,05-23-2024,GOLD,9,07-03-2025,Sarina Dery,Male,4_Late_Mature,TRUE,10-09-2025,Kyra Lenderman,Male,4_Late_Mature,,Male,4_Late_Mature
+0524GOLD_10,05-23-2024,GOLD,10,07-03-2025,Sarina Dery,Female,3_Early_Active,TRUE,10-09-2025,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0524GOLD_11,05-23-2024,GOLD,11,07-03-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-09-2025,Kyra Lenderman,Female,4_Late_Mature,,Female,4_Late_Mature
+0524GOLD_12,05-23-2024,GOLD,12,07-03-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-09-2025,Kyra Lenderman,Female,4_Late_Mature,,Female,4_Late_Mature
+0524GOLD_13,05-23-2024,GOLD,13,07-03-2025,Sarina Dery,Male,3_Early_Active,TRUE,10-09-2025,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0524GOLD_14,05-23-2024,GOLD,14,07-03-2025,Sarina Dery,Male,3_Early_Active,TRUE,10-09-2025,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0524GOLD_15,05-23-2024,GOLD,15,07-03-2025,Sarina Dery,Female,3_Early_Active,TRUE,10-09-2025,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0524GOLD_16,05-23-2024,GOLD,16,07-03-2025,Sarina Dery,Male,3_Early_Active,TRUE,10-09-2025,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0524GOLD_17,05-23-2024,GOLD,17,07-03-2025,Sarina Dery,Male,3_Early_Active,TRUE,10-09-2025,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0524GOLD_18,05-23-2024,GOLD,18,07-03-2025,Sarina Dery,Male,3_Early_Active,TRUE,10-09-2025,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0524GOLD_19,05-23-2024,GOLD,19,07-03-2025,Sarina Dery,Male,3_Early_Active,TRUE,10-09-2025,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0524GOLD_20,05-23-2024,GOLD,20,07-03-2025,Sarina Dery,Female,3_Early_Active,TRUE,10-09-2025,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0524GOLD_21,05-23-2024,GOLD,21,07-03-2025,Sarina Dery,Hermaphrodite,3_Early_Active,TRUE,10-09-2025,Kyra Lenderman,Hermaphrodite,3_Early_Active,some areas late mature - SD,Hermaphrodite,3_Early_Active
+0524GOLD_22,05-23-2024,GOLD,22,07-03-2025,Sarina Dery,Female,3_Early_Active,TRUE,10-09-2025,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0524GOLD_23,05-23-2024,GOLD,23,07-03-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-09-2025,Kyra Lenderman,Female,4_Late_Mature,,Female,4_Late_Mature
+0524GOLD_24,05-23-2024,GOLD,24,07-03-2025,Sarina Dery,Male,3_Early_Active,TRUE,10-09-2025,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0524GOLD_25,05-23-2024,GOLD,25,07-03-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-09-2025,Kyra Lenderman,Female,4_Late_Mature,,Female,4_Late_Mature
+0524GOLD_26,05-23-2024,GOLD,26,07-03-2025,Sarina Dery,Hermaphrodite,3_Early_Active,TRUE,10-09-2025,Kyra Lenderman,Hermaphrodite,3_Early_Active,,Hermaphrodite,3_Early_Active
+0524GOLD_27,05-23-2024,GOLD,27,07-03-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-09-2025,Kyra Lenderman,Female,4_Late_Mature,,Female,4_Late_Mature
+0524GOLD_28,05-23-2024,GOLD,28,07-03-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-09-2025,Kyra Lenderman,Female,4_Late_Mature,,Female,4_Late_Mature
+0524GOLD_29,05-23-2024,GOLD,29,07-03-2025,Sarina Dery,Female,3_Early_Active,TRUE,10-09-2025,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0524GOLD_30,05-23-2024,GOLD,30,07-03-2025,Sarina Dery,Male,3_Early_Active,TRUE,10-09-2025,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0524GOLD_31,05-23-2024,GOLD,31,07-03-2025,Sarina Dery,Female,3_Early_Active,TRUE,10-09-2025,Kyra Lenderman,Female,4_Late_Mature,some areas late mature - SD,Female,4_Late_Mature
+0524GOLD_32,05-23-2024,GOLD,32,07-03-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-09-2025,Kyra Lenderman,Female,4_Late_Mature,,Female,4_Late_Mature
+0524GOLD_33,05-23-2024,GOLD,33,07-03-2025,Sarina Dery,Male,4_Late_Mature,TRUE,10-09-2025,Kyra Lenderman,Male,4_Late_Mature,some areas look spawned - SD,Male,4_Late_Mature
+0524GOLD_34,05-23-2024,GOLD,34,07-03-2025,Sarina Dery,Female,3_Early_Active,TRUE,10-09-2025,Kyra Lenderman,Female,3_Early_Active,disease? reabsorping areas? - SD,Female,3_Early_Active
+0524GOLD_35,05-23-2024,GOLD,35,07-03-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-09-2025,Kyra Lenderman,Female,4_Late_Mature,some spots spawning - KL,Female,4_Late_Mature
+0524GOLD_36,05-23-2024,GOLD,36,07-03-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-09-2025,Kyra Lenderman,Female,4_Late_Mature,,Female,4_Late_Mature
+0524GOLD_37,05-23-2024,GOLD,37,07-03-2025,Sarina Dery,Male,4_Late_Mature,TRUE,10-09-2025,Kyra Lenderman,Male,4_Late_Mature,,Male,4_Late_Mature
+0524GOLD_38,05-23-2024,GOLD,38,07-03-2025,Sarina Dery,Female,5_Spawning,TRUE,10-09-2025,Kyra Lenderman,Female,5_Spawning,,Female,5_Spawning
+0524GOLD_39,05-23-2024,GOLD,39,07-03-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-09-2025,Kyra Lenderman,Female,4_Late_Mature,some spots spawning - KL,Female,4_Late_Mature
+0524GOLD_40,05-23-2024,GOLD,40,07-03-2025,Sarina Dery,Male,4_Late_Mature,TRUE,10-09-2025,Kyra Lenderman,Male,4_Late_Mature,,Male,4_Late_Mature
+0524GOLD_41,05-23-2024,GOLD,41,07-03-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-09-2025,Kyra Lenderman,Female,4_Late_Mature,some spots spawning - KL,Female,4_Late_Mature
+0524GOLD_42,05-23-2024,GOLD,42,07-03-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-09-2025,Kyra Lenderman,Female,4_Late_Mature,some spots spawning; most eggs still attached - KL,Female,4_Late_Mature
+0524GOLD_43,05-23-2024,GOLD,43,07-03-2025,Sarina Dery,Female,6_Post_Spawning,TRUE,10-09-2025,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0524GOLD_44,05-23-2024,GOLD,44,07-03-2025,Sarina Dery,Male,3_Early_Active,TRUE,10-09-2025,Kyra Lenderman,Male,3_Early_Active,"A lot of sperm, but not many tails - KL",Male,3_Early_Active
+0524GOLD_45,05-23-2024,GOLD,45,07-03-2025,Sarina Dery,Female,6_Post_Spawning,TRUE,10-09-2025,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0524GOLD_46,05-23-2024,GOLD,46,07-03-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-09-2025,Kyra Lenderman,Female,4_Late_Mature,most eggs are still attached - KL,Female,4_Late_Mature

@@ -24,8 +24,8 @@ Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicat
 0923ASHC_23,09-05-2023,ASHC,23,05-19-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
 0923ASHC_24,09-05-2023,ASHC,24,05-19-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
 0923ASHC_25,09-05-2023,ASHC,25,05-19-2025,Sarina Dery,ND,7_Reabsorbing,FALSE,,,,,,ND,7_Reabsorbing
-0923ASHC_26,09-05-2023,ASHC,26,,,,,,,,,,,,7_Reabsorbing
-0923ASHC_27,09-05-2023,ASHC,27,,,,,,,,,,,,7_Reabsorbing
+0923ASHC_26,09-05-2023,ASHC,26,,,,,,,,,,,,
+0923ASHC_27,09-05-2023,ASHC,27,,,,,,,,,,,,
 0923ASHC_28,09-05-2023,ASHC,28,05-19-2025,Sarina Dery,Female,7_Reabsorbing,FALSE,,,,,,Female,7_Reabsorbing
 0923ASHC_29,09-05-2023,ASHC,29,05-19-2025,Sarina Dery,Female,7_Reabsorbing,FALSE,,,,,,Female,7_Reabsorbing
 0923ASHC_30,09-05-2023,ASHC,30,05-19-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing

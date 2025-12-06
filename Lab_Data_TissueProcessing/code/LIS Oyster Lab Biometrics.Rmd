@@ -14,8 +14,8 @@ This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute
 
 ```{r setup, include=FALSE}
 #knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
-#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 ```
 
 
@@ -522,12 +522,12 @@ dev.off()
 ```{r}
 df_ASHC
 
-ASHC_precent_greater_3 <- df_ASHC %>%
+ASHC_percent_greater_3 <- df_ASHC %>%
   dplyr::group_by(month, site, year) %>%
   dplyr::summarise(Percentage = mean(condition_score <= 3)*100)
-ASHC_precent_greater_3
+ASHC_percent_greater_3
 
-ASHC_BCS_percentage <- ASHC_precent_greater_3%>% 
+ASHC_BCS_percentage <- ASHC_percent_greater_3%>% 
   #filter(year =="2024")%>%
   ggplot(aes(x = month, y = Percentage)) +
   #geom_bar(width = 0.5, stat = "identity", position = "fill") +
@@ -655,12 +655,12 @@ dev.off()
 #removing 0823FENC_28 bcs was NA
 df_FENC <- df_FENC %>% drop_na(condition)
 
-FENC_precent_greater_3 <- df_FENC %>%
+FENC_percent_greater_3 <- df_FENC %>%
   dplyr::group_by(month, year) %>%
   dplyr::summarise(Percentage = mean(condition_score <= 3)*100)
-FENC_precent_greater_3
+FENC_percent_greater_3
 
-FENC_BCS_percentage <- ggplot(FENC_precent_greater_3,aes(x = month, y = Percentage)) +
+FENC_BCS_percentage <- ggplot(FENC_percent_greater_3,aes(x = month, y = Percentage)) +
   #geom_bar(width = 0.5, stat = "identity", position = "fill") +
     geom_col()+
   theme_bw() +
@@ -753,12 +753,12 @@ dev.off()
 ```{r}
 df_GOLD
 
-GOLD_precent_greater_3 <- df_GOLD %>%
+GOLD_percent_greater_3 <- df_GOLD %>%
   dplyr::group_by(month, year) %>%
   dplyr::summarise(Percentage = mean(condition_score <= 3)*100)
-GOLD_precent_greater_3
+GOLD_percent_greater_3
 
-GOLD_BCS_percentage <- GOLD_precent_greater_3 %>%
+GOLD_BCS_percentage <- GOLD_percent_greater_3 %>%
   ggplot(aes(x = month, y = Percentage)) +
   #geom_bar(width = 0.5, stat = "identity", position = "fill") +
     geom_col()+
@@ -907,12 +907,12 @@ dev.off()
 #removing 0823FENC_28 bcs was NA
 df_LAUR. <- df_LAUR%>%filter(!row_number() %in% c(2))
 
-LAUR_precent_greater_3 <- df_LAUR. %>%
+LAUR_percent_greater_3 <- df_LAUR. %>%
   dplyr::group_by(month, site, year) %>%
   dplyr::summarise(Percentage = mean(condition_score <= 3)*100)
-LAUR_precent_greater_3
+LAUR_percent_greater_3
 
-LAUR_BCS_percentage <- LAUR_precent_greater_3 %>%
+LAUR_BCS_percentage <- LAUR_percent_greater_3 %>%
   ggplot(aes(x = month, y = Percentage)) +
   #geom_bar(width = 0.5, stat = "identity", position = "fill") +
     geom_col()+

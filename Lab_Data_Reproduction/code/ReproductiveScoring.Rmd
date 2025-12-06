@@ -95,7 +95,7 @@ write.csv(Data_Accuracy, "Lab_Data_Reproduction\\output\\Accuracy_reproduction_s
 #Data summary and completeness checks
 ```{r}
 st_repro_score_final <- data_all %>%
- dplyr::mutate(stage_final = recode(Stage_final, "1_Inactive_Indeterminate" = 1, "2_Developing" = 2, "3_Early_Active"= 3, "4_Late_Mature"= 4, "5_Spawning"= 5,"6_Post_Spawning"=6,"7_Reabsorbing"=7))
+ dplyr::mutate(stage_final = recode(Stage_final, "0_Castrated"=0,"1_Inactive_Indeterminate" = 1, "2_Developing" = 2, "3_Early_Active"= 3, "4_Late_Mature"= 4, "5_Spawning"= 5,"6_Post_Spawning"=6,"7_Reabsorbing"=7))
 
 st_repro_score_final <- summarySE(st_repro_score_final, measurevar="stage_final", groupvars=c("Site", "Date_collected"))
 st_repro_score_final
@@ -140,11 +140,25 @@ ggplot(ASHC_repro, aes(x=Stage_final, fill=Sex_final))+
   geom_histogram(stat = "count")+
   facet_grid(~year)
 
-FENC_repro <- data_all%>% filter(Site == "FENC")
+FENC_repro <- data_all%>% filter(Site == "FENC") %>% filter(year== "2024") 
 ggplot(FENC_repro, aes(x=Stage_final, fill=Sex_final))+
   labs(title = "Gonadal Scoring - FENC")+
   geom_histogram(stat = "count")+
-  facet_grid(~year)
+  facet_grid(~month)
+
+#Counts graph for stages and gametes
+all_repro <- data_all%>% filter(year== "2023") %>% filter(Site=="FENC") %>% filter(!Date_collected=="2023-08-23")
+all_repro$month <-  factor(all_repro$month, levels = c("3","4","5","6","7", "8", "9", "10", "11"),
+        labels=c("March","April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov"))
+all_repro$Site <-  factor(all_repro$Site, levels = c("ASHC","FENC","GOLD"),
+        labels=c("Ash Creek","Fence Creek", "Gold Star"))
+all_repro$Stage_final <-  factor(all_repro$Stage_final, levels = c("1_Inactive_Indeterminate","2_Developing","3_Early_Active","4_Late_Mature","5_Spawning", "6_Post_Spawning", "7_Reabsorbing"),
+        labels=c("Inactive","Developing", "Active", "Mature", "Spawning", "Post Spawning", "Reabsorbing"))
+ggplot(all_repro, aes(x=Sex_final, fill=Stage_final))+
+  labs(title = "Gonadal Scoring - Fence Creek", x="Gamete Type", y="Reproductive Stage Counts", fill="Reprotuctive Stage")+
+  geom_histogram(stat = "count")+
+  theme(axis.text.x = element_text(angle = 45, vjust = 1.1, hjust=1))+
+  facet_grid(~month)
 ```
 ```{r}
 #Creating proportions for stages and sex
@@ -177,7 +191,7 @@ df_sex_proportions
 #df_score_proportions_2025 <- df_score_proportions%>% filter(year=="2025")
 
 
-all_stage_prop <- ggplot(data=df_score_proportions, aes(x=month, y= Proportion, fill=stage_bin)) +
+all_stage_prop <- ggplot(data=filter(df_score_proportions, !Site=="LAUR"), aes(x=month, y= Proportion, fill=stage_bin)) +
   geom_bar(width = .5, stat="identity", position = "fill",colour = "black")+  
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
@@ -193,7 +207,7 @@ all_stage_prop
 #dev.off()
 
 #Proportion graphs of gametes
-all_gamete_prop <- ggplot(data=df_sex_proportions, aes(x=month, y= Proportion, fill=Sex_final)) +
+all_gamete_prop <- ggplot(data=filter(df_sex_proportions, !Site=="LAUR"), aes(x=month, y= Proportion, fill=Sex_final)) +
   geom_bar(width = .5, stat="identity", position = "fill",colour = "black")+  
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
@@ -250,24 +264,25 @@ ASHC_spawning
 ASHC_mature_spawning$month <- factor(ASHC_mature_spawning$month, levels = c("1","2","3","4","5","6","7", "8", "9", "10", "11", "12"),
         labels=c("Jan","Feb", "March","April","May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"))
 ASHC_mature_spawning <- ASHC_mature_spawning%>%
-                      dplyr::mutate(variable = "Reproduction")%>%
-                      rename(site = Site)%>%
-                      filter(year=="2023")
+                      dplyr::mutate(variable = "Reproduction")#%>%
+                      #rename(site = Site)#%>%
+                      #filter(year=="2023")
                       
 
 #Need to run tissue processing code for the following
-ASHC_precent_greater_3 <- ASHC_precent_greater_3 %>%
-                          dplyr::mutate(variable = "Body condition")%>%
-                          filter(year == "2023")
+ASHC_percent_greater_3 <- ASHC_percent_greater_3 %>%
+                          dplyr::mutate(variable = "Body condition")#%>%
+                          #filter(year == "2023")
 
-ASHC_repro.bcs_2023 <- rbind(ASHC_mature_spawning, ASHC_precent_greater_3)
+ASHC_repro.bcs_2023 <- rbind(ASHC_mature_spawning, ASHC_percent_greater_3)
 
 #This graph shows body conditions of >=3 (good/ripe) compared to mature/spawning gametes
 ggplot(ASHC_repro.bcs_2023, aes(x=factor(month),y=Percentage, fill = variable))+
   geom_bar(stat = "identity", position = "dodge")+
   scale_fill_discrete(name = "Factors", labels = c("BCS (1-3 scores)", "Spawning (4-5 scores)"))+
   labs(title = ">=3 body condtion score compared to histology spawning (5) and mature (4) reproductive score - ASHC 2023",
-       x = "Month", y = "Percentage")
+       x = "Month", y = "Percentage")+
+  facet_grid(~year)
 
 ```
 
@@ -302,8 +317,8 @@ FENC_spawning <- FENC_mature_spawning%>%
     title = "Fence Creek % of spawning",
     x = "month",
     y = "Percentage of spawning scores 4 & 5"
-  ) #+
-    #facet_wrap(~year)
+  ) +
+    facet_wrap(~year)
 
 FENC_spawning
 ```
@@ -313,23 +328,24 @@ FENC_spawning
 FENC_mature_spawning$month <- factor(FENC_mature_spawning$month, levels = c("1","2","3","4","5","6","7", "8", "9", "10", "11", "12"),
         labels=c("Jan","Feb", "March","April","May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"))
 FENC_mature_spawning <- FENC_mature_spawning%>%
-                      dplyr::mutate(variable = "Reproduction")%>%
-                      filter(year=="2023")#%>%
+                      dplyr::mutate(variable = "Reproduction")#%>%
+                      #filter(year=="2023")#%>%
                       #rename(site = Site)
 
 #Need to run tissue processing code for the following
-FENC_precent_greater_3 <- FENC_precent_greater_3 %>%
-                          dplyr::mutate(variable = "Body condition")%>%
-                          filter(year == "2023")
+FENC_percent_greater_3 <- FENC_percent_greater_3 %>%
+                          dplyr::mutate(variable = "Body condition")#%>%
+                          #filter(year == "2023")
 
-FENC_repro.bcs_2023 <- rbind(FENC_mature_spawning, FENC_precent_greater_3)
+FENC_repro.bcs_2023 <- rbind(FENC_mature_spawning, FENC_percent_greater_3)
 
 #This graph shows body conditions of >=3 (good/ripe) compared to mature/spawning gametes
 ggplot(FENC_repro.bcs_2023, aes(x=factor(month),y=Percentage, fill = variable))+
   geom_bar(stat = "identity", position = "dodge")+
   scale_fill_discrete(name = "Factors", labels = c("BCS (1-3 scores)", "Spawning (4-5 scores)"))+
   labs(title = ">=3 body condtion score compared to histology spawning (5) and mature (4) reproductive score - FENC 2023",
-       x = "Month", y = "Percentage")
+       x = "Month", y = "Percentage")+
+  facet_wrap(~year)
 
 ```
 #GOLD Summary
@@ -363,8 +379,8 @@ GOLD_spawning <- GOLD_mature_spawning%>%
     title = "Gold Star % of spawning",
     x = "month",
     y = "Percentage of spawning scores 4 & 5"
-  ) + ylim(0,100)
-    #facet_wrap(~year)
+  ) + ylim(0,100)+
+  facet_wrap(~year)
 
 GOLD_spawning
 ```
@@ -379,17 +395,18 @@ GOLD_mature_spawning <- GOLD_mature_spawning%>%
                       #rename(site = Site)
 
 #Need to run tissue processing code for the following
-GOLD_precent_greater_3 <- GOLD_precent_greater_3 %>%
-                          dplyr::mutate(variable = "Body condition")%>%
-                          filter(year == "2023")
+GOLD_percent_greater_3 <- GOLD_percent_greater_3 %>%
+                          dplyr::mutate(variable = "Body condition")#%>%
+                          #filter(year == "2023")
 
-GOLD_repro.bcs_2023 <- rbind(GOLD_mature_spawning, GOLD_precent_greater_3)
+GOLD_repro.bcs_2023 <- rbind(GOLD_mature_spawning, GOLD_percent_greater_3)
 
 ggplot(GOLD_repro.bcs_2023, aes(x=factor(month),y=Percentage, fill = variable))+
   geom_bar(stat = "identity", position = "dodge")+
   scale_fill_discrete(name = "Factors", labels = c("BCS (1-3 scores)", "Spawning (4-5 scores)"))+
   labs(title = ">=3 body condtion score compared to histology spawning (5) and mature (4) reproductive score - GOLD 2023",
-       x = "Month", y = "Percentage")
+       x = "Month", y = "Percentage")+
+  facet_wrap(~year)
 
 ```
 
@@ -440,11 +457,11 @@ LAUR_mature_spawning <- LAUR_mature_spawning%>%
                       #rename(site = Site)
 
 #Need to run tissue processing code for the following
-LAUR_precent_greater_3 <- LAUR_precent_greater_3 %>%
+LAUR_percent_greater_3 <- LAUR_percent_greater_3 %>%
                           dplyr::mutate(variable = "Body condition")%>%
                           filter(year == "2023")
 
-LAUR_repro.bcs_2023 <- rbind(LAUR_mature_spawning, LAUR_precent_greater_3)
+LAUR_repro.bcs_2023 <- rbind(LAUR_mature_spawning, LAUR_percent_greater_3)
 
 ggplot(LAUR_repro.bcs_2023, aes(x=factor(month),y=Percentage, fill = variable))+
   geom_bar(stat = "identity", position = "dodge")+

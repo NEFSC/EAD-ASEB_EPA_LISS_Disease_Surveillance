@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0624ASHC_01,06-10-2024,ASHC,1,07-31-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-21-2025,Kyra Lenderman,Female,4_Late_Mature,spawning?- SD,Female,4_Late_Mature
+0624ASHC_02,06-10-2024,ASHC,2,07-31-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-21-2025,Kyra Lenderman,Female,4_Late_Mature,No mantle - basing score off of one portion with mantle.,Female,4_Late_Mature
+0624ASHC_03,06-10-2024,ASHC,3,07-31-2025,Sarina Dery,Female,5_Spawning,TRUE,10-21-2025,Kyra Lenderman,Female,5_Spawning,,Female,5_Spawning
+0624ASHC_04,06-10-2024,ASHC,4,07-31-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-21-2025,Kyra Lenderman,Female,4_Late_Mature,,Female,4_Late_Mature
+0624ASHC_05,06-10-2024,ASHC,5,07-31-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-21-2025,Kyra Lenderman,Female,4_Late_Mature,No outer mantle,Female,4_Late_Mature
+0624ASHC_06,06-10-2024,ASHC,6,07-31-2025,Sarina Dery,Male,4_Late_Mature,TRUE,10-21-2025,Kyra Lenderman,Male,4_Late_Mature,,Male,4_Late_Mature
+0624ASHC_07,06-10-2024,ASHC,7,07-31-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-21-2025,Kyra Lenderman,Female,4_Late_Mature,or spawning? - SD,Female,4_Late_Mature
+0624ASHC_08,06-10-2024,ASHC,8,07-31-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-21-2025,Kyra Lenderman,Female,4_Late_Mature,post-spawning? - SD,Female,4_Late_Mature
+0624ASHC_09,06-10-2024,ASHC,9,07-31-2025,Sarina Dery,Female,5_Spawning,TRUE,10-21-2025,Kyra Lenderman,Female,5_Spawning,post-spawning? - SD,Female,5_Spawning
+0624ASHC_10,06-10-2024,ASHC,10,07-31-2025,Sarina Dery,Female,6_Post_Spawning,TRUE,10-21-2025,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0624ASHC_11,06-10-2024,ASHC,11,07-31-2025,Sarina Dery,Female,6_Post_Spawning,TRUE,10-21-2025,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0624ASHC_12,06-10-2024,ASHC,12,07-31-2025,Sarina Dery,Female,5_Spawning,TRUE,10-21-2025,Kyra Lenderman,Female,5_Spawning,,Female,5_Spawning
+0624ASHC_13,06-10-2024,ASHC,13,07-31-2025,Sarina Dery,Female,5_Spawning,TRUE,10-21-2025,Kyra Lenderman,Female,5_Spawning,post-spawning? - SD,Female,5_Spawning
+0624ASHC_14,06-10-2024,ASHC,14,07-31-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-21-2025,Kyra Lenderman,Female,4_Late_Mature,signs of spawning and post - spawning - SD,Female,4_Late_Mature
+0624ASHC_15,06-10-2024,ASHC,15,07-31-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-21-2025,Kyra Lenderman,Female,4_Late_Mature,,Female,4_Late_Mature
+0624ASHC_16,06-10-2024,ASHC,16,07-31-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-21-2025,Kyra Lenderman,Female,4_Late_Mature,signs of disease- SD,Female,4_Late_Mature
+0624ASHC_17,06-10-2024,ASHC,17,07-31-2025,Sarina Dery,Female,5_Spawning,TRUE,10-21-2025,Kyra Lenderman,Female,5_Spawning,,Female,5_Spawning
+0624ASHC_18,06-10-2024,ASHC,18,07-31-2025,Sarina Dery,Female,5_Spawning,TRUE,10-21-2025,Kyra Lenderman,Female,5_Spawning,or late mature? - SD,Female,5_Spawning
+0624ASHC_19,06-10-2024,ASHC,19,07-31-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-21-2025,Kyra Lenderman,Female,4_Late_Mature,,Female,4_Late_Mature
+0624ASHC_20,06-10-2024,ASHC,20,07-31-2025,Sarina Dery,Female,5_Spawning,TRUE,10-21-2025,Kyra Lenderman,Female,5_Spawning,diseased - SD,Female,5_Spawning
+0624ASHC_21,06-10-2024,ASHC,21,07-31-2025,Sarina Dery,Hermaphrodite,4_Late_Mature,TRUE,10-21-2025,Kyra Lenderman,Hermaphrodite,4_Late_Mature,,Hermaphrodite,4_Late_Mature
+0624ASHC_22,06-10-2024,ASHC,22,07-31-2025,Sarina Dery,Male,4_Late_Mature,TRUE,10-21-2025,Kyra Lenderman,Male,4_Late_Mature,,Male,4_Late_Mature
+0624ASHC_23,06-10-2024,ASHC,23,07-31-2025,Sarina Dery,Male,4_Late_Mature,TRUE,10-21-2025,Kyra Lenderman,Male,4_Late_Mature,,Male,4_Late_Mature
+0624ASHC_24,06-10-2024,ASHC,24,07-31-2025,Sarina Dery,Female,0_Castrated,TRUE,10-21-2025,Kyra Lenderman,Female,0_Castrated,heavily diseased - SD. Need to check with Lydia - KL,Female,0_Castrated
+0624ASHC_25,06-10-2024,ASHC,25,07-31-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-21-2025,Kyra Lenderman,Female,4_Late_Mature,spawning? - SD,Female,4_Late_Mature
+0624ASHC_26,06-10-2024,ASHC,26,07-31-2025,Sarina Dery,Female,3_Early_Active,TRUE,10-21-2025,Kyra Lenderman,Female,4_Late_Mature,,Female,4_Late_Mature
+0624ASHC_27,06-10-2024,ASHC,27,07-31-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-21-2025,Kyra Lenderman,Female,4_Late_Mature,,Female,4_Late_Mature
+0624ASHC_28,06-10-2024,ASHC,28,07-31-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-21-2025,Kyra Lenderman,Female,4_Late_Mature,,Female,4_Late_Mature
+0624ASHC_29,06-10-2024,ASHC,29,07-31-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-21-2025,Kyra Lenderman,Female,4_Late_Mature,spawning? - SD,Female,4_Late_Mature
+0624ASHC_30,06-10-2024,ASHC,30,07-31-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-21-2025,Kyra Lenderman,Female,4_Late_Mature,,Female,4_Late_Mature

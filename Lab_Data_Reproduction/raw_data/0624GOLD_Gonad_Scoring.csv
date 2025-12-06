@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0624GOLD_01,06-20-2024,GOLD,1,08-01-2025,Sarina Dery,Female,4_Late_Mature,TRUE,11-02-2025,Kyra Lenderman,Female,4_Late_Mature,,Female,4_Late_Mature
+0624GOLD_02,06-20-2024,GOLD,2,08-01-2025,Sarina Dery,Male,4_Late_Mature,TRUE,11-02-2025,Kyra Lenderman,Male,4_Late_Mature,,Male,4_Late_Mature
+0624GOLD_03,06-20-2024,GOLD,3,08-01-2025,Sarina Dery,Female,6_Post_Spawning,TRUE,11-02-2025,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0624GOLD_04,06-20-2024,GOLD,4,08-01-2025,Sarina Dery,Female,4_Late_Mature,TRUE,11-02-2025,Kyra Lenderman,Female,4_Late_Mature,post-spawning areas or disease?-SD,Female,4_Late_Mature
+0624GOLD_05,06-20-2024,GOLD,5,08-01-2025,Sarina Dery,Female,6_Post_Spawning,TRUE,11-02-2025,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0624GOLD_06,06-20-2024,GOLD,6,08-01-2025,Sarina Dery,Male,4_Late_Mature,TRUE,11-02-2025,Kyra Lenderman,Male,4_Late_Mature,,Male,4_Late_Mature
+0624GOLD_07,06-20-2024,GOLD,7,08-01-2025,Sarina Dery,Male,4_Late_Mature,TRUE,11-02-2025,Kyra Lenderman,Male,4_Late_Mature,,Male,4_Late_Mature
+0624GOLD_08,06-20-2024,GOLD,8,08-01-2025,Sarina Dery,Male,4_Late_Mature,TRUE,11-02-2025,Kyra Lenderman,Male,4_Late_Mature,,Male,4_Late_Mature
+0624GOLD_09,06-20-2024,GOLD,9,,,,,TRUE,11-02-2025,Kyra Lenderman,,,No histology cut was collected,,
+0624GOLD_10,06-20-2024,GOLD,10,08-01-2025,Sarina Dery,Female,5_Spawning,TRUE,11-02-2025,Kyra Lenderman,Female,5_Spawning,post-spawning areas or disease?-SD,Female,5_Spawning
+0624GOLD_11,06-20-2024,GOLD,11,08-01-2025,Sarina Dery,Male,4_Late_Mature,TRUE,11-02-2025,Kyra Lenderman,Male,4_Late_Mature,,Male,4_Late_Mature
+0624GOLD_12,06-20-2024,GOLD,12,08-01-2025,Sarina Dery,Female,4_Late_Mature,TRUE,11-02-2025,Kyra Lenderman,Female,4_Late_Mature,,Female,4_Late_Mature
+0624GOLD_13,06-20-2024,GOLD,13,08-01-2025,Sarina Dery,Male,4_Late_Mature,TRUE,11-02-2025,Kyra Lenderman,Male,4_Late_Mature,,Male,4_Late_Mature
+0624GOLD_14,06-20-2024,GOLD,14,08-01-2025,Sarina Dery,Male,4_Late_Mature,TRUE,11-02-2025,Kyra Lenderman,Male,4_Late_Mature,,Male,4_Late_Mature
+0624GOLD_15,06-20-2024,GOLD,15,08-01-2025,Sarina Dery,Female,4_Late_Mature,TRUE,11-02-2025,Kyra Lenderman,Female,4_Late_Mature,,Female,4_Late_Mature
+0624GOLD_16,06-20-2024,GOLD,16,08-01-2025,Sarina Dery,Male,4_Late_Mature,TRUE,11-02-2025,Kyra Lenderman,Male,4_Late_Mature,,Male,4_Late_Mature
+0624GOLD_17,06-20-2024,GOLD,17,08-01-2025,Sarina Dery,Female,4_Late_Mature,TRUE,11-02-2025,Kyra Lenderman,Female,4_Late_Mature,diseased - SD,Female,4_Late_Mature
+0624GOLD_18,06-20-2024,GOLD,18,08-01-2025,Sarina Dery,Female,6_Post_Spawning,TRUE,11-02-2025,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0624GOLD_19,06-20-2024,GOLD,19,08-01-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,11-02-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0624GOLD_20,06-20-2024,GOLD,20,08-01-2025,Sarina Dery,Female,6_Post_Spawning,TRUE,11-02-2025,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0624GOLD_21,06-20-2024,GOLD,21,08-01-2025,Sarina Dery,Female,5_Spawning,TRUE,11-02-2025,Kyra Lenderman,Female,5_Spawning,post-spawning areas or disease?-SD,Female,5_Spawning
+0624GOLD_22,06-20-2024,GOLD,22,08-01-2025,Sarina Dery,Hermaphrodite,5_Spawning,TRUE,11-02-2025,Kyra Lenderman,Hermaphrodite,5_Spawning,post-spawning areas or disease?-SD,Hermaphrodite,5_Spawning
+0624GOLD_23,06-20-2024,GOLD,23,08-01-2025,Sarina Dery,Female,6_Post_Spawning,TRUE,11-02-2025,Kyra Lenderman,Female,6_Post_Spawning,post-spawning areas or disease?-SD,Female,6_Post_Spawning
+0624GOLD_24,06-20-2024,GOLD,24,08-01-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,11-02-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0624GOLD_25,06-20-2024,GOLD,25,08-01-2025,Sarina Dery,Female,5_Spawning,TRUE,11-02-2025,Kyra Lenderman,Female,5_Spawning,,Female,5_Spawning
+0624GOLD_26,06-20-2024,GOLD,26,08-01-2025,Sarina Dery,Male,4_Late_Mature,TRUE,11-02-2025,Kyra Lenderman,Male,4_Late_Mature,,Male,4_Late_Mature
+0624GOLD_27,06-20-2024,GOLD,27,08-01-2025,Sarina Dery,Female,3_Early_Active,TRUE,11-02-2025,Kyra Lenderman,Female,3_Early_Active,post-spawning areas or disease?-SD; a lot of underdeveloped eggs,Female,3_Early_Active
+0624GOLD_28,06-20-2024,GOLD,28,08-01-2025,Sarina Dery,Male,4_Late_Mature,TRUE,11-02-2025,Kyra Lenderman,Male,4_Late_Mature,,Male,4_Late_Mature
+0624GOLD_29,06-20-2024,GOLD,29,08-01-2025,Sarina Dery,Female,6_Post_Spawning,TRUE,11-02-2025,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0624GOLD_30,06-20-2024,GOLD,30,08-01-2025,Sarina Dery,Female,6_Post_Spawning,TRUE,11-02-2025,Kyra Lenderman,Female,6_Post_Spawning,post-spawning areas or disease?-SD,Female,6_Post_Spawning
