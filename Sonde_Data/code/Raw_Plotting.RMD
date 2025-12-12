@@ -1918,7 +1918,7 @@ print(ASHC_CHLA_2024)
 
 
 ASHC_CHLA_2025 <- ASHC_CHLA %>% na.omit() %>%
-             dplyr::filter(Date.Time > '2025-01-01 00:01:00' & Date.Time < '2022-12-31 23:59:00' ) %>% # change date range needed here
+             dplyr::filter(Date.Time > '2025-01-01 00:01:00' & Date.Time < '2025-12-31 23:59:00' ) %>% # change date range needed here
              dplyr::mutate(Site = case_when(Site == 'ASHC' ~ 'Ash Creek', .default = 'Fence Creek')) %>% 
              ggplot(aes(x=Date.Time, 
                        y=mean, # the mean values
@@ -2375,7 +2375,7 @@ FENC_pH_2025 <- FENC_pH %>% na.omit() %>%
               ggtitle("pH 2025") +
               labs(x = "Time", y = "pH") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))
+              theme(legend.position = "none", axis.text= element_text(size= 15))+scale_x_datetime(breaks="1 month", date_labels = "%B")
 
 
 FENC_pH_2025
@@ -2473,7 +2473,7 @@ FENC_Salinity_2025 <- FENC_Salinity %>% na.omit() %>%
               labs(x = "Time", y = "Salinity") +
               theme_classic() +
               theme(legend.position = "none", axis.text= element_text(size= 15))+
-              scale_y_continuous(breaks = seq(0,30, by = 2))
+              scale_y_continuous(breaks = seq(0,30, by = 2))+scale_x_datetime(breaks="1 month", date_labels = "%B")
 
 FENC_Salinity_2025
 
@@ -2563,7 +2563,7 @@ FENC_Temperature_2025 <-FENC_Temperature %>% na.omit() %>%
               ggtitle("Temperature 2025") +
               labs(x = "Time", y = "Temperature (Celcius)") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))
+              theme(legend.position = "none", axis.text= element_text(size= 15))+scale_x_datetime(breaks="1 month", date_labels = "%B")
 FENC_Temperature_2025
 
 pdf(paste0(path="output/raw_plots/Report_plots/FENC_Temperature_2025.pdf"), height = 7, width = 14)
@@ -2651,7 +2651,7 @@ FENC_DO_2025 <- FENC_DO %>% na.omit() %>%
               ggtitle("DO Concentration 2025") +
               labs(x = "Time", y = "DO Concentration (mg/L)") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))
+              theme(legend.position = "none", axis.text= element_text(size= 15))+scale_x_datetime(breaks="1 month", date_labels = "%B")
 
 pdf(paste0(path = "output/raw_plots/Report_plots/FENC_DO_2025.pdf"), height = 7, width = 14)
 print(FENC_DO_2025)
@@ -2741,7 +2741,7 @@ FENC_CHLA_2025 <- FENC_CHLA %>% na.omit() %>%
               ggtitle("Chlorophyll-a flourescences 2025") +
               labs(x = "Time", y = "Chlorophyll-a (RFU)") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))
+              theme(legend.position = "none", axis.text= element_text(size= 15))+scale_x_datetime(breaks="1 month", date_labels = "%B")
 
 FENC_CHLA_2025
 
