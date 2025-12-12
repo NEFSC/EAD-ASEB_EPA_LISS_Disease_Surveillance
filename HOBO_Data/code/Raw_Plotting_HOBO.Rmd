@@ -6,7 +6,7 @@ output: html_document
 
 ---
 
-Last updated: 11/14/25 M.Kachmar
+Last updated: 12/12/25 M.Kachmar
 
 
 ```{r setup, include=FALSE}
@@ -51,12 +51,18 @@ df1<-read_csv("HOBO_Data\\raw_data\\062024_FENC_HOBO.csv", col_names = TRUE)%>% 
   dplyr::rename(Temperature = `Ch:1 - Temperature   (°C)`) %>%
   dplyr::rename(Date_Time = `Date-Time (EST/EDT)`)
 
-df2<-read_csv("HOBO_Data\\raw_data\\1225_FENC_HOBO.csv", col_names = TRUE)%>%  # update this csv when new data comes in from the new HOBO
+df2<-read_csv("HOBO_Data\\raw_data\\112024_FENC_HOBO.csv", col_names = TRUE)%>%  # update this csv when new data comes in from the new HOBO
+  dplyr::rename(Temperature = `Temperature`) %>%
+  dplyr::rename(Date_Time = `Date-Time (EST/EDT)`)# %>%
+  dplyr::select( c( "Temperature", "Date_Time")) 
+
+df3<-read_csv("HOBO_Data\\raw_data\\1225_FENC_HOBO.csv", col_names = TRUE)%>%  # update this csv when new data comes in from the new HOBO
   dplyr::rename(Temperature = `Temperature`) %>%
   dplyr::rename(Date_Time = `Date-Time (EST)`)# %>%
   #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset"))
 
-FENC_HOBO <- rbind(df1,df2)   #Combine the two data sheets
+
+FENC_HOBO <- rbind(df1,df2,df3)   #Combine the two data sheets
 
 as.data.frame(FENC_HOBO) #make a data frame
 

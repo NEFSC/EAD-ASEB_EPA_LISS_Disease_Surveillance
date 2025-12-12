@@ -8,9 +8,8 @@ description: This R code is used to import and summarize recruitment data collec
 ---
 
 
-last updated 10/17/25 by M. Kachmar
-- QAQC 2025 Oct. data
-
+last updated 12/12/25 by M. Kachmar
+- QAQC Gold star data
 
 ## R Markdown
 
