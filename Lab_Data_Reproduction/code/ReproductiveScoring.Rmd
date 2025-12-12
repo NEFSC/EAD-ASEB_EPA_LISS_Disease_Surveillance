@@ -31,6 +31,7 @@ library("purrr")
 library(reshape2)
 library(stringr)
 library("RColorBrewer")
+library("wacolors")
 ```
 
 #### This code chunk merges all .csv files within the qubit folder into one data fram and outputs the full dataset into a .csv master file. This allows us to download the raw data as a .csv, add it to the repository folder, and create the master data file without copying and pasting data in excel.
@@ -156,9 +157,11 @@ all_repro$Stage_final <-  factor(all_repro$Stage_final, levels = c("1_Inactive_I
         labels=c("Inactive","Developing", "Active", "Mature", "Spawning", "Post Spawning", "Reabsorbing"))
 ggplot(all_repro, aes(x=Sex_final, fill=Stage_final))+
   labs(title = "Gonadal Scoring - Fence Creek", x="Gamete Type", y="Reproductive Stage Counts", fill="Reprotuctive Stage")+
-  geom_histogram(stat = "count")+
+  geom_histogram(stat = "count", aes(x=factor(Sex_final, levels = c('Female', 'Male', 'Hermaphrodite', 'ND'))))+
   theme(axis.text.x = element_text(angle = 45, vjust = 1.1, hjust=1))+
-  facet_grid(~month)
+scale_fill_wa_d(wacolors$lopez)+
+    scale_x_discrete(labels = c("ND"="Unknown"))+
+                  facet_grid(~month)
 ```
 ```{r}
 #Creating proportions for stages and sex
