@@ -51,7 +51,7 @@ df1<-read_csv("HOBO_Data\\raw_data\\062024_FENC_HOBO.csv", col_names = TRUE)%>% 
   dplyr::rename(Temperature = `Ch:1 - Temperature   (°C)`) %>%
   dplyr::rename(Date_Time = `Date-Time (EST/EDT)`)
 
-df2<-read_csv("HOBO_Data\\raw_data\\112025_FENC_HOBO.csv", col_names = TRUE)%>%  # update this csv when new data comes in from the new HOBO
+df2<-read_csv("HOBO_Data\\raw_data\\1225_FENC_HOBO.csv", col_names = TRUE)%>%  # update this csv when new data comes in from the new HOBO
   dplyr::rename(Temperature = `Temperature`) %>%
   dplyr::rename(Date_Time = `Date-Time (EST)`)# %>%
   #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset"))
@@ -180,7 +180,7 @@ df8<-read_csv("HOBO_Data\\raw_data\\062025_ASHC_HOBO.csv", col_names = TRUE)%>%
   dplyr::rename(Date_Time = `Date-Time (EDT)`) #%>% 
   #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset","Host Connected"))
 
-df9<-read_csv("HOBO_Data\\raw_data\\112025_ASHC_HOBO.csv", col_names = TRUE)%>%  
+df9<-read_csv("HOBO_Data\\raw_data\\1225_ASHC_HOBO.csv", col_names = TRUE)%>%  
   dplyr::rename(Temperature = `Temperature`) %>%
   dplyr::rename(Date_Time = `Date-Time (EDT/EST)`) #%>% 
   #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset","Host Connected"))
@@ -358,10 +358,10 @@ GOLD_df1 <- GOLD_df1 %>%
   dplyr::select( -c( "#","Water Detect", "Button Down", "Button Up", "End of File", "Host Connected"))
 GOLD_df1
 
-GOLD_df2 <- read_csv("HOBO_Data\\raw_data\\102025_GOLD_HOBO.csv", col_names = TRUE) 
+GOLD_df2 <- read_csv("HOBO_Data\\raw_data\\1225_GOLD_HOBO.csv", col_names = TRUE) 
 GOLD_df2 <- GOLD_df2 %>%
   dplyr::rename(Temperature = `Temperature`) %>%
-  dplyr:: rename(Date_Time = `Date-Time (EDT)`)%>%
+  dplyr:: rename(Date_Time = `Date-Time (EDT/EST)`)%>%
   dplyr::select(Date_Time, Temperature) 
 GOLD_df2
 
