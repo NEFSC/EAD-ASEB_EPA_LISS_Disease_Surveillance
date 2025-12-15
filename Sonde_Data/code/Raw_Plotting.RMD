@@ -3635,8 +3635,8 @@ GOLD_DAILY_DO_2023 <- GOLD_DO_avg %>%
 
 GOLD_DAILY_DO_2023
 
-pdf(paste0(path="/raw_plots/Report_plots/GOLD_daily_DO_2023.pdf"), height = 7, width = 14)
-print(GOLD_DAILY_DO_2023)
+#pdf(paste0(path="/raw_plots/Report_plots/GOLD_daily_DO_2023.pdf"), height = 7, width = 14)
+#print(GOLD_DAILY_DO_2023)
 
 GOLD_DAILY_DO_2024 <- GOLD_DO_avg %>% 
    dplyr::filter(`date` > '2024-04-01 00:00:00' & `date` < '2024-11-30' ) %>%
@@ -3665,10 +3665,40 @@ GOLD_DAILY_DO_2024 <- GOLD_DO_avg %>%
 
 GOLD_DAILY_DO_2024
 
-pdf(paste0(path="/raw_plots/Report_plots/GOLD_daily_DO_2024.pdf"), height = 7, width = 14)
-print(GOLD_DAILY_DO_2024)
+#pdf(paste0(path="/raw_plots/Report_plots/GOLD_daily_DO_2024.pdf"), height = 7, width = 14)
+#print(GOLD_DAILY_DO_2024)
 
-# Monthly mean temperatures ASHC
+GOLD_DAILY_DO_2025 <- GOLD_DO_avg %>% 
+   dplyr::filter(`date` > '2025-04-01 00:00:00' & `date` < '2025-12-30' ) %>%
+  ggplot(aes(x= date, 
+                       y=Daily_mean, # the mean values
+                       group=Site)) + # call the new mean
+              geom_line(aes(group = factor(Site), # lines for site
+                                linetype = Site), 
+                            size = 0.2, 
+                            position=position_dodge(.4)) + 
+              # scale_linetype_manual(values=c("solid", "dashed")) +
+              geom_point(aes(shape=Site, 
+                             fill=Site)) + 
+              scale_shape_manual(values=c(21, 22, 24, 25)) + 
+              scale_fill_manual(values=c("#D55E00",  "#0072B2")) + # "#CC79A7","#009E73"
+              #geom_errorbar(aes(ymin=(mean)-(se), 
+                                #ymax=(mean)+(se)), 
+                           # width=0,position=position_dodge(.4)) +
+              facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+              ggtitle("DO Concentration 2024") +
+              labs(x = "Time", y = "Daily Mean DO Concentration (mg/L)") +
+              theme_classic() +
+              theme(legend.position = "none", axis.text= element_text(size= 10),axis.text.x = element_text(angle = 45, hjust = 1))+scale_x_date(date_breaks = "1 week", date_labels = "%b %d")+geom_hline(yintercept = 5, color = "red", linetype = "solid", size = 1)+
+  geom_hline(yintercept = 3, color = "blue", linetype = "solid", size = 1) 
+
+
+GOLD_DAILY_DO_2025
+
+pdf(paste0(path="/raw_plots/Report_plots/GOLD_daily_DO_2025.pdf"), height = 7, width = 14)
+print(GOLD_DAILY_DO_2025)
+
+# Monthly mean temperatures GOLD
 GOLD_Temperature$`Date.Time` <- as.character(GOLD_Temperature$`Date.Time`)
 date_time <- strsplit(GOLD_Temperature$`Date.Time`, " ")  # Split at the space
 print(GOLD_Temperature)
@@ -3684,7 +3714,7 @@ GOLD_Temperature$time <- sapply(date_time, function(x) {
 })
 print(GOLD_Temperature)
 
-GOLD_Temperature$Month <- month(GOLD_Temperature$date, label = TRUE)
+GOLD_Temperature$Month <- month(GOLD_Temperature$date)
 GOLD_Temperature$Year <- year(GOLD_Temperature$date)
 head(GOLD_Temperature)
 
@@ -3710,7 +3740,7 @@ GOLD_Salinity$time <- sapply(date_time, function(x) {
 })
 print(GOLD_Salinity)
 
-GOLD_Salinity$Month <- month(GOLD_Salinity$date, label = TRUE)
+GOLD_Salinity$Month <- month(GOLD_Salinity$date)
 GOLD_Salinity$Year <- year(GOLD_Salinity$date)
 head(GOLD_Salinity)
 

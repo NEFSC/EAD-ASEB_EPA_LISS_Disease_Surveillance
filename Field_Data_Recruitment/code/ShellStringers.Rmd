@@ -221,10 +221,10 @@ st_rec_GOLD <- summarySE(df_GOLD, measurevar="Count_1", groupvars=c("Site", "dat
 st_rec_GOLD
 
 #Mean spat per shell per replicate
-GOLD_spat <- df_GOLD %>%
-  dplyr::group_by(Replicate, Shell, date_collected) %>%
+GOLD_total_spat <- df_GOLD %>%
+  dplyr::group_by( date_collected) %>%
   dplyr::summarize(sum_count_1 = sum(Count_1),sum_count_2 = sum(Count_2))
-GOLD_spat
+GOLD_total_spat
 
 GOLD_spat_avg <- GOLD_spat %>%
   dplyr::group_by(Replicate, date_collected)%>%
