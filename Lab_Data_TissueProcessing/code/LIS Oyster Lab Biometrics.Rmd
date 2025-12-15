@@ -5,9 +5,9 @@ Author : Mariah Kachmar
 description: This R code is used to import and summarize tissue processing data (body condition, height/length/width, weight, sample collection) from the LISS Oyster Health Project's monthly sampling at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. 
 ---
 
-Updated 10/7/2025 by M.Kachmar
+Updated 12/12/2025 by K.Lenderman
  - data check
- - code clean up if needed
+ - Updated notes for 1025GOLD, 1125GOLD, and 1225GOLD collections
  
 
 This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
@@ -694,6 +694,8 @@ dev.off()
 
 # Gold Star Beach Summary
 # 0524GOLD has 46 samples - we attempted to sample from 2022 and 2023 planting and consider them seperate but it appeared that due to a storm the plantings mixed together. 
+# No samples collected for October & November at Gold Star in 2025 due to federal government lapse in appropriation.
+# 1225GOLD has 9 samples - due to inablility to collect enough samples in unfavorable conditions.
 
 ```{r}
 df_GOLD<- data_all%>%
