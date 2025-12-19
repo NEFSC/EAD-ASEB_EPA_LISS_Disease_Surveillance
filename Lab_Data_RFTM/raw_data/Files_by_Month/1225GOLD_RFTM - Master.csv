@@ -1,0 +1,10 @@
+lab_id,date_collected,site,lab_sample,date_rftmread1,rftm_reader1,rftm_intensity_read1,duplicate_read,date_rftmread2,rftm_reader2,rftm_intensity_read2,rftm_notes,rftm_final
+1225GOLD_01,2025-12-08,GOLD,1,2025-12-18,Kyra Lenderman,3,FALSE,,,,,3
+1225GOLD_02,2025-12-08,GOLD,2,2025-12-18,Kyra Lenderman,1,FALSE,,,,,1
+1225GOLD_03,2025-12-08,GOLD,3,2025-12-18,Isaiah Mayo,1,TRUE,,Kyra Lenderman,1,,1
+1225GOLD_04,2025-12-08,GOLD,4,2025-12-18,Isaiah Mayo,1,TRUE,,Kyra Lenderman,2,,2
+1225GOLD_05,2025-12-08,GOLD,5,2025-12-18,Kyra Lenderman,1,FALSE,,,,,1
+1225GOLD_06,2025-12-08,GOLD,6,2025-12-18,Kyra Lenderman,0.5,FALSE,,,,,0.5
+1225GOLD_07,2025-12-08,GOLD,7,2025-12-18,Sarina Dery,0.5,FALSE,,,,,0.5
+1225GOLD_08,2025-12-08,GOLD,8,2025-12-18,Sarina Dery,1,FALSE,,,,,1
+1225GOLD_09,2025-12-08,GOLD,9,2025-12-18,Isaiah Mayo,0.5,FALSE,,,,,0.5

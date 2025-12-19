@@ -12,8 +12,8 @@ Last updated 11/19/2025 by K.Lenderman
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
-#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 ```
 
 ```{r}
@@ -376,7 +376,7 @@ ggplot(data=df_intensity_proportions2025, aes(x=month, y= Proportion, fill=inten
   labs(title="Proportion of Intensity scores of Dermo infection in 2025", x ="month", y = "Proportion")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
   theme(axis.text=element_text(size=12))+
 scale_fill_brewer(palette = "YlOrBr")+
-   scale_x_continuous("Month", breaks = c(1,2,3,4,5,6,7,8,9,10,11))+ 
+   scale_x_continuous("Month", breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))+ 
   facet_wrap(~site)
 
 #Winter sampling 
@@ -398,17 +398,20 @@ scale_fill_brewer(palette = "YlOrBr")+
 # Proportion per month of intensity scores at three sites - all years
 df_intensity_proportions_new<- df_intensity_proportions %>% filter(!site=="LAUR")
 
-ggplot(data=df_intensity_proportions_new, aes(x=month, y= Proportion, fill=intensity_bin)) +
+RFTM_proportions_all<- ggplot(data=df_intensity_proportions_new, aes(x=month, y= Proportion, fill=intensity_bin)) +
   geom_bar(width = .5, stat="identity", position = "fill",colour = "black")+  
-   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+   theme_bw() +  theme(panel.grid.major.x = element_blank(), panel.grid.minor = element_blank())+ 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
   labs(fill ="Dermo Intensity")+
-  labs(title="Proportion of Intensity scores of Dermo infection", x ="month", y = "Proportion")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
-  theme(axis.text=element_text(size=12))+
+  labs(title="Proportion of intensity scores of dermo infection", x ="month", y = "Proportion")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  theme(axis.text=element_text(size=12), plot.title = element_text(size=15),plot.background = element_rect(fill = "#76b0e5", color = NA), legend.background = element_rect(fill = "lightgray", color = "black"))+
 scale_fill_brewer(palette = "YlOrBr")+
    scale_x_continuous("Month", breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))+ 
   facet_grid(year ~site)
 
+pdf(paste0(path = "Lab_Data_RFTM/output" ,"/RFTM_proportions_all.pdf"), height = 7, width = 11)
+print(RFTM_proportions_all)
+dev.off()
 ```
 
 # Ash Creek Summary
