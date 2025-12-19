@@ -218,6 +218,11 @@ Master_monthly_means <- Master_table %>% na.omit() %>%
 
 View(Master_monthly_means)
 
+monthly_mean_ph <- Master_monthly_means[Master_monthly_means$variable =="pH", ]
+write.csv(monthly_mean_ph, "output/Sonde_monthly_ph_long.csv")
+
+View(monthly_mean_ph)
+
 Sonde_monthly_means_CT<- Master_monthly_means[Master_monthly_means$Site == "ASHC" | Master_monthly_means$Site =="FENC", ]
 
 write.csv(Sonde_monthly_means_CT, "output/Sonde_monthly_means_CT_long.csv")
@@ -231,6 +236,7 @@ write.csv(Sonde_monthly_means_CT_wide, "output/Sonde_monthly_means_CT_wide.csv")
 
 
 ```
+
 
 
 ```{r}
@@ -3689,7 +3695,7 @@ GOLD_DAILY_DO_2025 <- GOLD_DO_avg %>%
                                 #ymax=(mean)+(se)), 
                            # width=0,position=position_dodge(.4)) +
               facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
-              ggtitle("DO Concentration 2024") +
+              ggtitle("DO Concentration 2025") +
               labs(x = "Time", y = "Daily Mean DO Concentration (mg/L)") +
               theme_classic() +
               theme(legend.position = "none", axis.text= element_text(size= 10),axis.text.x = element_text(angle = 45, hjust = 1))+scale_x_date(date_breaks = "1 week", date_labels = "%b %d")+geom_hline(yintercept = 5, color = "red", linetype = "solid", size = 1)+
