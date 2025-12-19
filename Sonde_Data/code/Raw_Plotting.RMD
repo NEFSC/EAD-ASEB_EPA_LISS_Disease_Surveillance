@@ -20,7 +20,8 @@ knitr::opts_chunk$set(echo = TRUE,
 
 #knitr::opts_knit$set(root.dir = "C:/Users/samjg/Documents/Github_repositories/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
 #knitr::opts_knit$set(root.dir = "C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
-knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
+#knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
+knitr::opts_knit$set(root.dir = "C:/Users/sarina.dery/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
 
 ```
 
@@ -113,7 +114,7 @@ vars <- as.data.frame(
                 Master_table_LONG_means$variable)))) %>% 
         dplyr::rename(dat = 1)
 
-write.csv(Master_table_LONG_means, "output/Sonde_hourly_means_master.csv",)
+write.csv(Master_table_LONG_means, "output/Sonde_hourly_means_master.csv")
 
 #### CT SITES ONLY ####
 
@@ -193,14 +194,16 @@ for(i in 1:nrow(vars)) {
 ```
 #Creating monthly means for juvenile growth stud
 ```{r}
-Master_monthly_means <- Master_table %>%
+library(data.table)
+library(reshape2)
+Master_monthly_means <- Master_table %>% na.omit() %>%
   # Convert Date.Time to date-time format and extract the month and year
   dplyr::mutate(`Date.Time` = ymd_hms(`Date.Time`),
                 year_month = floor_date(`Date.Time`, "month")) %>%
   # Melt the data
-  melt(id.vars = c("year_month", "Site"),
+ reshape2::melt(id.vars = c("year_month", "Site"),
        measure.vars = c("Actual.Conductivity", "Salinity", "Resistivity", 
-                        "Total.Dissolved.Solids", "RDO Concentration", "RDO Saturation",
+                        "Total.Dissolved.Solids", "RDO.Concentration", "RDO.Saturation",
                         "Oxygen.Partial.Pressure", "Chlorophyll.a.Fluorescence", "pH", "pH.mV", 
                         "Temperature")) %>%
   # Group by year_month, Site, and variable
