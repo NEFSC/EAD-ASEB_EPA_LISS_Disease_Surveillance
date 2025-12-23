@@ -20,8 +20,7 @@ knitr::opts_chunk$set(echo = TRUE,
 
 #knitr::opts_knit$set(root.dir = "C:/Users/samjg/Documents/Github_repositories/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
 #knitr::opts_knit$set(root.dir = "C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
-#knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
-knitr::opts_knit$set(root.dir = "C:/Users/sarina.dery/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
+knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
 
 ```
 
@@ -114,7 +113,7 @@ vars <- as.data.frame(
                 Master_table_LONG_means$variable)))) %>% 
         dplyr::rename(dat = 1)
 
-write.csv(Master_table_LONG_means, "output/Sonde_hourly_means_master.csv")
+write.csv(Master_table_LONG_means, "output/Sonde_hourly_means_master.csv",)
 
 #### CT SITES ONLY ####
 
@@ -190,20 +189,19 @@ for(i in 1:nrow(vars)) {
 #pdf(paste0(path ="output/raw_plots/Temperature_JuneOct_2023.pdf"), height = 12, width = 15)
 #print(Sonde_Temp_2023) 
 #dev.off()
-  
-```
+
+#mean pH
+
 #Creating monthly means for juvenile growth stud
 ```{r}
-library(data.table)
-library(reshape2)
-Master_monthly_means <- Master_table %>% na.omit() %>%
+Master_monthly_means <- Master_table %>%
   # Convert Date.Time to date-time format and extract the month and year
   dplyr::mutate(`Date.Time` = ymd_hms(`Date.Time`),
                 year_month = floor_date(`Date.Time`, "month")) %>%
   # Melt the data
- reshape2::melt(id.vars = c("year_month", "Site"),
+  melt(id.vars = c("year_month", "Site"),
        measure.vars = c("Actual.Conductivity", "Salinity", "Resistivity", 
-                        "Total.Dissolved.Solids", "RDO.Concentration", "RDO.Saturation",
+                        "Total.Dissolved.Solids", "RDO Concentration", "RDO Saturation",
                         "Oxygen.Partial.Pressure", "Chlorophyll.a.Fluorescence", "pH", "pH.mV", 
                         "Temperature")) %>%
   # Group by year_month, Site, and variable
@@ -448,6 +446,37 @@ CT_pH_callout_2025 <- CT_pH %>% na.omit() %>%
 pdf(paste0(path = "output/raw_plots/LISS_proposal_plots","/CT_pH_2025.pdf"), height = 6, width = 11)
 #ggarrange(CT_pH_2025, CT_pH_callout_2025, ncol = 2, widths = c(2, 1))
 print(CT_pH_2025)
+dev.off()
+
+CT_pH_ALL <- CT_pH %>% na.omit() %>%
+             dplyr::filter(Date.Time > '2023-01-01 00:00:00' & Date.Time < '2025-12-31 23:59:00' ) %>% # change date range needed here
+             dplyr::mutate(Site = case_when(Site == 'ASHC' ~ 'Ash Creek', .default = 'Fence Creek')) %>% 
+             ggplot(aes(x=Date.Time, 
+                       y=mean, # the mean values
+                       group=Site)) + # call the new mean
+              geom_line(aes(group = factor(Site), # lines for site
+                                linetype = Site), 
+                            size = 0.2, 
+                            position=position_dodge(.4)) + 
+              # scale_linetype_manual(values=c("solid", "dashed")) +
+              geom_point(aes(shape=Site, 
+                             fill=Site)) + 
+              scale_shape_manual(values=c(21, 22, 24, 25)) + 
+              scale_fill_manual(values=c("#D55E00",  "#0072B2")) + # "#CC79A7","#009E73"
+              geom_errorbar(aes(ymin=(mean)-(se), 
+                                ymax=(mean)+(se)), 
+                            width=0,position=position_dodge(.4)) +
+              facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+              ggtitle("pH - 2023 through 2025") +
+              labs(x = "Time", y = "pH") +
+              theme_classic() +
+              theme(legend.position = "none", axis.text.y = element_text(size = 12), axis.text.y.right = element_text(size =18),axis.text.x = element_text(angle = 30, size = 12))+geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%b")
+
+CT_pH_ALL
+
+pdf(paste0(path = "output/raw_plots/LISS_proposal_plots","/CT_pH_ALL.pdf"), height = 6, width = 11)
+#ggarrange(CT_pH_2025, CT_pH_callout_2025, ncol = 2, widths = c(2, 1))
+print(CT_pH_ALL)
 dev.off()
 
 
@@ -1865,6 +1894,8 @@ pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_DO_2025.pdf"), height = 7,
 print(ASHC_DO_2025)
 dev.off()
 
+
+
 #Chlorophyll-a
 
 ASHC_CHLA_2023 <- ASHC_CHLA %>% na.omit() %>%
@@ -2232,6 +2263,8 @@ CT_pH_FENC_all <- CT_pH %>% na.omit() %>% filter(Site == "FENC") %>%
               theme_classic()
 CT_pH_FENC_all
 ```
+
+
 ```{r}
 #Separating DO data by year at FENC
 
