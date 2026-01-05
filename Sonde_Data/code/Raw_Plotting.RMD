@@ -1888,6 +1888,7 @@ ASHC_DO_2025 <- ASHC_DO %>% na.omit() %>%
               labs(x = "Time", y = "DO Concentration (mg/L)") +
               theme_classic() +
               theme(legend.position = "none", axis.text= element_text(size= 15))+geom_hline(yintercept = 5, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
+
 ASHC_DO_2025
 
 pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_DO_2025.pdf"), height = 7, width = 14)
@@ -1979,7 +1980,7 @@ ASHC_CHLA_2025 <- ASHC_CHLA %>% na.omit() %>%
               ggtitle("Chlorophyll-a flourescences 2025") +
               labs(x = "Time", y = "Chlorophyll-a (RFU)") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))+scale_x_datetime(breaks="1 month", date_labels = "%B")+ylim(0,20)
+              theme(legend.position = "none", axis.text= element_text(size= 15))+scale_x_datetime(breaks="1 month", date_labels = "%B")+ylim(0,200)
 
 ASHC_CHLA_2025
 
@@ -2073,6 +2074,36 @@ ASHC_DAILY_DO_2024
 
 pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_daily_DO_2024.pdf"), height = 7, width = 14)
 print(ASHC_DAILY_DO_2024)
+
+
+ASHC_DAILY_DO_2025 <- ASHC_DO_avg %>% 
+   dplyr::filter(date > '2025-01-01 00:00:00' & date < '2025-12-31 00:00:00' ) %>%
+    ggplot(aes(x= date, 
+                       y=Daily_mean, # the mean values
+                       group=Site)) + # call the new mean
+              geom_line(aes(group = factor(Site), # lines for site
+                                linetype = Site), 
+                            size = 0.2, 
+                            position=position_dodge(.4)) + 
+              # scale_linetype_manual(values=c("solid", "dashed")) +
+              geom_point(aes(shape=Site, 
+                             fill=Site)) + 
+              scale_shape_manual(values=c(21, 22, 24, 25)) + 
+              scale_fill_manual(values=c("#D55E00",  "#0072B2")) + # "#CC79A7","#009E73"
+              #geom_errorbar(aes(ymin=(mean)-(se), 
+                                #ymax=(mean)+(se)), 
+                           # width=0,position=position_dodge(.4)) +
+              facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+              ggtitle("DO Concentration 2025") +
+              labs(x = "Time", y = "Daily Mean DO Concentration (mg/L)") +
+              theme_classic() +
+              theme(legend.position = "none", axis.text= element_text(size= 10),axis.text.x = element_text(angle = 45, hjust = 1))+scale_x_date(date_breaks = "1 week", date_labels = "%b %d") +
+  scale_y_continuous(limits= c(2,20), breaks = seq(2,20, by= 1))+geom_hline(yintercept = 5, color = "red", linetype = "solid", size = 1)+geom_hline(yintercept = 3, color = "blue", linetype = "solid", size = 1)
+
+
+ASHC_DAILY_DO_2025
+pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_daily_DO_2025.pdf"), height = 7, width = 14)
+print(ASHC_DAILY_DO_2025)
 
 # Monthly mean temperatures ASHC
 ASHC_Temperature$Date.Time <- as.character(ASHC_Temperature$Date.Time)
@@ -3039,8 +3070,7 @@ GOLD_pH_2025 <- GOLD_pH %>% na.omit() %>%
               ggtitle("pH 2025") +
               labs(x = "Time", y = "pH") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))+  
-  geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1) +ylim(6,9) +scale_x_datetime(breaks="1 month", date_labels = "%B")
+              theme(legend.position = "none", axis.text.y= element_text(size= 25), axis.text.x = element_text(size = 15))+ylim(6,9) +scale_x_datetime(breaks="1 month", date_labels = "%B")    #+ geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1)
 
 
 
@@ -3049,6 +3079,44 @@ GOLD_pH_2025
 
 pdf(paste0(path="output/raw_plots/Report_plots/GOLD_pH_2025.pdf"), height = 7, width = 14)
 print(GOLD_pH_2025)
+dev.off()
+
+GOLD_pH<- GOLD_pH %>%
+  mutate(year = year(Date.Time))
+
+
+
+GOLD_pH_ALL <- GOLD_pH %>% na.omit() %>%
+             dplyr::filter(Date.Time > '2023-04-01 00:01:00' & Date.Time < '2025-12-31 23:59:00' ) %>% # change date range needed here
+             dplyr::mutate(Site = case_when(Site == 'GOLD' ~ 'Gold Star', .default = 'Fence Creek')) %>% 
+             ggplot(aes(x=Date.Time, 
+                       y=mean, # the mean values
+                       group=Site)) + # call the new mean
+              geom_line(aes(group = factor(Site), # lines for site
+                                linetype = Site), 
+                            size = 0.2, 
+                            position=position_dodge(.4)) + 
+              # scale_linetype_manual(values=c("solid", "dashed")) +
+              geom_point(aes(shape=Site, 
+                             fill=Site)) + 
+              scale_shape_manual(values=c(21, 22, 24, 25)) + 
+              scale_fill_manual(values=c("#D55E00",  "#0072B2")) + # "#CC79A7","#009E73"
+              geom_errorbar(aes(ymin=(mean)-(se), 
+                                ymax=(mean)+(se)), 
+                            width=0,position=position_dodge(.4)) +
+             # facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+              ggtitle("pH 2023 -2025") +
+              labs(x = "Time", y = "pH") +
+              theme_classic() +
+              theme(legend.position = "none", axis.text.y= element_text(size= 25), axis.text.x = element_text(size = 15, angle = 45, vjust = 1), plot.title = element_text(size = 20), axis.title = element_text(size = 20))+ylim(6,9) +scale_x_datetime(breaks="3 month", date_labels = "%b/%Y") +facet_grid(~year)   #+ geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1)
+
+
+
+GOLD_pH_ALL
+
+
+pdf(paste0(path="output/raw_plots/Report_plots/GOLD_pH.pdf"), height = 7, width = 14)
+print(GOLD_pH_ALL)
 dev.off()
 
 # Salinity 
