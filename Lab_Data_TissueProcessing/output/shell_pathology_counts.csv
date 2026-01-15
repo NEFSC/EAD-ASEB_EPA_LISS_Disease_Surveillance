@@ -1,6 +1,8 @@
 "Date_Site","Sample_count","boring_sponge","polydora","conchiolin_mod_severe","mud_blister","pea_crab","gill_erosion","pale_digestive","discoloration","horn_add","cyst_abscess","tumor","oyster_drill","boring_snail","shell_scarring","Pathogen_count"
 "0125ASHC",30,0,22,26,25,4,4,0,0,6,1,0,0,0,30,118
 "0125FENC",30,0,18,30,20,1,0,0,18,2,1,0,0,0,12,102
+"0126ASHC",30,0,10,30,15,5,18,0,0,3,0,0,0,0,30,111
+"0126FENC",30,1,18,28,25,5,17,0,0,1,0,0,0,0,30,125
 "0225ASHC",30,0,7,27,11,6,5,2,0,0,1,0,0,0,29,88
 "0225FENC",30,1,13,27,20,0,11,0,1,2,0,0,0,0,30,105
 "0324ASHC",30,1,15,27,23,8,0,0,0,4,2,0,0,0,0,80
