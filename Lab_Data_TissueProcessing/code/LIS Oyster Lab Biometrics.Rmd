@@ -14,8 +14,8 @@ This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute
 
 ```{r setup, include=FALSE}
 #knitr::opts_chunk$set(echo = TRUE)
-#nitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
-knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 ```
 
 
@@ -733,7 +733,9 @@ FENC_percent_greater_3 <- df_FENC %>%
   dplyr::summarise(Percentage = mean(condition_score <= 3)*100)
 FENC_percent_greater_3
 
-FENC_BCS_percentage <- ggplot(FENC_percent_greater_3,aes(x = month, y = Percentage)) +
+FENC_BCS_percentage <- FENC_percent_greater_3 %>%
+  filter(year =="2025")%>%
+  ggplot(aes(x = month, y = Percentage)) +
   #geom_bar(width = 0.5, stat = "identity", position = "fill") +
     geom_col()+
   theme_bw() +

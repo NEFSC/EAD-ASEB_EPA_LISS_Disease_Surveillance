@@ -553,13 +553,16 @@ ggplot(data=df_FENC, aes(x=date_collected, y=rftm_final, group= date_collected))
 
 
 #Weighted prevalence; can be separated by facet (commented out)
-ggplot(data=st_intensity_FENC, aes(x=date_collected, y=rftm_final)) +
+wp_FENC_plot<- st_intensity_FENC %>%
+  filter(year == "2025") %>%
+  ggplot(aes(x=date_collected, y=rftm_final)) +
   geom_point()+  
   geom_line()+
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
   labs(title="Weighted Prevalence of Dermo infection", x ="Month", y = "Weighted Prevalence Score")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
-  theme(axis.text=element_text(size=12))#+ facet_wrap(~ year, scales = "free", ncol=1)
+  theme(axis.text=element_text(size=12)) +scale_x_date(date_breaks = "1 month", date_labels = "%b")#+ facet_wrap(~ year, scales = "free", ncol=1)
+wp_FENC_plot
 
 ##Prevalence
 ggplot(data=df_FENC_prevalence, aes(x=month, y=prevalence_precentage)) +

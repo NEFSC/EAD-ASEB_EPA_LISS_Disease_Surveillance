@@ -1,0 +1,25 @@
+---
+title: "Preliminary Statistics"
+author: "Mariah Kachmar"
+date: "2026-01-22"
+output: html_document
+
+description: This code is for preliminary statistical analysis for all data (environmental, lab, field) comparisons for the EPA Long Island Sound Partnership Oyster Health project. 
+---
+## Setup: 
+
+* call your root directory, using opts_knit assigns for the entire script so your paths will alwyas be from this start point!
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      warning = FALSE, 
+                      message = FALSE, 
+                      cache = TRUE)
+
+#knitr::opts_knit$set(root.dir = "C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Master_files")
+knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Master_files")
+
+```
+
+
+
