@@ -4,16 +4,19 @@ author: "Katie McFarland & Mariah Kachmar"
 date: "6/29/2023"
 output: html_document
 
-description: This R code is used to import and summarize RFTM (Rays Fluid Thioglycollate Medium) intensity scoring from the LISS Oyster Health Project's monthly sampling at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. The scale used to score intensity for individuals is the Mackins Scale (citation). This score can be used to calculate prevalence, weighted prevalence and intensity across the population. 
+description: This R code is used to import and summarize RFTM (Rays Fluid Thioglycollate Medium) intensity scoring from the LISS Oyster Health Project's monthly sampling at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. The scale used to score intensity for individuals is the Mackins Scale (citation). This score can be used to calculate prevalence, weighted prevalence and intensity across the population. This code also includes preliminary statistical analysis. 
 ---
-Last updated 1/22/2026 by K.Lenderman
+QAQC Last updated 1/22/2026 by K.Lenderman
  - reviewed data
  - Accuracy %: 84.3%
+ 
+preliminary stats added 1/23/26 by M. Kachmar
+-started with kruskal-wallis tests and glmm to compare all data and at individual sites
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
-knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 ```
 
 ```{r}
@@ -26,6 +29,12 @@ library("readr")
 library("lubridate")
 library("purrr")
 library("tidyr")
+library("stats")
+library(glmm)
+library(glmmTMB)
+library(effectsize)
+library("mgcv")
+library("car")
 ```
 
 ### This code chunk merges all .csv files within the Tissue processing folder into one data fram and outputs the full dataset into a .csv master file. This allows us to download the raw data as a .csv, add it to the repository folder, and create the master data file without copying and pasting data in excel.
@@ -60,7 +69,6 @@ as.data.frame(data_all)  # Convert tibble to data.frame
 
 data_all <- data_all %>% filter(!is.na(lab_id))
 
-write.csv(data_all, "Master_files\\RFTM_all_data.csv", row.names=FALSE)
 ```
 
 
@@ -92,7 +100,7 @@ data_all <- data_all %>%
   subset(lab_id != "0723LAUR_26")
 
 
-
+write.csv(data_all, "Master_files\\RFTM_all_data.csv", row.names=FALSE)
 ```
 
 # Summary of all data and Completeness Check
@@ -439,6 +447,40 @@ RFTM_proportions_all
 # dev.off()
 ```
 
+###### Preliminary Statistics on ALL RFTM data ######
+
+  #kruskal- Wallis test - non-parameteric test used to compare three or more independent groups to see if there distrubutions     differ , alternative to one way ANOVA, suitable for ordinal or continous data
+  #General Linear Mixed Model (glmmTMB function) 
+```{r}
+st_rftm_final
+df_prevalence_summary
+
+#Is rftm_final (wp) significantly different across sites?
+#Is rftm_final (wp) significantly different over time? 
+kruskal.test(rftm_final ~ site ,st_rftm_final)
+kruskal.test(rftm_final ~ date_collected ,st_rftm_final)
+
+#Is rftm_final (wp) different between sites independent of date?
+#is rftm_final (wp) different between dates independent of site?
+#Does rftm_final over time differ at each site? (interaction *)
+glm_rftm_wp <- glmmTMB(rftm_final ~ site * date_collected, st_rftm_final)
+glm_rftm_wp
+Anova(glm_rftm_wp)
+
+
+#Is prevalence different between sites independent of date?
+#is prevalence) different between dates (monthly) independent of site?
+#Does prevalence patterns over time (monthly) differ at each site? (interaction *)
+#Do the yearly variations significantly influence the prevalance independently of the season and location?
+glm_rftm_prevalence <- glmmTMB(prevalence_precentage ~ site * month + year, df_prevalence_summary)
+glm_rftm_prevalence
+Anova(glm_rftm_prevalence)
+
+```
+
+
+########### Individual site summaries and QAQC ###########
+
 # Ash Creek Summary
 ```{r}
 df_ASHC <- data_all%>%
@@ -462,6 +504,23 @@ df_ASHC_intensity
 
 ```
 
+#Ash Creek preliminary stats
+```{r}
+
+kruskal.test(rftm_final ~ month, st_intensity_ASHC)
+kruskal.test(rftm_final ~ year, st_intensity_ASHC)
+kruskal.test(rftm_final ~ date_collected, st_intensity_ASHC)
+
+#Is prevalence different across months (independept of year) and year (independent of month) at Ash Creek?
+glm_ASHC_wp <- glmmTMB(rftm_final ~  month + year, st_intensity_ASHC)
+glm_ASHC_wp
+Anova(glm_ASHC_wp)
+
+#Is prevalence different across months (independept of year) and year (independent of month) at Ash Creek?
+glm_ASHC_prevalence <- glmmTMB(prevalence_precentage ~  month + year, df_ASHC_prevalence)
+glm_ASHC_prevalence
+Anova(glm_ASHC_prevalence)
+```
 
 ```{r, echo=FALSE}
 #Graphing weighted prevalence ASHC
@@ -564,6 +623,24 @@ df_FENC_intensity <- df_intensity_summary %>%
 df_FENC_intensity
 
 ```
+#Fence Creek preliminary stats
+```{r}
+#Weighted prevalence
+kruskal.test(rftm_final ~ month, st_intensity_FENC)
+kruskal.test(rftm_final ~ year, st_intensity_FENC)
+kruskal.test(rftm_final ~ date_collected, st_intensityFENC)
+
+#Is WP different across months (independent of year) and year (independent of month) at Fence Creek?
+glm_FENC_wp <- glmmTMB(rftm_final ~  month + year, st_intensity_FENC)
+glm_FENC_wp
+Anova(glm_FENC_wp)
+
+
+#Is prevalence different across months (independent of year) and year (independent of month) at Fence Creek?
+glm_FENC_prevalence <- glmmTMB(prevalence_precentage ~  month + year, df_FENC_prevalence)
+glm_FENC_prevalence
+Anova(glm_FENC_prevalence)
+```
 
 ```{r, echo=FALSE}
 #Graphing weighted prevalence FENC
@@ -649,6 +726,25 @@ df_GOLD_proportions<-df_intensity_proportions %>%
   filter(site =="GOLD")
 
 df_GOLD_proportions
+```
+
+#Gold Star Beach preliminary stats
+```{r}
+#Weighted prevalence
+kruskal.test(rftm_final ~ month, st_intensity_GOLD)
+kruskal.test(rftm_final ~ year, st_intensity_GOLD)
+kruskal.test(rftm_final ~ date_collected, st_intensity_GOLD)
+
+#Is WP different across months (independent of year) and year (independent of month) at GOLD?
+glm_GOLD_wp <- glmmTMB(rftm_final ~  month + year, st_intensity_GOLD)
+glm_GOLD_wp
+Anova(glm_GOLD_wp)
+
+
+#Is prevalence different across months (independent of year) and year (independent of month) at GOLD?
+glm_GOLD_prevalence <- glmmTMB(prevalence_precentage ~  month + year, df_GOLD_prevalence)
+glm_GOLD_prevalence
+Anova(glm_GOLD_prevalence)
 ```
 
 ```{r, echo=FALSE}
