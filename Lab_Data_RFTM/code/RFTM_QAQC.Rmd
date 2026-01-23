@@ -6,14 +6,14 @@ output: html_document
 
 description: This R code is used to import and summarize RFTM (Rays Fluid Thioglycollate Medium) intensity scoring from the LISS Oyster Health Project's monthly sampling at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. The scale used to score intensity for individuals is the Mackins Scale (citation). This score can be used to calculate prevalence, weighted prevalence and intensity across the population. 
 ---
-Last updated 11/19/2025 by K.Lenderman
+Last updated 1/22/2026 by K.Lenderman
  - reviewed data
- - Accuracy %: 84.0%
+ - Accuracy %: 84.3%
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
-#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 ```
 
 ```{r}
@@ -177,6 +177,16 @@ ggplot(data=data_2025, aes(x=month, y=rftm_final, fill=site)) +
   labs(title="Weighted prevalence of Dermo infection in 2025", x ="Date", y = "Weighted prevalence")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
   theme(axis.text=element_text(size=12))+
   facet_wrap(~site)
+
+#Weighted prevalence of dermo infection in 2026
+data_2026 <- data_all %>% filter(year=="2026")
+ggplot(data=data_2026, aes(x=month, y=rftm_final, fill=site)) +
+  geom_boxplot()+  
+ theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  labs(title="Weighted prevalence of Dermo infection in 2026", x ="Date", y = "Weighted prevalence")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  theme(axis.text=element_text(size=12))+
+  facet_wrap(~site)
 ```
 
 ```{r}
@@ -207,7 +217,7 @@ ggplot() +
     geom_point(data=wp_derm, aes(x=date_collected, y=Weighted_prevalence, color=site))+
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+ scale_x_date(date_labels= "%b %Y", date_breaks = "1 month")+ ylim(0,5)+
-  labs(title="Weighted Prevalence of Dermo infection 2023-2025", x ="Month", y = "Weighted Prevalence Score")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  labs(title="Weighted Prevalence of Dermo infection 2023-2026", x ="Month", y = "Weighted Prevalence Score")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
   theme(axis.text=element_text(size=12))
 
 ```
@@ -379,6 +389,20 @@ scale_fill_brewer(palette = "YlOrBr")+
    scale_x_continuous("Month", breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))+ 
   facet_wrap(~site)
 
+# Proportion per month of intensity scores in 2026
+df_intensity_proportions2026<- df_intensity_proportions %>% filter(year=="2026")
+
+ggplot(data=df_intensity_proportions2026, aes(x=month, y= Proportion, fill=intensity_bin)) +
+  geom_bar(width = .5, stat="identity", position = "fill",colour = "black")+  
+   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  labs(fill ="Dermo Intensity")+
+  labs(title="Proportion of Intensity scores of Dermo infection in 2025", x ="month", y = "Proportion")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  theme(axis.text=element_text(size=12))+
+scale_fill_brewer(palette = "YlOrBr")+
+   scale_x_continuous("Month", breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))+ 
+  facet_wrap(~site)
+
 #Winter sampling 
 # winter_intensity <- rbind(df_intensity_proportions2024, df_intensity_proportions2025)
 # 
@@ -408,10 +432,11 @@ RFTM_proportions_all<- ggplot(data=df_intensity_proportions_new, aes(x=month, y=
 scale_fill_brewer(palette = "YlOrBr")+
    scale_x_continuous("Month", breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))+ 
   facet_grid(year ~site)
+RFTM_proportions_all
 
-pdf(paste0(path = "Lab_Data_RFTM/output" ,"/RFTM_proportions_all.pdf"), height = 7, width = 11)
-print(RFTM_proportions_all)
-dev.off()
+# pdf(paste0(path = "Lab_Data_RFTM/output" ,"/RFTM_proportions_all.pdf"), height = 7, width = 11)
+# print(RFTM_proportions_all)
+# dev.off()
 ```
 
 # Ash Creek Summary
@@ -451,14 +476,13 @@ ggplot(data=df_ASHC, aes(x=month, y=rftm_final, group= month)) +
 
 #Weighted prevalence
 wp_ashc <- st_intensity_ASHC %>%
-  #filter(year == "2025")%>%
 ggplot(aes(x=date_collected, y=rftm_final)) +
   geom_point()+  
   geom_line()+
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
   labs(title="Weighted Prevalence of Dermo infection", x ="Month", y = "Weighted Prevalence Score")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
-  theme(axis.text=element_text(size=12)) +scale_x_date(date_breaks = "1 month", date_labels = "%b")#+ facet_wrap(~ year, scales = "free", ncol=1)+scale_x_continuous(breaks = c(3,4,5,6,7,8,9,10, 11))
+  theme(axis.text=element_text(size=12))#+ facet_wrap(~ year, scales = "free", ncol=1)+scale_x_continuous(breaks = c(3,4,5,6,7,8,9,10, 11))
 wp_ashc
 
 ##Prevalence
@@ -654,19 +678,7 @@ ggplot(data=df_GOLD_prevalence, aes(x=month, y=prevalence_precentage)) +
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
   labs(title="Prevalence", x ="Month", y = "Prevalence precent")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
-  theme(axis.text=element_text(size=12)) + scale_y_continuous(limits = c(0,100), breaks = seq(0,100,by= 10)) +facet_wrap(~ year, scales = "free", ncol=2) + scale_x_continuous(limits = c(1,12), breaks = seq(1,12, by = 1)) + geom_smooth(method = "lm", se = FALSE)
-
-
-
-
-#continuous prevalence
-ggplot() +
-  #geom_line(data=df_GOLD_prevalence, aes(x=date_collected, y=prevalence_precentage, color=site))+
-  geom_point(data=df_GOLD_prevalence, aes(x=date_collected, y=prevalence_precentage, color=site))+
-   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ scale_x_date(date_labels= "%b %Y", date_breaks = "1 month")+
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
-  labs(title="Prevalence of Dermo infection", x ="Month", y = "Dermo Prevaence %")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
-  theme(axis.text=element_text(size=12))+ geom_smooth(method = "lm", se = FALSE) #+ facet_wrap(~ site, scales = "free_y",ncol = 1) 
+  theme(axis.text=element_text(size=12))+ facet_wrap(~ year, scales = "free", ncol=1)
 
 #Intensity index
 ggplot(data=df_GOLD_intensity, aes(x=month, y=intensity)) +
@@ -687,7 +699,7 @@ ggplot(data=df_GOLD_proportions, aes(x=month, y= Proportion, fill=intensity_bin)
   theme(axis.text=element_text(size=12))+
    scale_fill_brewer() +
    scale_x_continuous( breaks = seq(4,12, by =1) )+
-  facet_wrap(~year) +scale_fill_brewer(palette = "YlOrBr")
+  facet_wrap(~year)
 
 #Intensity proportion
 GOLD_proportion <- intensity_proportions_2%>% filter(site == "GOLD")
