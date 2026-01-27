@@ -7,7 +7,7 @@ output: html_document
 
 Last updated 01/27/2026 by M.Kachmar
 
-Updated some of the code to remove the bulkiness of this file. We have alot of repetative code chunks for graphs that can be removed and we can simply update the date range we want to see and the file name when were running the code (i.e. If we are QAQC'ing 2026 data, change the file to "..._2026")
+Updated some of the code to remove the bulkiness of this file. We have a lot of repetitive code chunks for graphs that can be removed and we can simply update the date range we want to see and the file name when were running the code (i.e. If we are QAQC'ing 2026 data, change the file to "..._2026")
 
 
 ## Setup: 
@@ -1431,7 +1431,7 @@ FENC_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == 'Chlor
 
 
 FENC_pH_plot <- FENC_pH %>% na.omit() %>%
-             dplyr::filter(Date.Time > '2026-01-01 00:01:00' & Date.Time < '2026-12-31 23:59:00' ) %>%  # change date range needed here
+             dplyr::filter(Date.Time > '2025-01-01 00:01:00' & Date.Time < '2025-12-31 23:59:00' ) %>%  # change date range needed here
              dplyr::mutate(Site = case_when(Site == 'FENC' ~ 'Fence Creek', .default = 'Ash Creek')) %>% 
              ggplot(aes(x=Date.Time, 
                        y=mean, # the mean values
