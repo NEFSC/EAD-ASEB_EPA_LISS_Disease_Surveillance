@@ -37,7 +37,7 @@ timeDigits<-5; #specifies the number of decimal places to which the time data ar
 #TIME, TIME_NUM_FORMAT, and Salinity in that order.
 getwd()
 #setwd("C:/Users/sam.gurr/Documents/Github_repositories/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
-filename     <- as.character("GitHub/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data/output/Juvenile_sonde_master.csv")
+filename     <- as.character("GitHub/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data/output/Sonde_master.csv")
 target_site  <- 'FENC' # call the site you want
 raw_df       <- as.data.frame(read.csv(filename, sep = ',')) %>%  
                        dplyr::filter(Site %in% target_site) 
@@ -262,10 +262,10 @@ avgAvgSalinity=avgAvgSalinity);
 report2$type<-as.character(report2$type);
 
 #saves out the report files.
-output1<-gsub("Juvenile_sonde_master.csv","FENC_SalinityEvents_juv.csv",filename);
+output1<-gsub("Sonde_master.csv","FENC_SalinityEvents.csv",filename);
 write.csv(report1, file=output1,row.names=FALSE);
 
-output2<-gsub("Juvenile_sonde_master.csv","FENC_SalinitySummary_juv.csv",filename);
+output2<-gsub("Sonde_master.csv","FENC_SalinitySummary.csv",filename);
 write.csv(report2, file=output2,row.names=FALSE);
 
 #prints the report.

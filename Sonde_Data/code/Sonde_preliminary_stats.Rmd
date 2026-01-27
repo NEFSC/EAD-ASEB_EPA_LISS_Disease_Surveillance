@@ -1,0 +1,199 @@
+---
+title: "Sonde Preliminary Statistics"
+author: "Mariah Kachmar"
+date: "2026-01-26"
+output: html_document
+
+description: This code is to conduct preliminary statistics on the sonde data to see general trends within sites and between sites. 
+---
+
+#How to deal with winter months that have no data? or data gaps in general?
+#Combine Hobo & sonde data to fill in gaps for temperature?
+#find data to input?
+#Seasonal Imputation? 
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data') #Mariah's
+#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data') #Kyra's
+```
+
+```{r,echo = FALSE}
+#this code loads all packages that the code will need
+#make sure all packages are installed before running this code
+library("ggplot2")
+library("ggpubr")
+library("readxl")
+library("plyr")                                     
+library("dplyr")
+library("Rmisc")
+library("readr")  
+library("lubridate")
+library("purrr")
+library("tidyr")
+library("survminer")
+library("survival")
+library("ggpubr")
+library(glmm)
+library(glmmTMB)
+library(effectsize)
+library("mgcv")
+```
+
+## Load data:
+
+```{r load data}
+
+Master_table <- read.csv("output/Sonde_master.csv",check.names=FALSE) %>% dplyr::select(-1) # check.names = F allows with col names with spaces (opthwise fills with a '.' )
+
+Master_table$Date.Time <- lubridate::ymd_hms(Master_table$Date.Time)
+
+```
+
+```{r}
+#melting the data to be long format
+# lets create monthly means for statistical analysis
+library(dplyr)
+library(lubridate)
+library(reshape2)
+library(data.table)
+
+Sonde_monthly_means_LONG <-
+  Master_table %>%
+    # convert Date.Time to a proper POSIXct if not already
+    mutate(Date.Time = ymd_hms(Date.Time)) %>%
+    # round to month (first day of month)
+    mutate(
+      Year = year(Date.Time),
+      Month = floor_date(Date.Time, unit = "month")) %>%
+    # reshape to long format
+    reshape2::melt(
+      id.vars = c("Year", "Month", "Site"),
+      measure.vars = c("Actual.Conductivity", "Salinity", "Resistivity",
+                       "Total.Dissolved.Solids", "RDO.Concentration",
+                       "RDO.Saturation", "Oxygen.Partial.Pressure",
+                       "Chlorophyll.a.Fluorescence", "pH", "pH.mV", "Temperature")
+    ) %>%
+    # group by month, site, and variable
+    dplyr::group_by(Year, Month, Site, variable) %>%
+    # calculate mean, sd, and se for each group
+    dplyr::summarise(
+      mean = mean(value, na.rm = TRUE),
+      sd   = sd(value, na.rm = TRUE),
+      se   = sd(value, na.rm = TRUE) / sqrt(n()),
+      .groups = "drop"
+    )
+
+vars <- as.data.frame(
+          list(
+            as.character(
+              unique(
+                Sonde_monthly_means_LONG$variable)))) %>% 
+        dplyr::rename(dat = 1)
+
+write.csv(Sonde_monthly_means_LONG, "output/Sonde_monthly_means_master.csv")
+
+## We don't want this in long format for all analysis - especially when we merge with other data (disease, body condition, etc.)
+#we still want means
+Sonde_monthly_means_wide <- Sonde_monthly_means_LONG %>% pivot_wider(names_from = variable, values_from = c("mean", "sd", "se"))
+write.csv(Sonde_monthly_means_wide, "output/Sonde_monthly_means_wide_master.csv")
+
+
+```
+
+#Statistical Analysis
+#gams are a type of glm that allows for flexible, non-linear relationships between preditor variables and the response variable
+#https://m-clark.github.io/generalized-additive-models/application.html
+#https://cran.r-project.org/web/packages/gam/gam.pdf
+#https://campus.datacamp.com/courses/nonlinear-modeling-with-generalized-additive-models-gams-in-r/interpreting-and-visualizing-gams?ex=1
+#How to read summary? adj R^2 provides a measurement of the model fit by penalizing the addition of unnecesssary predictors, indicating how well the model explains the variance; high = capturing relationships effectively , low = not capturing relationships effectively, negative = poor fit
+#R.sq >0.7 very good, 0.5-0.7 moderate (acceptable), <0.5 Weak (model doesnt explain much variation); Biological/ecological data: R² ~0.5 is often good due to natural variability.
+
+
+#Analysis for comparison between CT sites
+```{r}
+pH_mm_CT         <- Sonde_monthly_means_LONG %>% dplyr::filter(variable == 'pH' & Site  %in% c('FENC', 'ASHC'))
+Salinity_mm_CT     <- Sonde_monthly_means_LONG %>% dplyr::filter(variable == 'Salinity' & Site %in% c('FENC', 'ASHC'))
+Temperature_mm_CT  <- Sonde_monthly_means_LONG %>% dplyr::filter(variable == 'Temperature' & Site %in% c('FENC', 'ASHC'))
+DO_mm_CT         <- Sonde_monthly_means_LONG %>% dplyr::filter(variable == 'RDO.Concentration' & Site %in% c('FENC', 'ASHC'))
+CHLA_mm_CT        <- Sonde_monthly_means_LONG %>% dplyr::filter(variable == 'Chlorophyll.a.Fluorescence' & Site %in% c('FENC', 'ASHC'))
+
+gam_p_CT <- gam(mean ~ Site + Month + Year , data = pH_mm_CT ) 
+summary(gam_p_CT)
+
+gam_S_CT<- gam(mean ~ Site + Month + Year , data = Salinity_mm_CT ) 
+summary(gam_S_CT)
+
+gam_T_CT <- gam(mean ~ Site + Month + Year , data = Temperature_mm_CT ) 
+summary(gam_T_CT)
+
+gam_D_CT <- gam(mean ~ Site + Month + Year , data = DO_mm_CT ) 
+summary(gam_D_CT)
+
+gam_C_CT <- gam(mean ~ Site + Month + Year , data = CHLA_mm_CT ) 
+summary(gam_C_CT)
+
+```
+
+
+#Analysis for Ash creek 
+```{r}
+pH_mm_ASHC         <- Sonde_monthly_means_LONG %>% dplyr::filter(variable == 'pH' & Site  %in% c( 'ASHC'))
+Salinity_mm_ASHC    <- Sonde_monthly_means_LONG %>% dplyr::filter(variable == 'Salinity' & Site %in% c('ASHC'))
+Temperature_mm_ASHC <- Sonde_monthly_means_LONG %>% dplyr::filter(variable == 'Temperature' & Site %in% c('ASHC'))
+DO_mm_ASHC        <- Sonde_monthly_means_LONG %>% dplyr::filter(variable == 'RDO.Concentration' & Site %in% c('ASHC'))
+CHLA_mm_ASHC       <- Sonde_monthly_means_LONG %>% dplyr::filter(variable == 'Chlorophyll.a.Fluorescence' & Site %in%c('ASHC'))
+
+
+gam_p_A <- gam(mean ~ Month + Year , data = pH_mm_ASHC ) 
+summary(gam_p_A)
+
+gam_S_A <- gam(mean ~ Month + Year , data = Salinity_mm_ASHC ) 
+summary(gam_S_A)
+
+gam_T_A <- gam(mean ~ Month + Year , data = Temperature_mm_ASHC ) 
+summary(gam_T_A)
+
+gam_D_A <- gam(mean ~ Month + Year , data = DO_mm_ASHC ) 
+summary(gam_D_A)
+
+gam_C_A <- gam(mean ~ Month + Year , data = CHLA_mm_ASHC ) 
+summary(gam_C_A)
+
+```
+
+#Analysis for Fence creek 
+```{r}
+pH_mm_FENC         <- Sonde_monthly_means_LONG %>% dplyr::filter(variable == 'pH' & Site  %in% c('FENC'))
+Salinity_mm_FENC    <- Sonde_monthly_means_LONG %>% dplyr::filter(variable == 'Salinity' & Site %in% c('FENC'))
+Temperature_mm_FENC <- Sonde_monthly_means_LONG %>% dplyr::filter(variable == 'Temperature' & Site %in% c('FENC'))
+DO_mm_FENC        <- Sonde_monthly_means_LONG %>% dplyr::filter(variable == 'RDO.Concentration' & Site %in% c('FENC'))
+CHLA_mm_FENC       <- Sonde_monthly_means_LONG %>% dplyr::filter(variable == 'Chlorophyll.a.Fluorescence' & Site %in%c('FENC'))
+
+gam_p_F <- gam(mean ~ Month + Year , data = pH_mm_FENC ) 
+summary(gam_p_F)
+
+gam_S_F <- gam(mean ~ Month + Year , data = Salinity_mm_FENC ) 
+summary(gam_S_F)
+
+gam_T_F <- gam(mean ~ Month + Year , data = Temperature_mm_FENC ) 
+summary(gam_T_F)
+
+gam_D_F <- gam(mean ~ Month + Year , data = DO_mm_FENC ) 
+summary(gam_D_F)
+
+gam_C_F <- gam(mean ~ Month + Year , data = CHLA_mm_FENC ) 
+summary(gam_C_F)
+```
+
+#Analysis for NY - Gold Star beach
+```{r}
+```
+
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

@@ -449,7 +449,7 @@ RFTM_proportions_all
 
 ###### Preliminary Statistics on ALL RFTM data ######
 
-  #kruskal- Wallis test - non-parameteric test used to compare three or more independent groups to see if there distrubutions     differ , alternative to one way ANOVA, suitable for ordinal or continous data
+  #kruskal- Wallis test - non-parameteric test used to compare three or more independent groups to see if there distributions     differ , alternative to one way ANOVA, suitable for ordinal or continous data
   #General Linear Mixed Model (glmmTMB function) 
 ```{r}
 st_rftm_final

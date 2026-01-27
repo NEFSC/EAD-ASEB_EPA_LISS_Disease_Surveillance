@@ -161,38 +161,12 @@ for(i in 1:nrow(vars)) {
   } # close the loop
 
 
-# Temperature pre October 1st 2023 
-# why? we have a hefty gap in the FENC data during all october, this is 
-# a clean plot for Genevieve's NACE 2024 presentation
-#Sonde_Temp_2023 <- Table_by_var %>% 
-#    dplyr::filter(variable %in% vars[11,]) %>% 
-#    dplyr::filter(`Date.Time` > '2023-06-15 00:00:00' & `Date.Time` < '2024-05-01 00:00:00') %>% 
-#              ggplot(aes(x=`Date.Time`, 
-#                       y=mean, # the mean values
-#                       group=Site)) + # call the new mean
-#              geom_line(aes(group = factor(Site), # lines for site
-#                                linetype = Site), 
-#                            size = 0.2, 
-#                            position=position_dodge(.4)) + 
-#              # scale_linetype_manual(values=c("solid", "dashed")) +
-#              geom_point(aes(shape=Site, 
-#                             fill=Site)) + 
-#              scale_shape_manual(values=c(21, 22, 24, 25)) + 
-#              scale_fill_manual(values=c("#CC79A7", "#D55E00", "#009E73", "#0072B2")) + 
-#              geom_errorbar(aes(ymin=(mean)-(se), 
-#                                ymax=(mean)+(se)), 
-#                            width=0,position=position_dodge(.4)) +
-#              facet_grid(rows = vars(Site), scales = "free_y") +
-#              ggtitle(vars[11,]) +
-#              theme_bw()
-# 
-#pdf(paste0(path ="output/raw_plots/Temperature_JuneOct_2023.pdf"), height = 12, width = 15)
-#print(Sonde_Temp_2023) 
-#dev.off()
 
-#mean pH
+```
 
-#Creating monthly means for juvenile growth stud
+
+#Creating monthly means for juvenile growth study and statistical analysis
+
 ```{r}
 Master_monthly_means <- Master_table %>%
   # Convert Date.Time to date-time format and extract the month and year
@@ -2448,7 +2422,7 @@ FENC_pH_2025 <- FENC_pH %>% na.omit() %>%
               ggtitle("pH 2025") +
               labs(x = "Time", y = "pH") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))+scale_x_datetime(breaks="1 month", date_labels = "%B")
+              theme(legend.position = "none", axis.text= element_text(size= 15))+scale_x_datetime(breaks="1 month", date_labels = "%B") + geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1)
 
 
 FENC_pH_2025
@@ -2546,7 +2520,7 @@ FENC_Salinity_2025 <- FENC_Salinity %>% na.omit() %>%
               labs(x = "Time", y = "Salinity") +
               theme_classic() +
               theme(legend.position = "none", axis.text= element_text(size= 15))+
-              scale_y_continuous(breaks = seq(0,30, by = 2))+scale_x_datetime(breaks="1 month", date_labels = "%B")
+              scale_y_continuous(breaks = seq(0,30, by = 2))+scale_x_datetime(breaks="1 month", date_labels = "%B") + geom_hline(yintercept = 10, color = "red", linetype = "solid", size = 1)
 
 FENC_Salinity_2025
 
@@ -2636,7 +2610,7 @@ FENC_Temperature_2025 <-FENC_Temperature %>% na.omit() %>%
               ggtitle("Temperature 2025") +
               labs(x = "Time", y = "Temperature (Celcius)") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))+scale_x_datetime(breaks="1 month", date_labels = "%B")
+              theme(legend.position = "none", axis.text= element_text(size= 15))+scale_x_datetime(breaks="1 month", date_labels = "%B")  + geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)
 FENC_Temperature_2025
 
 pdf(paste0(path="output/raw_plots/Report_plots/FENC_Temperature_2025.pdf"), height = 7, width = 14)
@@ -2703,7 +2677,7 @@ FENC_DO_2024 <- FENC_DO %>% na.omit() %>%
 #dev.off()
 
 FENC_DO_2025 <- FENC_DO %>% na.omit() %>%
-             dplyr::filter(Date.Time > '2025-01-01 00:01:00' & Date.Time < '2026-01-31 23:59:00' ) %>% 
+             dplyr::filter(Date.Time > '2025-01-01 00:01:00' & Date.Time < '2026-01-01 23:59:00' ) %>% 
              dplyr::mutate(Site = case_when(Site == 'FENC' ~ 'Fence Creek', .default = 'Fence Creek')) %>% 
              ggplot(aes(x=Date.Time, 
                        y=mean, # the mean values
@@ -2724,7 +2698,7 @@ FENC_DO_2025 <- FENC_DO %>% na.omit() %>%
               ggtitle("DO Concentration 2025") +
               labs(x = "Time", y = "DO Concentration (mg/L)") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))+scale_x_datetime(breaks="1 month", date_labels = "%B")
+              theme(legend.position = "none", axis.text= element_text(size= 15))+scale_x_datetime(breaks="1 month", date_labels = "%B") + geom_hline(yintercept = 5, color = "red", linetype = "solid", size = 1)+geom_hline(yintercept = 3, color = "blue", linetype = "solid", size = 1)
 
 pdf(paste0(path = "output/raw_plots/Report_plots/FENC_DO_2025.pdf"), height = 7, width = 14)
 print(FENC_DO_2025)
@@ -2902,13 +2876,40 @@ FENC_DAILY_DO_2024 <- FENC_DO_avg %>% dplyr::filter(`date` > '2024-03-01 00:00:0
               ggtitle("DO Concentration 2024") +
               labs(x = "Time", y = "Daily Mean DO Concentration (mg/L)") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 10),axis.text.x = element_text(angle = 45, hjust = 1))+scale_x_date(date_breaks = "1 week", date_labels = "%b %d")  +  scale_y_continuous(limits = c(0,10), breaks = seq(0,10, by = 1))
+              theme(legend.position = "none", axis.text= element_text(size= 10),axis.text.x = element_text(angle = 45, hjust = 1))+scale_x_date(date_breaks = "1 week", date_labels = "%b %d")  +  scale_y_continuous(limits = c(0,10), breaks = seq(0,10, by = 1))+ geom_hline(yintercept = 5, color = "red", linetype = "solid", size = 1)+geom_hline(yintercept = 3, color = "blue", linetype = "solid", size = 1)
 
 
 FENC_DAILY_DO_2024
 
 pdf(paste0(path="output/raw_plots/Report_plots/FENC_daily_DO_2024.pdf"), height = 7, width = 14)
 print(FENC_DAILY_DO_2024)
+
+FENC_DAILY_DO_2025 <- FENC_DO_avg %>% dplyr::filter(date > '2025-01-01 00:01:00' & date < '2026-01-01 23:59:00' ) %>% 
+  ggplot(aes(x= date, y=Daily_mean, # the mean values
+                       group=Site)) + # call the new mean
+              geom_line(aes(group = factor(Site), # lines for site
+                                linetype = Site), 
+                            size = 0.2, 
+                            position=position_dodge(.4)) + 
+              # scale_linetype_manual(values=c("solid", "dashed")) +
+              geom_point(aes(shape=Site, 
+                             fill=Site)) + 
+              scale_shape_manual(values=c(21, 22, 24, 25)) + 
+              scale_fill_manual(values=c("#D55E00",  "#0072B2")) + # "#CC79A7","#009E73"
+              #geom_errorbar(aes(ymin=(mean)-(se), 
+                                #ymax=(mean)+(se)), 
+                           # width=0,position=position_dodge(.4)) +
+              facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+              ggtitle("DO Concentration 2025") +
+              labs(x = "Time", y = "Daily Mean DO Concentration (mg/L)") +
+              theme_classic() +
+              theme(legend.position = "none", axis.text= element_text(size= 10),axis.text.x = element_text(angle = 45, hjust = 1))+scale_x_date(date_breaks = "1 week", date_labels = "%b %d")  +  scale_y_continuous(limits = c(0,15), breaks = seq(0,15, by = 1))+ geom_hline(yintercept = 5, color = "red", linetype = "solid", size = 1)+geom_hline(yintercept = 3, color = "blue", linetype = "solid", size = 1)
+
+
+FENC_DAILY_DO_2025
+
+pdf(paste0(path="output/raw_plots/Report_plots/FENC_daily_DO_2025.pdf"), height = 7, width = 14)
+print(FENC_DAILY_DO_2025)
 
 # Monthly mean temperatures ASHC
 FENC_Temperature$Date.Time <- as.character(FENC_Temperature$Date.Time)
