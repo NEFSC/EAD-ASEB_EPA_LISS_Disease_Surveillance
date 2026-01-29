@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0724FENC_01,07-01-2024,FENC,1,07-03-2025,Sarina Dery,Female,6_Post_Spawning,TRUE,10-09-2025,Kyra Lenderman,Female,6_Post_Spawning,early stages of reabsorbing - SD,Female,6_Post_Spawning
+0724FENC_02,07-01-2024,FENC,2,07-03-2025,Sarina Dery,Male,6_Post_Spawning,TRUE,10-09-2025,Kyra Lenderman,Male,6_Post_Spawning,some reabsorption - SD,Male,6_Post_Spawning
+0724FENC_03,07-01-2024,FENC,3,07-03-2025,Sarina Dery,Female,6_Post_Spawning,TRUE,10-09-2025,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0724FENC_04,07-01-2024,FENC,4,07-03-2025,Sarina Dery,Female,6_Post_Spawning,TRUE,10-09-2025,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0724FENC_05,07-01-2024,FENC,5,07-03-2025,Sarina Dery,Male,6_Post_Spawning,TRUE,10-09-2025,Kyra Lenderman,Male,4_Late_Mature,,Male,4_Late_Mature
+0724FENC_06,07-01-2024,FENC,6,07-03-2025,Sarina Dery,Female,7_Reabsorbing,TRUE,10-09-2025,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0724FENC_07,07-01-2024,FENC,7,07-03-2025,Sarina Dery,Female,6_Post_Spawning,TRUE,10-09-2025,Kyra Lenderman,Female,6_Post_Spawning,early stages of reabsorbing - SD,Female,6_Post_Spawning
+0724FENC_08,07-01-2024,FENC,8,07-03-2025,Sarina Dery,Female,5_Spawning,TRUE,10-09-2025,Kyra Lenderman,Female,5_Spawning,or post spawning? - SD,Female,5_Spawning
+0724FENC_09,07-01-2024,FENC,9,07-03-2025,Sarina Dery,Female,6_Post_Spawning,TRUE,10-09-2025,Kyra Lenderman,Female,6_Post_Spawning,not much mantle present,Female,6_Post_Spawning
+0724FENC_10,07-01-2024,FENC,10,07-03-2025,Sarina Dery,Female,5_Spawning,TRUE,10-09-2025,Kyra Lenderman,Female,5_Spawning,,Female,5_Spawning
+0724FENC_11,07-01-2024,FENC,11,07-03-2025,Sarina Dery,Female,6_Post_Spawning,TRUE,10-09-2025,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0724FENC_12,07-01-2024,FENC,12,07-03-2025,Sarina Dery,Male,5_Spawning,TRUE,10-09-2025,Kyra Lenderman,Male,5_Spawning,,Male,5_Spawning
+0724FENC_13,07-01-2024,FENC,13,07-03-2025,Sarina Dery,Female,5_Spawning,TRUE,10-09-2025,Kyra Lenderman,Female,5_Spawning,,Female,5_Spawning
+0724FENC_14,07-01-2024,FENC,14,07-03-2025,Sarina Dery,Male,5_Spawning,TRUE,10-09-2025,Kyra Lenderman,Male,5_Spawning,,Male,5_Spawning
+0724FENC_15,07-01-2024,FENC,15,07-03-2025,Sarina Dery,Female,5_Spawning,TRUE,10-09-2025,Kyra Lenderman,Female,5_Spawning,,Female,5_Spawning
+0724FENC_16,07-01-2024,FENC,16,07-03-2025,Sarina Dery,Female,5_Spawning,TRUE,10-09-2025,Kyra Lenderman,Female,5_Spawning,,Female,5_Spawning
+0724FENC_17,07-01-2024,FENC,17,07-03-2025,Sarina Dery,Male,4_Late_Mature,TRUE,10-09-2025,Kyra Lenderman,Male,4_Late_Mature,,Male,4_Late_Mature
+0724FENC_18,07-01-2024,FENC,18,07-03-2025,Sarina Dery,Female,6_Post_Spawning,TRUE,10-09-2025,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0724FENC_19,07-01-2024,FENC,19,07-03-2025,Sarina Dery,Female,5_Spawning,TRUE,10-09-2025,Kyra Lenderman,Female,5_Spawning,,Female,5_Spawning
+0724FENC_20,07-01-2024,FENC,20,07-03-2025,Sarina Dery,Hermaphrodite,4_Late_Mature,TRUE,10-09-2025,Kyra Lenderman,Hermaphrodite,3_Early_Active,spawning? - SD,Hermaphrodite,4_Late_Mature
+0724FENC_21,07-01-2024,FENC,21,07-03-2025,Sarina Dery,Male,4_Late_Mature,TRUE,10-09-2025,Kyra Lenderman,Male,4_Late_Mature,,Male,4_Late_Mature
+0724FENC_22,07-01-2024,FENC,22,07-03-2025,Sarina Dery,Female,4_Late_Mature,TRUE,10-09-2025,Kyra Lenderman,Female,6_Post_Spawning,egg shape showing reabsorption,Female,6_Post_Spawning
+0724FENC_23,07-01-2024,FENC,23,07-03-2025,Sarina Dery,Male,4_Late_Mature,TRUE,10-09-2025,Kyra Lenderman,Male,6_Post_Spawning,smaller pockets shows beginning if reabsorption,Male,4_Late_Mature
+0724FENC_24,07-01-2024,FENC,24,07-03-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,10-09-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0724FENC_25,07-01-2024,FENC,25,07-03-2025,Sarina Dery,Female,6_Post_Spawning,TRUE,10-09-2025,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0724FENC_26,07-01-2024,FENC,26,07-03-2025,Sarina Dery,Male,4_Late_Mature,TRUE,10-09-2025,Kyra Lenderman,Male,4_Late_Mature,,Male,4_Late_Mature
+0724FENC_27,07-01-2024,FENC,27,07-03-2025,Sarina Dery,Male,4_Late_Mature,TRUE,10-09-2025,Kyra Lenderman,Male,4_Late_Mature,,Male,4_Late_Mature
+0724FENC_28,07-01-2024,FENC,28,07-03-2025,Sarina Dery,Female,5_Spawning,TRUE,10-09-2025,Kyra Lenderman,Female,5_Spawning,,Female,5_Spawning
+0724FENC_29,07-01-2024,FENC,29,07-03-2025,Sarina Dery,Female,6_Post_Spawning,TRUE,10-09-2025,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0724FENC_30,07-01-2024,FENC,30,07-03-2025,Sarina Dery,Female,7_Reabsorbing,TRUE,10-09-2025,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing

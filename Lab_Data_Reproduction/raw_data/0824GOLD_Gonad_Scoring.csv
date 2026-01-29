@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0824GOLD_01,08-14-2024,GOLD,1,10-07-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0824GOLD_02,08-14-2024,GOLD,2,10-07-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0824GOLD_03,08-14-2024,GOLD,3,10-07-2025,Sarina Dery,Female,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0824GOLD_04,08-14-2024,GOLD,4,10-07-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0824GOLD_05,08-14-2024,GOLD,5,10-07-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0824GOLD_06,08-14-2024,GOLD,6,10-07-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,heavily diseased? -SD,ND,7_Reabsorbing
+0824GOLD_07,08-14-2024,GOLD,7,10-07-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0824GOLD_08,08-14-2024,GOLD,8,10-07-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0824GOLD_09,08-14-2024,GOLD,9,10-07-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0824GOLD_10,08-14-2024,GOLD,10,10-07-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0824GOLD_11,08-14-2024,GOLD,11,10-07-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,diseased ?,ND,7_Reabsorbing
+0824GOLD_12,08-14-2024,GOLD,12,10-07-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0824GOLD_13,08-14-2024,GOLD,13,10-07-2025,Sarina Dery,Female,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+0824GOLD_14,08-14-2024,GOLD,14,10-07-2025,Sarina Dery,Female,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+0824GOLD_15,08-14-2024,GOLD,15,10-07-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0824GOLD_16,08-14-2024,GOLD,16,10-07-2025,Sarina Dery,Female,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+0824GOLD_17,08-14-2024,GOLD,17,10-07-2025,Sarina Dery,Female,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0824GOLD_18,08-14-2024,GOLD,18,10-07-2025,Sarina Dery,Female,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,Female,7_Reabsorbing
+0824GOLD_19,08-14-2024,GOLD,19,10-07-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0824GOLD_20,08-14-2024,GOLD,20,10-07-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0824GOLD_21,08-14-2024,GOLD,21,10-07-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0824GOLD_22,08-14-2024,GOLD,22,10-07-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0824GOLD_23,08-14-2024,GOLD,23,10-07-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0824GOLD_24,08-14-2024,GOLD,24,10-07-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0824GOLD_25,08-14-2024,GOLD,25,10-07-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0824GOLD_26,08-14-2024,GOLD,26,10-07-2025,Sarina Dery,Female,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+0824GOLD_27,08-14-2024,GOLD,27,10-07-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0824GOLD_28,08-14-2024,GOLD,28,10-07-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0824GOLD_29,08-14-2024,GOLD,29,10-07-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0824GOLD_30,08-14-2024,GOLD,30,10-07-2025,Sarina Dery,Male,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,Male,7_Reabsorbing,,Male,7_Reabsorbing

@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0723ASHC_01,07-10-2023,ASHC,1,12-19-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,10-04-2025,Sarina Dery,Female,5_Spawning,post spawned areas and disease - SD,Female,5_Spawning
+0723ASHC_02,07-10-2023,ASHC,2,12-19-2025,Kyra Lenderman,Male,3_Early_Active,TRUE,10-04-2025,Sarina Dery,Male,4_Late_Mature,No tails present ,Male,3_Early_Active
+0723ASHC_03,07-10-2023,ASHC,3,12-19-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,10-04-2025,Sarina Dery,Female,5_Spawning,,Female,5_Spawning
+0723ASHC_04,07-10-2023,ASHC,4,12-19-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,10-04-2025,Sarina Dery,Female,6_Post_Spawning,,Female,4_Late_Mature
+0723ASHC_05,07-10-2023,ASHC,5,12-19-2025,Kyra Lenderman,Male,4_Late_Mature,TRUE,10-04-2025,Sarina Dery,Male,5_Spawning,,Male,4_Late_Mature
+0723ASHC_06,07-10-2023,ASHC,6,12-19-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,10-04-2025,Sarina Dery,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0723ASHC_07,07-10-2023,ASHC,7,12-19-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,10-04-2025,Sarina Dery,Female,6_Post_Spawning,or spawning? -SD,Female,5_Spawning
+0723ASHC_08,07-10-2023,ASHC,8,12-19-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,10-04-2025,Sarina Dery,Female,5_Spawning,,Female,5_Spawning
+0723ASHC_09,07-10-2023,ASHC,9,12-19-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,10-04-2025,Sarina Dery,Female,5_Spawning,,Female,4_Late_Mature
+0723ASHC_10,07-10-2023,ASHC,10,12-19-2025,Kyra Lenderman,Male,6_Post_Spawning,TRUE,10-04-2025,Sarina Dery,Male,6_Post_Spawning,,Male,6_Post_Spawning
+0723ASHC_11,07-10-2023,ASHC,11,12-19-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,10-04-2025,Sarina Dery,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0723ASHC_12,07-10-2023,ASHC,12,12-19-2025,Kyra Lenderman,Male,5_Spawning,TRUE,10-04-2025,Sarina Dery,Male,5_Spawning,,Male,5_Spawning
+0723ASHC_13,07-10-2023,ASHC,13,12-19-2025,Kyra Lenderman,Female,5_Spawning,TRUE,10-04-2025,Sarina Dery,Female,5_Spawning,some post spawned areas -SD,Female,5_Spawning
+0723ASHC_14,07-10-2023,ASHC,14,12-19-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,10-04-2025,Sarina Dery,Female,6_Post_Spawning,many immature eggs,Female,6_Post_Spawning
+0723ASHC_15,07-10-2023,ASHC,15,12-19-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,10-04-2025,Sarina Dery,Female,5_Spawning,,Female,4_Late_Mature
+0723ASHC_16,07-10-2023,ASHC,16,12-19-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,10-04-2025,Sarina Dery,Female,5_Spawning,,Female,4_Late_Mature
+0723ASHC_17,07-10-2023,ASHC,17,12-19-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,10-04-2025,Sarina Dery,Female,5_Spawning,post spawning area abundant but is it majority? - SD,Female,4_Late_Mature
+0723ASHC_18,07-10-2023,ASHC,18,12-19-2025,Kyra Lenderman,Male,5_Spawning,TRUE,10-04-2025,Sarina Dery,Male,5_Spawning,,Male,5_Spawning
+0723ASHC_19,07-10-2023,ASHC,19,12-19-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,10-04-2025,Sarina Dery,Female,5_Spawning,,Female,5_Spawning
+0723ASHC_20,07-10-2023,ASHC,20,12-19-2025,Kyra Lenderman,Male,7_Reabsorbing,TRUE,10-04-2025,Sarina Dery,ND,7_Reabsorbing,,Male,7_Reabsorbing
+0723ASHC_21,07-10-2023,ASHC,21,12-19-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,10-04-2025,Sarina Dery,Female,6_Post_Spawning,Some reabsorption happening,Female,6_Post_Spawning
+0723ASHC_22,07-10-2023,ASHC,22,12-19-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,10-04-2025,Sarina Dery,Female,5_Spawning,majority spawning? -SD,Female,4_Late_Mature
+0723ASHC_23,07-10-2023,ASHC,23,12-19-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,10-04-2025,Sarina Dery,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0723ASHC_24,07-10-2023,ASHC,24,12-19-2025,Kyra Lenderman,Male,6_Post_Spawning,TRUE,10-04-2025,Sarina Dery,Male,6_Post_Spawning,,Male,6_Post_Spawning
+0723ASHC_25,07-10-2023,ASHC,25,12-19-2025,Kyra Lenderman,Male,5_Spawning,TRUE,10-04-2025,Sarina Dery,Male,5_Spawning,,Male,5_Spawning
+0723ASHC_26,07-10-2023,ASHC,26,12-19-2025,Kyra Lenderman,Female,5_Spawning,TRUE,10-04-2025,Sarina Dery,Female,5_Spawning,majority spawning? -SD,Female,5_Spawning
+0723ASHC_27,07-10-2023,ASHC,27,12-19-2025,Kyra Lenderman,Female,5_Spawning,TRUE,10-04-2025,Sarina Dery,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0723ASHC_28,07-10-2023,ASHC,28,12-19-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,10-04-2025,Sarina Dery,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0723ASHC_29,07-10-2023,ASHC,29,12-19-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,10-04-2025,Sarina Dery,Female,6_Post_Spawning,some spawning areas -SD,Female,6_Post_Spawning
+0723ASHC_30,07-10-2023,ASHC,30,12-19-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,10-04-2025,Sarina Dery,Female,5_Spawning,majority spawning? - SD,Female,4_Late_Mature
