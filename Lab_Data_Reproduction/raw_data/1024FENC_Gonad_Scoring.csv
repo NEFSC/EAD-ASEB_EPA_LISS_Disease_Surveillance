@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+1024FENC_01,10-23-2024,FENC,1,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1024FENC_02,10-23-2024,FENC,2,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1024FENC_03,10-23-2024,FENC,3,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1024FENC_04,10-23-2024,FENC,4,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1024FENC_05,10-23-2024,FENC,5,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1024FENC_06,10-23-2024,FENC,6,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1024FENC_07,10-23-2024,FENC,7,11-05-2025,Sarina Dery,Female,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+1024FENC_08,10-23-2024,FENC,8,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1024FENC_09,10-23-2024,FENC,9,11-05-2025,Sarina Dery,Male,6_Post_Spawning,TRUE,12-31-2025,Kyra Lenderman,Male,0_Castrated,Diseased? - SD,Male,0_Castrated
+1024FENC_10,10-23-2024,FENC,10,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1024FENC_11,10-23-2024,FENC,11,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1024FENC_12,10-23-2024,FENC,12,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1024FENC_13,10-23-2024,FENC,13,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1024FENC_14,10-23-2024,FENC,14,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1024FENC_15,10-23-2024,FENC,15,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1024FENC_16,10-23-2024,FENC,16,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1024FENC_17,10-23-2024,FENC,17,11-05-2025,Sarina Dery,Female,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,Female,7_Reabsorbing
+1024FENC_18,10-23-2024,FENC,18,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1024FENC_19,10-23-2024,FENC,19,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1024FENC_20,10-23-2024,FENC,20,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1024FENC_21,10-23-2024,FENC,21,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1024FENC_22,10-23-2024,FENC,22,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1024FENC_23,10-23-2024,FENC,23,11-05-2025,Sarina Dery,Male,6_Post_Spawning,TRUE,12-31-2025,Kyra Lenderman,Male,0_Castrated,diseased? SD,Male,0_Castrated
+1024FENC_24,10-23-2024,FENC,24,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1024FENC_25,10-23-2024,FENC,25,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1024FENC_26,10-23-2024,FENC,26,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1024FENC_27,10-23-2024,FENC,27,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1024FENC_28,10-23-2024,FENC,28,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1024FENC_29,10-23-2024,FENC,29,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1024FENC_30,10-23-2024,FENC,30,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
