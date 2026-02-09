@@ -155,9 +155,9 @@ for(i in 1:nrow(vars)) {
               theme_bw()
   
   # print plots and name them as the var    
-  pdf(paste0(path= "/raw_plots",gsub(" ", "_", vars[i,]),".pdf"), height = 12, width = 15)
+  #pdf(paste0(path= "/raw_plots",gsub(" ", "_", vars[i,]),".pdf"), height = 12, width = 15)
   print(plot) 
-  dev.off()
+  #dev.off()
 
   } # close the loop
 
@@ -192,7 +192,23 @@ for(i in 1:nrow(vars)) {
 #dev.off()
   
 ```
-#Creating monthly means for juvenile growth stud
+#removing outlier's from GOLD on dates of calibration/sonde deployment
+```{r}
+#2024-07-22 10:00:00 reads the all time low pH reading of 6.994071 , measurements for this day jump from 7.726598 at 09:00:00 -> 6.994071 at 10:00:00 -> 7.629097 at 11:00:00 ; next date.time to remove is 2024-04-22 15:00:00 , reading the highest pH of 9.400000 , measurements for this day jump from the 9.4 to 8.205 after one hour.
+
+#2024-07-22 10:46:00 pH of 6.164764 #sonde deployed
+#2024-04-22 15:14:00 pH of 10.60 # Field notes say sonde was deployed at 11:30am this day, however the first pH measurement recorded was at 3:15pm ; other parameters for this date.time are also out of range / innaccurate 
+
+target_time_2024_07GOLD <- as.POSIXct("2024-07-22 10:46:00")
+Master_table <- Master_table %>% filter(Date.Time != target_time_2024_07GOLD)
+
+target_time_2024_04GOLD <- as.POSIXct("2024-04-22 15:14:00")
+Master_table <- Master_table %>% filter(Date.Time != target_time_2024_04GOLD)
+
+View(Master_table)
+  
+```
+
 ```{r}
 library(data.table)
 library(reshape2)
@@ -217,12 +233,16 @@ Master_monthly_means <- Master_table %>% na.omit() %>%
   )
 
 View(Master_monthly_means)
+```
 
+```{r}
 monthly_mean_ph <- Master_monthly_means[Master_monthly_means$variable =="pH", ]
-write.csv(monthly_mean_ph, "output/Sonde_monthly_ph_long.csv")
+#write.csv(monthly_mean_ph, "output/Sonde_monthly_ph_long.csv")
 
 View(monthly_mean_ph)
+```
 
+```{r}
 Sonde_monthly_means_CT<- Master_monthly_means[Master_monthly_means$Site == "ASHC" | Master_monthly_means$Site =="FENC", ]
 
 write.csv(Sonde_monthly_means_CT, "output/Sonde_monthly_means_CT_long.csv")
