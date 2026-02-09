@@ -141,11 +141,11 @@ ggplot(ASHC_repro, aes(x=Stage_final, fill=Sex_final))+
   geom_histogram(stat = "count")+
   facet_grid(~year)
 
-FENC_repro <- data_all%>% filter(Site == "FENC") %>% filter(year== "2024") 
+FENC_repro <- data_all%>% filter(Site == "FENC") 
 ggplot(FENC_repro, aes(x=Stage_final, fill=Sex_final))+
   labs(title = "Gonadal Scoring - FENC")+
   geom_histogram(stat = "count")+
-  facet_grid(~month)
+  facet_grid(~year)
 
 #Counts graph for stages and gametes
 all_repro <- data_all%>% filter(year=="2023") %>% filter(!Site=="LAUR") %>% filter(!Date_collected=="2023-08-23")
@@ -208,13 +208,14 @@ all_stage_prop <- ggplot(data=filter(df_score_proportions, !Site=="LAUR"), aes(x
   labs(fill ="Gonadal Score")+
   labs(title="Proportion of gonadal scores", x ="month", y = "Proportion")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
   theme(axis.text=element_text(size=12))+
-scale_fill_brewer(palette = "YlGnBu")+
-   scale_x_continuous("Month", breaks = c(3,4,5,6,7,8,9,10,11))+ 
+#scale_fill_brewer(palette = "YlGnBu")+
+    scale_fill_manual(values = c("lightgrey","#FFE66C","#EBCC5C","#DE9F71","#B490BF","#A26D7C","#533369","#001E36"))+
+   scale_x_continuous("Month", breaks = c(3,4,5,6,7,8,9,10,11,12))+ 
   facet_grid(year~Site)
 all_stage_prop
-#pdf(paste0(path = "Lab_Data_Reproduction/output" ,"/all_repro_stages_proportion.pdf"), height = 7, width = 13)
-#print(all_stage_prop)
-#dev.off()
+pdf(paste0(path = "Lab_Data_Reproduction/output" ,"/all_repro_stages_proportion.pdf"), height = 7, width = 13)
+print(all_stage_prop)
+dev.off()
 
 #Proportion graphs of gametes
 all_gamete_prop <- ggplot(data=filter(df_sex_proportions, !Site=="LAUR"), aes(x=month, y= Proportion, fill=Sex_final)) +
@@ -225,13 +226,13 @@ all_gamete_prop <- ggplot(data=filter(df_sex_proportions, !Site=="LAUR"), aes(x=
   labs(title="Proportion of gametes ratios", x ="month", y = "Proportion")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
   theme(axis.text=element_text(size=12))+
 scale_fill_brewer(palette = "Pastel1")+
-   scale_x_continuous("Month", breaks = c(3,4,5,6,7,8,9,10,11))+ 
+   scale_x_continuous("Month", breaks = c(3,4,5,6,7,8,9,10,11,12))+ 
   facet_grid(year~Site)
 all_gamete_prop
 
-#pdf(paste0(path = "Lab_Data_Reproduction/output" ,"/all_repro_gametes_proportion.pdf"), height = 7, width = 13)
-#print(all_gamete_prop)
-#dev.off()
+pdf(paste0(path = "Lab_Data_Reproduction/output" ,"/all_repro_gametes_proportion.pdf"), height = 7, width = 13)
+print(all_gamete_prop)
+dev.off()
 ```
 #ASHC Summary
 ```{r}
