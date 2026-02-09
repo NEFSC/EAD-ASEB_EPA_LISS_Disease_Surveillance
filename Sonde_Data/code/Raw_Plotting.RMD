@@ -21,8 +21,8 @@ knitr::opts_chunk$set(echo = TRUE,
                       cache = TRUE)
 
 #knitr::opts_knit$set(root.dir = "C:/Users/samjg/Documents/Github_repositories/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
-#knitr::opts_knit$set(root.dir = "C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
-knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
+knitr::opts_knit$set(root.dir = "C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
+#knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
 
 ```
 
@@ -1192,6 +1192,59 @@ ASHC_Monthly_Temperature <- ASHC_Temperature %>% na.omit() %>%
 ASHC_Monthly_Temperature
 
 ```
+
+```{r}
+
+#Line graph with ribbon showing daily min and max
+
+ASHC_pH$Date.Time <- as.character(ASHC_pH$Date.Time)
+date_time <- strsplit(ASHC_pH$Date.Time, " ")  # Split at the space
+ASHC_pH$Date <- sapply(date_time, "[[", 1)  # Extract date
+ASHC_pH$Time <- sapply(date_time, function(x) {
+  if(length(x) >= 2) {
+    x[[2]]  # Extract the second element if it exists
+  } else {
+    NA  # Assign NA if the vector is too short
+  }
+})
+
+ASHC_pH_2 <- ASHC_pH %>%
+  mutate(
+    Date = as.Date(Date, format= "%Y-%m-%d"))
+
+daily_summary <- ASHC_pH_2 %>%
+  group_by(Date) %>%
+  summarise(
+    # Temperature Summaries
+    pH_Mean = mean(mean, na.rm = TRUE),
+    pH_Min = min(mean, na.rm = TRUE),
+    pH_Max = max(mean, na.rm = TRUE),
+    
+    .groups = 'drop')
+
+# Find the overall start and end dates of your data
+start_date <- min(daily_summary$Date, na.rm = TRUE)
+end_date <- max(daily_summary$Date, na.rm = TRUE)
+
+# Create a complete sequence of dates
+all_dates <- data.frame(Date = seq(start_date, end_date, by = "day"))
+
+# Merge the summary data onto the complete date sequence
+# This introduces NA values for any dates missing in daily_summary
+complete_daily_summary <- all_dates %>%
+  left_join(daily_summary, by = "Date")
+
+ggplot(complete_daily_summary, aes(x = Date)) +
+  # geom_ribbon will now have gaps where Temp_Min/Max are NA
+  geom_ribbon(aes(ymin = pH_Min, ymax = pH_Max), 
+              fill = "blue", alpha = 0.2) +
+  
+  # geom_line will now have gaps where Temp_Mean is NA
+  geom_line(aes(y = pH_Mean, color = "pH"), linewidth = 1,
+            color = "blue") 
+```
+
+
 
 #Graphed sonde data for FENC seperated by year
 ```{r}
