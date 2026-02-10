@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0723GOLD_01,07-17-2023,GOLD,1,12-19-2025,Kyra Lenderman,Male,4_Late_Mature,TRUE,10-04-2025,Sarina Dery,Male,4_Late_Mature,more connective tissue > hemocytes -SD,Male,4_Late_Mature
+0723GOLD_02,07-17-2023,GOLD,2,12-19-2025,Kyra Lenderman,Male,6_Post_Spawning,TRUE,10-04-2025,Sarina Dery,Male,4_Late_Mature,more connective tissue > hemocytes - SD,Male,4_Late_Mature
+0723GOLD_03,07-17-2023,GOLD,3,12-19-2025,Kyra Lenderman,Female,7_Reabsorbing,TRUE,10-04-2025,Sarina Dery,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0723GOLD_04,07-17-2023,GOLD,4,12-19-2025,Kyra Lenderman,Male,5_Spawning,TRUE,10-04-2025,Sarina Dery,Male,5_Spawning,,Male,5_Spawning
+0723GOLD_05,07-17-2023,GOLD,5,12-19-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,10-04-2025,Sarina Dery,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0723GOLD_06,07-17-2023,GOLD,6,12-19-2025,Kyra Lenderman,Female,7_Reabsorbing,TRUE,10-04-2025,Sarina Dery,ND,7_Reabsorbing,,Female,7_Reabsorbing
+0723GOLD_07,07-17-2023,GOLD,7,12-19-2025,Kyra Lenderman,ND,7_Reabsorbing,TRUE,10-04-2025,Sarina Dery,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0723GOLD_08,07-17-2023,GOLD,8,12-19-2025,Kyra Lenderman,Male,7_Reabsorbing,TRUE,10-04-2025,Sarina Dery,ND,7_Reabsorbing,,Male,7_Reabsorbing
+0723GOLD_09,07-17-2023,GOLD,9,12-19-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,10-04-2025,Sarina Dery,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0723GOLD_10,07-17-2023,GOLD,10,12-19-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,10-04-2025,Sarina Dery,Female,6_Post_Spawning,Some reabosrping areas - SD ,Female,6_Post_Spawning
+0723GOLD_11,07-17-2023,GOLD,11,12-19-2025,Kyra Lenderman,Male,6_Post_Spawning,TRUE,10-04-2025,Sarina Dery,Male,6_Post_Spawning,,Male,6_Post_Spawning
+0723GOLD_12,07-17-2023,GOLD,12,12-19-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,10-04-2025,Sarina Dery,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0723GOLD_13,07-17-2023,GOLD,13,12-19-2025,Kyra Lenderman,ND,7_Reabsorbing,TRUE,10-04-2025,Sarina Dery,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0723GOLD_14,07-17-2023,GOLD,14,12-19-2025,Kyra Lenderman,ND,7_Reabsorbing,TRUE,10-04-2025,Sarina Dery,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0723GOLD_15,07-17-2023,GOLD,15,12-19-2025,Kyra Lenderman,Hermaphrodite,6_Post_Spawning,TRUE,10-04-2025,Sarina Dery, Hermaphrodite,6_Post_Spawning,, Hermaphrodite,6_Post_Spawning
+0723GOLD_16,07-17-2023,GOLD,16,12-19-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,10-04-2025,Sarina Dery,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0723GOLD_17,07-17-2023,GOLD,17,12-19-2025,Kyra Lenderman,Male,5_Spawning,TRUE,10-04-2025,Sarina Dery,Male,5_Spawning,,Male,5_Spawning
+0723GOLD_18,07-17-2023,GOLD,18,12-19-2025,Kyra Lenderman,Female,7_Reabsorbing,TRUE,10-04-2025,Sarina Dery,Female,7_Reabsorbing,,Female,7_Reabsorbing
+0723GOLD_19,07-17-2023,GOLD,19,12-19-2025,Kyra Lenderman,Male,5_Spawning,TRUE,10-04-2025,Sarina Dery,Male,5_Spawning,Very poor quality slide,Male,5_Spawning
+0723GOLD_20,07-17-2023,GOLD,20,12-19-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,10-04-2025,Sarina Dery,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0723GOLD_21,07-17-2023,GOLD,21,12-19-2025,Kyra Lenderman,ND,7_Reabsorbing,TRUE,10-04-2025,Sarina Dery,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0723GOLD_22,07-17-2023,GOLD,22,12-19-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,10-04-2025,Sarina Dery,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0723GOLD_23,07-17-2023,GOLD,23,12-19-2025,Kyra Lenderman,ND,7_Reabsorbing,TRUE,10-04-2025,Sarina Dery,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0723GOLD_24,07-17-2023,GOLD,24,12-19-2025,Kyra Lenderman,ND,2_Developing,TRUE,10-04-2025,Sarina Dery,ND,2_Developing,,ND,2_Developing
+0723GOLD_25,07-17-2023,GOLD,25,12-19-2025,Kyra Lenderman,ND,7_Reabsorbing,TRUE,10-04-2025,Sarina Dery,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0723GOLD_26,07-17-2023,GOLD,26,12-19-2025,Kyra Lenderman,Male,5_Spawning,TRUE,10-04-2025,Sarina Dery,Male,5_Spawning,,Male,5_Spawning
+0723GOLD_27,07-17-2023,GOLD,27,12-19-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,10-04-2025,Sarina Dery,Female,6_Post_Spawning,Very poor quality slide,Female,6_Post_Spawning
+0723GOLD_28,07-17-2023,GOLD,28,12-19-2025,Kyra Lenderman,Female,5_Spawning,TRUE,10-04-2025,Sarina Dery,Female,5_Spawning,,Female,5_Spawning
+0723GOLD_29,07-17-2023,GOLD,29,12-19-2025,Kyra Lenderman,Male,6_Post_Spawning,TRUE,10-04-2025,Sarina Dery,Male,5_Spawning,majority spawning / left to be spawned ? SD,Male,5_Spawning
+0723GOLD_30,07-17-2023,GOLD,30,12-19-2025,Kyra Lenderman,Female,6_Post_Spawning,TRUE,10-04-2025,Sarina Dery,Female,6_Post_Spawning,,Female,6_Post_Spawning

@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0823LAUR_01,08-14-2023,LAUR,1,05-14-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0823LAUR_02,08-14-2023,LAUR,2,05-14-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0823LAUR_03,08-14-2023,LAUR,3,05-14-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0823LAUR_04,08-14-2023,LAUR,4,05-14-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0823LAUR_05,08-14-2023,LAUR,5,05-14-2025,Sarina Dery,ND,1_Inactive_Indeterminate,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,1_Inactive_Indeterminate
+0823LAUR_06,08-14-2023,LAUR,6,05-14-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0823LAUR_07,08-14-2023,LAUR,7,05-14-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0823LAUR_08,08-14-2023,LAUR,8,05-14-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0823LAUR_09,08-14-2023,LAUR,9,05-14-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0823LAUR_10,08-14-2023,LAUR,10,05-14-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0823LAUR_11,08-14-2023,LAUR,11,05-14-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+0823LAUR_12,08-14-2023,LAUR,12,05-14-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+0823LAUR_13,08-14-2023,LAUR,13,05-14-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+0823LAUR_14,08-14-2023,LAUR,14,05-14-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0823LAUR_15,08-14-2023,LAUR,15,05-14-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0823LAUR_16,08-14-2023,LAUR,16,05-14-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0823LAUR_17,08-14-2023,LAUR,17,05-14-2025,Sarina Dery,Female,6_Post_Spawning,TRUE,07-22-2025,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0823LAUR_18,08-14-2023,LAUR,18,05-14-2025,Sarina Dery,Female,7_Reabsorbing,TRUE,07-22-2025,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+0823LAUR_19,08-14-2023,LAUR,19,,,,,,,,,,No tissue sample,,
+0823LAUR_20,08-14-2023,LAUR,20,05-14-2025,Sarina Dery,ND,7_Reabsorbing,,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0823LAUR_21,08-14-2023,LAUR,21,05-14-2025,Sarina Dery,Male,4_Late_Mature,TRUE,05-14-2025,Kyra Lenderman,Male,4_Late_Mature,,Male,4_Late_Mature
+0823LAUR_22,08-14-2023,LAUR,22,05-14-2025,Sarina Dery,Female,6_Post_Spawning,TRUE,07-22-2025,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0823LAUR_23,08-14-2023,LAUR,23,05-14-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0823LAUR_24,08-14-2023,LAUR,24,05-14-2025,Sarina Dery,Female,7_Reabsorbing,TRUE,07-22-2025,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+0823LAUR_25,08-14-2023,LAUR,25,05-14-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0823LAUR_26,08-14-2023,LAUR,26,05-14-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,Male,7_Reabsorbing,,Male,7_Reabsorbing
+0823LAUR_27,08-14-2023,LAUR,27,05-14-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0823LAUR_28,08-14-2023,LAUR,28,05-14-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,12-31-2025,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0823LAUR_29,08-14-2023,LAUR,29,05-14-2025,Sarina Dery,Female,7_Reabsorbing,TRUE,06-04-2025,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+0823LAUR_30,08-14-2023,LAUR,30,,,,,,,,,,There is no sample 30,,

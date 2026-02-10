@@ -167,10 +167,10 @@ st_rec_ASHC <- summarySE(df_ASHC, measurevar="Count_1", groupvars=c("Site", "dat
 st_rec_ASHC
 
 #Mean spat per shell per replicate
-ASHC_spat <- df_ASHC %>%
-  dplyr::group_by(Replicate, Shell, date_collected) %>%
+ASHC_spat_total <- df_ASHC %>%
+  dplyr::group_by( date_collected) %>%
   dplyr::summarize(sum_count_1 = sum(Count_1),sum_count_2 = sum(Count_2))
-ASHC_spat
+ASHC_spat_total
 
 ASHC_spat_avg <- ASHC_spat %>%
   dplyr::group_by(date_collected, Replicate)%>%
@@ -196,6 +196,11 @@ st_rec_FENC
 
 
 #Mean spat per shell per replicate
+FENC_spat_total <- df_FENC %>%
+  dplyr::group_by(date_collected) %>%
+  dplyr::summarize(sum_count_1 = sum(Count_1),sum_count_2 = sum(Count_2))
+FENC_spat_total
+
 FENC_spat <- df_FENC %>%
   dplyr::group_by(Replicate, Shell, date_collected) %>%
   dplyr::summarize(sum_count_1 = sum(Count_1),sum_count_2 = sum(Count_2))

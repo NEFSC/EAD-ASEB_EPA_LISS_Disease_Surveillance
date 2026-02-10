@@ -4,16 +4,19 @@ author: "Katie McFarland & Mariah Kachmar"
 date: "6/29/2023"
 output: html_document
 
-description: This R code is used to import and summarize RFTM (Rays Fluid Thioglycollate Medium) intensity scoring from the LISS Oyster Health Project's monthly sampling at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. The scale used to score intensity for individuals is the Mackins Scale (citation). This score can be used to calculate prevalence, weighted prevalence and intensity across the population. 
+description: This R code is used to import and summarize RFTM (Rays Fluid Thioglycollate Medium) intensity scoring from the LISS Oyster Health Project's monthly sampling at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. The scale used to score intensity for individuals is the Mackins Scale (citation). This score can be used to calculate prevalence, weighted prevalence and intensity across the population. This code also includes preliminary statistical analysis. 
 ---
-Last updated 11/19/2025 by K.Lenderman
+QAQC Last updated 1/22/2026 by K.Lenderman
  - reviewed data
- - Accuracy %: 84.0%
+ - Accuracy %: 84.3%
+ 
+preliminary stats added 1/23/26 by M. Kachmar
+-started with kruskal-wallis tests and glmm to compare all data and at individual sites
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
-knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 ```
 
 ```{r}
@@ -26,6 +29,12 @@ library("readr")
 library("lubridate")
 library("purrr")
 library("tidyr")
+library("stats")
+library(glmm)
+library(glmmTMB)
+library(effectsize)
+library("mgcv")
+library("car")
 ```
 
 ### This code chunk merges all .csv files within the Tissue processing folder into one data fram and outputs the full dataset into a .csv master file. This allows us to download the raw data as a .csv, add it to the repository folder, and create the master data file without copying and pasting data in excel.
@@ -60,7 +69,6 @@ as.data.frame(data_all)  # Convert tibble to data.frame
 
 data_all <- data_all %>% filter(!is.na(lab_id))
 
-write.csv(data_all, "Master_files\\RFTM_all_data.csv", row.names=FALSE)
 ```
 
 
@@ -92,7 +100,7 @@ data_all <- data_all %>%
   subset(lab_id != "0723LAUR_26")
 
 
-
+write.csv(data_all, "Master_files\\RFTM_all_data.csv", row.names=FALSE)
 ```
 
 # Summary of all data and Completeness Check
@@ -177,6 +185,16 @@ ggplot(data=data_2025, aes(x=month, y=rftm_final, fill=site)) +
   labs(title="Weighted prevalence of Dermo infection in 2025", x ="Date", y = "Weighted prevalence")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
   theme(axis.text=element_text(size=12))+
   facet_wrap(~site)
+
+#Weighted prevalence of dermo infection in 2026
+data_2026 <- data_all %>% filter(year=="2026")
+ggplot(data=data_2026, aes(x=month, y=rftm_final, fill=site)) +
+  geom_boxplot()+  
+ theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  labs(title="Weighted prevalence of Dermo infection in 2026", x ="Date", y = "Weighted prevalence")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  theme(axis.text=element_text(size=12))+
+  facet_wrap(~site)
 ```
 
 ```{r}
@@ -207,7 +225,7 @@ ggplot() +
     geom_point(data=wp_derm, aes(x=date_collected, y=Weighted_prevalence, color=site))+
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+ scale_x_date(date_labels= "%b %Y", date_breaks = "1 month")+ ylim(0,5)+
-  labs(title="Weighted Prevalence of Dermo infection 2023-2025", x ="Month", y = "Weighted Prevalence Score")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  labs(title="Weighted Prevalence of Dermo infection 2023-2026", x ="Month", y = "Weighted Prevalence Score")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
   theme(axis.text=element_text(size=12))
 
 ```
@@ -379,6 +397,20 @@ scale_fill_brewer(palette = "YlOrBr")+
    scale_x_continuous("Month", breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))+ 
   facet_wrap(~site)
 
+# Proportion per month of intensity scores in 2026
+df_intensity_proportions2026<- df_intensity_proportions %>% filter(year=="2026")
+
+ggplot(data=df_intensity_proportions2026, aes(x=month, y= Proportion, fill=intensity_bin)) +
+  geom_bar(width = .5, stat="identity", position = "fill",colour = "black")+  
+   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  labs(fill ="Dermo Intensity")+
+  labs(title="Proportion of Intensity scores of Dermo infection in 2025", x ="month", y = "Proportion")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  theme(axis.text=element_text(size=12))+
+scale_fill_brewer(palette = "YlOrBr")+
+   scale_x_continuous("Month", breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))+ 
+  facet_wrap(~site)
+
 #Winter sampling 
 # winter_intensity <- rbind(df_intensity_proportions2024, df_intensity_proportions2025)
 # 
@@ -408,11 +440,46 @@ RFTM_proportions_all<- ggplot(data=df_intensity_proportions_new, aes(x=month, y=
 scale_fill_brewer(palette = "YlOrBr")+
    scale_x_continuous("Month", breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))+ 
   facet_grid(year ~site)
+RFTM_proportions_all
 
-pdf(paste0(path = "Lab_Data_RFTM/output" ,"/RFTM_proportions_all.pdf"), height = 7, width = 11)
-print(RFTM_proportions_all)
-dev.off()
+# pdf(paste0(path = "Lab_Data_RFTM/output" ,"/RFTM_proportions_all.pdf"), height = 7, width = 11)
+# print(RFTM_proportions_all)
+# dev.off()
 ```
+
+###### Preliminary Statistics on ALL RFTM data ######
+
+  #kruskal- Wallis test - non-parameteric test used to compare three or more independent groups to see if there distributions     differ , alternative to one way ANOVA, suitable for ordinal or continous data
+  #General Linear Mixed Model (glmmTMB function) 
+```{r}
+st_rftm_final
+df_prevalence_summary
+
+#Is rftm_final (wp) significantly different across sites?
+#Is rftm_final (wp) significantly different over time? 
+kruskal.test(rftm_final ~ site ,st_rftm_final)
+kruskal.test(rftm_final ~ date_collected ,st_rftm_final)
+
+#Is rftm_final (wp) different between sites independent of date?
+#is rftm_final (wp) different between dates independent of site?
+#Does rftm_final over time differ at each site? (interaction *)
+glm_rftm_wp <- glmmTMB(rftm_final ~ site * date_collected, st_rftm_final)
+glm_rftm_wp
+Anova(glm_rftm_wp)
+
+
+#Is prevalence different between sites independent of date?
+#is prevalence) different between dates (monthly) independent of site?
+#Does prevalence patterns over time (monthly) differ at each site? (interaction *)
+#Do the yearly variations significantly influence the prevalance independently of the season and location?
+glm_rftm_prevalence <- glmmTMB(prevalence_precentage ~ site * month + year, df_prevalence_summary)
+glm_rftm_prevalence
+Anova(glm_rftm_prevalence)
+
+```
+
+
+########### Individual site summaries and QAQC ###########
 
 # Ash Creek Summary
 ```{r}
@@ -437,6 +504,23 @@ df_ASHC_intensity
 
 ```
 
+#Ash Creek preliminary stats
+```{r}
+
+kruskal.test(rftm_final ~ month, st_intensity_ASHC)
+kruskal.test(rftm_final ~ year, st_intensity_ASHC)
+kruskal.test(rftm_final ~ date_collected, st_intensity_ASHC)
+
+#Is prevalence different across months (independept of year) and year (independent of month) at Ash Creek?
+glm_ASHC_wp <- glmmTMB(rftm_final ~  month + year, st_intensity_ASHC)
+glm_ASHC_wp
+Anova(glm_ASHC_wp)
+
+#Is prevalence different across months (independept of year) and year (independent of month) at Ash Creek?
+glm_ASHC_prevalence <- glmmTMB(prevalence_precentage ~  month + year, df_ASHC_prevalence)
+glm_ASHC_prevalence
+Anova(glm_ASHC_prevalence)
+```
 
 ```{r, echo=FALSE}
 #Graphing weighted prevalence ASHC
@@ -539,6 +623,24 @@ df_FENC_intensity <- df_intensity_summary %>%
 df_FENC_intensity
 
 ```
+#Fence Creek preliminary stats
+```{r}
+#Weighted prevalence
+kruskal.test(rftm_final ~ month, st_intensity_FENC)
+kruskal.test(rftm_final ~ year, st_intensity_FENC)
+kruskal.test(rftm_final ~ date_collected, st_intensityFENC)
+
+#Is WP different across months (independent of year) and year (independent of month) at Fence Creek?
+glm_FENC_wp <- glmmTMB(rftm_final ~  month + year, st_intensity_FENC)
+glm_FENC_wp
+Anova(glm_FENC_wp)
+
+
+#Is prevalence different across months (independent of year) and year (independent of month) at Fence Creek?
+glm_FENC_prevalence <- glmmTMB(prevalence_precentage ~  month + year, df_FENC_prevalence)
+glm_FENC_prevalence
+Anova(glm_FENC_prevalence)
+```
 
 ```{r, echo=FALSE}
 #Graphing weighted prevalence FENC
@@ -552,13 +654,16 @@ ggplot(data=df_FENC, aes(x=date_collected, y=rftm_final, group= date_collected))
 
 
 #Weighted prevalence; can be separated by facet (commented out)
-ggplot(data=st_intensity_FENC, aes(x=date_collected, y=rftm_final)) +
+wp_FENC_plot<- st_intensity_FENC %>%
+  filter(year == "2025") %>%
+  ggplot(aes(x=date_collected, y=rftm_final)) +
   geom_point()+  
   geom_line()+
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
   labs(title="Weighted Prevalence of Dermo infection", x ="Month", y = "Weighted Prevalence Score")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
-  theme(axis.text=element_text(size=12))#+ facet_wrap(~ year, scales = "free", ncol=1)
+  theme(axis.text=element_text(size=12)) +scale_x_date(date_breaks = "1 month", date_labels = "%b")#+ facet_wrap(~ year, scales = "free", ncol=1)
+wp_FENC_plot
 
 ##Prevalence
 ggplot(data=df_FENC_prevalence, aes(x=month, y=prevalence_precentage)) +
@@ -621,6 +726,25 @@ df_GOLD_proportions<-df_intensity_proportions %>%
   filter(site =="GOLD")
 
 df_GOLD_proportions
+```
+
+#Gold Star Beach preliminary stats
+```{r}
+#Weighted prevalence
+kruskal.test(rftm_final ~ month, st_intensity_GOLD)
+kruskal.test(rftm_final ~ year, st_intensity_GOLD)
+kruskal.test(rftm_final ~ date_collected, st_intensity_GOLD)
+
+#Is WP different across months (independent of year) and year (independent of month) at GOLD?
+glm_GOLD_wp <- glmmTMB(rftm_final ~  month + year, st_intensity_GOLD)
+glm_GOLD_wp
+Anova(glm_GOLD_wp)
+
+
+#Is prevalence different across months (independent of year) and year (independent of month) at GOLD?
+glm_GOLD_prevalence <- glmmTMB(prevalence_precentage ~  month + year, df_GOLD_prevalence)
+glm_GOLD_prevalence
+Anova(glm_GOLD_prevalence)
 ```
 
 ```{r, echo=FALSE}
