@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+1124FENC_01,11-12-2024,FENC,1,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,possibly late development of eggs now reabsorping? -SD,ND,7_Reabsorbing
+1124FENC_02,11-12-2024,FENC,2,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1124FENC_03,11-12-2024,FENC,3,11-05-2025,Sarina Dery,Female,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,Female,6_Post_Spawning,possibly late development of eggs now reabsorping? -SD ; don't think this is reabsorption but may be developing or post spawn -kl,Female,7_Reabsorbing
+1124FENC_04,11-12-2024,FENC,4,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,possibly late development of eggs now reabsorping? -SD,ND,7_Reabsorbing
+1124FENC_05,11-12-2024,FENC,5,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,possibly late development of eggs now reabsorping? -SD,ND,7_Reabsorbing
+1124FENC_06,11-12-2024,FENC,6,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1124FENC_07,11-12-2024,FENC,7,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1124FENC_08,11-12-2024,FENC,8,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1124FENC_09,11-12-2024,FENC,9,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,possibly late development of eggs now reabsorping? -SD,ND,7_Reabsorbing
+1124FENC_10,11-12-2024,FENC,10,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1124FENC_11,11-12-2024,FENC,11,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1124FENC_12,11-12-2024,FENC,12,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1124FENC_13,11-12-2024,FENC,13,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,possibly late development of eggs now reabsorping? -SD,ND,7_Reabsorbing
+1124FENC_14,11-12-2024,FENC,14,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,Female,7_Reabsorbing,possibly late development of eggs now reabsorping? -SD,ND,7_Reabsorbing
+1124FENC_15,11-12-2024,FENC,15,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1124FENC_16,11-12-2024,FENC,16,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1124FENC_17,11-12-2024,FENC,17,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,Female,7_Reabsorbing,possibly late development of eggs now reabsorping? -SD,Female,7_Reabsorbing
+1124FENC_18,11-12-2024,FENC,18,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1124FENC_19,11-12-2024,FENC,19,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1124FENC_20,11-12-2024,FENC,20,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1124FENC_21,11-12-2024,FENC,21,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,possibly late development of eggs now reabsorping? -SD,ND,7_Reabsorbing
+1124FENC_22,11-12-2024,FENC,22,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1124FENC_23,11-12-2024,FENC,23,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,possibly late development of eggs now reabsorping? -SD,ND,7_Reabsorbing
+1124FENC_24,11-12-2024,FENC,24,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1124FENC_25,11-12-2024,FENC,25,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,Female,7_Reabsorbing,possibly late development of eggs now reabsorping? -SD,Female,7_Reabsorbing
+1124FENC_26,11-12-2024,FENC,26,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1124FENC_27,11-12-2024,FENC,27,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1124FENC_28,11-12-2024,FENC,28,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1124FENC_29,11-12-2024,FENC,29,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1124FENC_30,11-12-2024,FENC,30,11-05-2025,Sarina Dery,ND,7_Reabsorbing,TRUE,02-18-2026,Kyra Lenderman,ND,7_Reabsorbing,possibly late development of eggs now reabsorping? -SD,ND,7_Reabsorbing
