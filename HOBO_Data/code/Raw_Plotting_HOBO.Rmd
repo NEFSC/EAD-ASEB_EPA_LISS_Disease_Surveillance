@@ -6,8 +6,7 @@ output: html_document
 
 ---
 
-Last updated: 2/9/26 K.Lenderman
- - Addeddaily mean and min and max ribbons for ggplot at each site
+Last updated: 12/12/25 M.Kachmar
 
 
 ```{r setup, include=FALSE}
@@ -110,8 +109,6 @@ View(FENC_means)
 FENC_means_2024 <- FENC_means %>% filter(Date_Time > '2024-04-01 00:00:00' & Date_Time < '2024-11-30 00:00:00' )
 ```
 
-
-
 ```{r}
 FENC_plot<- FENC_means %>%
     ggplot(aes(Date_Time, mean_value))+ geom_point() + 
@@ -153,45 +150,6 @@ pdf(paste0(path_out,"FENC_HOBO.pdf"), height = 7, width = 14)
 print(FENC_plot)
 
 ```
-
-```{r}
-#Line graph with ribbon showing daily min and max - FENC
-
-FENC_HOBO <- FENC_HOBO %>%
-  mutate(
-    Date = as.Date(Date, format= "%m/%d/%Y"))
-
-daily_summary <- FENC_HOBO %>%
-  group_by(Date) %>%
-  summarise(
-    # Temperature Summaries
-    Temp_Mean = mean(Temperature, na.rm = TRUE),
-    Temp_Min = min(Temperature, na.rm = TRUE),
-    Temp_Max = max(Temperature, na.rm = TRUE),
-    
-    .groups = 'drop')
-
-# Find the overall start and end dates of your data
-start_date <- min(daily_summary$Date, na.rm = TRUE)
-end_date <- max(daily_summary$Date, na.rm = TRUE)
-
-# Create a complete sequence of dates
-all_dates <- data.frame(Date = seq(start_date, end_date, by = "day"))
-
-# Merge the summary data onto the complete date sequence
-# This introduces NA values for any dates missing in daily_summary
-complete_daily_summary <- all_dates %>%
-  left_join(daily_summary, by = "Date")
-
-s <- ggplot(complete_daily_summary, aes(x = Date)) +
-  # geom_ribbon will now have gaps where Temp_Min/Max are NA
-  geom_ribbon(aes(ymin = Temp_Min, ymax = Temp_Max), 
-              fill = "red", alpha = 0.2) +
-  
-  # geom_line will now have gaps where Temp_Mean is NA
-  geom_line(aes(y = Temp_Mean, color = "Temperature"), linewidth = 1) 
-```
-
 
 #### Ash Creek ####
 ```{r}
@@ -337,43 +295,7 @@ pdf(paste0(path_out,"ASHC_HOBO.pdf"), height = 7, width = 14)
 print(ASHC_plot)
 
 ```
-```{r}
-#Line graph with ribbon showing daily min and max - FENC
 
-ASHC_HOBO <- ASHC_HOBO %>%
-  mutate(
-    Date = as.Date(Date, format= "%m/%d/%Y"))
-
-daily_summary <- ASHC_HOBO %>%
-  group_by(Date) %>%
-  summarise(
-    # Temperature Summaries
-    Temp_Mean = mean(Temperature, na.rm = TRUE),
-    Temp_Min = min(Temperature, na.rm = TRUE),
-    Temp_Max = max(Temperature, na.rm = TRUE),
-    
-    .groups = 'drop')
-
-# Find the overall start and end dates of your data
-start_date <- min(daily_summary$Date, na.rm = TRUE)
-end_date <- max(daily_summary$Date, na.rm = TRUE)
-
-# Create a complete sequence of dates
-all_dates <- data.frame(Date = seq(start_date, end_date, by = "day"))
-
-# Merge the summary data onto the complete date sequence
-# This introduces NA values for any dates missing in daily_summary
-complete_daily_summary <- all_dates %>%
-  left_join(daily_summary, by = "Date")
-
-ggplot(complete_daily_summary, aes(x = Date)) +
-  # geom_ribbon will now have gaps where Temp_Min/Max are NA
-  geom_ribbon(aes(ymin = Temp_Min, ymax = Temp_Max), 
-              fill = "red", alpha = 0.2) +
-  
-  # geom_line will now have gaps where Temp_Mean is NA
-  geom_line(aes(y = Temp_Mean, color = "Temperature"), linewidth = 1) 
-```
 
 #### juvenile growth Fence Creek ###
 ```{r}
@@ -554,43 +476,6 @@ GOLD_plot
 
 pdf(paste0(path_out,"GOLD_HOBO.pdf"), height = 7, width = 14)
 print(GOLD_plot)
-```
-```{r}
-#Line graph with ribbon showing daily min and max - FENC
-
-GOLD_HOBO <- GOLD_HOBO %>%
-  mutate(
-    Date = as.Date(Date, format= "%m/%d/%Y"))
-
-daily_summary <- GOLD_HOBO %>%
-  group_by(Date) %>%
-  summarise(
-    # Temperature Summaries
-    Temp_Mean = mean(Temperature, na.rm = TRUE),
-    Temp_Min = min(Temperature, na.rm = TRUE),
-    Temp_Max = max(Temperature, na.rm = TRUE),
-    
-    .groups = 'drop')
-
-# Find the overall start and end dates of your data
-start_date <- min(daily_summary$Date, na.rm = TRUE)
-end_date <- max(daily_summary$Date, na.rm = TRUE)
-
-# Create a complete sequence of dates
-all_dates <- data.frame(Date = seq(start_date, end_date, by = "day"))
-
-# Merge the summary data onto the complete date sequence
-# This introduces NA values for any dates missing in daily_summary
-complete_daily_summary <- all_dates %>%
-  left_join(daily_summary, by = "Date")
-
-ggplot(complete_daily_summary, aes(x = Date)) +
-  # geom_ribbon will now have gaps where Temp_Min/Max are NA
-  geom_ribbon(aes(ymin = Temp_Min, ymax = Temp_Max), 
-              fill = "red", alpha = 0.2) +
-  
-  # geom_line will now have gaps where Temp_Mean is NA
-  geom_line(aes(y = Temp_Mean, color = "Temperature"), linewidth = 1) 
 ```
 You can also embed plots, for example:
 

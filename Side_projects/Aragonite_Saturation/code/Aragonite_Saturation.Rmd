@@ -1,0 +1,104 @@
+---
+title: "Aragonite Saturation"
+author: "sarina.dery"
+date: "2026-02-09"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      warning = FALSE, 
+                      message = FALSE, 
+                      cache = TRUE)
+knitr::opts_knit$set(root.dir =
+"C:/Users/sarina.dery/Documents/GitHub/EAD-ASEB_EPA_LISS_Disease_Surveillance/Side_projects/Aragonite_Saturation")
+```
+
+```{r load_libraries, include = TRUE}
+
+library(ggplot2)
+library(dplyr)
+library(gplots)
+library(RColorBrewer)
+library(ggpubr)
+library(stringr)
+library(lubridate)
+library(readr)
+library(reshape2)
+library(tidyverse) # read_csv call from readr, included in tidyverse
+```
+#load data for aragnoite saturation
+```{r}
+Aragonite_master <- read.csv("C:/Users/sarina.dery/Documents/CO2sys_Water_Quality_Data.csv", check.names=FALSE) #%>% dplyr::select(-1) # check.names = F allows with col names with spaces (opthwise fills with a '.') 
+
+Aragonite_master <- rename(Aragonite_master, c("Date collected"="date_collected","Location"="Site", "WAr out"="Aragonite_Sat", "xCO2 out (dry at 1 atm) (ppm)" = "Total CO2 (ppm)", "temp(C) of field"="Temp(C)_Field"))
+
+
+Aragonite_master <- Aragonite_master%>% dplyr::mutate(date_collected= as.Date(date_collected), month = month(date_collected))
+
+Aragonite_master <- Aragonite_master %>% dplyr::mutate(date_collected= as.Date(date_collected), year = year(date_collected))
+
+#changing numeric month to month name
+Aragonite_master$month <- factor(Aragonite_master$month, levels = c("1","2","3","4","5","6","7", "8", "9", "10", "11", "12"),
+                           labels=c("Jan","Feb", "March","April","May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"))
+
+
+head(Aragonite_master)
+```
+```{r}
+Aragonite_master_long<- Aragonite_master %>%  
+                      reshape2::melt(id.vars = c("date_collected", "Site","month","year"),
+                                    measure.vars = c("Salinity","Temp(C)_Field","pH","pCO2 out (matm)","HCO3 out (mmol/kgSW)","CO3 out (mmol/kgSW)","CO2 out (mmol/kgSW)","Aragonite_Sat","Total CO2 (ppm)"))
+head(Aragonite_master_long)
+```
+
+```{r}
+
+#boxplot for aragonite saturation per site 2023-2025
+
+Mean_aragonite_sat_all <- ggplot(data=Aragonite_master_long %>% 
+          filter(variable == "Aragonite_Sat"), aes(x=Site, y=value, fill=Site)) +geom_boxplot()+ #scale_fill_manual(values=c("forestgreen","orange", "purple"))
+  theme_bw() + theme(plot.title = element_text(size = 20))+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  theme(axis.text.x = element_text(size = 12),
+        axis.title.x = element_text(size = 12))+
+  theme(axis.text.y = element_text(size = 12),
+        axis.title.y = element_text(size =15))+
+  labs(title="Mean Aragonite Saturation 2023 - 2025 ", x ="", y = "Aragonite Sauration (Ωar)")+
+  scale_y_continuous(limits = c(0,2))+ facet_wrap(.~year)+
+theme(strip.text = element_text(size = 12))+theme(legend.position = "none")+
+  geom_hline(yintercept = 1, color = "red", size = .5) #red line is at equilibrium 
+
+
+
+pdf(paste0(path = "C:/Users/sarina.dery/Documents/GitHub/EAD-ASEB_EPA_LISS_Disease_Surveillance/Side_projects/Aragonite_Saturation/outputs/Mean_aragonite_sat_all.pdf"), height = 8, width = 10)
+print(Mean_aragonite_sat_all) 
+dev.off()
+
+```
+```{r}
+
+Aragonite_Sat <- Aragonite_master_long %>% filter(variable=="Aragonite_Sat")
+
+```
+
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
