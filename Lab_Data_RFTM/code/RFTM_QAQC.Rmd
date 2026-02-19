@@ -455,6 +455,9 @@ RFTM_proportions_all
 st_rftm_final
 df_prevalence_summary
 
+CT_rftm_final <- filter(st_rftm_final, !site  %in% c("GOLD", "LAUR"))
+CT_prevalence_summary <- filter(df_prevalence_summary, !site  %in% c("GOLD", "LAUR"))
+
 #Is rftm_final (wp) significantly different across sites?
 #Is rftm_final (wp) significantly different over time? 
 kruskal.test(rftm_final ~ site ,st_rftm_final)
@@ -464,7 +467,7 @@ kruskal.test(rftm_final ~ date_collected ,st_rftm_final)
 #is rftm_final (wp) different between dates independent of site?
 #Does rftm_final over time differ at each site? (interaction *)
 glm_rftm_wp <- glmmTMB(rftm_final ~ site * date_collected, st_rftm_final)
-glm_rftm_wp
+summary(glm_rftm_wp)
 Anova(glm_rftm_wp)
 
 
@@ -474,6 +477,29 @@ Anova(glm_rftm_wp)
 #Do the yearly variations significantly influence the prevalance independently of the season and location?
 glm_rftm_prevalence <- glmmTMB(prevalence_precentage ~ site * month + year, df_prevalence_summary)
 glm_rftm_prevalence
+Anova(glm_rftm_prevalence)
+
+
+####### Lets look just at CT sites ########
+#Is rftm_final (wp) significantly different across sites?
+#Is rftm_final (wp) significantly different over time? 
+kruskal.test(rftm_final ~ site ,CT_rftm_final)
+kruskal.test(rftm_final ~ date_collected ,CT_rftm_final)
+
+#Is rftm_final (wp) different between sites independent of date?
+#is rftm_final (wp) different between dates independent of site?
+#Does rftm_final over time differ at each site? (interaction *)
+glm_rftm_wp <- glmmTMB(rftm_final ~ site * date_collected, CT_rftm_final)
+summary(glm_rftm_wp)
+Anova(glm_rftm_wp)
+
+
+#Is prevalence different between sites independent of date?
+#is prevalence) different between dates (monthly) independent of site?
+#Does prevalence patterns over time (monthly) differ at each site? (interaction *)
+#Do the yearly variations significantly influence the prevalance independently of the season and location?
+glm_rftm_prevalence <- glmmTMB(prevalence_precentage ~ site * month + year, CT_prevalence_summary)
+summary(glm_rftm_prevalence)
 Anova(glm_rftm_prevalence)
 
 ```
@@ -628,7 +654,7 @@ df_FENC_intensity
 #Weighted prevalence
 kruskal.test(rftm_final ~ month, st_intensity_FENC)
 kruskal.test(rftm_final ~ year, st_intensity_FENC)
-kruskal.test(rftm_final ~ date_collected, st_intensityFENC)
+kruskal.test(rftm_final ~ date_collected, st_intensity_FENC)
 
 #Is WP different across months (independent of year) and year (independent of month) at Fence Creek?
 glm_FENC_wp <- glmmTMB(rftm_final ~  month + year, st_intensity_FENC)
@@ -817,39 +843,53 @@ scale_fill_brewer(palette = "YlOrBr")
 ```{r}
 
 #pulling in body condition score data
-file_paths <- list.files(path = "Lab_Data_TissueProcessing/raw_data/Files_by_Month",
-                          pattern = "*.csv", full.names = TRUE)
+#file_paths <- list.files(path = "Lab_Data_TissueProcessing/raw_data/Files_by_Month",
+#                          pattern = "*.csv", full.names = TRUE)
 
 
-data_cond <- lapply(file_paths, function(file_path) {
-  read_csv(file_path) %>%
-    mutate(
-      date_collected = as.Date(date_collected,format = "%m/%d/%Y"),
-      date_processed = as.Date(date_processed,format = "%m/%d/%Y"),
-      date_davidsons = as.Date(date_davidsons,format = "%m/%d/%Y"),
-      date_etoh = as.Date(date_etoh,format = "%m/%d/%Y")
-    )
-}) %>%
-  bind_rows
-as.data.frame(data_cond)   
+#data_cond <- lapply(file_paths, function(file_path) {
+#  read_csv(file_path) %>%
+#    mutate(
+#      date_collected = as.Date(date_collected,format = "%m/%d/%Y"),
+#      date_processed = as.Date(date_processed,format = "%m/%d/%Y"),
+#      date_davidsons = as.Date(date_davidsons,format = "%m/%d/%Y"),
+ #     date_etoh = as.Date(date_etoh,format = "%m/%d/%Y")
+#    )
+#}) %>%
+#  bind_rows
+#as.data.frame(data_cond)   
 
 #removing unnecessary columns and NAs
-data_cond <- select(data_cond,-lab_sample, -sample_notes, -dissection_notes, -light_regime, -oyster_zone, -...21:-...33)
-data_cond <- data_cond %>% filter(!is.na(date_collected))
-data_cond <- data_cond %>%
-  subset(lab_id != "0723LAUR_20") %>%
-  subset(lab_id != "0723LAUR_26") %>%
-  subset(lab_id != "1023GOLD_23")
+#data_cond <- select(data_cond,-lab_sample, -sample_notes, -dissection_notes, -light_regime, -oyster_zone, -...21:-...33)
+#data_cond <- data_cond %>% filter(!is.na(date_collected))
+#data_cond <- data_cond %>%
+ # subset(lab_id != "0723LAUR_20") %>%
+  #subset(lab_id != "0723LAUR_26") %>%
+  #subset(lab_id != "1023GOLD_23")
 
 #changing body condition score format
-data_cond<- data_cond %>%
-  mutate(condition_score = dplyr::recode(condition, 
-                                     "1_very_good" = 1, "2_good" = 2, "3_good_minus"= 3, "4_fair_plus"= 4, "5_fair"= 5,"6_fair_minus"= 6, "7_poor_plus"=7,
-                                     "8_poor"= 8, "9_very_poor"= 9))
+#data_cond<- data_cond %>%
+ # mutate(condition_score = dplyr::recode(condition, 
+  #                                   "1_very_good" = 1, "2_good" = 2, "3_good_minus"= 3, "4_fair_plus"= 4, "5_fair"= 5,"6_fair_minus"= 6, "7_poor_plus"=7,
+   #                                  "8_poor"= 8, "9_very_poor"= 9))
+
+data_cond <- read.csv("Master_files/tissue_processing_all_data.csv")
+data_cond
+
+nrow(data_cond)
+nrow(data_all)
 
 #adding rftm final scores to tissue processing data (body condition score included)
+#data_rftm.cond <- data_cond %>%
+#  mutate(rftm_final = data_all$rftm_final)
+
+
 data_rftm.cond <- data_cond %>%
-  mutate(rftm_final = data_all$rftm_final)
+  left_join(
+    data_all %>% select(lab_id, rftm_final),
+    by = "lab_id"
+  )
+
 
 #creating proportions of rftm scores compared to body condtion scores
 data_rftm.cond_prop<- data_rftm.cond %>%
@@ -900,6 +940,94 @@ ggplot(data_rftm.cond, aes(x=condition_score, fill=rftm_final))+
    scale_x_continuous("Body Condition Score", breaks = c(1,2,3,4,5,6,7,8,9))+
   facet_grid(~site ~date_collected)
 
+
+
+################################
+
+#I want to look at disease trends over the proportion of body condition scores
+# First lets subset both data sheets for just CT sites
+data_all_CT <- data_all %>% filter(!site %in% c("GOLD", "LAUR"))
+data_cond_CT <- data_cond %>% filter(!site %in% c("GOLD", "LAUR"))
+
+
+#Create proportion of body condition
+BCS_proportions_CT<- data_cond_CT %>%
+  mutate(condition_score_numeric = as.numeric(condition_score),condition_score_bin = case_when(condition_score == 1 ~ "1", condition_score == 2 ~"2",condition_score == 3 ~ "3", condition_score == 4 ~"4",condition_score == 5 ~ "5", condition_score == 6 ~"6",condition_score == 7 ~ "7", condition_score == 8 ~"8", condition_score ==9 ~"9", TRUE ~ as.character(condition_score))) %>%
+  group_by(site, month, condition_score_bin, year) %>% dplyr::summarise(Count= n()) %>%
+  ungroup() %>%
+  mutate(Proportion = Count/sum(Count))
+
+BCS_proportions_CT<- na.omit(BCS_proportions_CT)
+
+#Create mean of dermo disease
+dermo_trend <- data_all_CT %>%
+  group_by(site, month, year) %>%
+  summarize(
+    mean_rftm = mean(rftm_final, na.rm = TRUE),
+    sd_rftm   = sd(rftm_final, na.rm = TRUE),
+    se_dermo   = sd_rftm / sqrt(n()),  # standard error
+    .groups = "drop"
+  )
+
+BCS_proportions_CT <- BCS_proportions_CT %>%
+  dplyr::mutate(
+    month = dplyr::case_when(
+      month == "Jan"   ~ 1L,
+      month == "Feb"   ~ 2L,
+      month == "March" ~ 3L,
+      month == "April" ~ 4L,
+      month == "May"   ~ 5L,
+      month == "June"  ~ 6L,
+      month == "July"  ~ 7L,
+      month == "Aug"   ~ 8L,
+      month == "Sept"  ~ 9L,
+      month == "Oct"   ~ 10L,
+      month == "Nov"   ~ 11L,
+      month == "Dec"   ~ 12L,
+      TRUE             ~ NA_integer_
+    )
+  ) %>% filter(year != "2026")
+
+dermo_trend <- dermo_trend %>%
+  mutate(month = as.integer(month)) %>% filter(year != "2026")
+  
+
+r1 <- ggplot() +
+  geom_bar(data=BCS_proportions_CT, aes(x=month, y= Proportion, fill=condition_score_bin),width = .5, stat="identity", position = "fill",colour = "black")+  
+   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  #theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  labs(fill ="Body condition score")+
+  labs(title="Proportion of body condition score vs. Dermo Infection Intensity", x ="Month", y = "Proportion")+ #theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  #theme(axis.text=element_text(size=12))+
+  scale_fill_brewer(palette = "Blues", direction = -1) + facet_grid(year ~ site)+
+   scale_x_continuous("Month", breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))
+r1
+  
+
+p <- r1 + geom_line(dermo_trend, mapping = aes(x=month, y=mean_rftm/5), color = "red", size = 1) +
+  scale_y_continuous(sec.axis = sec_axis(~.*5, name = "Dermo Infection Intensity"))+facet_grid(year ~ site)
+p
+
+
+### Lets run some quick stats 
+data_rftm_cond <- data_cond_CT %>%
+  left_join(
+    data_all_CT %>% select(lab_id, rftm_final),
+    by = "lab_id"
+  )
+
+#Lets separate by site
+
+ASHC_rftm_cond <- data_rftm_cond %>% filter(site == "ASHC")
+FENC_rftm_cond <- data_rftm_cond %>% filter(site == "FENC")
+
+# is body condition and rftm scores correlated?
+cor.test(ASHC_rftm_cond$condition_score,ASHC_rftm_cond$rftm_final, method = "spearman" )
+cor.test(ASHC_rftm_cond$condition_score,ASHC_rftm_cond$rftm_final, method = "kendall" )
+
+
+cor.test(FENC_rftm_cond$condition_score,FENC_rftm_cond$rftm_final, method = "spearman" )
+cor.test(FENC_rftm_cond$condition_score,FENC_rftm_cond$rftm_final, method = "kendall" )
 ```
 
 

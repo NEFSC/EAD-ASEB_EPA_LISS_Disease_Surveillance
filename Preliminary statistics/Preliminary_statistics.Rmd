@@ -1,5 +1,5 @@
 ---
-title: "Preliminary Statistics"
+title: "Health and Environment Preliminary Statistics"
 author: "Mariah Kachmar"
 date: "2026-01-22"
 output: html_document
@@ -16,10 +16,69 @@ knitr::opts_chunk$set(echo = TRUE,
                       message = FALSE, 
                       cache = TRUE)
 
-#knitr::opts_knit$set(root.dir = "C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Master_files")
-knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Master_files")
+#knitr::opts_knit$set(root.dir = "C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance")
+knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance")
 
 ```
 
+#Packaged
+```{r}
+library("ggplot2")
+library("ggpubr")
+library("readxl")
+library("plyr")                                     
+library("dplyr")
+library("Rmisc")
+library("readr")  
+library("lubridate")
+library("purrr")
+library("tidyr")
+library("survminer")
+library("survival")
+library("ggpubr")
+library(glmm)
+library(glmmTMB)
+library(effectsize)
+library("mgcv")
+library(car)
+```
+
+## Load data:
+#These are our master files for observed health and environmental parameters
+```{r load data}
+
+#Pull in sonde data
+Sonde_monthly_means <- read.csv("Sonde_data/output/Sonde_monthly_means_wide_master.csv",check.names=TRUE) %>% dplyr::filter(!Site %in% "LAUR") # check.names = F allows with col names with spaces (opthwise fills with a '.' ) , Also removing site LAUR
+
+#Pull in RFTM data
+rftm_summary <- read.csv("Lab_Data_RFTM/output/Completeness_RFTM_intensity_data.csv")
+
+#Pull in body condition data
+
+```
+#reconfigure data to be able to merge RFTM & sonde datafiles 
+```{r}
+
+#add month and year column to RFTM data
+rftm_summary <- rftm_summary %>% dplyr::mutate(Month = month(date_collected), Year = year(date_collected)) %>% rename(Site = site)
+
+#renaming Month column that is actually dates to read correctly and then adding a month column
+Sonde_monthly_means <- Sonde_monthly_means %>% rename(date = Month) %>% dplyr::mutate(Month = month(date)) 
+                                                             
+#merge environmental data and RFTM data by Month, Year, and site
+rftm_env_master <- Sonde_monthly_means %>% dplyr::inner_join(rftm_summary, by = c("Month", "Year", "Site"))
+rftm_env_master
+```
+
+#okay so lets test some stats and see what might be affecting RFTM infection intensity scores (weighted prevalence). 
+```{r}
+#Lets just start off by messing around with temperature and salinity because we know that they impact the disease intensity
 
 
+glm_rftm <- glmmTMB(rftm_final ~ mean_Temperature + mean_Salinity + Site + Month + Year + mean_Temperature:Site + mean_Salinity:Site, data = rftm_env_master)
+#Anova(glm_ph_rftm)
+summary(glm_rftm)
+
+#should we do spearman rank correlations to test relationships? 
+
+```

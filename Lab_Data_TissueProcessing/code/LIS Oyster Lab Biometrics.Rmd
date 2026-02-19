@@ -114,8 +114,24 @@ data_all
 # This chunk of code creates a numerical value in a new column for the body condition scores
 ```{r}
 
-data_all<- data_all %>%
- dplyr::mutate(condition_score = recode(condition), "1_very_good" = 1, "2_good" = 2, "3_good_minus"= 3, "4_fair_plus"= 4, "5_fair"= 5,"6_fair_minus"=6,"7_poor_plus"=7, "8_poor"= 8, "9_very_poor"= 9)
+#data_all<- data_all %>%
+# dplyr::mutate(condition_score = recode(condition), "1_very_good" = 1, "2_good" = 2, "3_good_minus"= 3, "4_fair_plus"= 4, "5_fair"= 5,"6_fair_minus"=6,"7_poor_plus"=7, "8_poor"= 8, "9_very_poor"= 9)
+
+data_all <- data_all %>%
+  dplyr::mutate(
+    condition_score = case_when(
+      condition == "1_very_good" ~ 1,
+      condition == "2_good"      ~ 2,
+      condition == "3_good_minus"~ 3,
+      condition == "4_fair_plus" ~ 4,
+      condition == "5_fair"      ~ 5,
+      condition == "6_fair_minus"~ 6,
+      condition == "7_poor_plus" ~ 7,
+      condition == "8_poor"      ~ 8,
+      condition == "9_very_poor" ~ 9,
+      TRUE                      ~ NA_real_   # optional default
+    )
+  )
 head(data_all)
 
 
@@ -142,6 +158,8 @@ st_height$Completeness <- st_height$N /30
 st_height
 
 write.csv(st_height, "Lab_Data_TissueProcessing/output\\Completeness_tissue_processing_data.csv", row.names=FALSE)
+
+write.csv(data_all, "Master_files/tissue_processing_all_data.csv", row.names=FALSE)
 ```
 #Mean Height
 ```{r}
@@ -360,7 +378,46 @@ scale_fill_brewer(palette = "Blues", direction = -1)+
   facet_grid(year ~site)
 ```
 
+###### Preliminary Statistics on ALL body condition data ######
 
+  #kruskal- Wallis test - non-parameteric test used to compare three or more independent groups to see if there distributions     differ , alternative to one way ANOVA, suitable for ordinal or continous data
+  #General Linear Mixed Model (glmmTMB function) 
+```{r}
+mean_body_condition
+data_all
+
+#Is BC significantly different across sites?
+#Is BC significantly different over time? 
+kruskal.test(condition_score ~ site ,data_all)
+kruskal.test(condition_score ~ date_collected ,data_all)
+
+#Is BC different between sites independent of date?
+#is BC different between dates independent of site?
+#Does BC over time differ at each site? (interaction *)
+glm_bc <- glmmTMB(condition_score ~ site * date_collected, data_all)
+summary(glm_bc)
+Anova(glm_bc)
+
+
+####### Lets look just at CT sites ########
+CT_bc_all <- filter(data_all, !site  %in% c("GOLD", "LAUR"))
+CT_bc_monthlymean <- filter(mean_body_condition, !site  %in% c("GOLD", "LAUR"))
+
+#Is BC significantly different across sites?
+#Is BC significantly different over time? 
+kruskal.test(condition_score ~ site ,CT_bc_all)
+kruskal.test(condition_score ~ date_collected ,CT_bc_all)
+
+#Is BC different between sites independent of date?
+#is BC different between dates independent of site?
+#Does BC over time differ at each site? (interaction *)
+glm_bc_CT <- glmmTMB(condition_score ~ site * date_collected, CT_bc_all)
+summary(glm_bc_CT)
+Anova(glm_bc_CT)
+
+
+
+```
 
 #Shell Pathology - all data
 #Includes 2023 data and all data that is in the 2024 format
