@@ -163,7 +163,7 @@ for(i in 1:nrow(vars)) {
   } # close the loop
 
 
-<<<<<<< HEAD
+
 # Temperature pre October 1st 2023 
 # why? we have a hefty gap in the FENC data during all october, this is 
 # a clean plot for Genevieve's NACE 2024 presentation
