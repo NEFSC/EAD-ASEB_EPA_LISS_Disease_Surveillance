@@ -9,6 +9,8 @@ Updated 1/15/2025 by K.Lenderman
  - data check
  - added new code for 2026 data
  
+ 2/12/26 by M.Kachmar
+ - added some preliminary statistics for body condition 
 
 This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
 

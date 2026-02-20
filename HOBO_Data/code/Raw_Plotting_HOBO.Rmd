@@ -337,6 +337,8 @@ pdf(paste0(path_out,"ASHC_HOBO.pdf"), height = 7, width = 14)
 print(ASHC_plot)
 
 ```
+
+
 ```{r}
 #Line graph with ribbon showing daily min and max - FENC
 
@@ -366,13 +368,23 @@ all_dates <- data.frame(Date = seq(start_date, end_date, by = "day"))
 complete_daily_summary <- all_dates %>%
   left_join(daily_summary, by = "Date")
 
-ggplot(complete_daily_summary, aes(x = Date)) +
+FENC_daily_means<- ggplot(complete_daily_summary, aes(x = Date)) +
   # geom_ribbon will now have gaps where Temp_Min/Max are NA
   geom_ribbon(aes(ymin = Temp_Min, ymax = Temp_Max), 
               fill = "red", alpha = 0.2) +
   
   # geom_line will now have gaps where Temp_Mean is NA
-  geom_line(aes(y = Temp_Mean, color = "Temperature"), linewidth = 1) 
+  geom_line(aes(y = Temp_Mean, color = "Temperature"), linewidth = 1) +
+  
+  #lets make these graphs prettier 
+   ggtitle("Fence Creek, CT") +
+   labs(x = "", y = "") + 
+    theme_classic() + 
+    theme(axis.text = element_text(size = 25), axis.title = element_text(size = 12),axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1) ) +
+     scale_x_date(date_labels = "%b/%Y", date_breaks = "4 months",limits = c(as.Date("2023-06-01"), as.Date("2025-12-30")))+
+                 geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)+
+                 geom_hline(yintercept = 16, color = "blue", linetype = "solid", size = 1)+theme(legend.position = "none")
+FENC_daily_means
 ```
 
 #### juvenile growth Fence Creek ###
@@ -425,12 +437,13 @@ FENC_plot_juv
 
 ```
 
+#The hobo and sonde are missing data so here we are pulling the data together to fill in some of the big gaps
 ```{r}
 
 ASHC_Temp <- ASHC_means %>% dplyr::rename(mean = mean_value, se = se_value , sd = sd_value) 
 
 ASHC_Temp_Sonde <- ASHC_Temperature %>% dplyr::select(-c(date, Month, Year, Site)) %>%
-   dplyr:: mutate(Date_Time = as.POSIXct(`Date.Time`))
+   dplyr:: mutate(Date_Time = as.POSIXct(`Date Time`))
 
   
 ASHC_ALL_TEMP <- rbind(ASHC_Temp , ASHC_Temp_Sonde)
@@ -461,12 +474,68 @@ print(ASHC_plot_ALL)
 
 ASHC_plot1 <- ASHC_plot_ALL + theme(axis.text.x = element_blank())
 
+# graph of both sites
 CT_plot<-ggarrange(ASHC_plot1, FENC_plot,nrow=2) %>%
   annotate_figure(left=text_grob("Temperature", rot=90, size = 30), bottom = text_grob("Time", size = 30))
 CT_plot
 
 pdf(paste0(path_out,"CT_HOBO.pdf"), height = 12, width = 14)
 print(CT_plot)
+
+#Line graph with ribbon showing daily min and max - ASHC
+
+ASHC_ALL_TEMP <- ASHC_ALL_TEMP %>%
+  mutate(
+    Date = as.Date(Date_Time
+                   ))
+
+daily_summary <- ASHC_ALL_TEMP %>%
+  group_by(Date) %>%
+  summarise(
+    # Temperature Summaries
+    Temp_Mean = mean(mean, na.rm = TRUE),
+    Temp_Min = min(mean, na.rm = TRUE),
+    Temp_Max = max(mean, na.rm = TRUE),
+    
+    .groups = 'drop')
+
+# Find the overall start and end dates of your data
+start_date <- min(daily_summary$Date, na.rm = TRUE)
+end_date <- max(daily_summary$Date, na.rm = TRUE)
+
+# Create a complete sequence of dates
+all_dates <- data.frame(Date = seq(start_date, end_date, by = "day"))
+
+# Merge the summary data onto the complete date sequence
+# This introduces NA values for any dates missing in daily_summary
+complete_daily_summary <- all_dates %>%
+  left_join(daily_summary, by = "Date")
+
+ASHC_daily_means <- ggplot(complete_daily_summary, aes(x = Date)) +
+  # geom_ribbon will now have gaps where Temp_Min/Max are NA
+  geom_ribbon(aes(ymin = Temp_Min, ymax = Temp_Max), 
+              fill = "red", alpha = 0.2) +
+  
+  # geom_line will now have gaps where Temp_Mean is NA
+  geom_line(aes(y = Temp_Mean, color = "Temperature"), linewidth = 1) +
+  
+  #lets make these graphs prettier
+   ggtitle("Ash Creek, CT") +
+   labs(x = "", y = "") + 
+    theme_classic() + 
+    theme(axis.text = element_text(size = 25), axis.title = element_text(size = 12),axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1) ) +
+     scale_x_date(date_labels = "%b/%Y", date_breaks = "4 months",limits = c(as.Date("2023-06-01"), as.Date("2025-12-30")))+
+                 geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)+
+                 geom_hline(yintercept = 16, color = "blue", linetype = "solid", size = 1)+theme(legend.position = "none")
+ASHC_daily_means
+
+# graph of both sites
+CT_daily_means<-ggarrange(ASHC_daily_means, FENC_daily_means,nrow=2) %>%
+  annotate_figure(left=text_grob("Mean Daily Temperature", rot=90, size = 30), bottom = text_grob("Time", size = 30))
+CT_daily_means
+
+pdf(paste0(path_out,"CT_daily_means_HOBO.pdf"), height = 12, width = 14)
+print(CT_daily_means)
 
 ```
 
