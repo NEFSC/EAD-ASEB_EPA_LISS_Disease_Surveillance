@@ -1262,7 +1262,7 @@ all_dates <- data.frame(Date = seq(start_date, end_date, by = "day"))
 complete_daily_summary <- all_dates %>%
   left_join(daily_summary, by = "Date")
 
-ggplot(complete_daily_summary, aes(x = Date)) +
+ASH_pH_daily <- ggplot(complete_daily_summary, aes(x = Date)) +
   # geom_ribbon will now have gaps where Temp_Min/Max are NA
   geom_ribbon(aes(ymin = pH_Min, ymax = pH_Max), 
               fill = "black", alpha = 0.2) +
@@ -1277,6 +1277,8 @@ ggplot(complete_daily_summary, aes(x = Date)) +
     theme(axis.text = element_text(size = 25), axis.title = element_text(size = 12),axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1) ) +
      scale_x_date(date_labels = "%b/%Y", date_breaks = "4 months",limits = c(as.Date("2023-06-01"), as.Date("2026-01-30")))+
   geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1)
+
+ASH_pH_daily
 ```
 
 
@@ -1842,7 +1844,7 @@ all_dates <- data.frame(Date = seq(start_date, end_date, by = "day"))
 complete_daily_summary <- all_dates %>%
   left_join(daily_summary, by = "Date")
 
-ggplot(complete_daily_summary, aes(x = Date)) +
+FENC_pH_daily <- ggplot(complete_daily_summary, aes(x = Date)) +
   # geom_ribbon will now have gaps where Temp_Min/Max are NA
   geom_ribbon(aes(ymin = pH_Min, ymax = pH_Max), 
               fill = "blue", alpha = 0.2) +
@@ -1857,6 +1859,8 @@ ggplot(complete_daily_summary, aes(x = Date)) +
     theme(axis.text = element_text(size = 25), axis.title = element_text(size = 12),axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1) ) +
      scale_x_date(date_labels = "%b/%Y", date_breaks = "4 months",limits = c(as.Date("2023-06-01"), as.Date("2026-01-30")))+
   geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1)
+
+FENC_pH_daily 
 ```
 
 ```{r}
@@ -1977,7 +1981,12 @@ FENC_Monthly_Salinity
 
 #lets combine the ash creek and fence creek pH graphs for presentations
 ```{r}
+CT_daily_pH<-ggarrange(ASH_pH_daily, FENC_pH_daily,nrow=2) %>%
+  annotate_figure(left=text_grob("Mean Daily pH", rot=90, size = 30), bottom = text_grob("Time", size = 30))
+CT_daily_pH
 
+pdf(paste0("output/raw_plots/LISS_proposal_plots","CT_daily_pH.pdf"), height = 12, width = 14)
+print(CT_daily_pH)
 ```
 
 # Clean GOLD for the LISS stakeholder reports (NEW YORK)
