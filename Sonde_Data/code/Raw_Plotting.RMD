@@ -21,8 +21,8 @@ knitr::opts_chunk$set(echo = TRUE,
                       cache = TRUE)
 
 #knitr::opts_knit$set(root.dir = "C:/Users/samjg/Documents/Github_repositories/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
-knitr::opts_knit$set(root.dir = "C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
-#knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
+#knitr::opts_knit$set(root.dir = "C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
+knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
 
 ```
 
@@ -194,15 +194,9 @@ for(i in 1:nrow(vars)) {
 #dev.off()
   
 ```
-#Creating monthly means for juvenile growth stud
-=======
-
-```
 
 
 #Creating monthly means for juvenile growth study and statistical analysis
-
->>>>>>> parent of 25347eb (updates)
 ```{r}
 Master_monthly_means <- Master_table %>%
   # Convert Date.Time to date-time format and extract the month and year
@@ -1271,11 +1265,18 @@ complete_daily_summary <- all_dates %>%
 ggplot(complete_daily_summary, aes(x = Date)) +
   # geom_ribbon will now have gaps where Temp_Min/Max are NA
   geom_ribbon(aes(ymin = pH_Min, ymax = pH_Max), 
-              fill = "blue", alpha = 0.2) +
+              fill = "black", alpha = 0.2) +
   
   # geom_line will now have gaps where Temp_Mean is NA
   geom_line(aes(y = pH_Mean, color = "pH"), linewidth = 1,
-            color = "blue") 
+            color = "black") +
+  #lets make it prettier for presentations
+    ggtitle("Ash Creek, CT") +
+   labs(x = "", y = "") + 
+    theme_classic() + 
+    theme(axis.text = element_text(size = 25), axis.title = element_text(size = 12),axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1) ) +
+     scale_x_date(date_labels = "%b/%Y", date_breaks = "4 months",limits = c(as.Date("2023-06-01"), as.Date("2026-01-30")))+
+  geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1)
 ```
 
 
@@ -1802,6 +1803,64 @@ print(FENC_CHLA_plot)
 
 ```{r}
 
+#Line graph with ribbon showing daily min and max
+
+FENC_pH$Date.Time <- as.character(FENC_pH$Date.Time)
+date_time <- strsplit(FENC_pH$Date.Time, " ")  # Split at the space
+FENC_pH$Date <- sapply(date_time, "[[", 1)  # Extract date
+FENC_pH$Time <- sapply(date_time, function(x) {
+  if(length(x) >= 2) {
+    x[[2]]  # Extract the second element if it exists
+  } else {
+    NA  # Assign NA if the vector is too short
+  }
+})
+
+FENC_pH_2 <- FENC_pH %>%
+  mutate(
+    Date = as.Date(Date, format= "%Y-%m-%d"))
+
+daily_summary <- FENC_pH_2 %>%
+  group_by(Date) %>%
+  summarise(
+    # Temperature Summaries
+    pH_Mean = mean(mean, na.rm = TRUE),
+    pH_Min = min(mean, na.rm = TRUE),
+    pH_Max = max(mean, na.rm = TRUE),
+    
+    .groups = 'drop')
+
+# Find the overall start and end dates of your data
+start_date <- min(daily_summary$Date, na.rm = TRUE)
+end_date <- max(daily_summary$Date, na.rm = TRUE)
+
+# Create a complete sequence of dates
+all_dates <- data.frame(Date = seq(start_date, end_date, by = "day"))
+
+# Merge the summary data onto the complete date sequence
+# This introduces NA values for any dates missing in daily_summary
+complete_daily_summary <- all_dates %>%
+  left_join(daily_summary, by = "Date")
+
+ggplot(complete_daily_summary, aes(x = Date)) +
+  # geom_ribbon will now have gaps where Temp_Min/Max are NA
+  geom_ribbon(aes(ymin = pH_Min, ymax = pH_Max), 
+              fill = "blue", alpha = 0.2) +
+  
+  # geom_line will now have gaps where Temp_Mean is NA
+  geom_line(aes(y = pH_Mean, color = "pH"), linewidth = 1,
+            color = "blue") +
+  #lets make it prettier for presentations
+    ggtitle("Fence Creek, CT") +
+   labs(x = "", y = "") + 
+    theme_classic() + 
+    theme(axis.text = element_text(size = 25), axis.title = element_text(size = 12),axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1) ) +
+     scale_x_date(date_labels = "%b/%Y", date_breaks = "4 months",limits = c(as.Date("2023-06-01"), as.Date("2026-01-30")))+
+  geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1)
+```
+
+```{r}
+
 ## DAILY AVERAGES OF DO - FENC ###
 
 FENC_DO$Date.Time <- as.character(FENC_DO$Date.Time)
@@ -1915,6 +1974,11 @@ FENC_Monthly_Salinity
 
 ```
 
+
+#lets combine the ash creek and fence creek pH graphs for presentations
+```{r}
+
+```
 
 # Clean GOLD for the LISS stakeholder reports (NEW YORK)
 #I want to create code to remove outliers for these graphs. Outliers are obvious temperature drops when the sonde is removed from the water. 

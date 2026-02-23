@@ -183,13 +183,23 @@ all_dates <- data.frame(Date = seq(start_date, end_date, by = "day"))
 complete_daily_summary <- all_dates %>%
   left_join(daily_summary, by = "Date")
 
-s <- ggplot(complete_daily_summary, aes(x = Date)) +
+FENC_daily_means<- ggplot(complete_daily_summary, aes(x = Date)) +
   # geom_ribbon will now have gaps where Temp_Min/Max are NA
   geom_ribbon(aes(ymin = Temp_Min, ymax = Temp_Max), 
               fill = "red", alpha = 0.2) +
   
   # geom_line will now have gaps where Temp_Mean is NA
-  geom_line(aes(y = Temp_Mean, color = "Temperature"), linewidth = 1) 
+  geom_line(aes(y = Temp_Mean, color = "Temperature"), linewidth = 1) +
+  
+  #lets make these graphs prettier 
+   ggtitle("Fence Creek, CT") +
+   labs(x = "", y = "") + 
+    theme_classic() + 
+    theme(axis.text = element_text(size = 25), axis.title = element_text(size = 12),axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1) ) +
+     scale_x_date(date_labels = "%b/%Y", date_breaks = "4 months",limits = c(as.Date("2023-06-01"), as.Date("2025-12-30")))+
+                 geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)+
+                 geom_hline(yintercept = 16, color = "blue", linetype = "solid", size = 1)+theme(legend.position = "none")
+FENC_daily_means
 ```
 
 
@@ -368,23 +378,6 @@ all_dates <- data.frame(Date = seq(start_date, end_date, by = "day"))
 complete_daily_summary <- all_dates %>%
   left_join(daily_summary, by = "Date")
 
-FENC_daily_means<- ggplot(complete_daily_summary, aes(x = Date)) +
-  # geom_ribbon will now have gaps where Temp_Min/Max are NA
-  geom_ribbon(aes(ymin = Temp_Min, ymax = Temp_Max), 
-              fill = "red", alpha = 0.2) +
-  
-  # geom_line will now have gaps where Temp_Mean is NA
-  geom_line(aes(y = Temp_Mean, color = "Temperature"), linewidth = 1) +
-  
-  #lets make these graphs prettier 
-   ggtitle("Fence Creek, CT") +
-   labs(x = "", y = "") + 
-    theme_classic() + 
-    theme(axis.text = element_text(size = 25), axis.title = element_text(size = 12),axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1) ) +
-     scale_x_date(date_labels = "%b/%Y", date_breaks = "4 months",limits = c(as.Date("2023-06-01"), as.Date("2025-12-30")))+
-                 geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)+
-                 geom_hline(yintercept = 16, color = "blue", linetype = "solid", size = 1)+theme(legend.position = "none")
-FENC_daily_means
 ```
 
 #### juvenile growth Fence Creek ###
