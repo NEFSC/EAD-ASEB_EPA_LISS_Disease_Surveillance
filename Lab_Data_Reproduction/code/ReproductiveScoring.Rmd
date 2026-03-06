@@ -148,25 +148,25 @@ ggplot(FENC_repro, aes(x=Stage_final, fill=Sex_final))+
   facet_grid(~year)
 
 #Counts graph for stages and gametes
-all_repro <- data_all%>% filter(year=="2023") %>% filter(!Site=="LAUR") %>% filter(!Date_collected=="2023-08-23")
-all_repro$month <-  factor(all_repro$month, levels = c("3","4","5","6","7", "8", "9", "10", "11"),
-        labels=c("March","April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov"))
+all_repro <- data_all%>% filter(year=="2024") %>% filter(!Site=="LAUR") #%>% #filter(!Date_collected=="2023-08-23")
+all_repro$month <-  factor(all_repro$month, levels = c("3","4","5","6","7", "8", "9", "10", "11","12"),
+        labels=c("March","April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"))
 all_repro$Site <-  factor(all_repro$Site, levels = c("ASHC","FENC","GOLD"),
         labels=c("Ash Creek","Fence Creek", "Gold Star"))
-all_repro$Stage_final <-  factor(all_repro$Stage_final, levels = c("1_Inactive_Indeterminate","2_Developing","3_Early_Active","4_Late_Mature","5_Spawning", "6_Post_Spawning", "7_Reabsorbing"),
-        labels=c("Inactive","Developing", "Active", "Mature", "Spawning", "Post Spawning", "Reabsorbing"))
+all_repro$Stage_final <-  factor(all_repro$Stage_final, levels = c("1_Inactive_Indeterminate","2_Developing","3_Early_Active","4_Late_Mature","5_Spawning", "6_Post_Spawning", "7_Reabsorbing","0_Castrated"),
+        labels=c("Inactive","Developing", "Active", "Mature", "Spawning", "Post Spawning", "Reabsorbing","Castrated"))
 all_repro_graph<-ggplot(all_repro, aes(x=Sex_final, fill=Stage_final))+
-  labs(title = "Gametogenesis Scores in 2023 of LIS Study Sites", x="Sex Ratio", y="Reproductive Stage Counts", fill="Reproductive Stages")+
+  labs(title = "Gametogenesis Scores in 2024 of LIS Study Sites", x="Sex Ratio", y="Reproductive Stage Counts", fill="Reproductive Stages")+
   geom_histogram(stat = "count", aes(x=factor(Sex_final, levels = c('Female', 'Male', 'Hermaphrodite', 'ND'))))+
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1), axis.text = element_text(size= 13), axis.title = element_text(size = 15), strip.text = element_text(size = 13), legend.text = element_text(size = 14), legend.title = element_text(size = 15), title = element_text(size = 16), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1))+
+  theme( axis.text = element_text(size= 13), axis.title = element_text(size = 15), strip.text = element_text(size = 13), legend.text = element_text(size = 14), legend.title = element_text(size = 15), title = element_text(size = 16), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1))+
 #scale_fill_wa_d(wacolors$sound_sunset, reverse = TRUE)+
   #scale_fill_manual(values = c("#F4DEC9","#EEBABD","#D69CC3","#B490BF","#A87499","#8D5C8C","#4F3173"))+
   #scale_fill_manual(values = c("#7275C2","#9496DA","#B7B8F0","#DBDCFF","#7684A7","#A08CB9","#4F3173"))+
-  scale_fill_manual(values = c("#FFE66C","#EBCC5C","#DE9F71","#B490BF","#A26D7C","#533369","#001E36"))+
-    scale_x_discrete(labels = c("ND"="Unknown"))+
+  scale_fill_manual(values = c("#FFE66C","#EBCC5C","#DE9F71","#B490BF","#A26D7C","#533369","#001E36","gray"))+
+    scale_x_discrete(labels = c("ND"="Unk", "Female" = "\u2640", "Male" = "\u2642", "Hermaphrodite"=" \u26a5"))+
                   facet_grid(Site~month)
 all_repro_graph
-pdf(paste0(path = "Lab_Data_Reproduction/output" ,"/Reproduction_2023_all.pdf"), height = 7, width = 13)
+pdf(paste0(path = "Lab_Data_Reproduction/output" ,"/Reproduction_2024_all.pdf"), height = 7, width = 13)
 print(all_repro_graph)
 dev.off()
 ```
@@ -290,7 +290,7 @@ ASHC_repro.bcs_2023 <- rbind(ASHC_mature_spawning, ASHC_percent_greater_3)
 #This graph shows body conditions of >=3 (good/ripe) compared to mature/spawning gametes
 ggplot(ASHC_repro.bcs_2023, aes(x=factor(month),y=Percentage, fill = variable))+
   geom_bar(stat = "identity", position = "dodge")+
-  scale_fill_discrete(name = "Factors", labels = c("BCS (1-3 scores)", "Spawning (4-5 scores)"))+
+  scale_fill_discrete(name = "Factors", labels = c("BCS (1-3 scores)", "Histology spawning (4-5 scores)"))+
   labs(title = ">=3 body condtion score compared to histology spawning (5) and mature (4) reproductive score - ASHC 2023",
        x = "Month", y = "Percentage")+
   facet_grid(~year)
@@ -354,7 +354,7 @@ FENC_repro.bcs_2023 <- rbind(FENC_mature_spawning, FENC_percent_greater_3)
 ggplot(FENC_repro.bcs_2023, aes(x=factor(month),y=Percentage, fill = variable))+
   geom_bar(stat = "identity", position = "dodge")+
   scale_fill_discrete(name = "Factors", labels = c("BCS (1-3 scores)", "Histology spawning (4-5 scores)"))+
-  labs(title = ">=3 body condtion score compared to histology spawning (5) and mature (4) reproductive score - FENC 2023",
+  labs(title = ">=3 body condtion score compared to histology spawning (5) and mature (4) reproductive score - FENC",
        x = "Month", y = "Percentage")+
   facet_wrap(~year)
 
