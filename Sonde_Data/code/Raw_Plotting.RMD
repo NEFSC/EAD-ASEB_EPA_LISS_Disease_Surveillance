@@ -5,9 +5,8 @@ date: "2023-10-03"
 output: html_document
 ---
 
-Last updated 01/27/2026 by M.Kachmar
-
-Updated some of the code to remove the bulkiness of this file. We have a lot of repetitive code chunks for graphs that can be removed and we can simply update the date range we want to see and the file name when were running the code (i.e. If we are QAQC'ing 2026 data, change the file to "..._2026")
+Last updated 03/19/2026 by M.Kachmar
+Fence Creek sonde (SN 1005261) was lost in a blizzard/to ice - there is no data files for 02/2026 or 03/2026.
 
 
 ## Setup: 
