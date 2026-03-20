@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0724ASHC_01,07-10-2024,ASHC,1,03-12-2026,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
+0724ASHC_02,07-10-2024,ASHC,2,03-12-2026,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
+0724ASHC_03,07-10-2024,ASHC,3,03-12-2026,Kyra Lenderman,Female,4_Late_Mature,,,,,,Could be spawning ,Female,4_Late_Mature
+0724ASHC_04,07-10-2024,ASHC,4,03-12-2026,Kyra Lenderman,Male,5_Spawning,,,,,,,Male,5_Spawning
+0724ASHC_05,07-10-2024,ASHC,5,03-12-2026,Kyra Lenderman,Female,5_Spawning,,,,,,Could be post spawning ,Female,5_Spawning
+0724ASHC_06,07-10-2024,ASHC,6,03-12-2026,Kyra Lenderman,Female,6_Post_Spawning,,,,,,Could be spawning ,Female,6_Post_Spawning
+0724ASHC_07,07-10-2024,ASHC,7,03-12-2026,Kyra Lenderman,Female,4_Late_Mature,,,,,,Some spawning spots,Female,4_Late_Mature
+0724ASHC_08,07-10-2024,ASHC,8,03-12-2026,Kyra Lenderman,Female,5_Spawning,,,,,,some mature spots,Female,5_Spawning
+0724ASHC_09,07-10-2024,ASHC,9,03-12-2026,Kyra Lenderman,Female,4_Late_Mature,,,,,,,Female,4_Late_Mature
+0724ASHC_10,07-10-2024,ASHC,10,03-12-2026,Kyra Lenderman,Female,4_Late_Mature,,,,,,Some spawning spots,Female,4_Late_Mature
+0724ASHC_11,07-10-2024,ASHC,11,03-12-2026,Kyra Lenderman,Female,4_Late_Mature,,,,,,,Female,4_Late_Mature
+0724ASHC_12,07-10-2024,ASHC,12,03-12-2026,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
+0724ASHC_13,07-10-2024,ASHC,13,03-12-2026,Kyra Lenderman,Male,4_Late_Mature,,,,,,,Male,4_Late_Mature
+0724ASHC_14,07-10-2024,ASHC,14,03-12-2026,Kyra Lenderman,Female,4_Late_Mature,,,,,,,Female,4_Late_Mature
+0724ASHC_15,07-10-2024,ASHC,15,03-12-2026,Kyra Lenderman,Male,5_Spawning,,,,,,,Male,5_Spawning
+0724ASHC_16,07-10-2024,ASHC,16,03-12-2026,Kyra Lenderman,Male,5_Spawning,,,,,,,Male,5_Spawning
+0724ASHC_17,07-10-2024,ASHC,17,03-12-2026,Kyra Lenderman,Female,4_Late_Mature,,,,,,,Female,4_Late_Mature
+0724ASHC_18,07-10-2024,ASHC,18,03-12-2026,Kyra Lenderman,Male,4_Late_Mature,,,,,,,Male,4_Late_Mature
+0724ASHC_19,07-10-2024,ASHC,19,03-12-2026,Kyra Lenderman,Female,4_Late_Mature,,,,,,Some spawning spots,Female,4_Late_Mature
+0724ASHC_20,07-10-2024,ASHC,20,03-12-2026,Kyra Lenderman,Female,4_Late_Mature,,,,,,Some spawning spots,Female,4_Late_Mature
+0724ASHC_21,07-10-2024,ASHC,21,03-12-2026,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
+0724ASHC_22,07-10-2024,ASHC,22,03-12-2026,Kyra Lenderman,Female,4_Late_Mature,,,,,,,Female,4_Late_Mature
+0724ASHC_23,07-10-2024,ASHC,23,03-12-2026,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
+0724ASHC_24,07-10-2024,ASHC,24,03-12-2026,Kyra Lenderman,Female,4_Late_Mature,,,,,,Some spawning spots,Female,4_Late_Mature
+0724ASHC_25,07-10-2024,ASHC,25,03-12-2026,Kyra Lenderman,Male,5_Spawning,,,,,,,Male,5_Spawning
+0724ASHC_26,07-10-2024,ASHC,26,03-12-2026,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
+0724ASHC_27,07-10-2024,ASHC,27,03-12-2026,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
+0724ASHC_28,07-10-2024,ASHC,28,03-12-2026,Kyra Lenderman,Female,4_Late_Mature,,,,,,Some spawning spots,Female,4_Late_Mature
+0724ASHC_29,07-10-2024,ASHC,29,03-12-2026,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
+0724ASHC_30,07-10-2024,ASHC,30,03-12-2026,Kyra Lenderman,Female,5_Spawning,,,,,,,Female,5_Spawning
