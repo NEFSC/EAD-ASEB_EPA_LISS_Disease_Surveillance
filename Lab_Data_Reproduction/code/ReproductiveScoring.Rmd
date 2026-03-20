@@ -156,14 +156,14 @@ all_repro$Site <-  factor(all_repro$Site, levels = c("ASHC","FENC","GOLD"),
 all_repro$Stage_final <-  factor(all_repro$Stage_final, levels = c("1_Inactive_Indeterminate","2_Developing","3_Early_Active","4_Late_Mature","5_Spawning", "6_Post_Spawning", "7_Reabsorbing","0_Castrated"),
         labels=c("Inactive","Developing", "Active", "Mature", "Spawning", "Post Spawning", "Reabsorbing","Castrated"))
 all_repro_graph<-ggplot(all_repro, aes(x=Sex_final, fill=Stage_final))+
-  labs(title = "Gametogenesis Scores in 2024 of LIS Study Sites", x="Sex Ratio", y="Reproductive Stage Counts", fill="Reproductive Stages")+
+  labs(title = "Gametogenesis Scores in 2024 of LIS Study Sites", x="Sex Ratio", y="Reproductive Stage Counts", fill="Reproductive Stages")+theme_bw()+
   geom_histogram(stat = "count", aes(x=factor(Sex_final, levels = c('Female', 'Male', 'Hermaphrodite', 'ND'))))+
   theme( axis.text = element_text(size= 13), axis.title = element_text(size = 15), strip.text = element_text(size = 13), legend.text = element_text(size = 14), legend.title = element_text(size = 15), title = element_text(size = 16), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1))+
 #scale_fill_wa_d(wacolors$sound_sunset, reverse = TRUE)+
   #scale_fill_manual(values = c("#F4DEC9","#EEBABD","#D69CC3","#B490BF","#A87499","#8D5C8C","#4F3173"))+
   #scale_fill_manual(values = c("#7275C2","#9496DA","#B7B8F0","#DBDCFF","#7684A7","#A08CB9","#4F3173"))+
-  scale_fill_manual(values = c("#FFE66C","#EBCC5C","#DE9F71","#B490BF","#A26D7C","#533369","#001E36","gray"))+
-    scale_x_discrete(labels = c("ND"="Unk", "Female" = "\u2640", "Male" = "\u2642", "Hermaphrodite"=" \u26a5"))+
+  scale_fill_manual(values = c("#FFE66C","#EBCC5C","#DE9F71","#B490BF","#A26D7C","#533369","#001E36","gray80"))+
+    scale_x_discrete(labels = c("ND"="Unk"))+
                   facet_grid(Site~month)
 all_repro_graph
 pdf(paste0(path = "Lab_Data_Reproduction/output" ,"/Reproduction_2024_all.pdf"), height = 7, width = 13)

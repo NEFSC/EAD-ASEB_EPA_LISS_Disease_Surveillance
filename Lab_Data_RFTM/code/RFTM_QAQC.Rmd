@@ -429,6 +429,8 @@ scale_fill_brewer(palette = "YlOrBr")+
 
 # Proportion per month of intensity scores at three sites - all years
 df_intensity_proportions_new<- df_intensity_proportions %>% filter(!site=="LAUR") %>% filter(!year=="2026")
+df_intensity_proportions_new$site <-  factor(df_intensity_proportions_new$site, levels = c("ASHC","FENC","GOLD"),
+        labels=c("Ash Creek","Fence Creek", "Gold Star"))
 
 RFTM_proportions_all<- ggplot(data=df_intensity_proportions_new, aes(x=month, y= Proportion, fill=intensity_bin)) +
   geom_bar(width = .5, stat="identity", position = "fill",colour = "black")+  
@@ -442,7 +444,7 @@ scale_fill_brewer(palette = "YlOrBr")+
   facet_grid(year ~site, scales="free_x")
 RFTM_proportions_all
 
- pdf(paste0(path = "Lab_Data_RFTM/output" ,"/RFTM_proportions_all.pdf"), height = 7, width = 11)
+ pdf(paste0(path = "Lab_Data_RFTM/output" ,"/RFTM_proportions_all.pdf"), height = 7, width = 14)
  print(RFTM_proportions_all)
  dev.off()
 ```

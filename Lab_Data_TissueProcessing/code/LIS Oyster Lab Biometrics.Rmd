@@ -346,7 +346,7 @@ dev.off()
 
 ```{r}
 #Winter sampling 
-# winter_bcs <- rbind(df_BCS_proportions2024, df_BCS_proportions2025)
+# winter_bcs <- rbind(df_BCS_proportions2024, df_BCS_proportions2025, df_BCS_proportions2026)
 # 
 # winter_bcs <- winter_bcs %>% filter(month == "Dec"|month == "Jan"|month == "Feb")
 # 
@@ -363,7 +363,7 @@ dev.off()
 ```
 
 ```{r}
-# Proportion per month of intensity scores at three sites during 2023 & 2024 & 2025
+# Proportion per month of intensity scores at three sites during 2023 - 2026
 df_bcs_proportions_new <- rbind(df_BCS_proportions2023, df_BCS_proportions2024, df_BCS_proportions2025, df_BCS_proportions2026)
 
 df_bcs_proportions_new<- df_bcs_proportions_new %>% filter(!site=="LAUR")
@@ -803,7 +803,7 @@ FENC_percent_greater_3 <- df_FENC %>%
 FENC_percent_greater_3
 
 FENC_BCS_percentage <- FENC_percent_greater_3 %>%
-  filter(year =="2025")%>%
+  #filter(year =="2025")%>%
   ggplot(aes(x = month, y = Percentage)) +
   #geom_bar(width = 0.5, stat = "identity", position = "fill") +
     geom_col()+
