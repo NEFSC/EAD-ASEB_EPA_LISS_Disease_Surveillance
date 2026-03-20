@@ -249,9 +249,9 @@ df8<-read_csv("HOBO_Data\\raw_data\\062025_ASHC_HOBO.csv", col_names = TRUE)%>%
   dplyr::rename(Date_Time = `Date-Time (EDT)`) #%>% 
   #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset","Host Connected"))
 
-df9<-read_csv("HOBO_Data\\raw_data\\022026_ASHC_HOBO.csv", col_names = TRUE)%>%  
+df9<-read_csv("HOBO_Data\\raw_data\\032026_ASHC_HOBO.csv", col_names = TRUE)%>%  
   dplyr::rename(Temperature = `Temperature`) %>%
-  dplyr::rename(Date_Time = `Date-Time (EDT/EST)`) #%>% 
+  dplyr::rename(Date_Time = `Date-Time (EDT)`) #%>% 
   #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset","Host Connected"))
 
 ASHC_HOBO <- rbind(df3,df4,df5,df6,df7, df8, df9)
@@ -513,8 +513,8 @@ complete_daily_summary <- all_dates %>%
 ASHC_daily_means <- ggplot(complete_daily_summary, aes(x = Date)) +
   # geom_ribbon will now have gaps where Temp_Min/Max are NA
   geom_ribbon(aes(ymin = Temp_Min, ymax = Temp_Max), 
-              fill = "red", alpha = 0.2) +
-  
+              fill = "black", alpha = 0.2) +
+  scale_color_manual(values = "black") +
   # geom_line will now have gaps where Temp_Mean is NA
   geom_line(aes(y = Temp_Mean, color = "Temperature"), linewidth = 1) +
   
@@ -522,7 +522,7 @@ ASHC_daily_means <- ggplot(complete_daily_summary, aes(x = Date)) +
    ggtitle("Ash Creek, CT") +
    labs(x = "", y = "") + 
     theme_classic() + 
-    theme(axis.text = element_text(size = 25), axis.title = element_text(size = 12),axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1) ) +
+    theme(axis.text = element_text(size = 25), axis.title = element_text(size = 12),axis.text.x = element_blank() ) +
      scale_x_date(date_labels = "%b/%Y", date_breaks = "4 months",limits = c(as.Date("2023-06-01"), as.Date("2025-12-30")))+
                  geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)+
                  geom_hline(yintercept = 16, color = "blue", linetype = "solid", size = 1)+theme(legend.position = "none")
