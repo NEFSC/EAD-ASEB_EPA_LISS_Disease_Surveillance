@@ -5,9 +5,8 @@ date: "2023-10-03"
 output: html_document
 ---
 
-Last updated 01/27/2026 by M.Kachmar
-
-Updated some of the code to remove the bulkiness of this file. We have a lot of repetitive code chunks for graphs that can be removed and we can simply update the date range we want to see and the file name when were running the code (i.e. If we are QAQC'ing 2026 data, change the file to "..._2026")
+Last updated 03/19/2026 by M.Kachmar
+Fence Creek sonde (SN 1005261) was lost in a blizzard/to ice - there is no data files for 02/2026 or 03/2026.
 
 
 ## Setup: 
@@ -46,6 +45,7 @@ library(tidyverse) # read_csv call from readr, included in tidyverse
 ## Load data:
 
 ```{r load data}
+## Fence Creek sonde (SN 1005261) was lost in a blizzard/to ice - there is no data files for 02/2026 or 03/2026.
 
 Master_table <- read.csv("output/Sonde_master.csv",check.names=FALSE) %>% dplyr::select(-1) # check.names = F allows with col names with spaces (opthwise fills with a '.' )
 
@@ -1075,7 +1075,10 @@ ASHC_DO_plot <- ASHC_DO %>% na.omit() %>%
               ggtitle("DO Concentration 2026") +
               labs(x = "Time", y = "DO Concentration (mg/L)") +
               theme_classic() +
-              theme(legend.position = "none", axis.text= element_text(size= 15))+scale_x_datetime(breaks="1 month", date_labels = "%B")
+pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_DO_2026.pdf"), height = 7, width = 14)
+print(ASHC_DO_plot)
+#ggarrange(ASHC_DO_all, ASHC_DO_callout, ncol = 2, widths = c(2, 1))
+dev.off()              theme(legend.position = "none", axis.text= element_text(size= 15))+scale_x_datetime(breaks="1 month", date_labels = "%B")
 
 ASHC_DO_callout <- ASHC_DO %>% na.omit() %>%
              dplyr::filter(Date.Time > '2023-08-03 00:00:00' & Date.Time < '2023-08-06 00:00:00' ) %>% # change date range needed here
@@ -1102,10 +1105,7 @@ ASHC_DO_callout <- ASHC_DO %>% na.omit() %>%
               theme_classic() +
               theme(legend.position = "none", axis.title.y = element_blank())
 
-pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_DO_2026.pdf"), height = 7, width = 14)
-print(ASHC_DO_plot)
-#ggarrange(ASHC_DO_all, ASHC_DO_callout, ncol = 2, widths = c(2, 1))
-dev.off()
+
 
 
 
@@ -1114,7 +1114,7 @@ dev.off()
 ######### Chlorophyll-a #########
 
 ASHC_CHLA_plot <- ASHC_CHLA %>% na.omit() %>%
-             dplyr::filter(Date.Time > '2026-01-01 00:01:00' & Date.Time < '2026-01-31 23:59:00' ) %>% # change date range needed here
+             dplyr::filter(Date.Time > '2026-01-01 00:01:00' & Date.Time < '2026-12-31 23:59:00' ) %>% # change date range needed here
              dplyr::mutate(Site = case_when(Site == 'ASHC' ~ 'Ash Creek', .default = 'Fence Creek')) %>% 
              ggplot(aes(x=Date.Time, 
                        y=mean, # the mean values
@@ -1170,7 +1170,7 @@ ASHC_DO_avg$date <- as.Date(ASHC_DO_avg$date)
 
 
 ASHC_DAILY_DO_plot <- ASHC_DO_avg %>% 
-   dplyr::filter(date > '2026-01-01 00:00:00' & date < '2026-01-31 00:00:00' ) %>%
+   dplyr::filter(date > '2026-01-01 00:00:00' & date < '2026-03-31 00:00:00' ) %>%
     ggplot(aes(x= date, 
                        y=Daily_mean, # the mean values
                        group=Site)) + # call the new mean
