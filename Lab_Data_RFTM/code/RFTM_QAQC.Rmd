@@ -6,17 +6,17 @@ output: html_document
 
 description: This R code is used to import and summarize RFTM (Rays Fluid Thioglycollate Medium) intensity scoring from the LISS Oyster Health Project's monthly sampling at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. The scale used to score intensity for individuals is the Mackins Scale (citation). This score can be used to calculate prevalence, weighted prevalence and intensity across the population. This code also includes preliminary statistical analysis. 
 ---
-QAQC Last updated 1/22/2026 by K.Lenderman
+QAQC Last updated 3/30/2026 by K.Lenderman
  - reviewed data
- - Accuracy %: 84.3%
+ - Accuracy %: 84.2%
  
 preliminary stats added 1/23/26 by M. Kachmar
 -started with kruskal-wallis tests and glmm to compare all data and at individual sites
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
-#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 ```
 
 ```{r}
@@ -428,7 +428,7 @@ scale_fill_brewer(palette = "YlOrBr")+
 # Intensity_proportion_winter
 
 # Proportion per month of intensity scores at three sites - all years
-df_intensity_proportions_new<- df_intensity_proportions %>% filter(!site=="LAUR") %>% filter(!year=="2026")
+df_intensity_proportions_new<- df_intensity_proportions %>% filter(!site=="LAUR")
 df_intensity_proportions_new$site <-  factor(df_intensity_proportions_new$site, levels = c("ASHC","FENC","GOLD"),
         labels=c("Ash Creek","Fence Creek", "Gold Star"))
 
