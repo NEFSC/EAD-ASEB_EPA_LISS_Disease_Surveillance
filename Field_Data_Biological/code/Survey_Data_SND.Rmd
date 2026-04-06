@@ -201,10 +201,11 @@ rugosity_summary <- summarySE(data = Rugosity_master, measurevar = "Rugosity", g
 
 rugosity_summary #Laural Hollow only has one rugosity measurement, so NAs will appear for the summary points
 
+
 #write.csv(rugosity_summary, "Field_Data_Biological/output/rugosity_summary.csv", row.names=FALSE)
+
+
 ```
-
-
 #### Percent Coverage ####
 
 changing percent coverage categories
@@ -434,6 +435,38 @@ ggplot(data=mean_total_oysters_all%>%filter(Season=="Fall")%>%filter(Site!="LAUR
   facet_wrap(~ Site + Date_collected , scales = "free_x", nrow=3, ncol=3)  #+geom_text(aes(label=Total_Density), vjust=-0.3, size = 3.5)
 #pdf(paste0(path = "Field_Data_Biological/output/CT_Fall_Survey_Total_Density.pdf"), height = 6, width = 11)
 ```
+#Population Height metrics
+```{r}
+#Spring 2023 data was collected and organized in a different manner using a database called Access compared following surveys. Therefore the sheets are pulled in separately to reformat to the current status quo. Each measurement is in a separate file (see below).
+
+shellsize <- read.csv("Field_Data_Biological\\raw_data\\qry_2023-06_Survey_ShellSize.csv") 
+
+#Cleaning up June 2023 survey data to be meragable with other data
+#renaming columns to match current spreadsheets
+
+shellsize <- shellsize %>% dplyr::rename(Date_collected = TripDate) %>% dplyr::rename(Quadrat = QUADRAT_NUM) %>% dplyr::rename(Height = Height_mm) %>% dplyr::rename(Survival_status = SpecimenType)
+colnames(shellsize)
+shellsize$Date_collected <- factor(shellsize$Date_collected, levels = c("6/12/2023","6/14/2023"),
+                                     labels = c("2023-06-12","2023-06-14"))
+#adding columns - season and state the sampling took place
+shellsize$Season<- rep("Spring", nrow(shellsize))
+shellsize$State<- rep("CT", nrow(shellsize))
+#removing unneeded columns
+shellsize<- select( shellsize, -c("QuadSpec_NUM", "Year", "Month", "Day", "Length_mm", "Width_mm", "Specimen_Notes")) 
+#Changing site name and removing unneeded column
+shellsize<- shellsize %>%
+  mutate(Site = recode(Site_Name, "Ash Creek" = "ASHC", "Fence Creek" = "FENC")) %>% 
+  select(-c("Site_Name"))
+
+head(shellsize)
+
+shellsize
+#reorder columns
+shellsize <- shellsize %>% select("Date_collected", "Site", "State", "Quadrat", "Height", "Survival_status", "Season")
+
+```
+#The next code pulls in the current method for collecting and organizing the survey data. This data is from Fall 2023 - present. 
+#Pulling all height data into single sheet
 
 
 ## R Markdown
