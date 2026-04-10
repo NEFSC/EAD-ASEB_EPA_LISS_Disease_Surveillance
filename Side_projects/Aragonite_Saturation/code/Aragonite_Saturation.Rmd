@@ -29,9 +29,9 @@ library(tidyverse) # read_csv call from readr, included in tidyverse
 ```
 #load data for aragnoite saturation
 ```{r}
-Aragonite_master <- read.csv("C:/Users/sarina.dery/Documents/CO2sys_Water_Quality_Data.csv", check.names=FALSE) #%>% dplyr::select(-1) # check.names = F allows with col names with spaces (opthwise fills with a '.') 
+Aragonite_master <- read.csv("raw_data/CO2sys_Water_Quality_Data.csv", check.names=FALSE) #%>% dplyr::select(-1) # check.names = F allows with col names with spaces (opthwise fills with a '.') 
 
-Aragonite_master <- rename(Aragonite_master, c("Date collected"="date_collected","Location"="Site", "WAr out"="Aragonite_Sat", "xCO2 out (dry at 1 atm) (ppm)" = "Total CO2 (ppm)", "temp(C) of field"="Temp(C)_Field"))
+Aragonite_master <- rename(Aragonite_master, c("date_collected"="Date collected","Site"="Location", "Aragonite_Sat"="WAr out", "Total CO2 (ppm)"="xCO2 out (dry at 1 atm) (ppm)", "Temp(C)_Field"="temp(C) of field"))
 
 
 Aragonite_master <- Aragonite_master%>% dplyr::mutate(date_collected= as.Date(date_collected), month = month(date_collected))
@@ -73,11 +73,6 @@ theme(strip.text = element_text(size = 12))+theme(legend.position = "none")+
 pdf(paste0(path = "C:/Users/sarina.dery/Documents/GitHub/EAD-ASEB_EPA_LISS_Disease_Surveillance/Side_projects/Aragonite_Saturation/outputs/Mean_aragonite_sat_all.pdf"), height = 8, width = 10)
 print(Mean_aragonite_sat_all) 
 dev.off()
-
-```
-```{r}
-
-Aragonite_Sat <- Aragonite_master_long %>% filter(variable=="Aragonite_Sat")
 
 ```
 
