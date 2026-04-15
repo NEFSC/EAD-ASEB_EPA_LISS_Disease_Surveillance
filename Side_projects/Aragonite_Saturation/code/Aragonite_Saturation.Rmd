@@ -48,7 +48,7 @@ head(Aragonite_master)
 ```{r}
 Aragonite_master_long<- Aragonite_master %>%  
                       reshape2::melt(id.vars = c("date_collected", "Site","month","year"),
-                                    measure.vars = c("Salinity","Temp(C)_Field","pH","pCO2 out (matm)","HCO3 out (mmol/kgSW)","CO3 out (mmol/kgSW)","CO2 out (mmol/kgSW)","Aragonite_Sat","Total CO2 (ppm)"))
+                                    measure.vars = c("Salinity","Temp(C)_Field","pH out","pCO2 out (matm)","HCO3 out (mmol/kgSW)","CO3 out (mmol/kgSW)","CO2 out (mmol/kgSW)","Aragonite_Sat","Total CO2 (ppm)"))
 head(Aragonite_master_long)
 ```
 
@@ -63,14 +63,14 @@ Mean_aragonite_sat_all <- ggplot(data=Aragonite_master_long %>%
         axis.title.x = element_text(size = 12))+
   theme(axis.text.y = element_text(size = 12),
         axis.title.y = element_text(size =15))+
-  labs(title="Mean Aragonite Saturation 2023 - 2025 ", x ="", y = "Aragonite Sauration (Ωar)")+
-  scale_y_continuous(limits = c(0,2))+ facet_wrap(.~year)+
+  labs(title="Mean Aragonite Saturation 2023 - 2026 ", x ="", y = "Aragonite Sauration (Ωar)")+
+  scale_y_continuous(limits = c(0,2), breaks = seq(0, 2, by = 0.2))+ facet_wrap(.~year, nrow=1 , ncol=4)+
 theme(strip.text = element_text(size = 12))+theme(legend.position = "none")+
   geom_hline(yintercept = 1, color = "red", size = .5) #red line is at equilibrium 
 
 
 
-pdf(paste0(path = "C:/Users/sarina.dery/Documents/GitHub/EAD-ASEB_EPA_LISS_Disease_Surveillance/Side_projects/Aragonite_Saturation/outputs/Mean_aragonite_sat_all.pdf"), height = 8, width = 10)
+pdf(paste0(path = "C:/Users/sarina.dery/Documents/GitHub/EAD-ASEB_EPA_LISS_Disease_Surveillance/Side_projects/Aragonite_Saturation/outputs/Mean_aragonite_sat_all.pdf"), height = 8, width = 12)
 print(Mean_aragonite_sat_all) 
 dev.off()
 

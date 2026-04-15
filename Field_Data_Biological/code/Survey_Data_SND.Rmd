@@ -686,12 +686,13 @@ print(height_ASHC_Dead)
 ```
 #plots
 ```{r}
-ggplot(height_ASHC, aes(x=factor(Season, levels = c("Spring", "Fall")), y=Height, fill=Season)) +
+ggplot(height_ASHC_Live, aes(x=factor(Season, levels = c("Spring", "Fall")), y=Height, fill=Season)) +
   geom_boxplot()+  
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
-  labs(title="AshCreek", x ="Season", y = "Shell Height (mm)")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
-  theme(axis.text=element_text(size=12)) + facet_wrap(~Year)
+  labs(title="AshCreek - Live Oysters", x ="Season", y = "Shell Height (mm)")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  theme(axis.text=element_text(size=12)) + facet_wrap(~Year)+
+pdf(paste0(path = "Field_Data_Biological/output/ASHC_Survey_Live_Shell_Height.pdf"), height = 6, width = 11)
 ```
 #Distribution Live - ASHC
 ```{r}
@@ -758,13 +759,14 @@ print(height_FENC_Dead)
 ```
 #plots
 ```{r}
-ggplot(height_FENC, aes(x=factor(Season, levels = c("Spring", "Fall")), y=Height, fill=Season)) +
+ggplot(height_FENC_Live, aes(x=factor(Season, levels = c("Spring", "Fall")), y=Height, fill=Season)) +
   geom_boxplot()+  
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
-  labs(title="Fence Creek", x ="Season", y = "Shell Height (mm)")+ theme(axis.title.y =
+  labs(title="Fence Creek - Live Oysters", x ="Season", y = "Shell Height (mm)")+ theme(axis.title.y =
   element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
-  theme(axis.text=element_text(size=12)) + facet_wrap(~Year)
+  theme(axis.text=element_text(size=12)) + facet_wrap(~Year)+
+  pdf(paste0(path = "Field_Data_Biological/output/FENC_Survey_Live_Shell_Height.pdf"), height = 6, width = 11)
 
 ```
 #Distribution Live
@@ -798,6 +800,7 @@ FENC_Distribution_Dead
 #print(FENC_Distribution_Dead)
 #dev.off()
 ```
+
 
 #GOLD
 ```{r}
@@ -902,6 +905,10 @@ ggplot(data=df_density_all%>%filter(Site=="GOLD"), aes(x= survival_status, y = D
   labs(title="Gold Star Oyster's Total Count", x ="Survival status", y= "Density (# oyster / m^2 )")+
   scale_y_continuous(limits = c(0,3100), breaks = seq(0,3100, by = 200))+
   facet_wrap(~  Site + factor(Season, levels = c("Fall"))+ Date_collected, scales = "free_x", ncol=3)
+```
+#Bring in BCS from oysters collected on survey dates only - 10/3/2023 ASHC , 10/5/2023 FENC , 10/16/2023 GOLD , 10/17/2023 LAUR , 5/1/2024 ASHC , 5/13/2024 FENC , 8/14/2024 GOLD , 9/23/2024 ASHC , 9/25/2024 FENC , 5/1/2025 ASHC , 5/5/2025 FENC , 9/11/2025 ASHC , 9/15/2025 FENC , 9/23/2025 GOLD 
+```{r}
+
 ```
 
 ## R Markdown
