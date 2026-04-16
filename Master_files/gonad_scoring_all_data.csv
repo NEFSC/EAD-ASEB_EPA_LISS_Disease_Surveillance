@@ -22,13 +22,43 @@
 "0225ASHC_21",2025-02-05,"ASHC",21,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","2_Developing",NA,"ND","2_Developing",NA,NA,NA,NA
 "0225ASHC_22",2025-02-05,"ASHC",22,"11-08-2025","Kyra Lenderman","ND","2_Developing",TRUE,"12-24-2025","Sarina Dery","ND","2_Developing",NA,"ND","2_Developing",NA,NA,NA,NA
 "0225ASHC_23",2025-02-05,"ASHC",23,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing","Diseased?","ND","7_Reabsorbing",NA,NA,NA,NA
-"0225ASHC_24",2025-02-05,"ASHC",24,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","2_Developing","Diseased?-SD","ND","2_Developing",NA,NA,NA,NA
+"0225ASHC_24",2025-02-05,"ASHC",24,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","2_Developing","Diseased?-SD","ND","7_Reabsorbing",NA,NA,NA,NA
 "0225ASHC_25",2025-02-05,"ASHC",25,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing",NA,"ND","7_Reabsorbing",NA,NA,NA,NA
 "0225ASHC_26",2025-02-05,"ASHC",26,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing",NA,"ND","7_Reabsorbing",NA,NA,NA,NA
 "0225ASHC_27",2025-02-05,"ASHC",27,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing","could be developing?-SD","ND","7_Reabsorbing",NA,NA,NA,NA
 "0225ASHC_28",2025-02-05,"ASHC",28,"11-08-2025","Kyra Lenderman","ND","2_Developing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing",NA,"ND","2_Developing",NA,NA,NA,NA
 "0225ASHC_29",2025-02-05,"ASHC",29,"11-08-2025","Kyra Lenderman","Male","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing","could be developing?-SD","ND","7_Reabsorbing",NA,NA,NA,NA
 "0225ASHC_30",2025-02-05,"ASHC",30,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing",NA,"ND","7_Reabsorbing",NA,NA,NA,NA
+"0225FENC_01",2025-02-04,"FENC",1,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing",NA,"ND","7_Reabsorbing",NA,NA,NA,NA
+"0225FENC_02",2025-02-04,"FENC",2,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing",NA,"ND","7_Reabsorbing",NA,NA,NA,NA
+"0225FENC_03",2025-02-04,"FENC",3,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing",NA,"ND","7_Reabsorbing",NA,NA,NA,NA
+"0225FENC_04",2025-02-04,"FENC",4,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing",NA,"ND","7_Reabsorbing",NA,NA,NA,NA
+"0225FENC_05",2025-02-04,"FENC",5,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing",NA,"ND","7_Reabsorbing",NA,NA,NA,NA
+"0225FENC_06",2025-02-04,"FENC",6,"11-08-2025","Kyra Lenderman","ND","0_Castrated",TRUE,"12-24-2025","Sarina Dery","ND","0_Castrated","Diseased?","ND","0_Castrated",NA,NA,NA,NA
+"0225FENC_07",2025-02-04,"FENC",7,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing",NA,"ND","7_Reabsorbing",NA,NA,NA,NA
+"0225FENC_08",2025-02-04,"FENC",8,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing",NA,"ND","7_Reabsorbing",NA,NA,NA,NA
+"0225FENC_09",2025-02-04,"FENC",9,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing",NA,"ND","7_Reabsorbing",NA,NA,NA,NA
+"0225FENC_10",2025-02-04,"FENC",10,"11-08-2025","Kyra Lenderman","ND","2_Developing",TRUE,"12-24-2025","Sarina Dery","ND","2_Developing",NA,"ND","2_Developing",NA,NA,NA,NA
+"0225FENC_11",2025-02-04,"FENC",11,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","Female","2_Developing","Possibly diseased?","Female","7_Reabsorbing",NA,NA,NA,NA
+"0225FENC_12",2025-02-04,"FENC",12,"11-08-2025","Kyra Lenderman","ND","2_Developing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing","Some spots inactive","ND","7_Reabsorbing",NA,NA,NA,NA
+"0225FENC_13",2025-02-04,"FENC",13,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing",NA,"ND","7_Reabsorbing",NA,NA,NA,NA
+"0225FENC_14",2025-02-04,"FENC",14,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing",NA,"ND","7_Reabsorbing",NA,NA,NA,NA
+"0225FENC_15",2025-02-04,"FENC",15,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing",NA,"ND","7_Reabsorbing",NA,NA,NA,NA
+"0225FENC_16",2025-02-04,"FENC",16,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing","developing?-SD","ND","7_Reabsorbing",NA,NA,NA,NA
+"0225FENC_17",2025-02-04,"FENC",17,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing",NA,"ND","7_Reabsorbing",NA,NA,NA,NA
+"0225FENC_18",2025-02-04,"FENC",18,"11-08-2025","Kyra Lenderman","Male","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","Male","2_Developing",NA,"Male","2_Developing",NA,NA,NA,NA
+"0225FENC_19",2025-02-04,"FENC",19,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","Male","2_Developing",NA,"Male","2_Developing",NA,NA,NA,NA
+"0225FENC_20",2025-02-04,"FENC",20,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing",NA,"ND","7_Reabsorbing",NA,NA,NA,NA
+"0225FENC_21",2025-02-04,"FENC",21,"11-08-2025","Kyra Lenderman","Female","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","Female","7_Reabsorbing",NA,"Female","7_Reabsorbing",NA,NA,NA,NA
+"0225FENC_22",2025-02-04,"FENC",22,"11-08-2025","Kyra Lenderman","ND","2_Developing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing",NA,"ND","7_Reabsorbing",NA,NA,NA,NA
+"0225FENC_23",2025-02-04,"FENC",23,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing",NA,"ND","7_Reabsorbing",NA,NA,NA,NA
+"0225FENC_24",2025-02-04,"FENC",24,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing",NA,"ND","7_Reabsorbing",NA,NA,NA,NA
+"0225FENC_25",2025-02-04,"FENC",25,"11-08-2025","Kyra Lenderman","ND","1_Inactive_Indeterminate",TRUE,"12-24-2025","Sarina Dery","ND","1_Inactive_Indeterminate",NA,"ND","1_Inactive_Indeterminate",NA,NA,NA,NA
+"0225FENC_26",2025-02-04,"FENC",26,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing",NA,"ND","7_Reabsorbing",NA,NA,NA,NA
+"0225FENC_27",2025-02-04,"FENC",27,"11-08-2025","Kyra Lenderman","ND","2_Developing",TRUE,"12-24-2025","Sarina Dery","ND","2_Developing",NA,"ND","2_Developing",NA,NA,NA,NA
+"0225FENC_28",2025-02-04,"FENC",28,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing",NA,"ND","7_Reabsorbing",NA,NA,NA,NA
+"0225FENC_29",2025-02-04,"FENC",29,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","2_Developing",NA,"ND","7_Reabsorbing",NA,NA,NA,NA
+"0225FENC_30",2025-02-04,"FENC",30,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"12-24-2025","Sarina Dery","ND","7_Reabsorbing","possibly developing? -SD","ND","7_Reabsorbing",NA,NA,NA,NA
 "0324ASHC_01",2024-03-14,"ASHC",1,"05-10-2025","Sarina Dery","ND","2_Developing",TRUE,"05-13-2025","Kyra Lenderman","ND","2_Developing",NA,"ND","2_Developing",NA,NA,NA,NA
 "0324ASHC_02",2024-03-14,"ASHC",2,"05-10-2025","Sarina Dery","ND","2_Developing",TRUE,"06-04-2025","Kyra Lenderman","ND","2_Developing",NA,"ND","2_Developing",NA,NA,NA,NA
 "0324ASHC_03",2024-03-14,"ASHC",3,"05-10-2025","Sarina Dery","ND","2_Developing",TRUE,"06-04-2025","Kyra Lenderman","ND","2_Developing",NA,"ND","2_Developing",NA,NA,NA,NA
@@ -674,6 +704,66 @@
 "0624GOLD_28",2024-06-20,"GOLD",28,"08-01-2025","Sarina Dery","Male","4_Late_Mature",TRUE,"11-02-2025","Kyra Lenderman","Male","4_Late_Mature",NA,"Male","4_Late_Mature",NA,NA,NA,NA
 "0624GOLD_29",2024-06-20,"GOLD",29,"08-01-2025","Sarina Dery","Female","6_Post_Spawning",TRUE,"11-02-2025","Kyra Lenderman","Female","6_Post_Spawning",NA,"Female","6_Post_Spawning",NA,NA,NA,NA
 "0624GOLD_30",2024-06-20,"GOLD",30,"08-01-2025","Sarina Dery","Female","6_Post_Spawning",TRUE,"11-02-2025","Kyra Lenderman","Female","6_Post_Spawning","post-spawning areas or disease?-SD","Female","6_Post_Spawning",NA,NA,NA,NA
+"0625FENC_01",2025-06-17,"FENC",1,"11-08-2025","Kyra Lenderman","Female","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature","bad cut - SD","Female","4_Late_Mature",NA,NA,NA,NA
+"0625FENC_02",2025-06-17,"FENC",2,"11-08-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature","Tissue is very choppy","Female","4_Late_Mature",NA,NA,NA,NA
+"0625FENC_03",2025-06-17,"FENC",3,"11-08-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Female","5_Spawning",NA,"Female","4_Late_Mature",NA,NA,NA,NA
+"0625FENC_04",2025-06-17,"FENC",4,"11-08-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature","Some early active spots","Female","4_Late_Mature",NA,NA,NA,NA
+"0625FENC_05",2025-06-17,"FENC",5,"11-08-2025","Kyra Lenderman","Male","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Male","3_Early_Active","Immuture sperm with few tails","Male","3_Early_Active",NA,NA,NA,NA
+"0625FENC_06",2025-06-17,"FENC",6,"11-08-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature","part spawning -SD","Female","4_Late_Mature",NA,NA,NA,NA
+"0625FENC_07",2025-06-17,"FENC",7,"11-08-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature","Bad cut","Female","4_Late_Mature",NA,NA,NA,NA
+"0625FENC_08",2025-06-17,"FENC",8,"11-08-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature","Tissue is choppy","Female","4_Late_Mature",NA,NA,NA,NA
+"0625FENC_09",2025-06-17,"FENC",9,"11-08-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature",NA,"Female","4_Late_Mature",NA,NA,NA,NA
+"0625FENC_10",2025-06-17,"FENC",10,"11-08-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature","Tissue is choppy","Female","4_Late_Mature",NA,NA,NA,NA
+"0625FENC_11",2025-06-17,"FENC",11,"11-08-2025","Kyra Lenderman","Female","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Female","3_Early_Active","late mature ? -SD","Female","3_Early_Active",NA,NA,NA,NA
+"0625FENC_12",2025-06-17,"FENC",12,"11-08-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature","Bad cut","Female","4_Late_Mature",NA,NA,NA,NA
+"0625FENC_13",2025-06-17,"FENC",13,"11-08-2025","Kyra Lenderman","Female","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature","part spawning -SD","Female","4_Late_Mature",NA,NA,NA,NA
+"0625FENC_14",2025-06-17,"FENC",14,"11-08-2025","Kyra Lenderman","Female","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature","part spawning -SD","Female","3_Early_Active",NA,NA,NA,NA
+"0625FENC_15",2025-06-17,"FENC",15,"11-08-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature","Tissue is choppy","Female","4_Late_Mature",NA,NA,NA,NA
+"0625FENC_16",2025-06-17,"FENC",16,"11-08-2025","Kyra Lenderman","Female","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature","Many immature eggs - KL some parts looks spawning? - SD","Female","4_Late_Mature",NA,NA,NA,NA
+"0625FENC_17",2025-06-17,"FENC",17,"11-08-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature","part spawning -SD","Female","4_Late_Mature",NA,NA,NA,NA
+"0625FENC_18",2025-06-17,"FENC",18,"11-08-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature","Some early active spots","Female","4_Late_Mature",NA,NA,NA,NA
+"0625FENC_19",2025-06-17,"FENC",19,"11-08-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature",NA,"Female","4_Late_Mature",NA,NA,NA,NA
+"0625FENC_20",2025-06-17,"FENC",20,"11-08-2025","Kyra Lenderman","Female","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature",NA,"Female","4_Late_Mature",NA,NA,NA,NA
+"0625FENC_21",2025-06-17,"FENC",21,"11-08-2025","Kyra Lenderman","Female","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature","Some oddly shaped eggs","Female","4_Late_Mature",NA,NA,NA,NA
+"0625FENC_22",2025-06-17,"FENC",22,"11-08-2025","Kyra Lenderman","Male","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Male","4_Late_Mature",NA,"Male","3_Early_Active",NA,NA,NA,NA
+"0625FENC_23",2025-06-17,"FENC",23,"11-08-2025","Kyra Lenderman","Female","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature","Some mature spots","Female","4_Late_Mature",NA,NA,NA,NA
+"0625FENC_24",2025-06-17,"FENC",24,"11-08-2025","Kyra Lenderman","Female","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature","May be some spawning?","Female","3_Early_Active",NA,NA,NA,NA
+"0625FENC_25",2025-06-17,"FENC",25,"11-08-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature",NA,"Female","4_Late_Mature",NA,NA,NA,NA
+"0625FENC_26",2025-06-17,"FENC",26,"11-08-2025","Kyra Lenderman","Male","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Male","3_Early_Active",NA,"Male","3_Early_Active",NA,NA,NA,NA
+"0625FENC_27",2025-06-17,"FENC",27,"11-08-2025","Kyra Lenderman","Male","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Male","4_Late_Mature",NA,"Male","4_Late_Mature",NA,NA,NA,NA
+"0625FENC_28",2025-06-17,"FENC",28,"11-08-2025","Kyra Lenderman","Male","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Male","4_Late_Mature",NA,"Male","3_Early_Active",NA,NA,NA,NA
+"0625FENC_29",2025-06-17,"FENC",29,"11-08-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature",NA,"Female","4_Late_Mature",NA,NA,NA,NA
+"0625FENC_30",2025-06-17,"FENC",30,"11-08-2025","Kyra Lenderman","Hermaphrodite","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Hermaphrodite","3_Early_Active","Some parts are inactive","Hermaphrodite","3_Early_Active",NA,NA,NA,NA
+"0625GOLD_01",2025-06-24,"GOLD",1,"11-08-2025","Kyra Lenderman","Male","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Male","4_Late_Mature","part spawning - SD","Male","4_Late_Mature",NA,NA,NA,NA
+"0625GOLD_02",2025-06-24,"GOLD",2,"11-08-2025","Kyra Lenderman","Male","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Male","3_Early_Active",NA,"Male","3_Early_Active",NA,NA,NA,NA
+"0625GOLD_03",2025-06-24,"GOLD",3,"11-08-2025","Kyra Lenderman","Male","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Male","4_Late_Mature",NA,"Male","4_Late_Mature",NA,NA,NA,NA
+"0625GOLD_04",2025-06-24,"GOLD",4,"11-08-2025","Kyra Lenderman","Male","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Male","3_Early_Active",NA,"Male","3_Early_Active",NA,NA,NA,NA
+"0625GOLD_05",2025-06-24,"GOLD",5,"11-08-2025","Kyra Lenderman","Female","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Female","3_Early_Active",NA,"Female","3_Early_Active",NA,NA,NA,NA
+"0625GOLD_06",2025-06-24,"GOLD",6,"11-08-2025","Kyra Lenderman","Female","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Female","3_Early_Active","Late mature ? - SD","Female","3_Early_Active",NA,NA,NA,NA
+"0625GOLD_07",2025-06-24,"GOLD",7,"11-08-2025","Kyra Lenderman","Male","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Male","4_Late_Mature",NA,"Male","4_Late_Mature",NA,NA,NA,NA
+"0625GOLD_08",2025-06-24,"GOLD",8,"11-08-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"02-20-2026","Sarina Dery","ND","7_Reabsorbing","Diseased?","ND","7_Reabsorbing",NA,NA,NA,NA
+"0625GOLD_09",2025-06-24,"GOLD",9,"11-08-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Female","5_Spawning","Eggs are oddly shaped","Female","5_Spawning",NA,NA,NA,NA
+"0625GOLD_10",2025-06-24,"GOLD",10,"11-08-2025","Kyra Lenderman","Male","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Male","4_Late_Mature",NA,"Male","4_Late_Mature",NA,NA,NA,NA
+"0625GOLD_11",2025-06-24,"GOLD",11,"11-08-2025","Kyra Lenderman","Male","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Male","3_Early_Active","Immature sperm; not as many tails","Male","3_Early_Active",NA,NA,NA,NA
+"0625GOLD_12",2025-06-24,"GOLD",12,"11-08-2025","Kyra Lenderman","Female","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Female","3_Early_Active","Immature eggs","Female","3_Early_Active",NA,NA,NA,NA
+"0625GOLD_13",2025-06-24,"GOLD",13,"11-08-2025","Kyra Lenderman","Male","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Male","4_Late_Mature",NA,"Male","4_Late_Mature",NA,NA,NA,NA
+"0625GOLD_14",2025-06-24,"GOLD",14,"11-08-2025","Kyra Lenderman","Male","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Male","4_Late_Mature",NA,"Male","3_Early_Active",NA,NA,NA,NA
+"0625GOLD_15",2025-06-24,"GOLD",15,"11-08-2025","Kyra Lenderman","Male","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Male","4_Late_Mature",NA,"Male","4_Late_Mature",NA,NA,NA,NA
+"0625GOLD_16",2025-06-24,"GOLD",16,"11-08-2025","Kyra Lenderman","Male","7_Reabsorbing",TRUE,"02-20-2026","Sarina Dery","Male","7_Reabsorbing",NA,"Male","7_Reabsorbing",NA,NA,NA,NA
+"0625GOLD_17",2025-06-24,"GOLD",17,"11-08-2025","Kyra Lenderman","Male","6_Post_Spawning",TRUE,"02-20-2026","Sarina Dery","Male","4_Late_Mature","Post spawn?- KL . Diseased? - SD","Male","3_Early_Active",NA,NA,NA,NA
+"0625GOLD_18",2025-06-24,"GOLD",18,"11-08-2025","Kyra Lenderman","Male","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Male","3_Early_Active",NA,"Male","3_Early_Active",NA,NA,NA,NA
+"0625GOLD_19",2025-06-24,"GOLD",19,"11-08-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature",NA,"Female","4_Late_Mature",NA,NA,NA,NA
+"0625GOLD_20",2025-06-24,"GOLD",20,"11-08-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature","part spawning ? - SD","Female","4_Late_Mature",NA,NA,NA,NA
+"0625GOLD_21",2025-06-24,"GOLD",21,"11-08-2025","Kyra Lenderman","Male","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Male","4_Late_Mature",NA,"Male","4_Late_Mature",NA,NA,NA,NA
+"0625GOLD_22",2025-06-24,"GOLD",22,"11-08-2025","Kyra Lenderman","Female","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature","Some mature spots","Female","4_Late_Mature",NA,NA,NA,NA
+"0625GOLD_23",2025-06-24,"GOLD",23,"11-08-2025","Kyra Lenderman","Male","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Male","3_Early_Active",NA,"Male","3_Early_Active",NA,NA,NA,NA
+"0625GOLD_24",2025-06-24,"GOLD",24,"11-08-2025","Kyra Lenderman","Female","0_Castrated",TRUE,"02-20-2026","Sarina Dery","Female","0_Castrated","Castured?","Female","0_Castrated",NA,NA,NA,NA
+"0625GOLD_25",2025-06-24,"GOLD",25,"11-08-2025","Kyra Lenderman","Male","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Male","3_Early_Active",NA,"Male","3_Early_Active",NA,NA,NA,NA
+"0625GOLD_26",2025-06-24,"GOLD",26,"11-08-2025","Kyra Lenderman","Male","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Male","4_Late_Mature",NA,"Male","4_Late_Mature",NA,NA,NA,NA
+"0625GOLD_27",2025-06-24,"GOLD",27,"11-08-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature",NA,"Female","4_Late_Mature",NA,NA,NA,NA
+"0625GOLD_28",2025-06-24,"GOLD",28,"11-08-2025","Kyra Lenderman","Male","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Male","4_Late_Mature",NA,"Male","4_Late_Mature",NA,NA,NA,NA
+"0625GOLD_29",2025-06-24,"GOLD",29,"11-08-2025","Kyra Lenderman","Male","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Male","3_Early_Active",NA,"Male","3_Early_Active",NA,NA,NA,NA
+"0625GOLD_30",2025-06-24,"GOLD",30,"11-08-2025","Kyra Lenderman","Female","3_Early_Active",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature","Some sections of mature and spawning?","Female","4_Late_Mature",NA,NA,NA,NA
 "0723ASHC_01",2023-07-10,"ASHC",1,"12-19-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"10-04-2025","Sarina Dery","Female","5_Spawning","post spawned areas and disease - SD","Female","5_Spawning",NA,NA,NA,NA
 "0723ASHC_02",2023-07-10,"ASHC",2,"12-19-2025","Kyra Lenderman","Male","3_Early_Active",TRUE,"10-04-2025","Sarina Dery","Male","4_Late_Mature","No tails present","Male","3_Early_Active",NA,NA,NA,NA
 "0723ASHC_03",2023-07-10,"ASHC",3,"12-19-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"10-04-2025","Sarina Dery","Female","5_Spawning",NA,"Female","5_Spawning",NA,NA,NA,NA
@@ -882,6 +972,36 @@
 "0724GOLD_26",2024-07-22,"GOLD",26,"10-07-2025","Sarina Dery","Male","7_Reabsorbing",TRUE,"12-31-2025","Kyra Lenderman","Male","7_Reabsorbing",NA,"Male","7_Reabsorbing",NA,NA,NA,NA
 "0724GOLD_27",2024-07-22,"GOLD",27,"10-07-2025","Sarina Dery","ND","7_Reabsorbing",TRUE,"12-31-2025","Kyra Lenderman","ND","7_Reabsorbing",NA,"ND","7_Reabsorbing",NA,NA,NA,NA
 "0724GOLD_28",2024-07-22,"GOLD",28,"10-07-2025","Sarina Dery","Female","6_Post_Spawning",TRUE,"12-31-2025","Kyra Lenderman","Female","6_Post_Spawning",NA,"Female","6_Post_Spawning",NA,NA,NA,NA
+"0725ASHC_01",2025-07-14,"ASHC",1,"11-25-2025","Kyra Lenderman","Male","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Male","4_Late_Mature",NA,"Male","4_Late_Mature",NA,NA,NA,NA
+"0725ASHC_02",2025-07-14,"ASHC",2,"11-25-2025","Kyra Lenderman","Female","6_Post_Spawning",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature","check","Female","4_Late_Mature",NA,NA,NA,NA
+"0725ASHC_03",2025-07-14,"ASHC",3,"11-25-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature","Many immature eggs","Female","4_Late_Mature",NA,NA,NA,NA
+"0725ASHC_04",2025-07-14,"ASHC",4,"11-25-2025","Kyra Lenderman","Female","6_Post_Spawning",TRUE,"02-20-2026","Sarina Dery","Female","6_Post_Spawning",NA,"Female","6_Post_Spawning",NA,NA,NA,NA
+"0725ASHC_05",2025-07-14,"ASHC",5,"11-25-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Female","5_Spawning","Some spawning spots","Female","4_Late_Mature",NA,NA,NA,NA
+"0725ASHC_06",2025-07-14,"ASHC",6,"11-25-2025","Kyra Lenderman","Female","5_Spawning",TRUE,"02-20-2026","Sarina Dery","Female","5_Spawning",NA,"Female","5_Spawning",NA,NA,NA,NA
+"0725ASHC_07",2025-07-14,"ASHC",7,"11-25-2025","Kyra Lenderman","Male","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Male","4_Late_Mature",NA,"Male","4_Late_Mature",NA,NA,NA,NA
+"0725ASHC_08",2025-07-14,"ASHC",8,"11-25-2025","Kyra Lenderman","Female","6_Post_Spawning",TRUE,"02-20-2026","Sarina Dery","Female","6_Post_Spawning","Some mature spots","Female","6_Post_Spawning",NA,NA,NA,NA
+"0725ASHC_09",2025-07-14,"ASHC",9,"11-25-2025","Kyra Lenderman","Female","6_Post_Spawning",TRUE,"02-20-2026","Sarina Dery","Female","6_Post_Spawning",NA,"Female","6_Post_Spawning",NA,NA,NA,NA
+"0725ASHC_10",2025-07-14,"ASHC",10,"11-25-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Female","4_Late_Mature","some spawning spots - SD","Female","4_Late_Mature",NA,NA,NA,NA
+"0725ASHC_11",2025-07-14,"ASHC",11,"11-25-2025","Kyra Lenderman","Female","6_Post_Spawning",TRUE,"02-20-2026","Sarina Dery","Female","6_Post_Spawning","Many immature eggs","Female","6_Post_Spawning",NA,NA,NA,NA
+"0725ASHC_12",2025-07-14,"ASHC",12,"11-25-2025","Kyra Lenderman","Female","5_Spawning",TRUE,"02-20-2026","Sarina Dery","Female","5_Spawning","double check","Female","5_Spawning",NA,NA,NA,NA
+"0725ASHC_13",2025-07-14,"ASHC",13,"11-25-2025","Kyra Lenderman","Female","5_Spawning",TRUE,"02-20-2026","Sarina Dery","Female","5_Spawning",NA,"Female","5_Spawning",NA,NA,NA,NA
+"0725ASHC_14",2025-07-14,"ASHC",14,"11-25-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Female","5_Spawning","Some spawing spots","Female","4_Late_Mature",NA,NA,NA,NA
+"0725ASHC_15",2025-07-14,"ASHC",15,"11-25-2025","Kyra Lenderman","Female","6_Post_Spawning",TRUE,"02-20-2026","Sarina Dery","Female","6_Post_Spawning",NA,"Female","6_Post_Spawning",NA,NA,NA,NA
+"0725ASHC_16",2025-07-14,"ASHC",16,"11-25-2025","Kyra Lenderman","Female","6_Post_Spawning",TRUE,"02-20-2026","Sarina Dery","Female","5_Spawning",NA,"Female","5_Spawning",NA,NA,NA,NA
+"0725ASHC_17",2025-07-14,"ASHC",17,"11-25-2025","Kyra Lenderman","Hermaphrodite","0_Castrated",TRUE,"02-20-2026","Sarina Dery","Female","0_Castrated","Diseased? No idea what's going on. Will ask Lydia. Parasite present.","Female","0_Castrated",NA,NA,NA,NA
+"0725ASHC_18",2025-07-14,"ASHC",18,"11-25-2025","Kyra Lenderman","ND","7_Reabsorbing",TRUE,"02-20-2026","Sarina Dery","ND","7_Reabsorbing","diseased?-SD","ND","7_Reabsorbing",NA,NA,NA,NA
+"0725ASHC_19",2025-07-14,"ASHC",19,"11-25-2025","Kyra Lenderman","Male","5_Spawning",TRUE,"02-20-2026","Sarina Dery","Male","5_Spawning",NA,"Male","5_Spawning",NA,NA,NA,NA
+"0725ASHC_20",2025-07-14,"ASHC",20,"11-25-2025","Kyra Lenderman","Female","6_Post_Spawning",TRUE,"02-20-2026","Sarina Dery","Female","0_Castrated","Similar to sample 17, more eggs present. Parasite present","Female","6_Post_Spawning",NA,NA,NA,NA
+"0725ASHC_21",2025-07-14,"ASHC",21,"11-25-2025","Kyra Lenderman","Female","6_Post_Spawning",TRUE,"02-20-2026","Sarina Dery","Female","6_Post_Spawning",NA,"Female","6_Post_Spawning",NA,NA,NA,NA
+"0725ASHC_22",2025-07-14,"ASHC",22,"11-25-2025","Kyra Lenderman","Female","6_Post_Spawning",TRUE,"02-20-2026","Sarina Dery","Female","6_Post_Spawning",NA,"Female","6_Post_Spawning",NA,NA,NA,NA
+"0725ASHC_23",2025-07-14,"ASHC",23,"11-25-2025","Kyra Lenderman","Female","5_Spawning",TRUE,"02-20-2026","Sarina Dery","Female","5_Spawning",NA,"Female","5_Spawning",NA,NA,NA,NA
+"0725ASHC_24",2025-07-14,"ASHC",24,"11-25-2025","Kyra Lenderman","Female","5_Spawning",TRUE,"02-20-2026","Sarina Dery","Female","5_Spawning","Double check","Female","5_Spawning",NA,NA,NA,NA
+"0725ASHC_25",2025-07-14,"ASHC",25,"11-25-2025","Kyra Lenderman","Female","6_Post_Spawning",TRUE,"02-20-2026","Sarina Dery","Female","6_Post_Spawning","Some mature/spawning spots","Female","6_Post_Spawning",NA,NA,NA,NA
+"0725ASHC_26",2025-07-14,"ASHC",26,"11-25-2025","Kyra Lenderman","Female","6_Post_Spawning",TRUE,"02-20-2026","Sarina Dery","Female","6_Post_Spawning",NA,"Female","6_Post_Spawning",NA,NA,NA,NA
+"0725ASHC_27",2025-07-14,"ASHC",27,"11-25-2025","Kyra Lenderman","Female","6_Post_Spawning",TRUE,"02-20-2026","Sarina Dery","Female","6_Post_Spawning",NA,"Female","6_Post_Spawning",NA,NA,NA,NA
+"0725ASHC_28",2025-07-14,"ASHC",28,"11-25-2025","Kyra Lenderman","Female","6_Post_Spawning",TRUE,"02-20-2026","Sarina Dery","Female","5_Spawning",NA,"Female","3_Early_Active",NA,NA,NA,NA
+"0725ASHC_29",2025-07-14,"ASHC",29,"11-25-2025","Kyra Lenderman","Female","5_Spawning",TRUE,"02-20-2026","Sarina Dery","Female","5_Spawning",NA,"Female","5_Spawning",NA,NA,NA,NA
+"0725ASHC_30",2025-07-14,"ASHC",30,"11-25-2025","Kyra Lenderman","Female","4_Late_Mature",TRUE,"02-20-2026","Sarina Dery","Female","5_Spawning","Spawning?","Female","4_Late_Mature",NA,NA,NA,NA
 "0823ASHC_01",2023-08-07,"ASHC",1,"05-08-2025","Kyra Lenderman","Female","7_Reabsorbing",TRUE,"04-25-2025","Sarina Dery","ND","2_Developing",NA,"ND","7_Reabsorbing",NA,NA,NA,NA
 "0823ASHC_02",2023-08-07,"ASHC",2,"05-08-2025","Kyra Lenderman","Female","6_Post_Spawning",TRUE,"04-25-2025","Sarina Dery","Female","7_Reabsorbing","partially post spawned -SD. Potentially diseased- KL","Female","6_Post_Spawning",NA,NA,NA,NA
 "0823ASHC_03",2023-08-07,"ASHC",3,"05-08-2025","Kyra Lenderman","ND","2_Developing",TRUE,"04-25-2025","Sarina Dery","ND","2_Developing",NA,"ND","2_Developing",NA,NA,NA,NA

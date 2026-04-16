@@ -22,7 +22,7 @@ Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicat
 0225ASHC_21,02-05-2025,ASHC,21,11-08-2025,Kyra Lenderman,ND,7_Reabsorbing,TRUE,12-24-2025,Sarina Dery,ND,2_Developing,,ND,2_Developing
 0225ASHC_22,02-05-2025,ASHC,22,11-08-2025,Kyra Lenderman,ND,2_Developing,TRUE,12-24-2025,Sarina Dery,ND,2_Developing,,ND,2_Developing
 0225ASHC_23,02-05-2025,ASHC,23,11-08-2025,Kyra Lenderman,ND,7_Reabsorbing,TRUE,12-24-2025,Sarina Dery,ND,7_Reabsorbing,Diseased?,ND,7_Reabsorbing
-0225ASHC_24,02-05-2025,ASHC,24,11-08-2025,Kyra Lenderman,ND,7_Reabsorbing,TRUE,12-24-2025,Sarina Dery,ND,2_Developing,Diseased?-SD,ND,2_Developing
+0225ASHC_24,02-05-2025,ASHC,24,11-08-2025,Kyra Lenderman,ND,7_Reabsorbing,TRUE,12-24-2025,Sarina Dery,ND,2_Developing,Diseased?-SD,ND,7_Reabsorbing
 0225ASHC_25,02-05-2025,ASHC,25,11-08-2025,Kyra Lenderman,ND,7_Reabsorbing,TRUE,12-24-2025,Sarina Dery,ND,7_Reabsorbing,,ND,7_Reabsorbing
 0225ASHC_26,02-05-2025,ASHC,26,11-08-2025,Kyra Lenderman,ND,7_Reabsorbing,TRUE,12-24-2025,Sarina Dery,ND,7_Reabsorbing,,ND,7_Reabsorbing
 0225ASHC_27,02-05-2025,ASHC,27,11-08-2025,Kyra Lenderman,ND,7_Reabsorbing,TRUE,12-24-2025,Sarina Dery,ND,7_Reabsorbing,could be developing?-SD,ND,7_Reabsorbing

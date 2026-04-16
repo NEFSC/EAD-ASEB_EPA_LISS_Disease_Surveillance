@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0625FENC_01,06-17-2025,FENC,1,11-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,02-20-2026,Sarina Dery,Female,4_Late_Mature,bad cut - SD,Female,4_Late_Mature
+0625FENC_02,06-17-2025,FENC,2,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-20-2026,Sarina Dery,Female,4_Late_Mature,Tissue is very choppy,Female,4_Late_Mature
+0625FENC_03,06-17-2025,FENC,3,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-20-2026,Sarina Dery,Female,5_Spawning,,Female,4_Late_Mature
+0625FENC_04,06-17-2025,FENC,4,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-20-2026,Sarina Dery,Female,4_Late_Mature,Some early active spots,Female,4_Late_Mature
+0625FENC_05,06-17-2025,FENC,5,11-08-2025,Kyra Lenderman,Male,3_Early_Active,TRUE,02-20-2026,Sarina Dery,Male,3_Early_Active,Immuture sperm with few tails,Male,3_Early_Active
+0625FENC_06,06-17-2025,FENC,6,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-20-2026,Sarina Dery,Female,4_Late_Mature,part spawning -SD,Female,4_Late_Mature
+0625FENC_07,06-17-2025,FENC,7,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-20-2026,Sarina Dery,Female,4_Late_Mature,Bad cut,Female,4_Late_Mature
+0625FENC_08,06-17-2025,FENC,8,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-20-2026,Sarina Dery,Female,4_Late_Mature,Tissue is choppy,Female,4_Late_Mature
+0625FENC_09,06-17-2025,FENC,9,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-20-2026,Sarina Dery,Female,4_Late_Mature,,Female,4_Late_Mature
+0625FENC_10,06-17-2025,FENC,10,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-20-2026,Sarina Dery,Female,4_Late_Mature,Tissue is choppy,Female,4_Late_Mature
+0625FENC_11,06-17-2025,FENC,11,11-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,02-20-2026,Sarina Dery,Female,3_Early_Active,late mature ? -SD,Female,3_Early_Active
+0625FENC_12,06-17-2025,FENC,12,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-20-2026,Sarina Dery,Female,4_Late_Mature,Bad cut,Female,4_Late_Mature
+0625FENC_13,06-17-2025,FENC,13,11-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,02-20-2026,Sarina Dery,Female,4_Late_Mature,part spawning -SD,Female,4_Late_Mature
+0625FENC_14,06-17-2025,FENC,14,11-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,02-20-2026,Sarina Dery,Female,4_Late_Mature,part spawning -SD,Female,3_Early_Active
+0625FENC_15,06-17-2025,FENC,15,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-20-2026,Sarina Dery,Female,4_Late_Mature,Tissue is choppy,Female,4_Late_Mature
+0625FENC_16,06-17-2025,FENC,16,11-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,02-20-2026,Sarina Dery,Female,4_Late_Mature,Many immature eggs - KL some parts looks spawning? - SD,Female,4_Late_Mature
+0625FENC_17,06-17-2025,FENC,17,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-20-2026,Sarina Dery,Female,4_Late_Mature,part spawning -SD,Female,4_Late_Mature
+0625FENC_18,06-17-2025,FENC,18,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-20-2026,Sarina Dery,Female,4_Late_Mature,Some early active spots,Female,4_Late_Mature
+0625FENC_19,06-17-2025,FENC,19,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-20-2026,Sarina Dery,Female,4_Late_Mature,,Female,4_Late_Mature
+0625FENC_20,06-17-2025,FENC,20,11-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,02-20-2026,Sarina Dery,Female,4_Late_Mature,,Female,4_Late_Mature
+0625FENC_21,06-17-2025,FENC,21,11-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,02-20-2026,Sarina Dery,Female,4_Late_Mature,Some oddly shaped eggs,Female,4_Late_Mature
+0625FENC_22,06-17-2025,FENC,22,11-08-2025,Kyra Lenderman,Male,3_Early_Active,TRUE,02-20-2026,Sarina Dery,Male,4_Late_Mature,,Male,3_Early_Active
+0625FENC_23,06-17-2025,FENC,23,11-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,02-20-2026,Sarina Dery,Female,4_Late_Mature,Some mature spots,Female,4_Late_Mature
+0625FENC_24,06-17-2025,FENC,24,11-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,02-20-2026,Sarina Dery,Female,4_Late_Mature,May be some spawning?,Female,3_Early_Active
+0625FENC_25,06-17-2025,FENC,25,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-20-2026,Sarina Dery,Female,4_Late_Mature,,Female,4_Late_Mature
+0625FENC_26,06-17-2025,FENC,26,11-08-2025,Kyra Lenderman,Male,3_Early_Active,TRUE,02-20-2026,Sarina Dery,Male,3_Early_Active,,Male,3_Early_Active
+0625FENC_27,06-17-2025,FENC,27,11-08-2025,Kyra Lenderman,Male,4_Late_Mature,TRUE,02-20-2026,Sarina Dery,Male,4_Late_Mature,,Male,4_Late_Mature
+0625FENC_28,06-17-2025,FENC,28,11-08-2025,Kyra Lenderman,Male,3_Early_Active,TRUE,02-20-2026,Sarina Dery,Male,4_Late_Mature,,Male,3_Early_Active
+0625FENC_29,06-17-2025,FENC,29,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-20-2026,Sarina Dery,Female,4_Late_Mature,,Female,4_Late_Mature
+0625FENC_30,06-17-2025,FENC,30,11-08-2025,Kyra Lenderman,Hermaphrodite,3_Early_Active,TRUE,02-20-2026,Sarina Dery,Hermaphrodite,3_Early_Active,Some parts are inactive,Hermaphrodite,3_Early_Active
