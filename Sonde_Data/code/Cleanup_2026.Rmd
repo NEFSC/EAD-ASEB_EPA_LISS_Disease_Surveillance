@@ -12,6 +12,8 @@ output: html_document
 
 * **output**: "Sonde_master_2026.csv"
 
+# Notes:
+ # Fence Creek sonde (SN 1005261) was lost in a blizzard/to ice - there is no data files for 02/2026 or 03/2026. 
 
 ## Setup: 
 
@@ -71,6 +73,8 @@ built to successfully reformat dates according to how they are presented raw, us
 * first, we need to make a generate a list of file names
 
 ```{r generate list of file names}
+
+# Fence Creek sonde (SN 1005261) was lost in a blizzard/to ice - there is no data files for 02/2026 or 03/2026.
 
 file.names.2026         <- data.frame(txt.files = 
                                          (basename(list.files(path = paste0(getwd(),"/",path.raw), 
