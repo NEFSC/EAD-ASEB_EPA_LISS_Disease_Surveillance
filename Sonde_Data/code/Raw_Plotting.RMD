@@ -309,7 +309,7 @@ CT_pH_plot <- CT_pH %>% na.omit() %>%
 CT_pH_plot
 
 pdf(paste0(path = "output/raw_plots/LISS_proposal_plots","/CT_pH_2026.pdf"), height = 6, width = 11) #Change the name of the file here based on the time frame of the graph
-ggarrange(CT_pH_2026, CT_pH_callout_2026, ncol = 2, widths = c(2, 1))
+#ggarrange(CT_pH_2026, CT_pH_callout_2026, ncol = 2, widths = c(2, 1))
 print(CT_pH_plot)
 dev.off()
 
