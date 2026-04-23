@@ -1609,7 +1609,7 @@ FENC_Salinity_plot <- FENC_Salinity %>% na.omit() %>%
 
 FENC_Salinity_plot
 
-pdf(paste0(path = "output/raw_plots/Report_plots/FENC_Salinity_2025.pdf"), height = 7, width = 14)
+pdf(paste0(path = "output/raw_plots/Report_plots/FENC_Salinity_2026.pdf"), height = 7, width = 14)
 print(FENC_Salinity_plot)
 dev.off()
 
