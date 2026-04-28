@@ -22,6 +22,7 @@ knitr::opts_chunk$set(echo = TRUE,
 #knitr::opts_knit$set(root.dir = "C:/Users/samjg/Documents/Github_repositories/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
 #knitr::opts_knit$set(root.dir = "C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
 knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
+knitr::opts_knit$set(root.dir = "C:/Users/sarina.dery/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
 
 ```
 
@@ -2649,7 +2650,7 @@ All_pH.graph <-ggplot()+
   geom_line(data=pH.GOLD.2025%>% filter(Site == "GOLD"), aes(x=Date.Time, 
                        y=mean, color = Site))+
 scale_color_manual(values=c("FENC" = "darksalmon",ASHC = "cornflowerblue", "GOLD" = "darkseagreen")) +
-              ggtitle("pH & Temperature (2023 - 2025)") +
+              ggtitle("pH & Temperature (2023 - 2026)") +
               labs(x = " ", y = "pH") +
               scale_x_datetime(date_labels= "%b %Y", date_breaks = "3 month")+
   theme(axis.text = element_text(size = 18), axis.title = element_text(size = 22), legend.text = element_text(size=18), 
@@ -2692,7 +2693,7 @@ All_salinity.graph <-ggplot()+
   geom_line(data=Salinity.GOLD.2025%>% filter(Site == "GOLD"), aes(x=Date.Time, 
                        y=mean, color = Site))+
 scale_color_manual(values=c("FENC" = "darksalmon",ASHC = "cornflowerblue", "GOLD" = "darkseagreen")) +
-              ggtitle("Salinity (2023 - 2025)") +
+              ggtitle("Mean Temperature and Salinity (2023 - 2026)") +
               labs(x = " ", y = "Salinity") +
               scale_x_datetime(date_labels= "%b %Y", date_breaks = "3 month")+
   theme(axis.text = element_text(size = 18), axis.title = element_text(size = 22), legend.text = element_text(size=18), 
@@ -2700,10 +2701,19 @@ scale_color_manual(values=c("FENC" = "darksalmon",ASHC = "cornflowerblue", "GOLD
 
 All_salinity.graph
 
-pdf(paste0(path = "output/raw_plots/Salinity_all.pdf"), height = 7, width = 14)
+#pdf(paste0(path = "output/raw_plots/Salinity_all.pdf"), height = 7, width = 14)
 print(All_salinity.graph)
-dev.off()
+#dev.off()
 ```
+```{r}
+all_salinityvtemp<-ggarrange(All_salinity.graph,All_temp.graph, ncol = 1)
+all_salinityvtemp
+
+#pdf(paste0(path = "output/raw_plots/Temperature_Salinity_all.pdf"), height = 7, width = 14)
+print(all_salinityvtemp)
+#dev.off()
+```
+
 
 ```{r}
 #overlay graphs (RFTM mean or bcs mean scores per month, overlaid with salinity or temp sonde data)
