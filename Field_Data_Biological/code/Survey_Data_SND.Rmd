@@ -691,8 +691,8 @@ ggplot(height_ASHC_Live, aes(x=factor(Season, levels = c("Spring", "Fall")), y=H
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
   labs(title="AshCreek - Live Oysters", x ="Season", y = "Shell Height (mm)")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
-  theme(axis.text=element_text(size=12)) + facet_wrap(~Year)+
-pdf(paste0(path = "Field_Data_Biological/output/ASHC_Survey_Live_Shell_Height.pdf"), height = 6, width = 11)
+  theme(axis.text=element_text(size=12)) + facet_wrap(~Year)
+#pdf(paste0(path = "Field_Data_Biological/Output/ASHC_Survey_Live_Shell_Height.pdf"), height = 6, width = 11)
 ```
 #Distribution Live - ASHC
 ```{r}
@@ -716,7 +716,7 @@ ASHC_Distribution_Dead<- ggplot(data=height_ASHC_Dead, aes(x= Height)) +
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   labs(title="Ash Creek Dead Oysters ", x ="Shell Height (mm)")+ scale_x_continuous(limits= c(0,200), breaks = seq(0,200, by =10) )+
   scale_y_continuous(limits = c(0,20), breaks = seq(0,20, by = 5))+
-   facet_wrap(~ factor(Season, levels = c("Spring", "Fall")) + Year, scales = "free", nrow=2)
+   facet_wrap(~ factor(Season, levels = c("Spring", "Fall")) + Year, scales = "free", nrow=2 , ncol=3)
 ASHC_Distribution_Dead
 ```
 #FENC
@@ -765,8 +765,8 @@ ggplot(height_FENC_Live, aes(x=factor(Season, levels = c("Spring", "Fall")), y=H
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
   labs(title="Fence Creek - Live Oysters", x ="Season", y = "Shell Height (mm)")+ theme(axis.title.y =
   element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
-  theme(axis.text=element_text(size=12)) + facet_wrap(~Year)+
-  pdf(paste0(path = "Field_Data_Biological/output/FENC_Survey_Live_Shell_Height.pdf"), height = 6, width = 11)
+  theme(axis.text=element_text(size=12)) + facet_wrap(~Year)
+  #pdf(paste0(path = "Field_Data_Biological/output/FENC_Survey_Live_Shell_Height.pdf"), height = 6, width = 11)
 
 ```
 #Distribution Live
