@@ -20,9 +20,9 @@ knitr::opts_chunk$set(echo = TRUE,
                       cache = TRUE)
 
 #knitr::opts_knit$set(root.dir = "C:/Users/samjg/Documents/Github_repositories/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
-#knitr::opts_knit$set(root.dir = "C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
-knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
-knitr::opts_knit$set(root.dir = "C:/Users/sarina.dery/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
+knitr::opts_knit$set(root.dir = "C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
+#knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
+#knitr::opts_knit$set(root.dir = "C:/Users/sarina.dery/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
 
 ```
 
@@ -2593,6 +2593,9 @@ GOLD_Monthly_Salinity
 #Overlay graph - temperature and pH of the three sites (ASHC, FENC, GOLD) for the whole study
 ```{r}
 #Creating data frames for graph. This method removes the lines during the time with no collections, 2023 season to 2024 season.
+#Cleaning up data - removing points when sonde was being deployed
+Master_table_LONG_means$mean[Master_table_LONG_means$mean == "21.761831"] <- NA
+
 TempvspH <- Master_table_LONG_means %>% dplyr::filter(variable == 'Temperature' & Site %in% c('FENC', 'ASHC', 'GOLD')|variable == 'pH' & Site %in% c('FENC', 'ASHC', 'GOLD'))
 TempvspH <- TempvspH %>% dplyr::mutate(Year = year(Date.Time))
 
@@ -2600,6 +2603,8 @@ Temp.2023 <- TempvspH %>% filter(Year=="2023") %>% filter(variable=="Temperature
 Temp.rest.ct <- TempvspH %>% filter(Year!="2023") %>% filter(variable=="Temperature") %>% filter(Site!="GOLD")
 Temp.GOLD.2024 <- TempvspH %>% filter(Year=="2024")%>% filter (variable=="Temperature")%>% filter(Site == "GOLD")
 Temp.GOLD.2025 <- TempvspH %>% filter(Year=="2025")%>% filter (variable=="Temperature")%>% filter(Site == "GOLD")
+Temp.GOLD.2026 <- TempvspH %>% filter(Year=="2026")%>% filter (variable=="Temperature")%>% filter(Site == "GOLD")
+
 pH.2023 <- TempvspH %>% filter(Year=="2023") %>% filter(variable=="pH")
 pH.rest.ct <- TempvspH %>% filter(Year!="2023") %>% filter(variable=="pH") %>% filter(Site!="GOLD")
 pH.GOLD.2024 <- TempvspH %>% filter(Year=="2024") %>% filter(variable=="pH")%>% filter(Site == "GOLD")
@@ -2621,14 +2626,16 @@ All_temp.graph <-ggplot()+
                        y=mean, color = Site))+
   geom_line(data=Temp.GOLD.2025%>% filter(Site == "GOLD"), aes(x=Date.Time, 
                        y=mean, color = Site))+
+   geom_line(data=Temp.GOLD.2026%>% filter(Site == "GOLD"), aes(x=Date.Time,
+                      y=mean, color = Site))+
 scale_color_manual(values=c(FENC = "darksalmon",ASHC = "cornflowerblue", GOLD = "darkseagreen")) +
               #ggtitle("Temperature") +
-              labs(x = "Date", y = "Temperature (C)") +
+              labs(x = "Date", y = "Temperature (°C)") +
             scale_x_datetime(date_labels= "%b %Y", date_breaks = "3 month")+ #x axis labels
-  theme(axis.text = element_text(size = 18), axis.title = element_text(size = 22), legend.text = element_text(size=18), 
-        legend.title = element_text(size=20), title = element_text(size = 24), strip.text = element_text(size = 18) )+
-  geom_hline(yintercept = 20, color = "red", size = .5)+ #highlighting 20C for dermo infection
-  geom_hline(yintercept = 16, color = "blue", size = .5) #highlighting 16C for spawning
+  theme(axis.text = element_text(size = 15), axis.title = element_text(size = 20), legend.text = element_text(size=18), 
+        legend.title = element_text(size=20), title = element_text(size = 24), strip.text = element_text(size = 18), axis.text.x = element_text(angle = 20, vjust = .75, hjust = .5) )+
+  geom_hline(yintercept = 20, color = "red", size = .5) #highlighting 20C for dermo infection
+  #geom_hline(yintercept = 16, color = "blue", size = .5) #highlighting 16C for spawning
 
 
 All_temp.graph
@@ -2653,7 +2660,7 @@ scale_color_manual(values=c("FENC" = "darksalmon",ASHC = "cornflowerblue", "GOLD
               ggtitle("pH & Temperature (2023 - 2026)") +
               labs(x = " ", y = "pH") +
               scale_x_datetime(date_labels= "%b %Y", date_breaks = "3 month")+
-  theme(axis.text = element_text(size = 18), axis.title = element_text(size = 22), legend.text = element_text(size=18), 
+  theme(axis.text = element_text(size = 15), axis.title = element_text(size = 22), legend.text = element_text(size=18), 
         legend.title = element_text(size=20), title = element_text(size = 24), strip.text = element_text(size = 18) )
 
 All_pH.graph
@@ -2669,13 +2676,21 @@ dev.off()
 
 ```{r}
 #Overlay for salinity - all sites, all years
+#Cleaning up data - removing points when sonde was being deployed
+Master_table_LONG_means$mean[Master_table_LONG_means$mean == "0.03113318"] <- NA
+Master_table_LONG_means$mean[Master_table_LONG_means$mean == "0.73773134"] <- NA
+#Master_table_LONG_means$Date.Time[Master_table_LONG_means$Date.Time == `2026-03-30 14:00:00`] <- NA
+
 Salinity_all <- Master_table_LONG_means %>% dplyr::filter(variable == 'Salinity' & Site %in% c('FENC', 'ASHC', 'GOLD'))
 Salinity_all <- Salinity_all %>% dplyr::mutate(Year = year(Date.Time))
 
 Salinity.2023 <- Salinity_all %>% filter(Year=="2023")
 Salinity.rest.ct <- Salinity_all %>% filter(Year!="2023") %>% filter(Site!="GOLD")
+Salinity.rest.ct$mean[Salinity.rest.ct$mean == 0] <- NA
 Salinity.GOLD.2024 <- Salinity_all %>% filter(Year=="2024")%>% filter(Site == "GOLD")
 Salinity.GOLD.2025 <- Salinity_all %>% filter(Year=="2025")%>% filter(Site == "GOLD")
+Salinity.GOLD.2026 <- Salinity_all %>% filter(Year=="2026")%>% filter(Site == "GOLD")
+
 
 All_salinity.graph <-ggplot()+
               geom_line(data=Salinity.2023%>% filter(Site == "FENC"), aes(x=Date.Time, 
@@ -2692,14 +2707,25 @@ All_salinity.graph <-ggplot()+
                        y=mean, color = Site))+
   geom_line(data=Salinity.GOLD.2025%>% filter(Site == "GOLD"), aes(x=Date.Time, 
                        y=mean, color = Site))+
+  geom_line(data=Salinity.GOLD.2026%>% filter(Site == "GOLD"), aes(x=Date.Time,
+                      y=mean, color = Site))+
 scale_color_manual(values=c("FENC" = "darksalmon",ASHC = "cornflowerblue", "GOLD" = "darkseagreen")) +
-              ggtitle("Mean Temperature and Salinity (2023 - 2026)") +
-              labs(x = " ", y = "Salinity") +
+              ggtitle("Salinity and Temperature (2023 - 2026)") +
+              labs(x = " ", y = "Salinity (ppt)") +
               scale_x_datetime(date_labels= "%b %Y", date_breaks = "3 month")+
-  theme(axis.text = element_text(size = 18), axis.title = element_text(size = 22), legend.text = element_text(size=18), 
-        legend.title = element_text(size=20), title = element_text(size = 24), strip.text = element_text(size = 18) )
+  theme(axis.text = element_text(size = 15), axis.title = element_text(size = 20), legend.text = element_text(size=18), 
+        legend.title = element_text(size=20), title = element_text(size = 20), strip.text = element_text(size = 18), axis.text.x = element_text(angle = 20, vjust = .75, hjust = .5))
 
 All_salinity.graph
+
+#combining the two graphs salinity and temp
+all_salvtemp<-ggarrange(All_salinity.graph,All_temp.graph, ncol = 1)
+all_salvtemp
+
+
+pdf(paste0(path = "output/raw_plots/salinity_temp_all.pdf"), height = 8.5, width = 11)
+print(all_salvtemp)
+
 
 #pdf(paste0(path = "output/raw_plots/Salinity_all.pdf"), height = 7, width = 14)
 print(All_salinity.graph)
