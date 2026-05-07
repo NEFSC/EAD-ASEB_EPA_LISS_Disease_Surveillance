@@ -5,8 +5,10 @@ date: "2023-10-03"
 output: html_document
 ---
 
-Last updated 03/19/2026 by M.Kachmar
-Fence Creek sonde (SN 1005261) was lost in a blizzard/to ice - there is no data files for 02/2026 or 03/2026.
+Last updated 05/04/2026 by M.Kachmar
+
+
+IMPORTANT: Fence Creek sonde (SN 1005261) was lost in a blizzard/to ice - there is no data files for 02/2026 or 03/2026.
 
 
 ## Setup: 
@@ -20,8 +22,8 @@ knitr::opts_chunk$set(echo = TRUE,
                       cache = TRUE)
 
 #knitr::opts_knit$set(root.dir = "C:/Users/samjg/Documents/Github_repositories/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
-knitr::opts_knit$set(root.dir = "C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
-#knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
+#knitr::opts_knit$set(root.dir = "C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
+knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
 #knitr::opts_knit$set(root.dir = "C:/Users/sarina.dery/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
 
 ```
@@ -2008,7 +2010,7 @@ GOLD_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == 'Chlor
 
 
 GOLD_pH_plot <- GOLD_pH %>% na.omit() %>%
-             dplyr::filter(Date.Time > '2026-01-01 00:01:00' & Date.Time < '2025-12-31 23:59:00' ) %>% # change date range needed here
+             dplyr::filter(Date.Time > '2026-01-01 00:01:00' & Date.Time < '2026-12-31 23:59:00' ) %>% # change date range needed here
              dplyr::mutate(Site = case_when(Site == 'GOLD' ~ 'Gold Star', .default = 'Fence Creek')) %>% 
              ggplot(aes(x=Date.Time, 
                        y=mean, # the mean values
