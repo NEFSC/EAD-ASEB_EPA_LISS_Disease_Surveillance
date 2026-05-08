@@ -5,7 +5,11 @@ date: "2025-07-09"
 output: html_document
 Description: The purpose of this script is to import, clean up, and summarize Triplex qPCR data for the detection of Dermo, MSX, and SSO to determine prevalence and infection intensity for the LISS Oyster Health Project's monthly sampling at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. Infection intensity will be reported as copies/ng. This data will then be cross validated with RFTM and Histology data. 
 
-Last updated:7/9/25 by Mariah kachmar
+Last updated:5/7/26 by Mariah kachmar
+
+- working on inputting files & a QAQC routine
+- got to calculating copies per ul 
+- next steps are the back calculations to standardize the samples - ratio copies per ng, copies/ul in 50ng/ul, then copies/2ul based on 50ng/ul
 ---
 
 #Set working directory
@@ -29,88 +33,279 @@ library("purrr")
 library(reshape2)
 library(stringr)
 library("RColorBrewer")
+library("stringr")
+library("tidyverse")
 ```
 
 #### This code chunk merges all .csv files within the qubit folder into one data fram and outputs the full dataset into a .csv master file. This allows us to download the raw data as a .csv, add it to the repository folder, and create the master data file without copying and pasting data in excel.
 # reading in .csv files from local folder
 ```{r}
 
+
+
 data_all <- list.files(path = "Lab_Data_qPCR/raw_data",                           # Identify all CSV files
   pattern = "*.csv", full.names = TRUE) %>% 
-  lapply(read_csv) %>%                              # Store all files in list
+  lapply(read_csv, skip= 19) %>%                              # Store all files in list
   bind_rows                                         # Combine data sets into one data set 
 data_all                                            # Print data to RStudio console
 
 as.data.frame(data_all)                            # Convert tibble to data.frame
 
 
-data_all <- data_all %>% filter(!is.na('Sample Name'))
+data_all <- data_all %>% filter(!is.na('Content'))
 
-data_all<- data_all %>% select(c('Test Date', 'Sample Name', 'Original Sample Conc.', 'Original sample conc. units'))
+#What columns are necessary? I am removing 'Well' (Well # on the 96 well plate)  
 
-data_all <- data_all %>% rename(Date = 'Test Date', Sample_ID = 'Sample Name', Concentration = 'Original Sample Conc.', Units = 'Original sample conc. units')
+data_all<- data_all %>% select(c('Fluor','Content', 'Cq', 'Starting Quantity (SQ)', 'Cq Mean', 'Cq Std. Dev', 'SQ Std. Dev'))
+
+#lets rename these columns to be more user friendly
+data_all <- data_all %>% dplyr::rename(Target_dye = 'Fluor',Sample_ID = 'Content', Concentration = 'Starting Quantity (SQ)', St_dev = 'SQ Std. Dev', Cq_st_dev = 'Cq Std. Dev', Cq_mean = 'Cq Mean' )
+
+
+data_all <- data_all %>%   mutate(
+    # extract parts
+    Month_year = str_sub(Sample_ID, 1, 4),
+    Site = str_extract(Sample_ID, "(?<=\\d{4})[A-Za-z]+(?=_)"),
+    Replicate = str_extract(Sample_ID, "(?<=_)\\d+"),
+    # convert month-year to real date (first day of month)
+    Date = my(Month_year)
+  )
 
 data_all
 
-write.csv(data_all, "Master_files\\qubit_all_data.csv", row.names=FALSE)
+write.csv(data_all, "Master_files\\qPCR_all_data.csv", row.names=FALSE)
 ```
 
 ```{r}
-path <- "Lab_Data_qPCR/raw_data/"
-
-paste0(getwd(),"/",path)
-```
-
-```{r generate list of file names}
-
-file.names.qpcr         <- data.frame(txt.files = 
-                                         (basename(list.files(path = paste0(getwd(),"/",path), 
-                                                              pattern = "csv$", 
-                                                              recursive = FALSE)))) 
-
-file.names.qpcr
-
-
-
-```
-```{r}
-
-qPCR_master <- data.frame() 
+#Percentage of standard deviations >0.5 for qPCR Cq values
+high_cq_sd <- data_all %>% filter(Cq_st_dev > 0.5) %>% nrow() #creates number of rows that have sd # >0.5
+high_cq_sd_list <- data_all %>% filter(Cq_st_dev > 0.5) #creates list of which samples have high sd
+percentage_highsd <- (high_cq_sd/nrow(data_all)) * 100 # determining percentage of samples have high standard deviation
+percentage_highsd #outputs percentage
 
 ```
 
 ```{r}
-for (m in 1:nrow(file.names.qpcr)) { # this is your loop, for each row in th filenames tbale, do the followin!
-  # NOTE: you will 'm' used in this loop to read and assign data
+#Lets create means of our sample duplicates 
+
+data_summary <- data_all %>%
+  dplyr::mutate(Concentration = as.numeric(Concentration)) %>%
+  dplyr::group_by(Target_dye,Sample_ID, Site, Date) %>%
+  dplyr::summarise(
+    Copies_per_2ul = mean(Concentration, na.rm = TRUE),
+    Copies_per_2ul_sd = sd(Concentration, na.rm = TRUE),
+    n = n(),
+    .groups = "drop"
+  )
+
+data_summary
+
+
+#now we need copies per ul for reporting
+
+data_summary <- data_summary %>%
+  mutate(
+    Copies_per_uL =  Copies_per_2ul / 2,
+    Copies_per_uL_sd =  Copies_per_2ul_sd / 2
+  )
   
-  
-  # call the dir of the csv file in loop using paste0 to 'paste' the strings for the 
-  # working directry, path to raw data, and the mth file name in the loop
-  raw_qpcr_rootdir        <- paste0(getwd(),"/",path ,file.names.qpcr[m,1]) #reads in the data files
-  
-  # We need to skip some lines, and this can differ each time you pull the data from the machine
-  # to do this we will use readLines then grep to call the row that contains the delimiter 'Date Time', 
-  # becasue this is where the target data begins! (actual measured readings!)
-  D        <- readLines(raw_qpcr_rootdir) 
-  ind      <- grep("^Well$", D, ignore.case = TRUE) # the row number containing the start of the data...in this case "Well" ; exact match to avoid picking up 'Well group'
-  if (length(ind) < 1) stop("Delimiter 'Well' not found in file: ", raw_qpcr_rootdir)
-  ind <- ind[1]
-  # read the data using read_csv and skip columns based on 'ind' above 
-  raw      <- read_csv(raw_qpcr_rootdir,skip=ind-1, col_names = TRUE, col_types = cols())
-  raw_df   <- as.data.frame(raw) # ocnvert the dataframe now that you skipped the crappola 
-  
-  # add a column for the site 
-  filename      <- file.names.qpcr[m,1]
-  raw_df        <- raw_df %>% 
-                    dplyr::mutate(Site = sub(".*_(.*)_.*","\\1",filename),
-                    Date = gsub("_.*","",filename)) 
-  
-  qPCR_master <- rbind(raw_df, qPCR_master) #bind to a cumulative list dataframe
-}
+data_summary
 
 
 
+```
 
-qPCR_master
+```{r}
+
+#merge Qubit data
+
+#bring in data
+data_quibit <- read.csv("Lab_Data_DNAQuantification/output/qubit_summary.csv")
+data_quibit
+
+
+merged_data <- merge(data_summary, data_quibit, by = "Sample_ID")
+merged_data
+
+```
+
+```{r}
+
+#Lets complete those back calculations
+
+data_summary <- merged_data %>%
+  mutate(
+    Ratio_copies_per_ng =  Copies_per_uL / mean_concentration_ng.uL,
+    Copies_ul_ng.ul =  Ratio_copies_per_ng * 33.33, #this will be the final concentration per 1 ul (what we should report for scoring?)
+    Copies_2ul_final = Copies_ul_ng.ul *2 #this is the final concentration per reaction
+  )
+  
+data_summary
+
+#add a year column 
+data_summary <- data_summary %>%
+  mutate(Year = year(Date))
+
+```
+
+```{r}
+
+#lets work on some code that bins our copies/ul into the Mackin's scale. This is the same scale that Roger Williams Univ. is using currently and may be subject to change based on our data. This is preliminary to test code!!
+
+#Let's parse our dermo data (Target_dye = FAM)
+
+dermo_qPCR_summary <- data_summary %>% filter(Target_dye == 'FAM')
+dermo_qPCR_summary
+
+qpcr_mackin_scores <- dermo_qPCR_summary %>%
+  mutate(mackin_score = case_when(
+    Copies_ul_ng.ul < 10 ~ 0,
+    Copies_ul_ng.ul >= 10 & Copies_ul_ng.ul < 100 ~ 0.5,
+    Copies_ul_ng.ul >= 100 & Copies_ul_ng.ul < 2000 ~ 1,
+    Copies_ul_ng.ul >= 2000 & Copies_ul_ng.ul < 10000 ~ 2,
+    Copies_ul_ng.ul >= 10000 & Copies_ul_ng.ul < 100000 ~ 3,
+    Copies_ul_ng.ul >= 100000 & Copies_ul_ng.ul < 1000000 ~ 4,
+    Copies_ul_ng.ul >= 1000000 ~ 5,
+    TRUE ~ 0
+  ))
+
+qpcr_mackin_scores
+
+#Lets do the same for MSX (Target_dye = HEX)
+
+
+MSX_qPCR_summary <- data_summary %>% filter(Target_dye == 'HEX')
+MSX_qPCR_summary
+
+MSX_mackin_scores <- MSX_qPCR_summary %>%
+  mutate(mackin_score = case_when(
+    Copies_ul_ng.ul < 10 ~ 0,
+    Copies_ul_ng.ul >= 10 & Copies_ul_ng.ul < 10000 ~ 1,
+    Copies_ul_ng.ul >= 10000 & Copies_ul_ng.ul < 1000000 ~ 2,
+    Copies_ul_ng.ul >= 1000000  ~ 3,
+    TRUE ~ 0
+  ))
+
+MSX_mackin_scores
+
+```
+
+```{r}
+
+#Now for some prevalence and intensity calculations
+
+#weighted prevalence 
+
+#dermo
+d_wp_summary <- qpcr_mackin_scores %>%
+  dplyr::group_by(Site, Date, Year) %>% 
+  dplyr::summarize( Weighted_prevalence = mean(mackin_score))
+d_wp_summary
+
+#dermo graph
+ggplot(data=d_wp_summary, aes(x=Date, y=Weighted_prevalence, color=Site)) +
+  geom_point()+  
+  geom_line(aes(group = Site))+
+   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  labs(title="Weighted Prevalence of Dermo infection (qPCR)", x ="Date", y = "Weighted Prevalence Score")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  theme(axis.text=element_text(size=12)) + facet_wrap(~ Year, scales = "fixed", ncol=1,)+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))
+
+#MSX
+msx_wp_summary<- MSX_mackin_scores %>%
+  dplyr::group_by(Site, Date, Year) %>% 
+  dplyr::summarize( Weighted_prevalence = mean(mackin_score))
+
+msx_wp_summary
+
+#MSX graph
+
+ggplot(data=msx_wp_summary, aes(x=Date, y=Weighted_prevalence, color=Site)) +
+  geom_point()+  
+  geom_line(aes(group = Site))+
+   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  labs(title="Weighted Prevalence of MSX infection (qPCR)", x ="Date", y = "Weighted Prevalence Score")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  theme(axis.text=element_text(size=12)) + facet_wrap(~ Year, scales = "fixed", ncol=1,)+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))
+
+```
+
+# Prevalence calculations for all sites
+# Prevalence = # infected/ total # sampled
+```{r}
+
+## Prevalence T/F for DERMO
+qpcr_mackin_scores<-qpcr_mackin_scores%>% filter(!is.na(mackin_score))
+qpcr_mackin_scores
+
+qpcr_mackin_scores$prevalent = ifelse(qpcr_mackin_scores$mackin_score == 0, '0',
+  ifelse(qpcr_mackin_scores$mackin_score > 0, '1', NA))
+  
+qpcr_mackin_scores
+
+# YEARLY PREVALENCE %
+present <- nrow(qpcr_mackin_scores %>% filter(prevalent == '1'))
+absent <- nrow(qpcr_mackin_scores %>% filter(prevalent == '0'))
+
+prevalence_all <- present/(present+absent)
+prevalence_all
+
+
+str(qpcr_mackin_scores$prevalent)
+qpcr_mackin_scores$prevalent <- as.numeric(qpcr_mackin_scores$prevalent)
+
+d_prevalence_summary <- qpcr_mackin_scores %>%
+  dplyr::group_by(Site, Year, Date) %>% 
+  dplyr::summarize( prevalence_precentage= mean(prevalent)* 100)
+d_prevalence_summary
+
+
+#Graph DERMO
+
+ggplot(data=d_prevalence_summary, aes(x=Date, y=prevalence_precentage, color=Site)) +
+  geom_point()+  
+  geom_line(aes(group = Site))+
+   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  labs(title="Prevalence of Dermo infection (qPCR)", x ="Date", y = "Dermo Prevlaence %")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  theme(axis.text=element_text(size=12)) + facet_wrap(~ Year, scales = "free", ncol=1)+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))
+
+
+## Prevalence T/F for MSX
+
+MSX_mackin_scores<-MSX_mackin_scores%>% filter(!is.na(mackin_score))
+MSX_mackin_scores
+
+MSX_mackin_scores$prevalent = ifelse(MSX_mackin_scores$mackin_score == 0, '0',
+  ifelse(MSX_mackin_scores$mackin_score > 0, '1', NA))
+  
+MSX_mackin_scores
+
+# YEARLY PREVALENCE %
+present <- nrow(MSX_mackin_scores %>% filter(prevalent == '1'))
+absent <- nrow(MSX_mackin_scores %>% filter(prevalent == '0'))
+
+prevalence_all <- present/(present+absent)
+prevalence_all
+
+
+str(MSX_mackin_scores$prevalent)
+MSX_mackin_scores$prevalent <- as.numeric(MSX_mackin_scores$prevalent)
+
+MSX_prevalence_summary <- MSX_mackin_scores %>%
+  dplyr::group_by(Site, Year, Date) %>% 
+  dplyr::summarize( prevalence_precentage= mean(prevalent)* 100)
+MSX_prevalence_summary
+
+#Graph MSX
+
+ggplot(data=MSX_prevalence_summary, aes(x=Date, y=prevalence_precentage, color=Site)) +
+  geom_point()+  
+  geom_line(aes(group = Site))+
+   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  labs(title="Prevalence of MSX infection (qPCR)", x ="Date", y = "MSX Prevalence %")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  theme(axis.text=element_text(size=12)) + facet_wrap(~ Year, scales = "free", ncol=1)+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))
+
 
 ```
