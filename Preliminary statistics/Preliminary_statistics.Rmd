@@ -41,6 +41,7 @@ library(glmmTMB)
 library(effectsize)
 library("mgcv")
 library(car)
+library(ppcor)
 ```
 
 ## Load data:
@@ -70,6 +71,7 @@ rftm_env_master <- Sonde_monthly_means %>% dplyr::inner_join(rftm_summary, by = 
 rftm_env_master
 ```
 
+
 #okay so lets test some stats and see what might be affecting RFTM infection intensity scores (weighted prevalence). 
 ```{r}
 #Lets just start off by messing around with temperature and salinity because we know that they impact the disease intensity
@@ -80,5 +82,58 @@ glm_rftm <- glmmTMB(rftm_final ~ mean_Temperature + mean_Salinity + Site + Month
 summary(glm_rftm)
 
 #should we do spearman rank correlations to test relationships? 
+
+# lets separate by site first
+
+# ASH CREEK
+
+AsHC_rftm_env<- rftm_env_master %>%
+  filter(Site == "ASHC")
+
+cor.test(AsHC_rftm_env$mean_Temperature,AsHC_rftm_env$rftm_final, method = "spearman" )
+#significant positive relationship with temperature (high temps associated with higher disease)
+cor.test(AsHC_rftm_env$mean_Salinity,AsHC_rftm_env$rftm_final, method = "spearman" )
+#significant positive relationship with salinity (higher salinity associated with higher disease)
+
+#so with both high temp and high salinity may favor increased infections
+
+#Lets try other parameters
+cor.test(AsHC_rftm_env$mean_pH,AsHC_rftm_env$rftm_final, method = "spearman" )
+cor.test(AsHC_rftm_env$mean_RDO.Concentration,AsHC_rftm_env$rftm_final, method = "spearman" )
+
+
+#lets look at all three together "is temperature still related to intensity after accounting for salinity? 
+pcor.test(
+  AsHC_rftm_env$mean_Temperature,
+  AsHC_rftm_env$rftm_final,
+  AsHC_rftm_env$mean_Salinity,
+  method = "spearman"
+)
+
+# significant positive erlationship - as one increases the others do
+
+#Fence Creek
+FENC_rftm_env<- rftm_env_master %>%
+  filter(Site == "FENC")
+cor.test(FENC_rftm_env$mean_Temperature,FENC_rftm_env$rftm_final, method = "spearman" )
+#not significant - could be other environmental drivers & greater environmental variability
+cor.test(FENC_rftm_env$mean_Salinity,FENC_rftm_env$rftm_final, method = "spearman" )
+#significant positive relationship with salinity (higher salinity associated with higher disease)
+
+#so salinity might be a more sonsistent predictor of dermo intensity while temperature affects may be more site-specific or influenced by additional factor
+
+#Lets try other parameters
+cor.test(FENC_rftm_env$mean_pH,FENC_rftm_env$rftm_final, method = "spearman" ) #not correlated
+cor.test(FENC_rftm_env$mean_RDO.Concentration,FENC_rftm_env$rftm_final, method = "spearman" )
+
+#lets look at all three together "is temperature still related to intensity after accounting for salinity? 
+pcor.test(
+  FENC_rftm_env$mean_Temperature,
+  FENC_rftm_env$rftm_final,
+  FENC_rftm_env$mean_Salinity,
+  method = "spearman"
+)
+#not significant
+
 
 ```

@@ -61,7 +61,7 @@ data_all<- data_all %>% select(c('Fluor','Content', 'Cq', 'Starting Quantity (SQ
 #lets rename these columns to be more user friendly
 data_all <- data_all %>% dplyr::rename(Target_dye = 'Fluor',Sample_ID = 'Content', Concentration = 'Starting Quantity (SQ)', St_dev = 'SQ Std. Dev', Cq_st_dev = 'Cq Std. Dev', Cq_mean = 'Cq Mean' )
 
-
+#We need dates
 data_all <- data_all %>%   mutate(
     # extract parts
     Month_year = str_sub(Sample_ID, 1, 4),
