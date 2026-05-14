@@ -32,6 +32,7 @@ library(reshape2)
 library(stringr)
 library("RColorBrewer")
 library("wacolors")
+library(ggpubr)
 ```
 
 #### This code chunk merges all .csv files within the qubit folder into one data fram and outputs the full dataset into a .csv master file. This allows us to download the raw data as a .csv, add it to the repository folder, and create the master data file without copying and pasting data in excel.
@@ -234,6 +235,7 @@ pdf(paste0(path = "Lab_Data_Reproduction/output" ,"/all_repro_gametes_proportion
 print(all_gamete_prop)
 dev.off()
 ```
+
 #ASHC Summary
 ```{r}
 df_ASHC<- data_all%>%
@@ -497,6 +499,107 @@ ggplot(data=spawning_all, aes(x=month, y=Percentage, color=Site)) +
   labs(title="Spawning & Mature Stages - all sites", x ="Month", y = "Spawning % (scores 4 & 5)")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
   theme(axis.text=element_text(size=12)) #+ facet_wrap(~ year, scales = "free", ncol=1)+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))
 ```
+
+```{r}
+#Sex ratio graphs for GOLD, ASHC, FENC - LISR Conference graph
+df_sex_proportions_date<- data_all %>%
+  group_by(Site, Date_collected, month,year, Sex_final) %>%
+  dplyr::summarise(Count= n()) %>%
+  ungroup() %>%
+  dplyr::mutate(Proportion = Count/sum(Count))
+
+df_sex_proportions_date <- df_sex_proportions_date %>%
+  mutate(month_a = month.abb[month])
+  
+df_sex_proportions_date$month_a <-  factor(df_sex_proportions_date$month_a, levels = c("Jan", "Feb", "Mar", "Apr","May","Jun","Jul","Aug", "Sep", "Oct", "Nov","Dec"))
+df_sex_proportions_date$Sex_final <- factor(df_sex_proportions_date$Sex_final, levels=c("Female","Male","Hermaphrodite","ND"), labels=c("Female","Male","Hermaphrodite", "Undetermined"))
+
+FENC_ratio_gametes <- ggplot(data=filter(df_sex_proportions_date,Site=="FENC", year!="2025"), aes(x=year, y= Proportion, fill=Sex_final)) +
+  geom_bar(width = 15, stat="identity", position = "fill")+
+  ggh4x::facet_nested(~year+month_a, scales = "free", switch = "x")+
+  labs(x="", title = "Fence Creek")+
+  theme_minimal()+
+  theme(strip.text = element_text(face = "bold"), ggh4x.facet.nestline=element_line(colour = "black"))+scale_x_continuous(breaks = 1:12, labels = month.abb)+
+  theme(panel.grid = element_line(colour = "white"), axis.text.x = element_blank(), axis.text = element_text(size= 13), axis.title = element_text(size = 15), strip.text = element_text(size = 13), legend.text = element_text(size = 14), legend.title = element_text(size = 15), title = element_text(size = 16), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1))+ scale_color_discrete(labels=c("Female","Male","Hermaphrodite","Undetermined"))+scale_fill_manual(values = c("salmon2","turquoise3","gold","gray83"), name="Sex Ratio")+theme(plot.margin = unit(c(0.75, 0, -0.75, 1), "cm"))
+
+ASHC_ratio_gametes <- ggplot(data=filter(df_sex_proportions_date,Site=="ASHC", year!="2025"), aes(x=year, y= Proportion, fill=Sex_final)) +
+  geom_bar(width = 15, stat="identity", position = "fill")+
+  ggh4x::facet_nested(~year+month_a, scales = "free", switch = "x")+
+  labs(x="", title = "Ash Creek")+
+  theme_minimal()+
+  theme(strip.text = element_text(face = "bold"), ggh4x.facet.nestline=element_line(colour = "black"))+
+  theme(panel.grid = element_line(colour = "white"), axis.text.x = element_blank(), axis.text = element_text(size= 13), axis.title = element_text(size = 15), strip.text = element_text(size = 13), legend.text = element_text(size = 14), legend.title = element_text(size = 15), title = element_text(size = 16), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1))+ scale_color_discrete(labels=c("Female","Male","Hermaphrodite","Undetermined"))+scale_fill_manual(values = c("salmon2","turquoise3","gold","gray83"), name="Sex Ratio")+theme(plot.margin = unit(c(0.75, 0, -0.75, 1), "cm"))
+
+GOLD_ratio_gametes <- ggplot(data=filter(df_sex_proportions_date,Site=="GOLD", year!="2025"), aes(x=year, y= Proportion, fill=Sex_final)) +
+  geom_bar(width = 15, stat="identity", position = "fill")+
+  ggh4x::facet_nested(~year+month_a, scales = "free", switch = "x")+
+  labs(x="", title = "Gold Star")+
+  theme_minimal()+
+  theme(strip.text = element_text(face = "bold"), ggh4x.facet.nestline=element_line(colour = "black"))+
+  theme(panel.grid = element_line(colour = "white"), axis.text.x = element_blank(),axis.text = element_text(size= 13), axis.title = element_text(size = 15), strip.text = element_text(size = 13), legend.text = element_text(size = 14), legend.title = element_text(size = 15), title = element_text(size = 16), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1))+ scale_color_discrete(labels=c("Female","Male","Hermaphrodite","Undetermined"))+scale_fill_manual(values = c("salmon2","turquoise3","gold","gray83"), name="Sex Ratio")+theme(plot.margin = unit(c(0.75, 0, -0.75, 1), "cm"))
+
+
+all_ratio <- ggarrange(ASHC_ratio_gametes,FENC_ratio_gametes,GOLD_ratio_gametes, ncol=1)
+all_ratio
+
+pdf(paste0(path = "Lab_Data_Reproduction/output" ,"/all_repro_gametes_proportion_years.pdf"), height = 7, width = 13)
+print(all_ratio)
+dev.off()
+
+```
+
+```{r}
+#Gonad development stage graphs with GOLD, ASHC, FENC - LISR Conference graph
+df_stage_proportions_date<- data_all %>%
+  group_by(Site, Date_collected, month,year, Stage_final) %>%
+  dplyr::summarise(Count= n()) %>%
+  ungroup() %>%
+  dplyr::mutate(Proportion = Count/sum(Count))
+
+df_stage_proportions_date <- df_stage_proportions_date %>%
+  mutate(month_a = month.abb[month])
+  
+df_stage_proportions_date$month_a <-  factor(df_stage_proportions_date$month_a, levels = c("Jan", "Feb", "Mar", "Apr","May","Jun","Jul","Aug", "Sep", "Oct", "Nov","Dec"))
+
+df_stage_proportions_date$Stage_final <-  factor(df_stage_proportions_date$Stage_final, levels = c("1_Inactive_Indeterminate","2_Developing","3_Early_Active","4_Late_Mature","5_Spawning", "6_Post_Spawning", "7_Reabsorbing","0_Castrated"),
+        labels=c("Inactive","Developing", "Active", "Mature", "Spawning", "Post Spawning", "Reabsorbing","Castrated"))
+
+FENC_ratio_scores <- ggplot(data=filter(df_stage_proportions_date,Site=="FENC", year!="2025"), aes(x=year, y= Proportion, fill=Stage_final)) +
+  geom_bar(width = 15, stat="identity", position = "fill")+
+  ggh4x::facet_nested(~year+month_a, scales = "free", switch = "x")+
+  labs(x="", title = "Fence Creek")+
+  theme_minimal()+
+  theme(strip.text = element_text(face = "bold"), ggh4x.facet.nestline=element_line(colour = "black"))+scale_x_continuous(breaks = 1:12, labels = month.abb)+
+  theme(panel.grid = element_line(colour = "white"), axis.text.x = element_blank(), axis.text = element_text(size= 13), axis.title = element_text(size = 15), strip.text = element_text(size = 13), legend.text = element_text(size = 14), legend.title = element_text(size = 15), title = element_text(size = 16), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1))+
+  scale_fill_manual(values = c("lightgrey","#FFE66C","#EBCC5C","#DE9F71","#B490BF","#A26D7C","#533369","#001E36"))+theme(plot.margin = unit(c(0.75, 0, -0.75, 1), "cm"))+labs(fill="Reproductive Stage")
+
+ASHC_ratio_scores <- ggplot(data=filter(df_stage_proportions_date,Site=="ASHC", year!="2025"), aes(x=year, y= Proportion, fill=Stage_final)) +
+  geom_bar(width = 15, stat="identity", position = "fill")+
+  ggh4x::facet_nested(~year+month_a, scales = "free", switch = "x")+
+  labs(x="", title = "Ash Creek")+
+  theme_minimal()+
+  theme(strip.text = element_text(face = "bold"), ggh4x.facet.nestline=element_line(colour = "black"))+
+  theme(panel.grid = element_line(colour = "white"), axis.text.x = element_blank(), axis.text = element_text(size= 13), axis.title = element_text(size = 15), strip.text = element_text(size = 13), legend.text = element_text(size = 14), legend.title = element_text(size = 15), title = element_text(size = 16), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1))+
+    scale_fill_manual(values = c("lightgrey","#FFE66C","#EBCC5C","#DE9F71","#B490BF","#A26D7C","#533369","#001E36"))+theme(plot.margin = unit(c(0.75, 0, -0.75, 1), "cm"))+labs(fill="Reproductive Stage")
+
+GOLD_ratio_scores <- ggplot(data=filter(df_stage_proportions_date,Site=="GOLD", year!="2025"), aes(x=year, y= Proportion, fill=Stage_final)) +
+  geom_bar(width = 15, stat="identity", position = "fill")+
+  ggh4x::facet_nested(~year+month_a, scales = "free", switch = "x")+
+  labs(x="", title = "Gold Star")+
+  theme_minimal()+
+  theme(strip.text = element_text(face = "bold"), ggh4x.facet.nestline=element_line(colour = "black"))+
+  theme(panel.grid = element_line(colour = "white"), axis.text.x = element_blank(),axis.text = element_text(size= 13), axis.title = element_text(size = 15), strip.text = element_text(size = 13), legend.text = element_text(size = 14), legend.title = element_text(size = 15), title = element_text(size = 16), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1))+
+  scale_fill_manual(values = c("lightgrey","#FFE66C","#EBCC5C","#DE9F71","#B490BF","#A26D7C","#533369","#001E36"))+theme(plot.margin = unit(c(0.75, 0, -0.75, 1), "cm"))+labs(fill="Reproductive Stage")
+
+
+all_score_ratio <- ggarrange(ASHC_ratio_scores,FENC_ratio_scores,GOLD_ratio_scores, ncol=1)
+all_score_ratio
+
+pdf(paste0(path = "Lab_Data_Reproduction/output" ,"/all_repro_scores_proportion_years.pdf"), height = 7, width = 13)
+print(all_score_ratio)
+dev.off()
+```
+
 
 
 ## R Markdown
