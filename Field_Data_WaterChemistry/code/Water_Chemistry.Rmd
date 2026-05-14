@@ -50,12 +50,14 @@ as.data.frame(data_all)                            # Convert tibble to data.fram
 
 #dates - adding month and year
 
-data_all <- data_all %>% rename(c("date_collected" = "Date collected", "site" = "Location" ))
+data_all <- data_all %>% rename(c("date_collected" = "Date collected", "site" = "Location" )) %>% filter (site != "Laurel Hollow")
 
 #for some reason not all of the dates are cooperating need to fix this for below****
 data_all <- data_all %>% dplyr::mutate(date_collected= as.Date(date_collected, format = "%m/%d/%Y"), month = month(date_collected), year = year(date_collected))
 
 data_all
+
+
 
 ```
 
@@ -67,21 +69,86 @@ aragonite_master_long<- data_all %>%
                                     measure.vars = c("Salinity","t(oC) of field","pH out","pCO2 out (matm)","HCO3 out (mmol/kgSW)","CO3 out (mmol/kgSW)","CO2 out (mmol/kgSW)","WAr out","xCO2 out (dry at 1 atm) (ppm)"))
 head(aragonite_master_long)
 
+aragonite_master_long <- aragonite_master_long %>% filter(site != "Laurel Hollow")
 
-mean_aragonite_plot <- ggplot(data=aragonite_master_long %>% 
-          filter(variable == "Aragonite_Sat"), aes(x=month, y=value, fill=site)) +geom_boxplot()+ #scale_fill_manual(values=c("forestgreen","orange", "purple"))
+monthly_aragonite_plot <- ggplot(data=aragonite_master_long %>% 
+          filter(variable == "WAr out"), aes(x=month, y=value, fill=site)) +geom_point()+ #scale_fill_manual(values=c("forestgreen","orange", "purple"))
   theme_bw() + theme(plot.title = element_text(size = 20))+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
   theme(axis.text.x = element_text(size = 12),
         axis.title.x = element_text(size = 12))+
   theme(axis.text.y = element_text(size = 12),
         axis.title.y = element_text(size =15))+
-  labs(title="Mean Aragonite Saturation 2023 - 2026 ", x ="", y = "Aragonite Sauration (Ωar)")+
+  labs(title="Monthly Aragonite Saturation", x ="", y = "Aragonite Sauration (Ωar)")+
   scale_y_continuous(limits = c(0,2), breaks = seq(0, 2, by = 0.2))+
+  scale_x_continuous(breaks = 1:12) +
 theme(strip.text = element_text(size = 12))+theme(legend.position = "none")+
   geom_hline(yintercept = 1, color = "red", size = .5) +  #red line is at equilibrium 
-facet_grid(.~ year + site)
+facet_grid(site ~ year, scales = "free_x", space = "free_x")
+
+monthly_aragonite_plot
+
+mean_aragonite_plot <- ggplot(
+  data = aragonite_master_long %>%
+    filter(variable == "WAr out"),
+  aes(x = factor(year), y = value, fill = site)
+) +
+  geom_boxplot() +
+  theme_bw() +
+  theme(
+    plot.title = element_text(size = 20),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.text.x = element_text(size = 12),
+    axis.title.x = element_text(size = 12),
+    axis.text.y = element_text(size = 12),
+    axis.title.y = element_text(size = 15),
+    strip.text = element_text(size = 12)
+  ) +
+  labs(
+    title = "Mean Yearly Aragonite Saturation ",
+    x = "Year",
+    y = "Aragonite Saturation (Ωar)"
+  ) +
+  scale_y_continuous(
+    limits = c(0, 2),
+    breaks = seq(0, 2, by = 0.2)
+  ) +
+  geom_hline(yintercept = 1, color = "red", size = 0.5) +
+  facet_wrap(~site)
 
 mean_aragonite_plot
 
+aragonite_temp_plot <- ggplot(
+  data = data_all,
+  aes(x = `t(oC) of field`,
+      y = `WAr out`,
+      color = site)
+) +
+  geom_point() +
+  geom_smooth(method= "lm", se= FALSE)+
+  theme_bw() +
+  theme(
+    plot.title = element_text(size = 20),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.text.x = element_text(size = 12),
+    axis.title.x = element_text(size = 12),
+    axis.text.y = element_text(size = 12),
+    axis.title.y = element_text(size = 15),
+    strip.text = element_text(size = 12),
+    legend.position = "none"
+  ) +
+  labs(
+    title = "Aragonite Saturation vs Temperature",
+    x = "Temperature (°C)",
+    y = "Aragonite Saturation (Ωar)"
+  ) +
+  scale_y_continuous(
+    limits = c(0, 2),
+    breaks = seq(0, 2, by = 0.2)
+  ) +
+  geom_hline(yintercept = 1, color = "red", size = 0.5) +
+  facet_grid(site ~ year, scales = "free_x", space = "free_x")
 
+aragonite_temp_plot
 ```

@@ -135,5 +135,30 @@ pcor.test(
 )
 #not significant
 
+#GOLD STAR
+
+GOLD_rftm_env<- rftm_env_master %>%
+  filter(Site == "GOLD")
+cor.test(GOLD_rftm_env$mean_Temperature,GOLD_rftm_env$rftm_final, method = "spearman",  exact = FALSE )
+#not significant - could be other environmental drivers & greater environmental variability
+cor.test(GOLD_rftm_env$mean_Salinity,GOLD_rftm_env$rftm_final, method = "spearman",  exact = FALSE )
+#moderate positive relationship with salinity, however not statistically significant (higher salinity associated with higher disease)
+
+#so salinity might be a more consistent predictor of dermo intensity while temperature affects may be more site-specific or influenced by additional factor
+
+#Lets try other parameters
+cor.test(GOLD_rftm_env$mean_pH,GOLD_rftm_env$rftm_final, method = "spearman",  exact = FALSE ) #not correlated
+cor.test(GOLD_rftm_env$mean_RDO.Concentration,GOLD_rftm_env$rftm_final, method = "spearman",  exact = FALSE )
+
+#lets look at all three together "is temperature still related to intensity after accounting for salinity? 
+pcor.test(
+  GOLD_rftm_env$mean_Temperature,
+  GOLD_rftm_env$rftm_final,
+  GOLD_rftm_env$mean_Salinity,
+  method = "spearman"
+)
+#no significance or relationship
+
+#so what is driving disease? age? Maybe we can look at the size collections over time in relation to infection intensity
 
 ```
