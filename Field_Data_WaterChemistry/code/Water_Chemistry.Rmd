@@ -32,6 +32,11 @@ library("stringr")
 library("tidyverse")
 library(ggh4x)
 library(wacolors)
+library(glmm)
+library(glmmTMB)
+library(effectsize)
+library("mgcv")
+library("car")
 ```
 
 #Set Path
@@ -179,9 +184,21 @@ all_aragonite_temp
 
 
 
-pdf(paste0(path = "Field_Data_WaterChemistry/output" ,"/Aragonite_temperature_all.pdf"), height = 13, width = 13)
+pdf(paste0(path = "Field_Data_WaterChemistry/output" ,"/Aragonite_temperature_all.pdf"), height = 10, width = 13)
 print(all_aragonite_temp)
 dev.off()
 
+
+```
+#lets do some quick stats to see what the relatioships are and differences between sites/time
+```{r}
+
+data_all <- data_all %>% filter(site != "Laurel Hollow")
+
+glm_aragonite <- glmmTMB(`WAr out` ~ `t(oC) of field` + site * month,data_all)
+summary(glm_aragonite)
+
+glm_aragonite_pH <- glmmTMB(`WAr out` ~ `pH out` + site * month,data_all)
+summary(glm_aragonite_pH)
 
 ```
