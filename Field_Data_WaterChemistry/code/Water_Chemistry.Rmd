@@ -130,7 +130,8 @@ dev.off()
 ASHC_aragonite_temp_plot <-  data_all %>%
   dplyr::filter(site == "Ash Creek")%>%
   ggplot(aes(x = `t(oC) of field`,y = `WAr out`,color = site)) +
-  geom_point(color = "maroon", alpha = 0.7, size = 2) +
+  geom_point( alpha = 0.7, size = 2) +
+  scale_color_manual(values = c("Ash Creek" = "maroon"))+
   ggh4x::facet_nested(~year+month, scales = "free", switch = "x")+
   geom_smooth(method= "lm", se= FALSE)+
   theme_minimal() + theme(ggh4x.facet.nestline=element_line(colour = "black"))+
@@ -144,11 +145,12 @@ ASHC_aragonite_temp_plot
 FENC_aragonite_temp_plot <- data_all %>%
   dplyr::filter(site == "Fence Creek")%>% ggplot(
   aes(x = `t(oC) of field`,y = `WAr out`,color = site)) +
-  geom_point(color = "darkgreen", alpha = 0.7, size = 2) +
+  geom_point( alpha = 0.7, size = 2)+
+scale_color_manual(values = c("Fence Creek" = "darkgreen"))+
   ggh4x::facet_nested(~year+month, scales = "free", switch = "x")+
   geom_smooth(method= "lm", se= FALSE)+
   theme_minimal() + theme(ggh4x.facet.nestline=element_line(colour = "black"))+
-  theme(panel.grid = element_line(colour = "white"), axis.text.x = element_blank(),axis.text = element_text(size= 13), axis.title = element_text(size = 15), strip.text = element_text(size = 13), legend.text = element_text(size = 14), legend.title = element_text(size = 15), title = element_text(size = 16), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1)) +
+  theme(panel.grid = element_line(colour = "white"), axis.text.x = element_blank(),axis.text = element_text(size= 13), axis.title = element_text(size = 15), strip.text = element_text(size = 13),legend.text = element_text(size = 14), title = element_text(size = 16), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1),legend.title= element_blank()) +
   labs(title = "", x = "", y = "Aragonite Saturation (Ωar)") + scale_y_continuous(limits = c(0, 2),breaks = seq(0, 2, by = 0.2)) +
   geom_hline(yintercept = 1, color = "red", size = 0.5)# +
   #facet_wrap(site, scales = "free")
@@ -159,11 +161,12 @@ FENC_aragonite_temp_plot
 GOLD_aragonite_temp_plot <- data_all %>%
   dplyr::filter(site == "Gold Star")%>%
   ggplot( aes(x = `t(oC) of field`,y = `WAr out`,color = site)) +
-  geom_point(color = "steelblue", alpha = 0.7, size = 2) +
+  geom_point( alpha = 0.7, size = 2)+
+  scale_color_manual(values = c("Gold Star" = "steelblue"))+
   ggh4x::facet_nested(~year+month, scales = "free", switch = "x")+
   geom_smooth(method= "lm", se= FALSE)+
   theme_minimal() + theme(ggh4x.facet.nestline=element_line(colour = "black")) +
-  theme(panel.grid = element_line(colour = "white"), axis.text.x = element_blank(),axis.text = element_text(size= 13), axis.title = element_text(size = 15), strip.text = element_text(size = 13), legend.text = element_text(size = 14), legend.title = element_text(size = 15), title = element_text(size = 16), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1)) +
+  theme(panel.grid = element_line(colour = "white"), axis.text.x = element_blank(),axis.text = element_text(size= 13), axis.title = element_text(size = 15), strip.text = element_text(size = 13),legend.title= element_blank(),legend.text = element_text(size = 14), title = element_text(size = 16), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1)) +
   labs(title = "", x = "Temperature (°C)", y = "") + scale_y_continuous(limits = c(0, 2),breaks = seq(0, 2, by = 0.2)) +
   geom_hline(yintercept = 1, color = "red", size = 0.5)# +
   #facet_wrap(site, scales = "free")
@@ -176,7 +179,7 @@ all_aragonite_temp
 
 
 
-pdf(paste0(path = "Field_Data_WaterChemistry/output" ,"/Aragonite_temperature_all.pdf"), height = 7, width = 13)
+pdf(paste0(path = "Field_Data_WaterChemistry/output" ,"/Aragonite_temperature_all.pdf"), height = 13, width = 13)
 print(all_aragonite_temp)
 dev.off()
 
