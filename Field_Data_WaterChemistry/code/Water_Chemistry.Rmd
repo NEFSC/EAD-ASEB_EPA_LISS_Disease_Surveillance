@@ -119,6 +119,10 @@ mean_aragonite_plot <- ggplot(
   facet_wrap(~site)
 
 mean_aragonite_plot
+
+pdf(paste0(path = "Field_Data_WaterChemistry/output" ,"/Mean_Aragonite__all.pdf"), height = 7, width = 13)
+print(mean_aragonite_plot)
+dev.off()
 ```
 
 #Aragonite vs Temperature
