@@ -8,12 +8,15 @@ description: This R code is used to important and summarize bed characteristics 
 ---
 
 
+updated 5/14/2026 M.Kachmar
+- input spring 2026 data for Fence Creek
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
 #knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 #knitr::opts_knit$set(root.dir = 'C:/Users/kelly.roper/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kelly's
-knitr::opts_knit$set(root.dir = 'C:/Users/sarina.dery/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #sarina's
+#knitr::opts_knit$set(root.dir = 'C:/Users/sarina.dery/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #sarina's
 ```
 
 
@@ -69,7 +72,7 @@ data_all <- data_all %>%
 data_all <- data_all %>%
   mutate(Season = case_when(between(month, 5,6) ~"Spring",
                             between(month, 8,10) ~ "Fall"))
-data_all <- select(data_all, -c("month"))
+data_all <- dplyr::select(data_all, -c("month"))
 
 data_all <- data_all %>% filter(!is.na(Quadrat))
 
@@ -83,7 +86,7 @@ View(data_all)
 #Bed Height - creating master file
 #bed_all <- data_all %>% filter(!is.na(Quadrat))
 #removing unnecessary columns
-bed_all <- select(data_all, -c("Field ID", "Quadrat_size", "Percent_coverage", "Live_count",
+bed_all <- dplyr::select(data_all, -c("Field ID", "Quadrat_size", "Percent_coverage", "Live_count",
                                   "Box_count", "Gaper_count", "Rugosity", "Quadrat"))
 
 
@@ -94,7 +97,7 @@ head(bed_all)
     dplyr::rename(Bed_height_cm = Bed_height)
   
 #reordering columns
-bed_all <- bed_all %>% select("Date_collected", "Site", "State", "Bed_height_cm", "Season")
+bed_all <- bed_all %>% dplyr::select("Date_collected", "Site", "State", "Bed_height_cm", "Season")
 
 st_bed_height <- summarySE(bed_all, measurevar="Bed_height_cm", groupvars=c("Site", "Date_collected", "Season"))
 
@@ -120,16 +123,16 @@ bedheight_june2023$Season <- rep("Spring", nrow(bedheight_june2023))
 bedheight_june2023$State <- rep("CT", nrow(bedheight_june2023))
 
 #removing unnecessary columns
-bedheight_june2023 <- select(bedheight_june2023, -c("BedHeight_Notes", "TopMark", "BottomMark", "Measure_direction", "Bed_Section"))
+bedheight_june2023 <- dplyr::select(bedheight_june2023, -c("BedHeight_Notes", "TopMark", "BottomMark", "Measure_direction", "Bed_Section"))
 
 bedheight_june2023<- bedheight_june2023 %>%
-  mutate(Site = recode(Site_Name, "Ash Creek" = "ASHC", "Fence Creek" = "FENC")) %>% 
-  select(-c("Site_Name"))
+  dplyr::mutate(Site = dplyr::recode(Site_Name, "Ash Creek" = "ASHC", "Fence Creek" = "FENC")) %>% 
+  dplyr::select(-c("Site_Name"))
 
 head(bedheight_june2023)
 
 #reordering columns
-bedheight_june2023 <- bedheight_june2023 %>% select("Date_collected", "Site", "State", "Bed_height_cm", "Season")
+bedheight_june2023 <- bedheight_june2023 %>% dplyr::select("Date_collected", "Site", "State", "Bed_height_cm", "Season")
 ```
 
 ```{r}
@@ -160,11 +163,11 @@ write.csv(bedheight_summary, "Field_Data_Biological/output/bedheight_summary.csv
 #Rugosity - creating master file
 
 #removing unnecessary columns
-rugosity_all <- select(data_all, -c("Field ID", "Quadrat_size", "Percent_coverage", "Live_count",
+rugosity_all <- dplyr::select(data_all, -c("Field ID", "Quadrat_size", "Percent_coverage", "Live_count",
                                   "Box_count", "Gaper_count","Bed_height", "Quadrat"))
 
-rugosity_all <- rugosity_all %>% select(where(~ !all(is.na(.))))
-rugosity_all <- rugosity_all%>% filter(!is.na(Rugosity))
+rugosity_all <- rugosity_all %>% dplyr::select(where(~ !all(is.na(.))))
+rugosity_all <- rugosity_all%>% dplyr::filter(!is.na(Rugosity))
 #head(rugosity_all)
 ```
 #June 2023 (spring) survey - rugosity data. Changing June 2023 data to match formate of the data later collected. All data pulled form June 2023 is from the original file.
@@ -183,16 +186,16 @@ rugosity_june2023$Season <- rep("Spring", nrow(rugosity_june2023))
 rugosity_june2023$State <- rep("CT", nrow(rugosity_june2023))
 
 #removing unnecessary columns
-rugosity_june2023 <- select(rugosity_june2023, -c("RUGOS_NUM","ChainType", "Bed_Section", "Zone", "LengthContoured_cm", "LengthStraightline_cm","Notes"))
+rugosity_june2023 <- dplyr::select(rugosity_june2023, -c("RUGOS_NUM","ChainType", "Bed_Section", "Zone", "LengthContoured_cm", "LengthStraightline_cm","Notes"))
 
 rugosity_june2023<- rugosity_june2023 %>%
-  mutate(Site = recode(Site_Name, "Ash Creek" = "ASHC", "Fence Creek" = "FENC")) %>% 
-  select(-c("Site_Name"))
+  dplyr::mutate(Site = dplyr::recode(Site_Name, "Ash Creek" = "ASHC", "Fence Creek" = "FENC")) %>% 
+  dplyr::select(-c("Site_Name"))
 
 head(rugosity_june2023)
 
 #reordering columns
-rugosity_june2023 <- rugosity_june2023 %>% select("Date_collected", "Site", "State", "Rugosity", "Season")
+rugosity_june2023 <- rugosity_june2023 %>% dplyr::select("Date_collected", "Site", "State", "Rugosity", "Season")
 ```
 
 ```{r}
@@ -214,7 +217,44 @@ rugosity_summary #Laural Hollow only has one rugosity measurement, so NAs will a
 
 write.csv(rugosity_summary, "Field_Data_Biological/output/rugosity_summary.csv", row.names=FALSE)
 ```
+#Lets graph rugosity
 
+```{r}
+
+rugosity_summary <- rugosity_summary %>% filter(Site != "LAUR")
+
+#box plot comparing the sites
+ggplot(rugosity_summary, aes(x = Date_collected, y = Rugosity, fill = Site)) +
+  geom_boxplot(alpha = 0.7) +
+  geom_jitter(aes(color = Site, width = 0.15, alpha = 0.6, size = 2, show.lengend = FALSE)) +
+  theme_classic() +
+  labs(
+    title = "Oyster Bed Rugosity ",
+    x = "Date",
+    y = "Rugosity Index"
+  ) +
+  scale_fill_manual(values = c("darkgreen", "steelblue", "darkred"))+
+  scale_color_manual(values= c("darkgreen", "steelblue", "darkred") )+
+  theme(plot.title = element_text(size= 18, face = "bold", hjust= 0.5), axis.title = element_text(size = 11), legend.title = element_blank())+
+  facet_wrap(~Site)
+  
+
+
+#scatterplot gold star rugosity by restoration age (year)
+
+rugosity_GOLD <- rugosity_summary %>% filter(Site == "GOLD")
+
+ggplot(rugosity_GOLD, aes(x = Date_collected, y = Rugosity)) +
+  geom_point(color = "orange", alpha = 0.6, size = 3) +
+  geom_smooth(method = "lm", se = TRUE, color = "black", fill = "gray") +
+  theme_classic() +
+  labs(
+    title = "Oyster Reef Rugosity Over Time",
+    x = "Age of Restored Reef (Years)",
+    y = "Rugosity Index"
+  )
+
+```
 
 #### Percent Coverage ####
 
@@ -238,11 +278,11 @@ percov_june2023$Season <- rep("Spring", nrow(percov_june2023))
 percov_june2023$State <- rep("CT", nrow(percov_june2023))
 
 #removing unnecessary columns
-percov_june2023 <- select(percov_june2023, -c("QUADRAT_NUM", "Quadrat_Type", "Quadrat_Zone", "Light_Zone", "Bed_Section", "LiveCount_Total", "GaperCount_Total", "BoxCount_Total", "Subsample_Measured", "Quadrat_Notes"))
+percov_june2023 <- dplyr::select(percov_june2023, -c("QUADRAT_NUM", "Quadrat_Type", "Quadrat_Zone", "Light_Zone", "Bed_Section", "LiveCount_Total", "GaperCount_Total", "BoxCount_Total", "Subsample_Measured", "Quadrat_Notes"))
 
 percov_june2023<- percov_june2023 %>%
-  mutate(Site = recode(Site_Name, "Ash Creek" = "ASHC", "Fence Creek" = "FENC")) %>% 
-  select(-c("Site_Name"))
+ dplyr::mutate(Site = dplyr::recode(Site_Name, "Ash Creek" = "ASHC", "Fence Creek" = "FENC")) %>% 
+  dplyr::select(-c("Site_Name"))
 
 head(percov_june2023)
 
@@ -252,26 +292,26 @@ percov_june2023 <- percov_june2023 %>%
                                     "0%" = "0-24", "1-25%" = "0-24", "26-50%" = "25-49", "51-75%"= "50-74", "76-99%"= "75-99", "100%"= "100"))
 
 #reordering columns
-percov_june2023 <- percov_june2023 %>% select("Date_collected", "Site", "State", "Percent_coverage", "Season")
+percov_june2023 <- percov_june2023 %>% dplyr::select("Date_collected", "Site", "State", "Percent_coverage", "Season")
 ```
 
 ```{r}
 #October 2023 (fall) data. This data is in a different format compared to the other dates, where percent coverage is not binned.
 #removing unnecessary columns
-percent_coverage <- select(data_all, -c("Field ID", "Quadrat_size", "Rugosity", "Bed_height", "Quadrat", "Live_count", "Box_count", "Gaper_count"))
+percent_coverage <- dplyr::select(data_all, -c("Field ID", "Quadrat_size", "Rugosity", "Bed_height", "Quadrat", "Live_count", "Box_count", "Gaper_count"))
 
-percent_coverage <- percent_coverage%>% filter(!is.na(Percent_coverage))
+percent_coverage <- percent_coverage%>% dplyr::filter(!is.na(Percent_coverage))
 
 head(percent_coverage)
 
 #Changing percent coverage to the current categories being used. In October 2023 there single percentages were being assigned, this change will help merge old and new data by putting the data points into categories.
 percent_coverage$Percent_coverage <- as.factor(percent_coverage$Percent_coverage)
 percent_coverage <- percent_coverage %>%
-  mutate(Percent_coverage = dplyr::recode(Percent_coverage, 
+  dplyr::mutate(Percent_coverage = dplyr::recode(Percent_coverage, 
                                     "15" = "0-24", "20" = "0-24", "25" = "25-49", "30" = "25-49", "40" = "25-49", "50"= "50-74", "80"= "75-99", "90"= "75-99", "100"= "100"))
 
 #reordering columns
-percent_coverage <- percent_coverage %>% select("Date_collected", "Site", "State", "Percent_coverage", "Season")
+percent_coverage <- percent_coverage %>% dplyr::select("Date_collected", "Site", "State", "Percent_coverage", "Season")
 
 ```
 
@@ -316,9 +356,9 @@ quadratdensity_2023 <- quadratdensity_2023 %>%
   dplyr::rename(Gaper_count = GaperCount_Total)%>% 
   dplyr::rename(Date_collected = TripDate) %>%  
   dplyr::rename(Site = Site_Name) %>% 
-  select(-c("Quadrat_Type", "Quadrat_Zone", "Bed_Section", "Light_Zone", "Subsample_Measured", "Quadrat_Notes","Oyster_Cover")) %>%
-   mutate(Date_collected = as.Date(Date_collected, format = "%m/%d/%Y")) %>%
-  mutate(Site = recode(Site, "Ash Creek" = "ASHC", "Fence Creek" = "FENC"))
+  dplyr::select(-c("Quadrat_Type", "Quadrat_Zone", "Bed_Section", "Light_Zone", "Subsample_Measured", "Quadrat_Notes","Oyster_Cover")) %>%
+   dplyr::mutate(Date_collected = as.Date(Date_collected, format = "%m/%d/%Y")) %>%
+  dplyr::mutate(Site = dplyr::recode(Site, "Ash Creek" = "ASHC", "Fence Creek" = "FENC"))
 
 quadratdensity_2023
 
@@ -326,17 +366,17 @@ quadratdensity_2023$Season<- rep("Spring", nrow(quadratdensity_2023)) #adding a 
 
 #data Fall 2023 - present and clean it up ; Removing unnecessary columns as we are just focusing on density information, removing and NAs, creating a month column
 quadratdensity <- data_all %>%
-  select(-c("Field ID", "State", "Quadrat_size", "Percent_coverage", "Bed_height", "Rugosity"))%>%
-  filter(!is.na(Live_count)) %>%filter(!is.na(Box_count))%>%filter(!is.na(Gaper_count))
+  dplyr::select(-c("Field ID", "State", "Quadrat_size", "Percent_coverage", "Bed_height", "Rugosity"))%>%
+  dplyr::filter(!is.na(Live_count)) %>% dplyr::filter(!is.na(Box_count))%>% dplyr::filter(!is.na(Gaper_count))
  quadratdensity <- quadratdensity %>%
-  mutate(month = month(Date_collected))
+ dplyr:: mutate(month = month(Date_collected))
  
 # adding a seasons column to the data set for downstream organization and graphing
 quadratdensity <- quadratdensity %>%
-  mutate(Season = case_when(between(month, 5,6) ~"Spring",
-                            between(month, 8,10) ~ "Fall")) %>% select(-c(month)) 
+  dplyr::mutate(Season = dplyr::case_when(between(month, 5,6) ~"Spring",
+                            between(month, 8,10) ~ "Fall")) %>% dplyr::select(-c(month)) 
 
-quadratdensity <- quadratdensity %>% select(where(~ all(!is.na(.)))) #removing any NA's from the dataset
+quadratdensity <- quadratdensity %>% dplyr::select(where(~ all(!is.na(.)))) #removing any NA's from the dataset
 
 #combine spring 2023 with everything else
   
@@ -349,20 +389,20 @@ quadratdensity_summary
 density_live_sum <- summarySE(data = quadratdensity_summary, measurevar = "Live_count", groupvars = c(  "Site", "Date_collected", "Season"))
 
 density_live_sum <- density_live_sum %>%
-  mutate(Count = Live_count) %>%  mutate(survival_status = "live") %>%
-  select(-Live_count)
+  dplyr::mutate(Count = Live_count) %>%  dplyr::mutate(survival_status = "live") %>%
+  dplyr::select(-Live_count)
 density_live_sum
 
 density_box_sum <- summarySE(data = quadratdensity_summary, measurevar = "Box_count", groupvars = c( "Site", "Date_collected", "Season"))
 density_box_sum <- density_box_sum %>%
-  mutate(Count = Box_count) %>% mutate(survival_status = "box") %>%
-  select(-Box_count)
+  dplyr::mutate(Count = Box_count) %>% dplyr::mutate(survival_status = "box") %>%
+  dplyr::select(-Box_count)
 density_box_sum
 
 density_gaper_sum <- summarySE(data = quadratdensity_summary, measurevar = "Gaper_count", groupvars = c( "Site", "Date_collected", "Season"))
 density_gaper_sum <- density_gaper_sum %>%
-  mutate(Count = Gaper_count) %>% mutate(survival_status = "gaper") %>%
-  select(-Gaper_count)
+  dplyr::mutate(Count = Gaper_count) %>% dplyr::mutate(survival_status = "gaper") %>%
+  dplyr::select(-Gaper_count)
 density_gaper_sum
 
 
@@ -379,7 +419,7 @@ density_summary$PSE_all <- 100*(density_summary$se/density_summary$Count)
 
 #calculate completeness as 100*N/4, where 4 is the desired number of quadrats per site. 2023 surveys had 12 quadrates measured. 
   densitysummary <- density_summary %>%
-    mutate(PercentComplete_Quad = ((N/4)*100))
+    dplyr::mutate(PercentComplete_Quad = ((N/4)*100))
 densitysummary
 
 View(density_summary)
@@ -394,7 +434,7 @@ density <- quadratdensity_summary %>%
     names_to = "survival_status",
     values_to = "Count"
   ) %>%
-  mutate(survival_status = case_when(
+  dplyr::mutate(survival_status = case_when(
     survival_status == "Live_count" ~ "live",
     survival_status == "Box_count" ~ "box",
     survival_status == "Gaper_count" ~ "gaper",
@@ -413,7 +453,7 @@ view(df_density_all)
 #Mean of Oysters per m^2 across all quadrats
 mean_total_oysters_all <- df_density_all %>%
  dplyr:: group_by(Site, Season, survival_status, Date_collected) %>%
- dplyr::summarize(Total_Density = mean(Density))
+ dplyr::summarize(Total_Density = mean(Density), SD = sd(Density, na.rm = TRUE), n = n(), SE = SD / sqrt(n), .groups = "drop")%>%dplyr::mutate(Year = year(Date_collected)) 
 mean_total_oysters_all
 
 View(mean_total_oysters_all) 
@@ -428,13 +468,28 @@ ggplot(data=df_density_all, aes(x= survival_status, y = Density, fill = survival
 #+geom_text(aes(label=Count ), vjust=-0.3, size = 3.5)
 
 #Density of oysters per meter squared
-ggplot(data=mean_total_oysters_all, aes(x= survival_status, y = Total_Density, fill = survival_status)) +
+ggplot(data=mean_total_oysters_all %>% filter(Site != "LAUR"), aes(x= survival_status, y = Total_Density, fill = survival_status)) +
   geom_bar( stat="identity")+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
-  theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.title = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  labs(title="Mean oyster/m^2 Density ", x ="Survival status", y= "Density (# oyster / meter squared)")+
-  facet_wrap(~ Season + Date_collected + Site, scales = "free", nrow=3) #+
- #geom_text(aes(label=Total_Density), vjust=-0.3, size = 3.5)
+  labs(title="Density - mean oysters " ~ m^{-2} ~ " ", x ="Survival status", y= expression("Density (mean oysters " ~ m^{-2} ~ ")"))+
+  facet_grid(~ Site + Season ~ Year, scales = "free_x", space="free_x")+
+ #geom_text(aes(label=Total_Density), vjust=-0.3, size = 3.5)+
+geom_errorbar(aes(ymin = Total_Density - SE,
+                  ymax = Total_Density + SE),
+              width = 0.2) 
+
+#use to filter out specific sites
+ggplot(data=mean_total_oysters_all %>% filter(Site == "FENC", Season == "Spring"), aes(x= survival_status, y = Total_Density, fill = survival_status)) +
+  geom_bar( stat="identity")+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
+  theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.title = element_blank())+ 
+  #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  labs(title="Density - mean oysters " ~ m^{-2} ~ " ", x ="Survival status", y= expression("Density (mean oysters " ~ m^{-2} ~ ")"))+
+  facet_grid(~ Site + Season ~ Year, scales = "free_x", space="free_x")+
+ #geom_text(aes(label=Total_Density), vjust=-0.3, size = 3.5)+
+geom_errorbar(aes(ymin = Total_Density - SE,
+                  ymax = Total_Density + SE),
+              width = 0.2)
 
 
 ```

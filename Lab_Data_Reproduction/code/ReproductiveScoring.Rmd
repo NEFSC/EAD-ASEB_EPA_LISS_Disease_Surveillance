@@ -14,8 +14,8 @@ Last update 4/16/2026 by K. Lenderman
 #Set working directory
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
-knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 ```
 
 #run packages
@@ -171,6 +171,7 @@ pdf(paste0(path = "Lab_Data_Reproduction/output" ,"/Reproduction_2024_all.pdf"),
 print(all_repro_graph)
 dev.off()
 ```
+
 ```{r}
 #Creating proportions for stages and sex
 df_score_proportions<- data_all %>%
@@ -601,6 +602,32 @@ dev.off()
 ```
 
 
+
+#Preliminary stats to see differences between sites
+```{r}
+
+library(MASS)
+data_all$Stage_final <- factor(
+  data_all$Stage_final,
+  ordered = TRUE
+)
+
+data_all<-data_all%>% filter(Site != "LAUR")
+
+model_gonad_development <- polr(Stage_final ~ Site + month, data_all, Hess = TRUE)
+summary(model_gonad_development)
+
+data_all$Sex_final <- factor(
+  data_all$Sex_final,
+  ordered = TRUE
+)
+
+library(nnet)
+model_sex_ratio <- multinom(Sex_final ~ Site + month, data= data_all)
+summary(model_sex_ratio)
+
+predict(model_sex_ratio, type = "probs")
+```
 
 ## R Markdown
 

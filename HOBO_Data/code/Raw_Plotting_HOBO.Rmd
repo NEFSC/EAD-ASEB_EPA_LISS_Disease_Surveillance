@@ -6,9 +6,10 @@ output: html_document
 
 ---
 
-Last updated: 3/19/26 M.Kachmar
+Last updated: 5/7/26 M.Kachmar
 - QAQC
- - HOBO at fence creek lost in ice/blizzard - end of 01/26 and beginning of 02/26 data lost
+
+IMPORTANT:  HOBO at fence creek lost in ice/blizzard - end of 01/26 and beginning of 02/26 data lost
 
 
 ```{r setup, include=FALSE}
@@ -68,7 +69,7 @@ df4<-read_csv("HOBO_Data\\raw_data\\012026_FENC_HOBO.csv", col_names = TRUE)%>% 
   dplyr::rename(Temperature = `Temperature`) %>%
   dplyr::rename(Date_Time = `Date-Time (EST)`)# %>%
   #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset"))
-df5<-read_csv("HOBO_Data\\raw_data\\042026_FENC_HOBO.csv", col_names = TRUE)%>%  # update this csv when new data comes in from the new HOBO
+df5<-read_csv("HOBO_Data\\raw_data\\052026_FENC_HOBO.csv", col_names = TRUE)%>%  # update this csv when new data comes in from the new HOBO
   dplyr::rename(Temperature = `Temperature`) %>%
   dplyr::rename(Date_Time = `Date-Time (EST/EDT)`)# %>%
   #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset"))
@@ -555,7 +556,7 @@ GOLD_df2 <- GOLD_df2 %>%
   dplyr::select(Date_Time, Temperature) 
 GOLD_df2
 
-GOLD_df3 <- read_csv("HOBO_Data\\raw_data\\042026_GOLD_HOBO.csv", col_names = TRUE) 
+GOLD_df3 <- read_csv("HOBO_Data\\raw_data\\052026_GOLD_HOBO.csv", col_names = TRUE) 
 GOLD_df3 <- GOLD_df3 %>%
   dplyr::rename(Temperature = `Temperature`) %>%
   dplyr:: rename(Date_Time = `Date-Time (EDT)`)%>%
