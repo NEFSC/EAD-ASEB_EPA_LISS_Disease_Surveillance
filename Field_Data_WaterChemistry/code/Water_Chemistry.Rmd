@@ -195,6 +195,8 @@ dev.off()
 
 
 ```
+
+
 #Aragonite vs Temperature
 ```{r}
 
@@ -205,7 +207,7 @@ Aragonite_temp_plot <-  data_all %>%
   geom_smooth(method= "lm", se= FALSE)+
   theme_bw()+
   theme(panel.grid = element_line(colour = "white"),axis.text = element_text(size= 15), axis.title = element_text(size = 20), strip.text = element_text(size = 15),legend.title= element_blank(),legend.text = element_text(size = 15), title = element_text(size = 25), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1)) +
-  labs(title = "Aragonite Saturation vs Temperature", x = "", y = "") + scale_y_continuous(limits = c(0, 2),breaks = seq(0, 2, by = 0.2)) + scale_x_continuous(limits = c(0,30))+
+  labs(title = "Aragonite Saturation vs Temperature", x = "Temperature (°C)", y = "Aragonite Saturation (Ωar)") + scale_y_continuous(limits = c(0, 2),breaks = seq(0, 2, by = 0.2)) + scale_x_continuous(limits = c(0,30))+
   geom_hline(yintercept = 1, color = "red", size = 0.5) #+
   #facet_wrap(site, scales = "free_x")
 
@@ -216,7 +218,49 @@ print(Aragonite_temp_plot)
 dev.off()
 
 ```
+#Aragonite vs pH
+```{r}
 
+Aragonite_pH_plot <-  data_all %>%
+  ggplot(aes(x = `pH out`,y = `WAr out`,color = site)) +
+  geom_point( alpha = 0.7, size = 2) +
+  scale_color_manual(values = c("Ash Creek" = "maroon", "Fence Creek" = "darkgreen", "Gold Star" = "steelblue"))+
+  geom_smooth(method= "lm", se= FALSE)+
+  theme_bw()+
+  theme(panel.grid = element_line(colour = "white"),axis.text = element_text(size= 15), axis.title = element_text(size = 20), strip.text = element_text(size = 15),legend.title= element_blank(),legend.text = element_text(size = 15), title = element_text(size = 25), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1)) +
+  labs(title = "Aragonite Saturation vs pH", x = "pH", y = "Aragonite Saturation (Ωar)") + scale_y_continuous(limits = c(0, 2),breaks = seq(0, 2, by = 0.2)) + scale_x_continuous(limits = c(5,10))+
+  geom_hline(yintercept = 1, color = "red", size = 0.5) #+
+  #facet_wrap(site, scales = "free_x")
+
+Aragonite_pH_plot
+
+pdf(paste0(path = "Field_Data_WaterChemistry/output" ,"/Aragonite_pH_all.pdf"), height = 11, width = 14)
+print(Aragonite_pH_plot)
+dev.off()
+
+```
+
+#Aragonite vs salinity
+```{r}
+
+Aragonite_salinity_plot <-  data_all %>%
+  ggplot(aes(x = `Salinity`,y = `WAr out`,color = site)) +
+  geom_point( alpha = 0.7, size = 2) +
+  scale_color_manual(values = c("Ash Creek" = "maroon", "Fence Creek" = "darkgreen", "Gold Star" = "steelblue"))+
+  geom_smooth(method= "lm", se= FALSE)+
+  theme_bw()+
+  theme(panel.grid = element_line(colour = "white"),axis.text = element_text(size= 15), axis.title = element_text(size = 20), strip.text = element_text(size = 15),legend.title= element_blank(),legend.text = element_text(size = 15), title = element_text(size = 25), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1)) +
+  labs(title = "Aragonite Saturation vs Salinity", x = "Salinity (PSU)", y = "Aragonite Saturation (Ωar)") + scale_y_continuous(limits = c(0, 2),breaks = seq(0, 2, by = 0.2)) + scale_x_continuous(limits = c(0,30))+
+  geom_hline(yintercept = 1, color = "red", size = 0.5) #+
+  #facet_wrap(site, scales = "free_x")
+
+Aragonite_salinity_plot
+
+pdf(paste0(path = "Field_Data_WaterChemistry/output" ,"/Aragonite_salinity_all.pdf"), height = 11, width = 14)
+print(Aragonite_salinity_plot)
+dev.off()
+
+```
 #lets do some quick stats to see what the relatioships are and differences between sites/time
 ```{r}
 
