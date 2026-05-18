@@ -207,7 +207,7 @@ Aragonite_temp_plot <-  data_all %>%
   geom_smooth(method= "lm", se= FALSE)+
   theme_bw()+
   theme(panel.grid = element_line(colour = "white"),axis.text = element_text(size= 15), axis.title = element_text(size = 20), strip.text = element_text(size = 15),legend.title= element_blank(),legend.text = element_text(size = 15), title = element_text(size = 25), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1)) +
-  labs(title = "Aragonite Saturation vs Temperature", x = "Temperature (°C)", y = "Aragonite Saturation (Ωar)") + scale_y_continuous(limits = c(0, 2),breaks = seq(0, 2, by = 0.2)) + scale_x_continuous(limits = c(0,30))+
+  labs(title = "", x = "Temperature (°C)", y = "Aragonite Saturation (Ωar)") + scale_y_continuous(limits = c(0, 2),breaks = seq(0, 2, by = 0.2)) + scale_x_continuous(limits = c(0,30))+
   geom_hline(yintercept = 1, color = "red", size = 0.5) #+
   #facet_wrap(site, scales = "free_x")
 
@@ -228,7 +228,7 @@ Aragonite_pH_plot <-  data_all %>%
   geom_smooth(method= "lm", se= FALSE)+
   theme_bw()+
   theme(panel.grid = element_line(colour = "white"),axis.text = element_text(size= 15), axis.title = element_text(size = 20), strip.text = element_text(size = 15),legend.title= element_blank(),legend.text = element_text(size = 15), title = element_text(size = 25), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1)) +
-  labs(title = "Aragonite Saturation vs pH", x = "pH", y = "Aragonite Saturation (Ωar)") + scale_y_continuous(limits = c(0, 2),breaks = seq(0, 2, by = 0.2)) + scale_x_continuous(limits = c(5,10))+
+  labs(title = "", x = "pH", y = "Aragonite Saturation (Ωar)") + scale_y_continuous(limits = c(0, 2),breaks = seq(0, 2, by = 0.2)) + scale_x_continuous(limits = c(5,10))+
   geom_hline(yintercept = 1, color = "red", size = 0.5) #+
   #facet_wrap(site, scales = "free_x")
 
@@ -250,7 +250,7 @@ Aragonite_salinity_plot <-  data_all %>%
   geom_smooth(method= "lm", se= FALSE)+
   theme_bw()+
   theme(panel.grid = element_line(colour = "white"),axis.text = element_text(size= 15), axis.title = element_text(size = 20), strip.text = element_text(size = 15),legend.title= element_blank(),legend.text = element_text(size = 15), title = element_text(size = 25), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1)) +
-  labs(title = "Aragonite Saturation vs Salinity", x = "Salinity (PSU)", y = "Aragonite Saturation (Ωar)") + scale_y_continuous(limits = c(0, 2),breaks = seq(0, 2, by = 0.2)) + scale_x_continuous(limits = c(0,30))+
+  labs(title = "", x = "Salinity (PSU)", y = "Aragonite Saturation (Ωar)") + scale_y_continuous(limits = c(0, 2),breaks = seq(0, 2, by = 0.2)) + scale_x_continuous(limits = c(0,30))+
   geom_hline(yintercept = 1, color = "red", size = 0.5) #+
   #facet_wrap(site, scales = "free_x")
 
@@ -272,7 +272,7 @@ Aragonite_CO2_plot <-  data_all %>%
   geom_smooth(method= "lm", se= FALSE)+
   theme_bw()+
   theme(panel.grid = element_line(colour = "white"),axis.text = element_text(size= 15), axis.title = element_text(size = 20), strip.text = element_text(size = 15),legend.title= element_blank(),legend.text = element_text(size = 15), title = element_text(size = 25), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1)) +
-  labs(title = "Aragonite Saturation vs CO2", x = "CO2 (ppm)", y = "Aragonite Saturation (Ωar)") + scale_y_continuous(limits = c(0, 2),breaks = seq(0, 2, by = 0.2)) +
+  labs(title = "", x = "CO2 (ppm)", y = "Aragonite Saturation (Ωar)") + scale_y_continuous(limits = c(0, 2),breaks = seq(0, 2, by = 0.2)) +
   geom_hline(yintercept = 1, color = "red", size = 0.5) #+
   #facet_wrap(site, scales = "free_x")
 
@@ -286,8 +286,13 @@ dev.off()
 ```
 ```{r}
 
-grid_aragonite <- ggarrange(Aragonite_temp_plot,Aragonite_salinity_plot,Aragonite_pH_plot,Aragonite_CO2_plot, ncol=2, nrow = 2)
+grid_aragonite <- ggarrange(Aragonite_temp_plot,Aragonite_salinity_plot,Aragonite_pH_plot,Aragonite_CO2_plot, ncol=2, nrow = 2, common.legend = TRUE, legend = "top")
 grid_aragonite
+
+
+pdf(paste0(path = "Field_Data_WaterChemistry/output" ,"/Aragonite_grid.pdf"), height = 11, width = 14)
+print(grid_aragonite)
+dev.off()
 
 ```
 
