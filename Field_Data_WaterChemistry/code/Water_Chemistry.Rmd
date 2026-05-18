@@ -203,7 +203,7 @@ dev.off()
 Aragonite_temp_plot <-  data_all %>%
   ggplot(aes(x = `t(oC) of field`,y = `WAr out`,color = site)) +
   geom_point( alpha = 0.7, size = 2) +
-  scale_color_manual(values = c("Ash Creek" = "maroon", "Fence Creek" = "darkgreen", "Gold Star" = "steelblue"))+
+  scale_color_manual(values = c("Ash Creek" = "firebrick2", "Fence Creek" = "green4", "Gold Star" = "cyan3"))+
   geom_smooth(method= "lm", se= FALSE)+
   theme_bw()+
   theme(panel.grid = element_line(colour = "white"),axis.text = element_text(size= 15), axis.title = element_text(size = 20), strip.text = element_text(size = 15),legend.title= element_blank(),legend.text = element_text(size = 15), title = element_text(size = 25), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1)) +
@@ -224,7 +224,7 @@ dev.off()
 Aragonite_pH_plot <-  data_all %>%
   ggplot(aes(x = `pH out`,y = `WAr out`,color = site)) +
   geom_point( alpha = 0.7, size = 2) +
-  scale_color_manual(values = c("Ash Creek" = "maroon", "Fence Creek" = "darkgreen", "Gold Star" = "steelblue"))+
+  scale_color_manual(values = c("Ash Creek" = "firebrick2", "Fence Creek" = "green4", "Gold Star" = "cyan3"))+
   geom_smooth(method= "lm", se= FALSE)+
   theme_bw()+
   theme(panel.grid = element_line(colour = "white"),axis.text = element_text(size= 15), axis.title = element_text(size = 20), strip.text = element_text(size = 15),legend.title= element_blank(),legend.text = element_text(size = 15), title = element_text(size = 25), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1)) +
@@ -246,7 +246,7 @@ dev.off()
 Aragonite_salinity_plot <-  data_all %>%
   ggplot(aes(x = `Salinity`,y = `WAr out`,color = site)) +
   geom_point( alpha = 0.7, size = 2) +
-  scale_color_manual(values = c("Ash Creek" = "maroon", "Fence Creek" = "darkgreen", "Gold Star" = "steelblue"))+
+  scale_color_manual(values = c("Ash Creek" = "firebrick2", "Fence Creek" = "green4", "Gold Star" = "cyan3"))+
   geom_smooth(method= "lm", se= FALSE)+
   theme_bw()+
   theme(panel.grid = element_line(colour = "white"),axis.text = element_text(size= 15), axis.title = element_text(size = 20), strip.text = element_text(size = 15),legend.title= element_blank(),legend.text = element_text(size = 15), title = element_text(size = 25), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1)) +
@@ -268,7 +268,7 @@ dev.off()
 Aragonite_CO2_plot <-  data_all %>%
   ggplot(aes(x = `xCO2 out (dry at 1 atm) (ppm)`,y = `WAr out`,color = site)) +
   geom_point( alpha = 0.7, size = 2) +
-  scale_color_manual(values = c("Ash Creek" = "maroon", "Fence Creek" = "darkgreen", "Gold Star" = "steelblue"))+
+  scale_color_manual(values = c("Ash Creek" = "firebrick2", "Fence Creek" = "green4", "Gold Star" = "cyan3"))+
   geom_smooth(method= "lm", se= FALSE)+
   theme_bw()+
   theme(panel.grid = element_line(colour = "white"),axis.text = element_text(size= 15), axis.title = element_text(size = 20), strip.text = element_text(size = 15),legend.title= element_blank(),legend.text = element_text(size = 15), title = element_text(size = 25), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1)) +
