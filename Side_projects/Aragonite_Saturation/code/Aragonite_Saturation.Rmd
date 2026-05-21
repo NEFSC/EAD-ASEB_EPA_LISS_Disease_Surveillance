@@ -45,6 +45,8 @@ Aragonite_master$month <- factor(Aragonite_master$month, levels = c("1","2","3",
 
 head(Aragonite_master)
 ```
+
+
 ```{r}
 Aragonite_master_long<- Aragonite_master %>%  
                       reshape2::melt(id.vars = c("date_collected", "Site","month","year"),

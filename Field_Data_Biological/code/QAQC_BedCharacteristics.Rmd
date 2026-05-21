@@ -8,13 +8,13 @@ description: This R code is used to important and summarize bed characteristics 
 ---
 
 
-updated 5/14/2026 M.Kachmar
-- input spring 2026 data for Fence Creek
+updated 5/21/2026 M.Kachmar
+- input spring 2026 data for Ash Creek
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
-knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 #knitr::opts_knit$set(root.dir = 'C:/Users/kelly.roper/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kelly's
 #knitr::opts_knit$set(root.dir = 'C:/Users/sarina.dery/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #sarina's
 ```
@@ -480,7 +480,7 @@ geom_errorbar(aes(ymin = Total_Density - SE,
               width = 0.2) 
 
 #use to filter out specific sites
-ggplot(data=mean_total_oysters_all %>% filter(Site == "FENC", Season == "Spring"), aes(x= survival_status, y = Total_Density, fill = survival_status)) +
+ggplot(data=mean_total_oysters_all %>% filter(Site == "ASHC", Season == "Spring"), aes(x= survival_status, y = Total_Density, fill = survival_status)) +
   geom_bar( stat="identity")+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.title = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
