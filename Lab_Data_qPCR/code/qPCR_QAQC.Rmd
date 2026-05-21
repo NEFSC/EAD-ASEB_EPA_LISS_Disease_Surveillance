@@ -56,7 +56,7 @@ data_all <- data_all %>% filter(!is.na('Content'))
 
 #What columns are necessary? I am removing 'Well' (Well # on the 96 well plate)  
 
-data_all<- data_all %>% select(c('Fluor','Content', 'Cq', 'Starting Quantity (SQ)', 'Cq Mean', 'Cq Std. Dev', 'SQ Std. Dev'))
+data_all<- data_all %>% dplyr::select(c('Fluor','Content', 'Cq', 'Starting Quantity (SQ)', 'Cq Mean', 'Cq Std. Dev', 'SQ Std. Dev'))
 
 #lets rename these columns to be more user friendly
 data_all <- data_all %>% dplyr::rename(Target_dye = 'Fluor',Sample_ID = 'Content', Concentration = 'Starting Quantity (SQ)', St_dev = 'SQ Std. Dev', Cq_st_dev = 'Cq Std. Dev', Cq_mean = 'Cq Mean' )
@@ -82,6 +82,14 @@ high_cq_sd <- data_all %>% filter(Cq_st_dev > 0.5) %>% nrow() #creates number of
 high_cq_sd_list <- data_all %>% filter(Cq_st_dev > 0.5) #creates list of which samples have high sd
 percentage_highsd <- (high_cq_sd/nrow(data_all)) * 100 # determining percentage of samples have high standard deviation
 percentage_highsd #outputs percentage
+
+
+#Percentage of standard deviations >0.5 for qPCR technical replicate values
+high_sd <- data_all %>% filter(St_dev > 0.5) %>% nrow() #creates number of rows that have sd # >0.5
+high_sd_list <- data_all %>% filter(St_dev > 0.5) #creates list of which samples have high sd
+percentage_highsd <- (high_sd/nrow(data_all)) * 100 # determining percentage of samples have high standard deviation
+percentage_highsd #outputs percentage
+
 
 ```
 
@@ -136,7 +144,7 @@ merged_data
 data_summary <- merged_data %>%
   mutate(
     Ratio_copies_per_ng =  Copies_per_uL / mean_concentration_ng.uL,
-    Copies_ul_ng.ul =  Ratio_copies_per_ng * 33.33, #this will be the final concentration per 1 ul (what we should report for scoring?)
+    Copies_ul_ng.ul =  Ratio_copies_per_ng * 33.33, #this will be the final concentration per 1 ul, roger williams uses this concentration (what we should report for scoring?)
     Copies_2ul_final = Copies_ul_ng.ul *2 #this is the final concentration per reaction
   )
   

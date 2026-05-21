@@ -303,8 +303,18 @@ data_all <- data_all %>% filter(site != "Laurel Hollow")
 
 glm_aragonite <- glmmTMB(`WAr out` ~ `t(oC) of field` + site * month,data_all)
 summary(glm_aragonite)
+#significant negative relationship , changes over time - increasing seasonally, fence creek is significantly diffferent from ash c, gold star is not
 
 glm_aragonite_pH <- glmmTMB(`WAr out` ~ `pH out` + site * month,data_all)
 summary(glm_aragonite_pH)
+#significant positive relationship , increases over time (month/seasonally), gold star significantly different
+
+glm_aragonite_co2 <- glmmTMB(`WAr out` ~ `xCO2 out (dry at 1 atm) (ppm)` + site * month,data_all)
+summary(glm_aragonite_co2)
+#significant negative relationship (as CO2 increases, aragonite decreases), aragonite increases seasonally across all sites similarly, fence creek has slightly lower aragonite than ash creek
+
+glm_aragonite_salinity <- glmmTMB(`WAr out` ~ Salinity + site * month,data_all)
+summary(glm_aragonite_salinity)
+#significant positive relationship with salinity , no other significance with site or month 
 
 ```
