@@ -6,7 +6,7 @@ output: html_document
 
 ---
 
-Last updated: 5/7/26 M.Kachmar
+Last updated: 5/20/26 M.Kachmar
 - QAQC
 
 IMPORTANT:  HOBO at fence creek lost in ice/blizzard - end of 01/26 and beginning of 02/26 data lost
@@ -250,12 +250,19 @@ df8<-read_csv("HOBO_Data\\raw_data\\062025_ASHC_HOBO.csv", col_names = TRUE)%>%
   dplyr::rename(Date_Time = `Date-Time (EDT)`) #%>% 
   #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset","Host Connected"))
 
-df9<-read_csv("HOBO_Data\\raw_data\\042026_ASHC_HOBO.csv", col_names = TRUE)%>%  
+df9<-read_csv("HOBO_Data\\raw_data\\052026_ASHC_HOBO.csv", col_names = TRUE)%>%  
   dplyr::rename(Temperature = `Temperature`) %>%
   dplyr::rename(Date_Time = `Date-Time (EDT)`) #%>% 
   #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset","Host Connected"))
 
-ASHC_HOBO <- rbind(df3,df4,df5,df6,df7, df8, df9)
+#recovered data from lightning interferance
+df10<-read_csv("HOBO_Data\\raw_data\\082025_ASHC_HOBO_recovery.csv", col_names = TRUE)%>%  
+  dplyr::rename(Temperature = `Temperature`) %>%
+  dplyr::rename(Date_Time = `Date-Time (EDT)`) #%>% 
+  #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset","Host Connected"))
+
+
+ASHC_HOBO <- rbind(df3,df4,df5,df6,df7, df8, df9, df10)
 
 #ASHC_HOBO <- read_csv("HOBO_Data\\raw_data\\112024_ASHC_HOBO.csv", col_names = TRUE)   
 
@@ -343,7 +350,7 @@ ASHC_plot <- ASHC_means %>%
     ggtitle("Ash Creek, CT") +
     labs(x = "", y = "") + 
     theme_classic() + 
-    theme(axis.text = element_text(size = 25), axis.title = element_text(size = 12),axis.text.x = element_blank() ) +
+    theme(axis.text = element_text(size = 25), axis.title = element_text(size = 12)) +
     scale_x_datetime(date_labels = "%b/%Y", 
                      date_breaks = "4 month", 
                      limits = as.POSIXct(c('2023-06-01', '2026-03-30')))+geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)+
