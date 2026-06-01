@@ -151,16 +151,17 @@ seasonal_aragonite
 seasonal_aragonite_plot <- seasonal_aragonite %>% filter(year != "2026") %>%
   mutate( season = factor( season,levels = c("Winter", "Spring", "Summer", "Fall"))) %>%
   ggplot(aes(x = season, y = mean_WAr, color = season, group = season)) +
-  geom_point(size = 3) +
+  geom_point(size = 4) +
   geom_errorbar(aes(ymin = mean_WAr - se_WAr,
                     ymax = mean_WAr + se_WAr),
-                width = 0.2) +
+                width = 0.2, color= "black") +
   facet_grid(site ~ year, scales = "free_x", space = "free_x") +
   theme_bw() + theme(plot.title = element_text(size = 20))+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
-  theme(axis.text.x = element_text(size = 12),
-        axis.title.x = element_text(size = 12))+
-  theme(axis.text.y = element_text(size = 12),
+  theme(axis.text.x = element_text(size = 14),
+        axis.title.x = element_text(size = 14))+
+  theme(axis.text.y = element_text(size = 14),
         axis.title.y = element_text(size =15))+
+  theme(strip.text = element_text(size = 16, face = "bold"), legend.text = element_text(size = 14))+
   labs(
     title = "Seasonal Mean Aragonite Saturation",
     x = "Season",
@@ -177,6 +178,10 @@ seasonal_aragonite_plot <- seasonal_aragonite %>% filter(year != "2026") %>%
   geom_hline(yintercept = 1, color = "red")
 
 seasonal_aragonite_plot
+
+pdf(paste0(path = "Field_Data_WaterChemistry/output" ,"/Seasonal_Aragonite__all.pdf"), height = 7, width = 13)
+print(seasonal_aragonite_plot)
+dev.off()
 
 ```
 
