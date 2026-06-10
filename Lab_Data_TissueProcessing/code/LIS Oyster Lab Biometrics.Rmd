@@ -36,6 +36,7 @@ library("reshape2")
 library("stringr")
 library("RColorBrewer")
 library("tidyr")
+library(ggpubr)
 ```
 
 
@@ -380,6 +381,8 @@ scale_fill_brewer(palette = "Blues", direction = -1)+
    #scale_x_continuous("Month", breaks = c(3,4,5,6,7,8,9,10))+ 
   facet_grid(year ~site)
 ```
+
+
 
 ###### Preliminary Statistics on ALL body condition data ######
 
@@ -1147,7 +1150,48 @@ bcs_table
 
 ```
 
+```{r}
+#Body condition scores proportion graph (nested month and year) for ASHC, FENC, GOLD
+df_intensity_summary_1<- data_all %>%
+  group_by(site, date_collected, month,year, condition_score) %>%
+  dplyr::summarise(Count= n()) %>%
+  ungroup() %>%
+  dplyr::mutate(Proportion = Count/sum(Count))
 
+df_intensity_summary_1 <- df_intensity_summary_1 %>%
+  mutate(month_a = month.abb[month])
+
+df_intensity_summary_1$month_a <-  factor(df_intensity_summary_1$month_a, levels = c("Jan", "Feb", "Mar", "Apr","May","Jun","Jul","Aug", "Sep", "Oct", "Nov","Dec"))
+
+df_intensity_summary_1$condition_score <- factor(df_intensity_summary_1$condition_score, levels = c("1","2","3","4","5","6","7","8","9"))
+
+FENC_ratio_intensity <- ggplot(data=filter(df_intensity_summary_1,site=="FENC"), aes(x=year, y= Proportion, fill=condition_score)) +
+  geom_bar(width = 15, stat="identity", position = "fill")+
+  ggh4x::facet_nested(~year+month, scales = "free", switch = "x")+
+  labs(x="", title = "Fence Creek", fill = "Body Condition Score")+
+  theme_minimal()+
+  theme(strip.text = element_text(face = "bold"), ggh4x.facet.nestline=element_line(colour = "black"))+scale_x_continuous(breaks = 1:12, labels = month.abb)+
+  theme(panel.grid = element_line(colour = "white"), axis.text.x = element_blank(), axis.text = element_text(size= 13), axis.title = element_text(size = 15), strip.text = element_text(size = 13), legend.text = element_text(size = 13), legend.title = element_text(size = 15), title = element_text(size = 16), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1))+ scale_fill_brewer(palette = "Blues", direction = -1)+theme(plot.margin = unit(c(0.75, 0, -0.75, 1), "cm"))
+
+ASHC_ratio_intensity <- ggplot(data=filter(df_intensity_summary_1,site=="ASHC"), aes(x=year, y= Proportion, fill=condition_score)) +
+  geom_bar(width = 15, stat="identity", position = "fill")+
+  ggh4x::facet_nested(~year+month, scales = "free", switch = "x")+
+  labs(x="", title = "Ash Creek", fill = "Body Condition Score")+
+  theme_minimal()+
+  theme(strip.text = element_text(face = "bold"), ggh4x.facet.nestline=element_line(colour = "black"))+scale_x_continuous(breaks = 1:12, labels = month.abb)+
+  theme(panel.grid = element_line(colour = "white"), axis.text.x = element_blank(), axis.text = element_text(size= 13), axis.title = element_text(size = 15), strip.text = element_text(size = 13), legend.text = element_text(size = 13), legend.title = element_text(size = 15), title = element_text(size = 16), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1))+ scale_fill_brewer(palette = "Blues", direction = -1)+theme(plot.margin = unit(c(0.75, 0, -0.75, 1), "cm"))
+
+GOLD_ratio_intensity <- ggplot(data=filter(df_intensity_summary_1,site=="GOLD"), aes(x=year, y= Proportion, fill=condition_score)) +
+  geom_bar(width = 15, stat="identity", position = "fill")+
+  ggh4x::facet_nested(~year+month, scales = "free", switch = "x")+
+  labs(x="", title = "GOLD", fill = "Body Condition Score")+
+  theme_minimal()+
+  theme(strip.text = element_text(face = "bold"), ggh4x.facet.nestline=element_line(colour = "black"))+scale_x_continuous(breaks = 1:12, labels = month.abb)+
+  theme(panel.grid = element_line(colour = "white"), axis.text.x = element_blank(), axis.text = element_text(size= 13), axis.title = element_text(size = 15), strip.text = element_text(size = 13), legend.text = element_text(size = 13), legend.title = element_text(size = 15), title = element_text(size = 16), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1))+ scale_fill_brewer(palette = "Blues", direction = -1)+theme(plot.margin = unit(c(0.75, 0, -0.75, 1), "cm"))
+
+bcs_all <- ggarrange(ASHC_ratio_intensity, FENC_ratio_intensity, GOLD_ratio_intensity, ncol=1)
+bcs_all
+```
 ```{r}
 sessionInfo()
 ```
