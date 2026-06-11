@@ -5,7 +5,7 @@ date: "2023-10-03"
 output: html_document
 ---
 
-Last updated 05/04/2026 by M.Kachmar
+Last updated 06/10/2026 by M.Kachmar
 
 
 IMPORTANT: Fence Creek sonde (SN 1005261) was lost in a blizzard/to ice - there is no data files for 02/2026 or 03/2026.
@@ -1081,7 +1081,7 @@ ASHC_DO_plot <- ASHC_DO %>% na.omit() %>%
 pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_DO_2026.pdf"), height = 7, width = 14)
 print(ASHC_DO_plot)
 #ggarrange(ASHC_DO_all, ASHC_DO_callout, ncol = 2, widths = c(2, 1))
-dev.off()              theme(legend.position = "none", axis.text= element_text(size= 15))+scale_x_datetime(breaks="1 month", date_labels = "%B")
+dev.off()              
 
 ASHC_DO_callout <- ASHC_DO %>% na.omit() %>%
              dplyr::filter(Date.Time > '2023-08-03 00:00:00' & Date.Time < '2023-08-06 00:00:00' ) %>% # change date range needed here
@@ -1915,7 +1915,7 @@ FENC_DAILY_DO_plot <- FENC_DO_avg %>% dplyr::filter(date > '2026-01-01 00:01:00'
               #geom_errorbar(aes(ymin=(mean)-(se), 
                                 #ymax=(mean)+(se)), 
                            # width=0,position=position_dodge(.4)) +
-              facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+              #facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
               ggtitle("DO Concentration 2026") +
               labs(x = "Time", y = "Daily Mean DO Concentration (mg/L)") +
               theme_classic() +
