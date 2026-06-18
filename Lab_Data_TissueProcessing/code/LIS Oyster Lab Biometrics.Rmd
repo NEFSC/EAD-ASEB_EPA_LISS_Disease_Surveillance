@@ -1184,7 +1184,7 @@ ASHC_ratio_intensity <- ggplot(data=filter(df_intensity_summary_1,site=="ASHC"),
 GOLD_ratio_intensity <- ggplot(data=filter(df_intensity_summary_1,site=="GOLD"), aes(x=year, y= Proportion, fill=condition_score)) +
   geom_bar(width = 15, stat="identity", position = "fill")+
   ggh4x::facet_nested(~year+month, scales = "free", switch = "x")+
-  labs(x="", title = "GOLD", fill = "Body Condition Score")+
+  labs(x="", title = "Gold Star", fill = "Body Condition Score")+
   theme_minimal()+
   theme(strip.text = element_text(face = "bold"), ggh4x.facet.nestline=element_line(colour = "black"))+scale_x_continuous(breaks = 1:12, labels = month.abb)+
   theme(panel.grid = element_line(colour = "white"), axis.text.x = element_blank(), axis.text = element_text(size= 13), axis.title = element_text(size = 15), strip.text = element_text(size = 13), legend.text = element_text(size = 13), legend.title = element_text(size = 15), title = element_text(size = 16), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1))+ scale_fill_brewer(palette = "Blues", direction = -1)+theme(plot.margin = unit(c(0.75, 0, -0.75, 1), "cm"))
