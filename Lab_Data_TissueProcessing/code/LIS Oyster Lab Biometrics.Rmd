@@ -1192,6 +1192,11 @@ GOLD_ratio_intensity <- ggplot(data=filter(df_intensity_summary_1,site=="GOLD"),
 bcs_all <- ggarrange(ASHC_ratio_intensity, FENC_ratio_intensity, GOLD_ratio_intensity, ncol=1)
 bcs_all
 ```
+
+```{r}
+dotplot(data = df_GOLD, aes(x=month, y=condition_score))
+```
+
 ```{r}
 sessionInfo()
 ```
