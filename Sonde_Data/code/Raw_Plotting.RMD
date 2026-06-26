@@ -855,8 +855,8 @@ CT_DO_ASHC_all
 ASHC_pH          <- Master_table_LONG_means %>% dplyr::filter(variable == 'pH' & Site %in% c('ASHC'))
 ASHC_Salinity    <- Master_table_LONG_means %>% dplyr::filter(variable == 'Salinity' & Site %in% c('ASHC'))
 ASHC_Temperature <- Master_table_LONG_means %>% dplyr::filter(variable == 'Temperature' & Site %in% c('ASHC'))
-ASHC_DO          <- Master_table_LONG_means %>% dplyr::filter(variable == '`RDO Concentration`' & Site %in% c('ASHC'))
-ASHC_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == '`Chlorophyll-a Fluorescence`' & Site %in% c('ASHC'))
+ASHC_DO          <- Master_table_LONG_means %>% dplyr::filter(variable == 'RDO Concentration' & Site %in% c('ASHC'))
+ASHC_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == 'Chlorophyll-a Fluorescence' & Site %in% c('ASHC'))
 
 ### Update each graph for the time frame desired as well as the name of the file to coincide with the appropriate year displayed
 

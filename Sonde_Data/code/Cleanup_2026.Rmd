@@ -176,7 +176,8 @@ Master_2026
 
 Master_2026_output <- Master_2026 %>%  
                       dplyr::select(-c("External Voltage", "Battery Capacity", "Barometric Pressure", "Date")) 
-Master_2026_output <- na.omit(Master_2026_output)
+Master_2026_output <- Master_2026_output %>% filter(!is.na(Site))
+
 
 write.csv(Master_2026_output, "output/Sonde_master_2026.csv")
 ```
