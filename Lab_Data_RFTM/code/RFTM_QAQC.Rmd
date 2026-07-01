@@ -6,9 +6,9 @@ output: html_document
 
 description: This R code is used to import and summarize RFTM (Rays Fluid Thioglycollate Medium) intensity scoring from the LISS Oyster Health Project's monthly sampling at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. The scale used to score intensity for individuals is the Mackins Scale (citation). This score can be used to calculate prevalence, weighted prevalence and intensity across the population. This code also includes preliminary statistical analysis. 
 ---
-QAQC Last updated 6/18/2026 by K.Lenderman
+QAQC Last updated 7/1/2026 by K.Lenderman
  - reviewed data
- - Accuracy %: 84.4%
+ - Accuracy %: 84.5%
  
 preliminary stats added 1/23/26 by M. Kachmar
 -started with kruskal-wallis tests and glmm to compare all data and at individual sites
