@@ -1827,7 +1827,7 @@ FENC_pH_2 <- FENC_pH %>%
   mutate(
     Date = as.Date(Date, format= "%Y-%m-%d"))
 
-daily_summary2 <- FENC_pH_2 %>%
+daily_summary <- FENC_pH_2 %>%
   group_by(Date) %>%
   summarise(
     # Temperature Summaries
