@@ -1779,7 +1779,7 @@ dev.off()
 ######### Chlorophyll-a #########
 
 FENC_CHLA_plot <- FENC_CHLA %>% na.omit() %>%
-             dplyr::filter(`Date Time` > '2026-01-01 00:01:00' & `Date Time` < '2026-01-31 23:59:00' ) %>% # change date range needed here
+             dplyr::filter(`Date Time` > '2026-01-01 00:01:00' & `Date Time` < '2026-12-31 23:59:00' ) %>% # change date range needed here
              dplyr::mutate(Site = case_when(Site == 'FENC' ~ 'Fence Creek', .default = 'Ash Creek')) %>% 
              ggplot(aes(x=`Date Time`, 
                        y=mean, # the mean values
