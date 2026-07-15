@@ -209,6 +209,66 @@ FENC_daily_means<- ggplot(complete_daily_summary, aes(x = Date)) +
 FENC_daily_means
 ```
 
+### QAQC with Sonde data - FENC temperture, *hourly means ###
+
+```{r}
+
+FENC_Temp_Sonde <- read.csv("Sonde_Data/output/FENC_Temperature_Sonde.csv")
+FENC_Temp_Sonde <- FENC_Temp_Sonde %>% rename(Date_Time = Date.Time, sonde_value = value )
+FENC_Temp_Sonde <- FENC_Temp_Sonde %>% 
+  mutate(Date_Time = as.POSIXct(paste0(substr(Date_Time, 1, 13), ":00:00"), 
+                                format = "%Y-%m-%d %H:%M:%S", 
+                                tz = "UTC"))
+FENC_Temp_Sonde
+
+FENC_HOBO <- FENC_HOBO %>% 
+   mutate(Date_Time = lubridate::ymd_h(substr(Date_Time, 1, 13), tz = "UTC"))
+FENC_HOBO
+
+FENC_temp_validation <- merge(FENC_Temp_Sonde, FENC_HOBO, by = "Date_Time", all = TRUE)
+FENC_temp_validation
+
+ggplot(FENC_temp_validation, aes(x = mean_sonde, y = mean_value)) +
+  geom_point(alpha = 0.5) +
+  geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") + # Ideal 1:1 line
+  geom_smooth(method = "lm", color = "blue") + # Best-fit line
+  theme_minimal() +
+  labs(title = "Sonde vs HOBO Temperature",
+       x = "Sonde Temp (°C)", y = "HOBO Temp (°C)")
+
+# Fit linear model to check for systemic offset/gain
+FENC_cal_model <- lm(mean_value ~ mean_sonde, data = FENC_temp_validation)
+summary(FENC_cal_model)
+
+# Compute Error Metrics
+error_metrics <- FENC_temp_validation %>%
+  dplyr::summarise(
+    Bias = mean(mean_value - mean_sonde),
+    MAE = mean(abs(mean_value - mean_sonde)),
+    RMSE = sqrt(mean((mean_value - mean_sonde)^2))
+  )
+
+print(error_metrics)
+
+
+bland_altman_data <- FENC_temp_validation %>%
+  mutate(
+    Average = (mean_sonde + mean_value) / 2,
+    Difference = mean_sonde - mean_value
+  )
+
+mean_diff <- mean(bland_altman_data$Difference)
+sd_diff <- sd(bland_altman_data$Difference)
+
+ggplot(bland_altman_data, aes(x = Average, y = Difference)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = mean_diff, color = "blue", size = 1) + # Mean bias
+  geom_hline(yintercept = mean_diff + 1.96 * sd_diff, color = "red", linetype = "dashed") + # Upper limit of agreement
+  geom_hline(yintercept = mean_diff - 1.96 * sd_diff, color = "red", linetype = "dashed") + # Lower limit of agreement
+  theme_minimal() +
+  labs(title = "Bland-Altman Agreement Plot",
+       y = "Sonde - HOBO", x = "Average Temperature")
+```
 
 #### Ash Creek ####
 ```{r}

@@ -91,6 +91,20 @@ ggplot(Master_table_LONG,
   facet_wrap(~variable, scales = "free_y")
 
 ```
+#Creating site specific data sheets for temperature that are not averaged to do QAQC and compare to HOBO data
+```{r}
+
+Temperature_sonde_all<- Master_table_LONG %>% filter(variable == "Temperature")
+
+FENC_Temp_Sonde <- Master_table_LONG %>% filter(Site == "FENC")
+ASHC_Temp_Sonde <- Master_table_LONG %>% filter(Site == "ASHC")
+GOLD_Temp_Sonde <- Master_table_LONG %>% filter(Site == "GOLD")
+
+write.csv(FENC_Temp_Sonde, "output/FENC_Temperature_Sonde.csv")
+write.csv(ASHC_Temp_Sonde, "output/ASHC_Temperature_Sonde.csv")
+write.csv(GOLD_Temp_Sonde, "output/GOLD_Temperature_Sonde.csv")
+
+```
 
 * As suspected this visual is horrible.. we have TONS of data, every 10 seconds to be exact! 
 
@@ -860,6 +874,8 @@ ASHC_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == 'Chlor
 
 ### Update each graph for the time frame desired as well as the name of the file to coincide with the appropriate year displayed
 
+write.csv(ASHC_Temperature, "output/ASHC_Temperature_Sonde.csv")
+
 ######### pH #########
 
 
@@ -1520,6 +1536,8 @@ FENC_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == 'Chlor
 
 ### Update each graph for the time frame desired as well as the name of the file to coincide with the appropriate year displayed
 
+write.csv(FENC_Temperature, "output/FENC_Temperature_Sonde.csv")
+
 ######### pH #########
 
 
@@ -2004,7 +2022,7 @@ GOLD_Temperature <- Master_table_LONG_means %>% dplyr::filter(variable == 'Tempe
 GOLD_DO          <- Master_table_LONG_means %>% dplyr::filter(variable == '`RDO Concentration`' & Site %in% c('GOLD'))
 GOLD_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == '`Chlorophyll-a Fluorescence`' & Site %in% c('GOLD'))
 
-
+write.csv(GOLD_Temperature, "output/GOLD_Temperature_Sonde.csv")
 
 
 ######## pH ########
