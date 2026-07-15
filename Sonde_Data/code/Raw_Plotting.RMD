@@ -96,9 +96,9 @@ ggplot(Master_table_LONG,
 
 Temperature_sonde_all<- Master_table_LONG %>% filter(variable == "Temperature")
 
-FENC_Temp_Sonde <- Master_table_LONG %>% filter(Site == "FENC")
-ASHC_Temp_Sonde <- Master_table_LONG %>% filter(Site == "ASHC")
-GOLD_Temp_Sonde <- Master_table_LONG %>% filter(Site == "GOLD")
+FENC_Temp_Sonde <- Temperature_sonde_all %>% filter(Site == "FENC")
+ASHC_Temp_Sonde <- Temperature_sonde_all %>% filter(Site == "ASHC")
+GOLD_Temp_Sonde <- Temperature_sonde_all %>% filter(Site == "GOLD")
 
 write.csv(FENC_Temp_Sonde, "output/FENC_Temperature_Sonde.csv")
 write.csv(ASHC_Temp_Sonde, "output/ASHC_Temperature_Sonde.csv")
@@ -2019,10 +2019,10 @@ print(CT_daily_pH)
 GOLD_pH          <- Master_table_LONG_means %>% dplyr::filter(variable == 'pH' & Site %in% c('GOLD')) 
 GOLD_Salinity    <- Master_table_LONG_means %>% dplyr::filter(variable == 'Salinity' & Site %in% c('GOLD'))
 GOLD_Temperature <- Master_table_LONG_means %>% dplyr::filter(variable == 'Temperature' & Site %in% c('GOLD'))
-GOLD_DO          <- Master_table_LONG_means %>% dplyr::filter(variable == '`RDO Concentration`' & Site %in% c('GOLD'))
-GOLD_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == '`Chlorophyll-a Fluorescence`' & Site %in% c('GOLD'))
+GOLD_DO          <- Master_table_LONG_means %>% dplyr::filter(variable == 'RDO Concentration' & Site %in% c('GOLD'))
+GOLD_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == 'Chlorophyll-a Fluorescence' & Site %in% c('GOLD'))
 
-write.csv(GOLD_Temperature, "output/GOLD_Temperature_Sonde.csv")
+#write.csv(GOLD_Temperature, "output/GOLD_Temperature_Sonde.csv")
 
 
 ######## pH ########
