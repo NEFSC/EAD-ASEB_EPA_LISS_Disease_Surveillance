@@ -41,6 +41,7 @@ library(lubridate)
 library(readr)
 library(reshape2)
 library(tidyverse) # read_csv call from readr, included in tidyverse
+library(zoo)
 ```
 
 
@@ -91,6 +92,121 @@ ggplot(Master_table_LONG,
   facet_wrap(~variable, scales = "free_y")
 
 ```
+### Lets remove outliers within the data
+```{r}
+#Lets just see if there are outliers in the data 
+ggplot(Master_table_LONG,
+       aes(x = Site, y = value)) +
+  geom_boxplot(outlier.colour = "red",
+               outlier.size = 2) +
+  facet_wrap(~variable, scales = "free_y") +
+  theme_bw() +
+  labs(x = "Site",
+       y = "Value")
+
+Master_table_cleaned <- Master_table %>%
+   group_by(Site) %>%
+  mutate(
+    # --- TEMPERATURE FILTER (Gross Bounds + Rate of Change) ---
+    temp_clean = ifelse(Temperature < -2 | Temperature > 40, NA, Temperature),
+    temp_delta = abs(temp_clean - lag(temp_clean, default = first(temp_clean))),
+    temp_clean = ifelse(temp_delta > 2.0, NA, temp_clean),
+    
+    # --- SALINITY FILTER (Gross Bounds + Rate of Change) ---
+    sal_clean = ifelse(Salinity < 0 | Salinity > 35, NA, Salinity),
+    sal_delta = abs(sal_clean - lag(sal_clean, default = first(sal_clean))),
+    sal_clean = ifelse(sal_delta > 5.0, NA, sal_clean),
+    
+    # --- PH FILTER (Strict Environmental Bounds) ---
+    ph_clean = ifelse(pH < 5.0 | pH > 10.0, NA, pH),
+    ph_delta = abs(ph_clean - lag(ph_clean, default = first(ph_clean))),
+    ph_clean = ifelse(ph_delta > 0.5, NA, ph_clean),
+    
+    # --- DISSOLVED OXYGEN FILTER (Flatline Check for Biofouling) ---
+    # Flags if DO remains exactly identical for 8 consecutive 30-min intervals (4 hours)
+    do_clean = ifelse(`RDO Concentration` < 0 | `RDO Concentration` > 22, NA, `RDO Concentration`),
+    do_roll_sd = rollapply(do_clean, width = 8, FUN = sd, fill = NA, align = "right"),
+    do_clean = ifelse(!is.na(do_roll_sd) & do_roll_sd == 0, NA, do_clean)
+  )
+
+# --- CHLOROPHYLL-A FILTER (The one exception where Rolling IQR works best) ---
+
+# CHLA spikes naturally during storms/blooms, so we use a wider 48-hour window (96 points)
+Master_table_cleaned <- Master_table_cleaned %>%
+   group_by(Site) %>%
+  mutate(
+     # Extract the month number from your timestamp (1 = Jan, 2 = Feb, etc.)
+    month_num = month(`Date Time`),
+    chla_clean = ifelse(`Chlorophyll-a Fluorescence` < 0 | `Chlorophyll-a Fluorescence` > 100, NA, `Chlorophyll-a Fluorescence`), # Adjust max bounds for your site
+    chla_q1 = rollapply(chla_clean, width = 96, FUN = function(x) quantile(x, 0.25, na.rm=TRUE), fill=NA, align="center"),
+    chla_q3 = rollapply(chla_clean, width = 96, FUN = function(x) quantile(x, 0.75, na.rm=TRUE), fill=NA, align="center"),
+    chla_iqr = chla_q3 - chla_q1,
+     # Assign a dynamic outlier multiplier based on the time of year
+    iqr_multiplier = case_when(
+      month_num %in% c(2, 3, 4, 8,9,10) ~ 5.0,  # Feb, Mar, Apr, Aug, Sept, Oct: Expand to 5*IQR to protect the bloom
+      TRUE                      ~ 2.5   # Rest of the year: Tighter 2.5*IQR for baseline noise
+    ),
+    
+    # Calculate the upper fence using the dynamic multiplier
+    chla_upper_fence = chla_q3 + (iqr_multiplier * chla_iqr),
+    # Use a relaxed 3 * IQR multiplier for CHLA to prevent erasing real biological blooms
+    chla_clean = ifelse(chla_clean > (chla_q3 + (3 * chla_iqr)), NA, chla_clean)
+  )# %>%
+  # Drop the intermediate math calculation helper columns
+  #select(`Date Time`, ends_with("_clean"))
+
+Master_table_cleaned
+
+df_clean_plot <- Master_table_cleaned %>%
+  select(Site, `Date Time`, 
+         Temperature, temp_clean, 
+         Salinity, sal_clean, 
+         pH, ph_clean, 
+         `RDO Concentration`, do_clean, 
+         `Chlorophyll-a Fluorescence`, chla_clean) %>%
+  pivot_longer(
+    cols = c(Temperature, Salinity, pH, `RDO Concentration`, `Chlorophyll-a Fluorescence`),
+    names_to = "parameter", values_to = "raw_value"
+  ) %>%
+  pivot_longer(
+    cols = c(temp_clean, sal_clean, ph_clean, do_clean, chla_clean),
+    names_to = "parameter_clean", values_to = "clean_value"
+  ) %>%
+  mutate(parameter_clean = case_when(
+    parameter_clean == "temp_clean" ~ "Temperature",
+    parameter_clean == "sal_clean"  ~ "Salinity",
+    parameter_clean == "ph_clean"   ~ "pH",
+    parameter_clean == "do_clean"   ~ "RDO Concentration",
+    parameter_clean == "chla_clean" ~ "Chlorophyll-a Fluorescence"
+  )) %>%
+  filter(parameter == parameter_clean, Site != "LAUR") %>%
+  select(-parameter_clean)
+
+ggplot(df_clean_plot, aes(x = `Date Time`)) + 
+  geom_line(aes(y = raw_value, color = "Removed / Outlier"), alpha = 0.3, linewidth = 0.5) + 
+  geom_line(aes(y = clean_value, color = "Cleaned Data"), linewidth = 0.7) + 
+  
+  # Facet matrix: Rows = Parameters, Columns = Sites
+  facet_grid(parameter ~ Site, scales = "free_y", 
+             labeller = labeller(parameter = c(
+               Temperature = "Temp (°C)", 
+               Salinity = "Salinity (PSU)",
+               pH = "pH", 
+               `RDO Concentration` = "DO (mg/L)", 
+               `Chlorophyll-a Fluorescence` = "Chl-a (µg/L)"
+             ))) + 
+  
+  scale_color_manual(values = c("Cleaned Data" = "#0072B2", "Removed / Outlier" = "#D55E00")) + 
+  theme_minimal(base_size = 11) + 
+  theme(
+    legend.position = "top", 
+    strip.background = element_rect(fill = "#F0F0F0", color = NA)
+  )
+
+
+```
+
+
 #Creating site specific data sheets for temperature that are not averaged to do QAQC and compare to HOBO data
 ```{r}
 
@@ -125,12 +241,7 @@ Master_table_LONG_means <- Master_table %>%
                       summarise_each(funs(mean, sd, se=sd(.)/sqrt(n())), value) %>% 
                       dplyr::mutate(`Date Time` = ymd_h(`Date Time`)) # reformat back to date 
 
-vars <- as.data.frame(
-          list(
-            as.character(
-              unique(
-                Master_table_LONG_means$variable)))) %>% 
-        dplyr::rename(dat = 1)
+
 
 write.csv(Master_table_LONG_means, "output/Sonde_hourly_means_master.csv",)
 
@@ -293,7 +404,7 @@ All_Sites_Temperature
 CT_pH          <- Master_table_LONG_means %>% dplyr::filter(variable == 'pH' & Site %in% c('FENC', 'ASHC'))
 CT_Salinity    <- Master_table_LONG_means %>% dplyr::filter(variable == 'Salinity' & Site %in% c('FENC', 'ASHC'))
 CT_Temperature <- Master_table_LONG_means %>% dplyr::filter(variable == 'Temperature' & Site %in% c('FENC', 'ASHC'))
-CT_DO          <- Master_table_LONG_means %>% dplyr::filter(variable == '`RDO Concentration`' & Site %in% c('FENC', 'ASHC'))
+CT_DO          <- Master_table_LONG_means %>% dplyr::filter(variable == 'RDO Concentration' & Site %in% c('FENC', 'ASHC'))
 
 ### Update each graph for the time frame desired as well as the name of the file to coincide with the appropriate year displayed
 
