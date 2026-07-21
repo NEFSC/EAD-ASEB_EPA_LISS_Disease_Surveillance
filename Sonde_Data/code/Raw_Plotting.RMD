@@ -182,7 +182,7 @@ df_clean_plot <- Master_table_cleaned %>%
   filter(parameter == parameter_clean, Site != "LAUR") %>%
   select(-parameter_clean)
 
-ggplot(df_clean_plot, aes(x = `Date Time`)) + 
+Sonde_master_QAQC<-ggplot(df_clean_plot, aes(x = `Date Time`)) + 
   geom_line(aes(y = raw_value, color = "Removed / Outlier"), alpha = 0.3, linewidth = 0.5) + 
   geom_line(aes(y = clean_value, color = "Cleaned Data"), linewidth = 0.7) + 
   
@@ -203,6 +203,9 @@ ggplot(df_clean_plot, aes(x = `Date Time`)) +
     strip.background = element_rect(fill = "#F0F0F0", color = NA)
   )
 
+pdf(paste0(path = "output/raw_plots","/Sonde_master_QAQC.pdf"), height = 6, width = 11) 
+print(Sonde_master_QAQC)
+dev.off()
 
 ```
 
