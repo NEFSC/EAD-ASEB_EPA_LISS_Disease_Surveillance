@@ -1050,7 +1050,7 @@ df_intensity_summary_1$month_a <-  factor(df_intensity_summary_1$month_a, levels
 
 df_intensity_summary_1$rftm_final <- factor(df_intensity_summary_1$rftm_final, levels = c("0","0.5","1","2","3","4","5"))
 
-FENC_ratio_intensity <- ggplot(data=filter(df_intensity_summary_1,site=="FENC", year!="2026"), aes(x=year, y= Proportion, fill=rftm_final)) +
+FENC_ratio_intensity <- ggplot(data=filter(df_intensity_summary_1,site=="FENC"), aes(x=year, y= Proportion, fill=rftm_final)) +
   geom_bar(width = 15, stat="identity", position = "fill")+
   ggh4x::facet_nested(~year+month_a, scales = "free", switch = "x")+
   labs(x="", title = "Fence Creek", fill = "Intensity Score")+
@@ -1058,15 +1058,15 @@ FENC_ratio_intensity <- ggplot(data=filter(df_intensity_summary_1,site=="FENC", 
   theme(strip.text = element_text(face = "bold"), ggh4x.facet.nestline=element_line(colour = "black"))+scale_x_continuous(breaks = 1:12, labels = month.abb)+
   theme(panel.grid = element_line(colour = "white"), axis.text.x = element_blank(), axis.text = element_text(size= 13), axis.title = element_text(size = 15), strip.text = element_text(size = 13), legend.text = element_text(size = 13), legend.title = element_text(size = 15), title = element_text(size = 16), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1))+ scale_color_discrete(labels=c("Female","Male","Hermaphrodite","Undetermined"))+scale_fill_brewer(palette = "YlOrBr")+theme(plot.margin = unit(c(0.75, 0, -0.75, 1), "cm"))
 
-ASHC_ratio_intensity <- ggplot(data=filter(df_intensity_summary_1,site=="ASHC", year!="2026"), aes(x=year, y= Proportion, fill=rftm_final)) +
+ASHC_ratio_intensity <- ggplot(data=filter(df_intensity_summary_1,site=="ASHC"), aes(x=year, y= Proportion, fill=rftm_final)) +
   geom_bar(width = 15, stat="identity", position = "fill")+
   ggh4x::facet_nested(~year+month_a, scales = "free", switch = "x")+
   labs(x="", title = "Ash Creek", fill = "Intensity Score")+
   theme_minimal()+
   theme(strip.text = element_text(face = "bold"), ggh4x.facet.nestline=element_line(colour = "black"))+scale_x_continuous(breaks = 1:12, labels = month.abb)+
-  theme(panel.grid = element_line(colour = "white"), axis.text.x = element_blank(), axis.text = element_text(size= 13), axis.title = element_text(size = 15), strip.text = element_text(size = 13), legend.text = element_text(size = 13), legend.title = element_text(size = 15), title = element_text(size = 16), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1))+ scale_color_discrete(labels=c("Female","Male","Hermaphrodite","Undetermined"))+theme(plot.margin = unit(c(0.75, 0, -0.75, 1), "cm"))+ scale_fill_manual(values = c("#fdffd6","#f9e594","#f9c658","#f69b37","#e47526","#c45117"))
+  theme(panel.grid = element_line(colour = "white"), axis.text.x = element_blank(), axis.text = element_text(size= 13), axis.title = element_text(size = 15), strip.text = element_text(size = 13), legend.text = element_text(size = 13), legend.title = element_text(size = 15), title = element_text(size = 16), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1))+ scale_color_discrete(labels=c("Female","Male","Hermaphrodite","Undetermined"))+scale_fill_brewer(palette = "YlOrBr")+theme(plot.margin = unit(c(0.75, 0, -0.75, 1), "cm"))#+ scale_fill_manual(values = c("#fdffd6","#f9e594","#f9c658","#f69b37","#e47526","#c45117"))
 
-GOLD_ratio_intensity <- ggplot(data=filter(df_intensity_summary_1,site=="GOLD", year!="2026"), aes(x=year, y= Proportion, fill=rftm_final)) +
+GOLD_ratio_intensity <- ggplot(data=filter(df_intensity_summary_1,site=="GOLD"), aes(x=year, y= Proportion, fill=rftm_final)) +
   geom_bar(width = 15, stat="identity", position = "fill")+
   ggh4x::facet_nested(~year+month_a, scales = "free", switch = "x")+
   labs(x="", title = "Gold Star", fill = "Intensity Score")+
