@@ -108,25 +108,25 @@ Master_table_cleaned <- Master_table %>%
    group_by(Site) %>%
   mutate(
     # --- TEMPERATURE FILTER (Gross Bounds + Rate of Change) ---
-    temp_clean = ifelse(Temperature < -2 | Temperature > 40, NA, Temperature),
-    temp_delta = abs(temp_clean - lag(temp_clean, default = first(temp_clean))),
-    temp_clean = ifelse(temp_delta > 2.0, NA, temp_clean),
+    temp_clean = ifelse(Temperature < -2 | Temperature > 40, NA, Temperature), #gross range test removing values outside of this range
+    temp_delta = abs(temp_clean - lag(temp_clean, default = first(temp_clean))), #calculating rate of change. how much the temp is jumping from last reading to current reading
+    temp_clean = ifelse(temp_delta > 2.0, NA, temp_clean), #spike test - if the temperature jumps more than 2C in a single 30 minute interval, it is flagged as en error 
     
     # --- SALINITY FILTER (Gross Bounds + Rate of Change) ---
     sal_clean = ifelse(Salinity < 0 | Salinity > 35, NA, Salinity),
     sal_delta = abs(sal_clean - lag(sal_clean, default = first(sal_clean))),
-    sal_clean = ifelse(sal_delta > 5.0, NA, sal_clean),
+    sal_clean = ifelse(sal_delta > 5.0, NA, sal_clean), #if the salinity jumps more than 5PSU in a single 30 minute interval, it is flagged error
     
     # --- PH FILTER (Strict Environmental Bounds) ---
     ph_clean = ifelse(pH < 5.0 | pH > 10.0, NA, pH),
     ph_delta = abs(ph_clean - lag(ph_clean, default = first(ph_clean))),
-    ph_clean = ifelse(ph_delta > 0.5, NA, ph_clean),
+    ph_clean = ifelse(ph_delta > 0.5, NA, ph_clean), #if the pH jumps more than .5 in a single 30 minute interval, it is flagged error 
     
     # --- DISSOLVED OXYGEN FILTER (Flatline Check for Biofouling) ---
     # Flags if DO remains exactly identical for 8 consecutive 30-min intervals (4 hours)
     do_clean = ifelse(`RDO Concentration` < 0 | `RDO Concentration` > 22, NA, `RDO Concentration`),
-    do_roll_sd = rollapply(do_clean, width = 8, FUN = sd, fill = NA, align = "right"),
-    do_clean = ifelse(!is.na(do_roll_sd) & do_roll_sd == 0, NA, do_clean)
+    do_roll_sd = rollapply(do_clean, width = 8, FUN = sd, fill = NA, align = "right"),#flat line check for DO, if SD is 0 then sensor error
+    do_clean = ifelse(!is.na(do_roll_sd) & do_roll_sd == 0, NA, do_clean) 
   )
 
 # --- CHLOROPHYLL-A FILTER (The one exception where Rolling IQR works best) ---
@@ -149,7 +149,6 @@ Master_table_cleaned <- Master_table_cleaned %>%
     
     # Calculate the upper fence using the dynamic multiplier 
     chla_upper_fence = chla_q3 + (iqr_multiplier * chla_iqr),
-    # Use a relaxed 3 * IQR multiplier for CHLA to prevent erasing real biological blooms
     chla_clean = ifelse(is.na(chla_upper_fence), chla_clean,# Default to current if fence is NA
       ifelse(chla_clean > chla_upper_fence, NA, chla_clean)) # Apply the dynamic limit
   )# %>%
@@ -158,6 +157,7 @@ Master_table_cleaned <- Master_table_cleaned %>%
 
 Master_table_cleaned
 
+#reorganize the data to make plots
 df_clean_plot <- Master_table_cleaned %>%
   select(Site, `Date Time`, 
          Temperature, temp_clean, 
@@ -213,7 +213,7 @@ dev.off()
 #if you want to look more closely at a specific parameter
 
 QAQC_plot<- df_clean_plot %>%
-  dplyr::filter(parameter %in% c("RDO Concentration")) %>%
+  dplyr::filter(parameter %in% c("pH")) %>%
   ggplot(aes(x = `Date Time`)) + 
   geom_line(aes(y = raw_value, color = "Removed / Outlier"), alpha = 0.3, linewidth = 0.5) + 
   geom_line(aes(y = clean_value, color = "Cleaned Data"), linewidth = 0.7) + 
@@ -223,10 +223,10 @@ QAQC_plot<- df_clean_plot %>%
   
   scale_color_manual(values = c("Cleaned Data" = "#0072B2", "Removed / Outlier" = "#D55E00")) + 
   labs(
-    y = "RDO Concentration",
+    y = "pH",
     x = "Date Time",
     color = "Data Status",
-    title = "Intertidal RDO Concentration"
+    title = "Intertidal pH"
   ) +
   theme_minimal(base_size = 11) + 
   theme(
@@ -235,7 +235,7 @@ QAQC_plot<- df_clean_plot %>%
   )
 QAQC_plot
 
-pdf(paste0(path = "output/raw_plots","/DO_QAQC.pdf"), height = 6, width = 11) 
+pdf(paste0(path = "output/raw_plots","/pH_QAQC.pdf"), height = 6, width = 11) 
 print(QAQC_plot)
 dev.off()
 
