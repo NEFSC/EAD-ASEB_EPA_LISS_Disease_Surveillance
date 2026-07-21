@@ -141,16 +141,17 @@ Master_table_cleaned <- Master_table_cleaned %>%
     chla_q1 = rollapply(chla_clean, width = 96, FUN = function(x) quantile(x, 0.25, na.rm=TRUE), fill=NA, align="center"),
     chla_q3 = rollapply(chla_clean, width = 96, FUN = function(x) quantile(x, 0.75, na.rm=TRUE), fill=NA, align="center"),
     chla_iqr = chla_q3 - chla_q1,
-     # Assign a dynamic outlier multiplier based on the time of year
+     # Assign a dynamic outlier multiplier based on the time of year (adjustable coefficient to define threshold limits)
     iqr_multiplier = case_when(
       month_num %in% c(2, 3, 4, 8,9,10) ~ 5.0,  # Feb, Mar, Apr, Aug, Sept, Oct: Expand to 5*IQR to protect the bloom
-      TRUE                      ~ 2.5   # Rest of the year: Tighter 2.5*IQR for baseline noise
+      TRUE                      ~ 1.5   # Rest of the year: Tighter 1.5*IQR for baseline noise
     ),
     
-    # Calculate the upper fence using the dynamic multiplier
+    # Calculate the upper fence using the dynamic multiplier 
     chla_upper_fence = chla_q3 + (iqr_multiplier * chla_iqr),
     # Use a relaxed 3 * IQR multiplier for CHLA to prevent erasing real biological blooms
-    chla_clean = ifelse(chla_clean > (chla_q3 + (3 * chla_iqr)), NA, chla_clean)
+    chla_clean = ifelse(is.na(chla_upper_fence), chla_clean,# Default to current if fence is NA
+      ifelse(chla_clean > chla_upper_fence, NA, chla_clean)) # Apply the dynamic limit
   )# %>%
   # Drop the intermediate math calculation helper columns
   #select(`Date Time`, ends_with("_clean"))
@@ -193,7 +194,7 @@ Sonde_master_QAQC<-ggplot(df_clean_plot, aes(x = `Date Time`)) +
                Salinity = "Salinity (PSU)",
                pH = "pH", 
                `RDO Concentration` = "DO (mg/L)", 
-               `Chlorophyll-a Fluorescence` = "Chl-a (µg/L)"
+               `Chlorophyll-a Fluorescence` = "Chl-a (RFU)"
              ))) + 
   
   scale_color_manual(values = c("Cleaned Data" = "#0072B2", "Removed / Outlier" = "#D55E00")) + 
@@ -202,10 +203,37 @@ Sonde_master_QAQC<-ggplot(df_clean_plot, aes(x = `Date Time`)) +
     legend.position = "top", 
     strip.background = element_rect(fill = "#F0F0F0", color = NA)
   )
-
+Sonde_master_QAQC
 pdf(paste0(path = "output/raw_plots","/Sonde_master_QAQC.pdf"), height = 6, width = 11) 
 print(Sonde_master_QAQC)
 dev.off()
+
+
+
+#if you want to look more closely at a specific parameter
+
+QAQC_plot<- df_clean_plot %>%
+  dplyr::filter(parameter %in% c("Chlorophyll-a Fluorescence")) %>%
+  ggplot(aes(x = `Date Time`)) + 
+  geom_line(aes(y = raw_value, color = "Removed / Outlier"), alpha = 0.3, linewidth = 0.5) + 
+  geom_line(aes(y = clean_value, color = "Cleaned Data"), linewidth = 0.7) + 
+  
+ # Facet by Site only (since parameter is now filtered to one value)
+  facet_grid(~ Site, scales = "free_y") +
+  
+  scale_color_manual(values = c("Cleaned Data" = "#0072B2", "Removed / Outlier" = "#D55E00")) + 
+  labs(
+    y = "Chl-a Fluorescence (RFU)",
+    x = "Date Time",
+    color = "Data Status",
+    title = "Intertidal Chlorophyll-a Analysis"
+  ) +
+  theme_minimal(base_size = 11) + 
+  theme(
+    legend.position = "top", 
+    strip.background = element_rect(fill = "#F0F0F0", color = NA)
+  )
+QAQC_plot
 
 ```
 
@@ -988,7 +1016,7 @@ ASHC_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == 'Chlor
 
 ### Update each graph for the time frame desired as well as the name of the file to coincide with the appropriate year displayed
 
-write.csv(ASHC_Temperature, "output/ASHC_Temperature_Sonde.csv")
+#write.csv(ASHC_Temperature, "output/ASHC_Temperature_Sonde.csv")
 
 ######### pH #########
 
