@@ -213,7 +213,7 @@ dev.off()
 #if you want to look more closely at a specific parameter
 
 QAQC_plot<- df_clean_plot %>%
-  dplyr::filter(parameter %in% c("Chlorophyll-a Fluorescence")) %>%
+  dplyr::filter(parameter %in% c("RDO Concentration")) %>%
   ggplot(aes(x = `Date Time`)) + 
   geom_line(aes(y = raw_value, color = "Removed / Outlier"), alpha = 0.3, linewidth = 0.5) + 
   geom_line(aes(y = clean_value, color = "Cleaned Data"), linewidth = 0.7) + 
@@ -223,10 +223,10 @@ QAQC_plot<- df_clean_plot %>%
   
   scale_color_manual(values = c("Cleaned Data" = "#0072B2", "Removed / Outlier" = "#D55E00")) + 
   labs(
-    y = "Chl-a Fluorescence (RFU)",
+    y = "RDO Concentration",
     x = "Date Time",
     color = "Data Status",
-    title = "Intertidal Chlorophyll-a Analysis"
+    title = "Intertidal RDO Concentration"
   ) +
   theme_minimal(base_size = 11) + 
   theme(
@@ -234,6 +234,10 @@ QAQC_plot<- df_clean_plot %>%
     strip.background = element_rect(fill = "#F0F0F0", color = NA)
   )
 QAQC_plot
+
+pdf(paste0(path = "output/raw_plots","/DO_QAQC.pdf"), height = 6, width = 11) 
+print(QAQC_plot)
+dev.off()
 
 ```
 
