@@ -653,7 +653,7 @@ CT_DO_plot <- CT_DO %>% na.omit() %>%
               geom_errorbar(aes(ymin=(mean)-(se), 
                                 ymax=(mean)+(se)), 
                             width=0,position=position_dodge(.4)) +
-            # facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
+            facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
               ggtitle("DO Concentration - 2026") +
               labs(x = "Time", y = "DO Concentration (mg/L)") +
               theme_classic() +
