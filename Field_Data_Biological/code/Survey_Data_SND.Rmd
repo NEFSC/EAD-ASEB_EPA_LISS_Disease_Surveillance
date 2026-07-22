@@ -451,42 +451,62 @@ ggplot(data=mean_total_oysters_all%>%filter(Season=="Spring")%>%filter(Site!="LA
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   labs(title="Mean Oyster Density ", x ="Survival status", y= "Density (# oyster / m^2)")+
-  facet_wrap(~ Site + Date_collected , scales = "free_x", nrow=3, ncol=3)  #+geom_text(aes(label=Total_Density), vjust=-0.3, size = 3.5)
+  facet_wrap(~ Site + Date_collected , scales = "free_x", ncol=3)  #+geom_text(aes(label=Total_Density), vjust=-0.3, size = 3.5)
 #pdf(paste0(path = "Field_Data_Biological/output/CT_Fall_Survey_Total_Density.pdf"), height = 6, width = 11)
 ```
 #Shell Height metrics
+# Spring Survey Data - June 2023
 ```{r}
+
+#read in all population survey sheets 
 #Spring 2023 data was collected and organized in a different manner using a database called Access compared following surveys. Therefore the sheets are pulled in separately to reformat to the current status quo. Each measurement is in a separate file (see below).
 
-shellsize <- read.csv("Field_Data_Biological\raw_data\qry_2023-06_Survey_ShellSize.csv") 
+
+#June 2023
+shellsize <- read.csv("Field_Data_Biological\\raw_data\\qry_2023-06_Survey_ShellSize.csv") 
+
+quadratdensity <- read.csv("Field_Data_Biological\\raw_data\\qry_2023-06_Survey_QuadratDensity.csv") 
+
+rugosity <- read.csv("Field_Data_Biological\\raw_data\\qry_2023-06_Survey_Rugosity.csv") 
+
+BedHeight <- read.csv("Field_Data_Biological\\raw_data\\qry_2023-06_Survey_BedHeight.csv") 
+```
 
 #Cleaning up June 2023 survey data to be meragable with other data
-#renaming columns to match current spreadsheets
+```{r}
 
+#renaming columns to match current spreadsheets
 shellsize <- shellsize %>% dplyr::rename(Date_collected = TripDate) %>% dplyr::rename(Quadrat = QUADRAT_NUM) %>% dplyr::rename(Height = Height_mm) %>% dplyr::rename(Survival_status = SpecimenType)
 colnames(shellsize)
 shellsize$Date_collected <- factor(shellsize$Date_collected, levels = c("6/12/2023","6/14/2023"),
                                      labels = c("2023-06-12","2023-06-14"))
+
 #adding columns - season and state the sampling took place
 shellsize$Season<- rep("Spring", nrow(shellsize))
 shellsize$State<- rep("CT", nrow(shellsize))
+
 #removing unneeded columns
-shellsize<- select( shellsize, -c("QuadSpec_NUM", "Year", "Month", "Day", "Length_mm", "Width_mm", "Specimen_Notes")) 
+shellsize<- dplyr::select( shellsize, -c("QuadSpec_NUM", "Year", "Month", "Day", "Length_mm", "Width_mm", "Specimen_Notes")) 
+
 #Changing site name and removing unneeded column
 shellsize<- shellsize %>%
-  mutate(Site = recode(Site_Name, "Ash Creek" = "ASHC", "Fence Creek" = "FENC")) %>% 
-  select(-c("Site_Name"))
+  dplyr::mutate(Site = dplyr::recode(Site_Name, "Ash Creek" = "ASHC", "Fence Creek" = "FENC")) %>% 
+  dplyr::select(-c("Site_Name"))
 
 head(shellsize)
 
 shellsize
+
 #reorder columns
-shellsize <- shellsize %>% select("Date_collected", "Site", "State", "Quadrat", "Height", "Survival_status", "Season")
+shellsize <- shellsize %>% dplyr::select("Date_collected", "Site", "State", "Quadrat", "Height", "Survival_status", "Season")
 
 ```
+
+```{r}
+
 #The next code pulls in the current method for collecting and organizing the survey data. This data is from Fall 2023 - present. 
 #Pulling all height data into single sheet
-```{r}
+
 
 ## Shell Height Data
 
@@ -702,6 +722,8 @@ height_ASHC_Live
 height_ASHC_Dead <- height_ASHC[height_ASHC$Survival_status == "Box"|height_ASHC$Survival_status == "Gaper",]
 print(height_ASHC_Dead)
 
+#CT sites live
+CT_sites_live <- rbind(height_ASHC_Live,height_FENC_Live)
 ```
 #plots
 ```{r}
@@ -716,7 +738,7 @@ ggplot(height_ASHC_Live, aes(x=factor(Season, levels = c("Spring", "Fall")), y=H
 #Distribution Live - ASHC
 ```{r}
 ASHC_Distribution_Live<-height_ASHC_Live %>% 
-  dplyr::filter(Year == "2025" ) %>%
+  dplyr::filter(Year == "2026" ) %>%
   ggplot(aes(x= Height)) +
   geom_histogram()+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
@@ -727,16 +749,61 @@ ASHC_Distribution_Live<-height_ASHC_Live %>%
 ASHC_Distribution_Live
 
 ```
+#CT Live 2024
+```{r}
+#CT live oyster shell height 2024 spring and fall to highlight growth and recruitment
+CT_Distribution_Live_2024<- ggplot(data=CT_sites_live%>%filter(Year=="2024"), aes(x= Height))+
+  geom_histogram()+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
+  theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+    labs(title="CT Oytsers Live Shell Height 2024", x ="Shell Height (mm)", y="Count")+ theme(axis.text.x = element_text(size=13,angle = 55,vjust =1.0, hjust=1.0))+theme(axis.text.y = element_text(size=13))+ theme(strip.text = element_text(size=15))+theme(plot.title = element_text(size=20))+theme(axis.title = element_text(size=15))+ scale_x_continuous(limits= c(0,190), breaks = seq(0,190, by =10) )+
+  scale_y_continuous(limits = c(0,80), breaks = seq(0,80, by = 5))+
+  facet_grid(
+  factor(Season, levels = c("Spring", "Fall")) ~ Site, 
+  scales = "free",axes = "all", axis.labels = "all_y"
+) 
+  #facet_wrap(~ factor(Season, levels = c("Spring", "Fall"))+ Site, scales = "free", nrow=2 , ncol=2)
+pdf(paste0(path = "Field_Data_Biological/Output/CT_Distribution_Live_2024.pdf"), height = 7, width = 12)
+print(CT_Distribution_Live_2024)
+dev.off()
+
+```
+
 #Distribution Dead 
 ```{r}
 ASHC_Distribution_Dead<- ggplot(data=height_ASHC_Dead, aes(x= Height)) +
   geom_histogram()+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  labs(title="Ash Creek Dead Oysters ", x ="Shell Height (mm)")+ scale_x_continuous(limits= c(0,200), breaks = seq(0,200, by =10) )+
-  scale_y_continuous(limits = c(0,20), breaks = seq(0,20, by = 5))+
-   facet_wrap(~ factor(Season, levels = c("Spring", "Fall")) + Year, scales = "free", nrow=2 , ncol=3)
+  labs(title="Ash Creek Dead Oysters ", x ="Shell Height (mm)", y="Count")+ scale_x_continuous(limits= c(0,200), breaks = seq(0,200, by =10) )+
+  scale_y_continuous(limits = c(0,20), breaks = seq(0,30, by = 5))+
+   facet_wrap(~ factor(Season, levels = c("Spring", "Fall")) + Year, scales = "free", nrow=2 , ncol=4)
 ASHC_Distribution_Dead
+```
+```{r}
+
+ASHC_Distribution_Spring_Dead<-ggplot(data=height_ASHC_Dead %>% dplyr::filter(Season=="Spring"), aes(x= Height)) +
+  geom_histogram()+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
+  theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(size=15))+theme(axis.text.y = element_text(size=15))+ theme(strip.text = element_text(size=15))+theme(plot.title = element_text(size=18))+theme(axis.title = element_text(size=15))+
+  labs(title="Ash Creek Height Dead Oysters - Spring Survey ", x ="Height (mm)", y="Count")+ scale_x_continuous(limits= c(0,180), breaks = seq(0,180, by =10) )+
+  scale_y_continuous(limits = c(0,25), breaks = seq(0,25, by = 5))+
+   facet_wrap(~Year,  scales = "fixed", nrow=4, strip.position = "right") + # Moves labels to the left side
+  theme(strip.placement = "outside")
+ASHC_Distribution_Spring_Dead
+#pdf(paste0(path = "Field_Data_Biological/Output/ASHC_Distribution_Spring_Dead.pdf"), height = 7, width = 12)
+print(ASHC_Distribution_Spring_Dead)
+#dev.off()
+```
+```{r}
+ASHC_Distribution_Spring26_Dead <-ggplot(data=height_ASHC_Dead %>% dplyr::filter(Season=="Spring")%>% filter(Year =="2026"), aes(x= Height)) +
+  geom_histogram()+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
+  theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(size=15))+theme(axis.text.y = element_text(size=15))+ theme(strip.text = element_text(size=15))+theme(plot.title = element_text(size=18))+theme(axis.title = element_text(size=15))+
+  labs(title="Ash Creek Height Dead Oysters - Spring 2026 ", x ="Height (mm)", y="Count")+ scale_x_continuous(limits= c(0,180), breaks = seq(0,180, by =10) )+
+  scale_y_continuous(limits = c(0,25), breaks = seq(0,25, by = 5))+
+   facet_wrap(~Year,  scales = "fixed", nrow=4, strip.position = "right") + # Moves labels to the left side
+  theme(strip.placement = "outside")
+ASHC_Distribution_Spring26_Dead
 ```
 #FENC
 
@@ -802,9 +869,9 @@ FENC_Distribution_Live<- height_FENC_Live %>%
  facet_wrap (~ Year, scales = "fixed", nrow=4, strip.position = "right") + # Moves labels to the left side
   theme(strip.placement = "outside")  
 FENC_Distribution_Live
-pdf(paste0(path = "Field_Data_Biological/Output/FENC_Spring_Distribution_Live.pdf"), height = 8, width = 12)
+#pdf(paste0(path = "Field_Data_Biological/Output/FENC_Spring_Distribution_Live.pdf"), height = 8, width = 12)
 print(FENC_Distribution_Live)
-dev.off()
+#dev.off()
 
 ```
 #Distribution Dead
@@ -814,16 +881,48 @@ FENC_Distribution_Dead<-ggplot(data=height_FENC_Dead %>% dplyr::filter(Season=="
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   theme(axis.text.x = element_text(size=15))+theme(axis.text.y = element_text(size=15))+ theme(strip.text = element_text(size=15))+theme(plot.title = element_text(size=18))+theme(axis.title = element_text(size=15))+
   labs(title="Fence Creek Height Dead Oysters - Spring Survey ", x ="Height (mm)", y="Count")+ scale_x_continuous(limits= c(0,180), breaks = seq(0,180, by =10) )+
-  scale_y_continuous(limits = c(0,20), breaks = seq(0,20, by = 5))+
+  scale_y_continuous(limits = c(0,25), breaks = seq(0,25, by = 5))+
    facet_wrap(~Year,  scales = "fixed", nrow=4, strip.position = "right") + # Moves labels to the left side
   theme(strip.placement = "outside")
 FENC_Distribution_Dead
 #pdf(paste0(path = "Field_Data_Biological/Output/FENC_Spring_Distribution_Dead.pdf"), height = 7, width = 12)
-#print(FENC_Distribution_Dead)
+print(FENC_Distribution_Dead)
 #dev.off()
 ```
 
+```{r}
+FENC_Distribution_Spring26_Dead <-ggplot(data=height_FENC_Dead %>% dplyr::filter(Season=="Spring")%>% filter(Year =="2026"), aes(x= Height)) +
+  geom_histogram()+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
+  theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(size=15))+theme(axis.text.y = element_text(size=15))+ theme(strip.text = element_text(size=15))+theme(plot.title = element_text(size=18))+theme(axis.title = element_text(size=15))+
+  labs(title="Fence Creek Height Dead Oysters - Spring 2026 ", x ="Height (mm)", y="Count")+ scale_x_continuous(limits= c(0,180), breaks = seq(0,180, by =10) )+
+  scale_y_continuous(limits = c(0,20), breaks = seq(0,20, by = 5))+
+   facet_wrap(~Year,  scales = "fixed", nrow=4, strip.position = "right") + # Moves labels to the left side
+  theme(strip.placement = "outside")
+FENC_Distribution_Spring26_Dead
 
+library(gridExtra)
+spring26_dead <- grid.arrange(FENC_Distribution_Spring26_Dead,ASHC_Distribution_Spring26_Dead, nrow=2)
+
+```
+
+```{r}
+CT_dead <- rbind(height_ASHC_Dead,height_FENC_Dead)
+
+CT_spring26_dead_distrubtion <-ggplot(data=CT_dead %>% dplyr::filter(Season=="Spring")%>% filter(Year =="2026"), aes(x= Height)) +
+  geom_histogram()+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
+  theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(size=15))+theme(axis.text.y = element_text(size=15))+ theme(strip.text = element_text(size=15))+theme(plot.title = element_text(size=18))+theme(axis.title = element_text(size=15))+
+  labs(title="Spring Survey 2026 - Dead Oysters ", x ="Shell Height (mm)", y="Count")+ scale_x_continuous(limits= c(0,180), breaks = seq(0,180, by =10) )+
+  scale_y_continuous(limits = c(0,20), breaks = seq(0,20, by = 5))+
+   facet_wrap(~Site,  scales = "fixed", nrow=4, strip.position = "right") + # Moves labels to the left side
+  theme(strip.placement = "outside") 
+CT_spring26_dead_distrubtion
+#pdf(paste0(path = "Field_Data_Biological/Output/CT_spring26_dead_distrubtion.pdf"), height = 6, width = 12)
+print(CT_spring26_dead_distrubtion)
+#dev.off()
+
+```
 #GOLD
 ```{r}
 #graphing shell height GOLD

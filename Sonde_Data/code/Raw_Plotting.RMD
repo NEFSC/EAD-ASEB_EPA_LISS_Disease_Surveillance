@@ -23,8 +23,8 @@ knitr::opts_chunk$set(echo = TRUE,
 
 #knitr::opts_knit$set(root.dir = "C:/Users/samjg/Documents/Github_repositories/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
 #knitr::opts_knit$set(root.dir = "C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
-knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
-#knitr::opts_knit$set(root.dir = "C:/Users/sarina.dery/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
+#knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
+knitr::opts_knit$set(root.dir = "C:/Users/sarina.dery/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
 
 ```
 
@@ -159,9 +159,9 @@ for(i in 1:nrow(vars)) {
               theme_bw()
   
   # print plots and name them as the var    
-  pdf(paste0(path= "/raw_plots",gsub(" ", "_", vars[i,]),".pdf"), height = 12, width = 15)
+  #pdf(paste0(path= "/raw_plots",gsub(" ", "_", vars[i,]),".pdf"), height = 12, width = 15)
   print(plot) 
-  dev.off()
+  #dev.off()
 
   } # close the loop
 
@@ -206,9 +206,9 @@ Master_monthly_means <- Master_table %>%
   dplyr::mutate(`Date.Time` = ymd_hms(`Date.Time`),
                 year_month = floor_date(`Date.Time`, "month")) %>%
   # Melt the data
-  melt(id.vars = c("year_month", "Site"),
-       measure.vars = c("Actual.Conductivity", "Salinity", "Resistivity", 
-                        "Total.Dissolved.Solids", "RDO Concentration", "RDO Saturation",
+  reshape2::melt(id.vars = c("year_month", "Site"),
+       measure.vars = c("Actual.Conductivity", "Specific.Conductivity", "Salinity", "Resistivity", "Density", 
+                        "Total.Dissolved.Solids", "RDO.Concentration", "RDO.Saturation",
                         "Oxygen.Partial.Pressure", "Chlorophyll.a.Fluorescence", "pH", "pH.mV", 
                         "Temperature")) %>%
   # Group by year_month, Site, and variable
@@ -246,10 +246,10 @@ Sonde_monthly_means_CT_wide <- Sonde_monthly_means_CT %>% pivot_wider(names_from
 
 ```{r}
 All_Sites_Temperature <- Master_table_LONG_means %>% na.omit() %>%
-             dplyr::filter(`Date.Time` > '2023-03-01 00:00:00' & `Date.Time` < '2025-11-30 00:00:00' ) %>% # change date range needed here
+             dplyr::filter(`Date.Time` > '2023-03-01 00:00:00' & `Date.Time` < '2026-03-20 09:00:00', variable=="Temperature" ) %>% # change date range needed here
              dplyr::mutate(Site = case_when(Site == 'ASHC' ~ 'Ash Creek', Site == 'FENC' ~ 'Fence Creek', Site == 'GOLD' ~ 'Gold Star', .default = 'Fence Creek')) %>% 
              ggplot(aes(x=`Date.Time`, 
-                       y=Temperature, # the mean values
+                       y=mean, # the mean values
                        group=Site)) + # call the new mean
               geom_line(aes(group = factor(Site), # lines for site
                                 linetype = Site), 
@@ -259,13 +259,13 @@ All_Sites_Temperature <- Master_table_LONG_means %>% na.omit() %>%
               geom_point(aes(shape=Site, 
                              fill=Site)) + 
               scale_shape_manual(values=c(21, 22, 24, 25)) + 
-              scale_fill_manual(values=c("#D55E00",  "#0072B2")) + # "#CC79A7","#009E73"
+              #scale_fill_manual(values=c("#D55E00",  "#0072B2")) + # "#CC79A7","#009E73"
               geom_errorbar(aes(ymin=(mean)-(se), 
                                 ymax=(mean)+(se)), 
                             width=0,position=position_dodge(.4)) +
               facet_grid(rows = vars(Site)) + # , scales = "free_y" - if you wnat different y axis labels
-              ggtitle("pH - 2024") +
-              labs(x = "Time", y = "pH") +
+              ggtitle("Temperature") +
+              labs(x = "Time", y = "Temperature") +
               theme_classic() +
               theme(legend.position = "none")+geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
 
@@ -888,7 +888,7 @@ ASHC_pH_plot <- ASHC_pH %>% na.omit() %>%
               theme(legend.position = "none", axis.text= element_text(size= 15))+geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
 ASHC_pH_plot
 
-pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_pH_2026.pdf"), height = 7, width = 14)
+#pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_pH_2026.pdf"), height = 7, width = 14)
 print(ASHC_pH_plot)
 dev.off()
 
@@ -952,7 +952,7 @@ ASHC_Salinity_plot <- ASHC_Salinity %>% na.omit() %>%
 
 ASHC_Salinity_plot
 
-pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_Salinity_2026.pdf"), height = 7, width = 14)
+#pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_Salinity_2026.pdf"), height = 7, width = 14)
 print(ASHC_Salinity_plot)
 dev.off()
 
@@ -1017,7 +1017,7 @@ ASHC_Temperature_plot <-ASHC_Temperature %>% na.omit() %>%
               theme(legend.position = "none", axis.text= element_text(size= 15))+geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
 ASHC_Temperature_plot
 
-pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_Temperature_2026.pdf"), height = 7, width = 14)
+#pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_Temperature_2026.pdf"), height = 7, width = 14)
 print(ASHC_Temperature_plot)
 dev.off()
 
@@ -1078,7 +1078,7 @@ ASHC_DO_plot <- ASHC_DO %>% na.omit() %>%
               ggtitle("DO Concentration 2026") +
               labs(x = "Time", y = "DO Concentration (mg/L)") +
               theme_classic() +
-pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_DO_2026.pdf"), height = 7, width = 14)
+#pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_DO_2026.pdf"), height = 7, width = 14)
 print(ASHC_DO_plot)
 #ggarrange(ASHC_DO_all, ASHC_DO_callout, ncol = 2, widths = c(2, 1))
 dev.off()              theme(legend.position = "none", axis.text= element_text(size= 15))+scale_x_datetime(breaks="1 month", date_labels = "%B")
@@ -2635,14 +2635,16 @@ All_temp.graph <-ggplot()+
 scale_color_manual(values=c(FENC = "darksalmon",ASHC = "cornflowerblue", GOLD = "darkseagreen")) +
               #ggtitle("Temperature") +
               labs(x = "Date", y = "Temperature (°C)") +
-            scale_x_datetime(date_labels= "%b %Y", date_breaks = "3 month")+ #x axis labels
+            scale_x_datetime(date_labels= "%b%Y", date_breaks = "2 month")+ #x axis labels
   theme(axis.text = element_text(size = 15), axis.title = element_text(size = 20), legend.text = element_text(size=18), 
-        legend.title = element_text(size=20), title = element_text(size = 24), strip.text = element_text(size = 18), axis.text.x = element_text(angle = 20, vjust = .75, hjust = .5) )+
-  geom_hline(yintercept = 20, color = "red", size = .5) #highlighting 20C for dermo infection
+        legend.title = element_text(size=20), title = element_text(size = 24), strip.text = element_text(size = 18), axis.text.x = element_text(angle = 40, vjust = 1.0, hjust = 1.0) )+
+  geom_hline(yintercept = 20, color = "red", size = .5)#highlighting 20C for dermo infection
   #geom_hline(yintercept = 16, color = "blue", size = .5) #highlighting 16C for spawning
-
-
 All_temp.graph
+```
+
+```{r}
+
 
 #pH graph (all sites, all dates)
 All_pH.graph <-ggplot()+
@@ -2663,19 +2665,28 @@ All_pH.graph <-ggplot()+
 scale_color_manual(values=c("FENC" = "darksalmon",ASHC = "cornflowerblue", "GOLD" = "darkseagreen")) +
               ggtitle("pH & Temperature (2023 - 2026)") +
               labs(x = " ", y = "pH") +
-              scale_x_datetime(date_labels= "%b %Y", date_breaks = "3 month")+
+              scale_x_datetime(date_labels= "%b%Y", date_breaks = "2 month")+
   theme(axis.text = element_text(size = 15), axis.title = element_text(size = 22), legend.text = element_text(size=18), 
-        legend.title = element_text(size=20), title = element_text(size = 24), strip.text = element_text(size = 18) )
-
+        legend.title = element_text(size=20), title = element_text(size = 24), strip.text = element_text(size = 18),
+axis.text.x = element_text(angle = 40, vjust = 1.0, hjust = 1.0) )
 All_pH.graph
 
+#All_pH.graph_clean<- All_pH.graph + 
+  theme(
+    #axis.title.x = element_blank(), # Removes "Date" title
+    axis.text.x  = element_blank(), # Removes date labels/numbers
+    #axis.ticks.x = element_blank()  # Removes the little tick lines
+  )
+
 #combining the two graphs
-all_pHvtemp<-ggarrange(All_pH.graph,All_temp.graph, ncol = 1)
+all_pHvtemp<-ggarrange(All_pH.graph,All_temp.graph, ncol = 1, align = "v")
 all_pHvtemp
 
-pdf(paste0(path = "output/raw_plots/Temperature_pH_all.pdf"), height = 7, width = 14)
+
+
+#pdf(paste0(path = "output/raw_plots/Temperature_pH_all.pdf"), height = 7, width = 14)
 print(all_pHvtemp)
-dev.off()
+#dev.off()
 ```
 
 ```{r}
@@ -2716,18 +2727,25 @@ All_salinity.graph <-ggplot()+
 scale_color_manual(values=c("FENC" = "darksalmon",ASHC = "cornflowerblue", "GOLD" = "darkseagreen")) +
               ggtitle("Salinity and Temperature (2023 - 2026)") +
               labs(x = " ", y = "Salinity (ppt)") +
-              scale_x_datetime(date_labels= "%b %Y", date_breaks = "3 month")+
+              scale_x_datetime(date_labels= "%b%Y", date_breaks = "2 month")+
   theme(axis.text = element_text(size = 15), axis.title = element_text(size = 20), legend.text = element_text(size=18), 
-        legend.title = element_text(size=20), title = element_text(size = 20), strip.text = element_text(size = 18), axis.text.x = element_text(angle = 20, vjust = .75, hjust = .5))
+        legend.title = element_text(size=20), title = element_text(size = 20), strip.text = element_text(size = 18), axis.text.x = element_text(angle = 40, vjust = 1.0, hjust = 1.0))
 
 All_salinity.graph
 
+#All_salinity.graph_clean <- All_salinity.graph + 
+  theme(
+    #axis.title.x = element_blank(), # Removes "Date" title
+    axis.text.x  = element_blank(), # Removes date labels/numbers
+    #axis.ticks.x = element_blank()  # Removes the little tick lines
+  )
+
 #combining the two graphs salinity and temp
-all_salvtemp<-ggarrange(All_salinity.graph,All_temp.graph, ncol = 1)
+all_salvtemp<-ggarrange(All_salinity.graph,All_temp.graph, ncol = 1, align = "v")
 all_salvtemp
 
 
-pdf(paste0(path = "output/raw_plots/salinity_temp_all.pdf"), height = 8.5, width = 11)
+#pdf(paste0(path = "output/raw_plots/salinity_temp_all.pdf"), height = 7, width = 12)
 print(all_salvtemp)
 
 
