@@ -1067,7 +1067,7 @@ ASHC_pH_plot <- ASHC_pH %>% na.omit() %>%
 
 ASHC_pH_plot
 
-#pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_pH_2026.pdf"), height = 7, width = 14)
+pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_pH_2026.pdf"), height = 7, width = 14)
 print(ASHC_pH_plot)
 dev.off()
 
@@ -1131,7 +1131,7 @@ ASHC_Salinity_plot <- ASHC_Salinity %>% na.omit() %>%
 
 ASHC_Salinity_plot
 
-#pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_Salinity_2026.pdf"), height = 7, width = 14)
+pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_Salinity_2026.pdf"), height = 7, width = 14)
 print(ASHC_Salinity_plot)
 dev.off()
 
@@ -1197,7 +1197,7 @@ ASHC_Temperature_plot <-ASHC_Temperature %>% na.omit() %>%
 
 ASHC_Temperature_plot
 
-#pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_Temperature_2026.pdf"), height = 7, width = 14)
+pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_Temperature_2026.pdf"), height = 7, width = 14)
 print(ASHC_Temperature_plot)
 dev.off()
 
