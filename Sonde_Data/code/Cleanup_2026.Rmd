@@ -157,10 +157,11 @@ for (m in 1:nrow(file.names.2026)) { # this is your loop, for each row in th fil
                     dplyr::mutate(Site = sub(".*_(.*)_.*","\\1",filename),
                     Date = gsub("_.*","",filename)) 
   
-  Master_2026 <- rbind(raw_df, Master_2026) #bind to a cumulative list dataframe
+  Master_2026 <- dplyr::bind_rows(raw_df, Master_2026) #bind to a cumulative list dataframe , changed from rbind() to bind_rows due to the new sonde 1335676 recording depth data the older models do not record. 
 }
 
 names(raw_df)
+names(Master_2026)
 
 Master_2026
 
@@ -175,7 +176,8 @@ Master_2026
 
 Master_2026_output <- Master_2026 %>%  
                       dplyr::select(-c("External Voltage", "Battery Capacity", "Barometric Pressure", "Date")) 
-Master_2026_output <- na.omit(Master_2026_output)
+Master_2026_output <- Master_2026_output %>% filter(!is.na(Site))
+
 
 write.csv(Master_2026_output, "output/Sonde_master_2026.csv")
 ```
