@@ -48,7 +48,7 @@ Sonde_2026 <- read.csv("output/Sonde_master_2026.csv", check.names = F) %>% dply
 
 ?rbind # 
 
-Sonde_master  <- dplyr::bind_rows(Sonde_2023, Sonde_2024, Sonde_2025, Sonde_2026) #changed from rbind() to bind_rows due to the new sonde 1335676 recording depth data the older models do not record. 
+Sonde_master  <- rbind(Sonde_2023, Sonde_2024, Sonde_2025, Sonde_2026)
 
 
 write.csv(Sonde_master, "output/Sonde_master.csv")

@@ -6,9 +6,9 @@ output: html_document
 
 description: This R code is used to import and summarize RFTM (Rays Fluid Thioglycollate Medium) intensity scoring from the LISS Oyster Health Project's monthly sampling at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. The scale used to score intensity for individuals is the Mackins Scale (citation). This score can be used to calculate prevalence, weighted prevalence and intensity across the population. This code also includes preliminary statistical analysis. 
 ---
-QAQC Last updated 7/16/2026 by K.Lenderman
+QAQC Last updated 5/18/2026 by K.Lenderman
  - reviewed data
- - Accuracy %: 84.2%
+ - Accuracy %: 84.7%
  
 preliminary stats added 1/23/26 by M. Kachmar
 -started with kruskal-wallis tests and glmm to compare all data and at individual sites
@@ -36,7 +36,6 @@ library(glmmTMB)
 library(effectsize)
 library("mgcv")
 library("car")
-library(ggpubr)
 ```
 
 ### This code chunk merges all .csv files within the Tissue processing folder into one data fram and outputs the full dataset into a .csv master file. This allows us to download the raw data as a .csv, add it to the repository folder, and create the master data file without copying and pasting data in excel.
@@ -214,7 +213,7 @@ ggplot(data=df_wp_summary, aes(x=month, y=Weighted_prevalence, color=site)) +
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
   labs(title="Weighted Prevalence of Dermo infection", x ="Month", y = "Weighted Prevalence Score")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
-  theme(axis.text=element_text(size=12)) + facet_wrap(~ year, ncol=1,)+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))
+  theme(axis.text=element_text(size=12)) + facet_wrap(~ year, scales = "fixed", ncol=1,)+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))
 
 #Continuous line graph of weighted prevelence (no facet)
 wpd_2023 <- df_wp_summary %>% filter(year=="2023")
@@ -1035,54 +1034,7 @@ cor.test(FENC_rftm_cond$condition_score,FENC_rftm_cond$rftm_final, method = "spe
 cor.test(FENC_rftm_cond$condition_score,FENC_rftm_cond$rftm_final, method = "kendall" )
 ```
 
-```{r}
-#Dermo intensity graphs for GOLD, ASHC, FENC - LISR Conference graph
 
-df_intensity_summary_1<- data_all %>%
-  group_by(site, date_collected, month,year, rftm_final) %>%
-  dplyr::summarise(Count= n()) %>%
-  ungroup() %>%
-  dplyr::mutate(Proportion = Count/sum(Count))
-
-df_intensity_summary_1 <- df_intensity_summary_1 %>%
-  mutate(month_a = month.abb[month])
-
-df_intensity_summary_1$month_a <-  factor(df_intensity_summary_1$month_a, levels = c("Jan", "Feb", "Mar", "Apr","May","Jun","Jul","Aug", "Sep", "Oct", "Nov","Dec"))
-
-df_intensity_summary_1$rftm_final <- factor(df_intensity_summary_1$rftm_final, levels = c("0","0.5","1","2","3","4","5"))
-
-FENC_ratio_intensity <- ggplot(data=filter(df_intensity_summary_1,site=="FENC"), aes(x=year, y= Proportion, fill=rftm_final)) +
-  geom_bar(width = 15, stat="identity", position = "fill")+
-  ggh4x::facet_nested(~year+month_a, scales = "free", switch = "x")+
-  labs(x="", title = "Fence Creek", fill = "Intensity Score")+
-  theme_minimal()+
-  theme(strip.text = element_text(face = "bold"), ggh4x.facet.nestline=element_line(colour = "black"))+scale_x_continuous(breaks = 1:12, labels = month.abb)+
-  theme(panel.grid = element_line(colour = "white"), axis.text.x = element_blank(), axis.text = element_text(size= 13), axis.title = element_text(size = 15), strip.text = element_text(size = 13), legend.text = element_text(size = 13), legend.title = element_text(size = 15), title = element_text(size = 16), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1))+ scale_color_discrete(labels=c("Female","Male","Hermaphrodite","Undetermined"))+scale_fill_brewer(palette = "YlOrBr")+theme(plot.margin = unit(c(0.75, 0, -0.75, 1), "cm"))
-
-ASHC_ratio_intensity <- ggplot(data=filter(df_intensity_summary_1,site=="ASHC"), aes(x=year, y= Proportion, fill=rftm_final)) +
-  geom_bar(width = 15, stat="identity", position = "fill")+
-  ggh4x::facet_nested(~year+month_a, scales = "free", switch = "x")+
-  labs(x="", title = "Ash Creek", fill = "Intensity Score")+
-  theme_minimal()+
-  theme(strip.text = element_text(face = "bold"), ggh4x.facet.nestline=element_line(colour = "black"))+scale_x_continuous(breaks = 1:12, labels = month.abb)+
-  theme(panel.grid = element_line(colour = "white"), axis.text.x = element_blank(), axis.text = element_text(size= 13), axis.title = element_text(size = 15), strip.text = element_text(size = 13), legend.text = element_text(size = 13), legend.title = element_text(size = 15), title = element_text(size = 16), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1))+ scale_color_discrete(labels=c("Female","Male","Hermaphrodite","Undetermined"))+scale_fill_brewer(palette = "YlOrBr")+theme(plot.margin = unit(c(0.75, 0, -0.75, 1), "cm"))#+ scale_fill_manual(values = c("#fdffd6","#f9e594","#f9c658","#f69b37","#e47526","#c45117"))
-
-GOLD_ratio_intensity <- ggplot(data=filter(df_intensity_summary_1,site=="GOLD"), aes(x=year, y= Proportion, fill=rftm_final)) +
-  geom_bar(width = 15, stat="identity", position = "fill")+
-  ggh4x::facet_nested(~year+month_a, scales = "free", switch = "x")+
-  labs(x="", title = "Gold Star", fill = "Intensity Score")+
-  theme_minimal()+
-  theme(strip.text = element_text(face = "bold"), ggh4x.facet.nestline=element_line(colour = "black"))+scale_x_continuous(breaks = 1:12, labels = month.abb)+
-  theme(panel.grid = element_line(colour = "white"), axis.text.x = element_blank(), axis.text = element_text(size= 13), axis.title = element_text(size = 15), strip.text = element_text(size = 13), legend.text = element_text(size = 13), legend.title = element_text(size = 15), title = element_text(size = 16), axis.title.y = element_text(vjust = 2.5),axis.title.x = element_text(vjust = -1))+ scale_color_discrete(labels=c("Female","Male","Hermaphrodite","Undetermined"))+scale_fill_brewer(palette = "YlOrBr")+theme(plot.margin = unit(c(0.75, 0, -0.75, 1), "cm"))
-
-rfmt_intentsity_all <- ggarrange(ASHC_ratio_intensity, FENC_ratio_intensity, GOLD_ratio_intensity, ncol=1)
-rfmt_intentsity_all
-
-pdf(paste0(path = "Lab_Data_RFTM/output" ,"/intensity_proportion_all_years.pdf"), height = 7, width = 14)
-print(rfmt_intentsity_all)
-dev.off()
-
-```
 
 
 ```{r}

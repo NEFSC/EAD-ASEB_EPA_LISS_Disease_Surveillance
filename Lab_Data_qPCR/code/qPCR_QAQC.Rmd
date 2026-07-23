@@ -5,7 +5,7 @@ date: "2025-07-09"
 output: html_document
 Description: The purpose of this script is to import, clean up, and summarize Triplex qPCR data for the detection of Dermo, MSX, and SSO to determine prevalence and infection intensity for the LISS Oyster Health Project's monthly sampling at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. Infection intensity will be reported as copies/ng. This data will then be cross validated with RFTM and Histology data. 
 
-Last updated:6/29/26 by Mariah kachmar
+Last updated:5/7/26 by Mariah kachmar
 
 - working on inputting files & a QAQC routine
 - got to calculating copies per ul 
@@ -168,12 +168,12 @@ dermo_qPCR_summary
 qpcr_mackin_scores <- dermo_qPCR_summary %>%
   mutate(mackin_score = case_when(
     Copies_ul_ng.ul < 10 ~ 0,
-    Copies_ul_ng.ul >= 10 & Copies_ul_ng.ul < 100 ~ 0.5, #light
-    Copies_ul_ng.ul >= 100 & Copies_ul_ng.ul < 2000 ~ 1, #light
-    Copies_ul_ng.ul >= 2000 & Copies_ul_ng.ul < 10000 ~ 2, #moderate
-    Copies_ul_ng.ul >= 10000 & Copies_ul_ng.ul < 100000 ~ 3, #moderate
-    Copies_ul_ng.ul >= 100000 & Copies_ul_ng.ul < 1000000 ~ 4, #heavy
-    Copies_ul_ng.ul >= 1000000 ~ 5, #heavy
+    Copies_ul_ng.ul >= 10 & Copies_ul_ng.ul < 100 ~ 0.5,
+    Copies_ul_ng.ul >= 100 & Copies_ul_ng.ul < 2000 ~ 1,
+    Copies_ul_ng.ul >= 2000 & Copies_ul_ng.ul < 10000 ~ 2,
+    Copies_ul_ng.ul >= 10000 & Copies_ul_ng.ul < 100000 ~ 3,
+    Copies_ul_ng.ul >= 100000 & Copies_ul_ng.ul < 1000000 ~ 4,
+    Copies_ul_ng.ul >= 1000000 ~ 5,
     TRUE ~ 0
   ))
 
@@ -316,28 +316,4 @@ ggplot(data=MSX_prevalence_summary, aes(x=Date, y=prevalence_precentage, color=S
   theme(axis.text=element_text(size=12)) + facet_wrap(~ Year, scales = "free", ncol=1)+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))
 
 
-```
-
-#Lets compare the RFTM scores to the qPCR. qPCR is more sensitive so we may see slightly inflated scores but I think it is good to check in terms of postive and negative results. RFTM we are also only taking mantle tissue vs qPCR we are taking GGR. What I am looking for is if qPCR is lower than RFTM or is negative and RFTM is positive. 
-```{r}
-#pull in RFTM data
-RFTM_all <- read.csv("Master_files/RFTM_all_data.csv")
-RFTM_all <- RFTM_all %>% rename("Sample_ID" = "lab_id")
-
-#Merge dermo qPCR data
-
-rftm_v_qpcr <- merge(RFTM_all, qpcr_mackin_scores, by = "Sample_ID")
-rftm_v_qpcr <- rftm_v_qpcr %>% select(Sample_ID, site, rftm_final, mackin_score , Copies_ul_ng.ul)
-rftm_v_qpcr
-
-rftm_v_qpcr$results = ifelse(rftm_v_qpcr$mackin_score < rftm_v_qpcr$rftm_final, 'FALSE',
-  ifelse(rftm_v_qpcr$mackin_score > data_all$rftm_final, 'TRUE',
-  ifelse(rftm_v_qpcr$mackin_score == data_all$rftm_final, 'TRUE', NA)))
-  
-rftm_v_qpcr
-
-FALSE_qpcr<- rftm_v_qpcr %>% filter( results == 'FALSE')
-FALSE_qpcr
-
-write.csv(FALSE_qpcr, "Lab_Data_qPCR\\outputs/qPCR_sample_rerun_list.csv", row.names=FALSE)
 ```
