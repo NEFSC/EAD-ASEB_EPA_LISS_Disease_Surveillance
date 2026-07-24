@@ -6,17 +6,18 @@ output: html_document
 
 ---
 
-Last updated: 5/20/26 M.Kachmar
-- QAQC
+Last updated: 7/24/26 M.Kachmar
+- working on cross validating data points for hobo and temperature data 
+
 
 IMPORTANT:  HOBO at fence creek lost in ice/blizzard - end of 01/26 and beginning of 02/26 data lost
 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
 #knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
-knitr::opts_knit$set(root.dir = 'C:/Users/sarina.dery/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') 
+#knitr::opts_knit$set(root.dir = 'C:/Users/sarina.dery/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') 
 ```
 
 
@@ -69,7 +70,7 @@ df4<-read_csv("HOBO_Data\\raw_data\\012026_FENC_HOBO.csv", col_names = TRUE)%>% 
   dplyr::rename(Temperature = `Temperature`) %>%
   dplyr::rename(Date_Time = `Date-Time (EST)`)# %>%
   #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset"))
-df5<-read_csv("HOBO_Data\\raw_data\\052026_FENC_HOBO.csv", col_names = TRUE)%>%  # update this csv when new data comes in from the new HOBO
+df5<-read_csv("HOBO_Data\\raw_data\\072026_FENC_HOBO.csv", col_names = TRUE)%>%  # update this csv when new data comes in from the new HOBO
   dplyr::rename(Temperature = `Temperature`) %>%
   dplyr::rename(Date_Time = `Date-Time (EST/EDT)`)# %>%
   #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset"))
@@ -219,24 +220,29 @@ FENC_daily_means
 ```
 
 ```{r}
-### QAQC with Sonde data - FENC temperture, *hourly means ###
+### QAQC with Sonde data - FENC temperture ###
 
 FENC_Temp_Sonde <- read.csv("Sonde_Data/output/FENC_Temperature_Sonde.csv")
-FENC_Temp_Sonde <- FENC_Temp_Sonde %>% rename(Date_Time = Date.Time, sonde_value = value )
+FENC_Temp_Sonde <- FENC_Temp_Sonde %>% rename(Date_Time = Date.Time, sonde_temp = value )  
+
 FENC_Temp_Sonde <- FENC_Temp_Sonde %>% 
-  mutate(Date_Time = as.POSIXct(paste0(substr(Date_Time, 1, 13), ":00:00"), 
-                                format = "%Y-%m-%d %H:%M:%S", 
-                                tz = "UTC"))
+  mutate(Date_Time = ymd_hms(Date_Time, tz = "UTC"), Date_Time = round_date(Date_Time, unit = "30 minutes")) 
+
 FENC_Temp_Sonde
 
-FENC_HOBO <- FENC_HOBO %>% 
-   mutate(Date_Time = lubridate::ymd_h(substr(Date_Time, 1, 13), tz = "UTC"))
+
+FENC_HOBO <- FENC_HOBO %>%
+  mutate(Date_Time = lubridate::mdy_hm(Date_Time, tz = "UTC"), Date_Time = round_date(Date_Time, unit = "30 minutes")) 
 FENC_HOBO
 
-FENC_temp_validation <- merge(FENC_Temp_Sonde, FENC_HOBO, by = "Date_Time", all = TRUE)
-FENC_temp_validation
 
-ggplot(FENC_temp_validation, aes(x = mean_sonde, y = mean_value)) +
+
+FENC_temp_validation <- merge(FENC_Temp_Sonde, FENC_HOBO, by = "Date_Time", all = TRUE)
+FENC_temp_validation 
+
+FENC_temp_validation <-na.omit(FENC_temp_validation)
+
+ggplot(FENC_temp_validation, aes(x = sonde_temp, y = Temperature)) +
   geom_point(alpha = 0.5) +
   geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") + # Ideal 1:1 line
   geom_smooth(method = "lm", color = "blue") + # Best-fit line
@@ -245,15 +251,15 @@ ggplot(FENC_temp_validation, aes(x = mean_sonde, y = mean_value)) +
        x = "Sonde Temp (°C)", y = "HOBO Temp (°C)")
 
 # Fit linear model to check for systemic offset/gain
-FENC_cal_model <- lm(mean_value ~ mean_sonde, data = FENC_temp_validation)
+FENC_cal_model <- lm(Temperature ~ sonde_temp, data = FENC_temp_validation)
 summary(FENC_cal_model)
 
 # Compute Error Metrics
 error_metrics <- FENC_temp_validation %>%
   dplyr::summarise(
-    Bias = mean(mean_value - mean_sonde),
-    MAE = mean(abs(mean_value - mean_sonde)),
-    RMSE = sqrt(mean((mean_value - mean_sonde)^2))
+    Bias = mean(Temperature, sonde_temp),
+    MAE = mean(abs(Temperature - sonde_temp)),
+    RMSE = sqrt(mean((Temperature - sonde_temp)^2))
   )
 
 print(error_metrics)
@@ -261,8 +267,8 @@ print(error_metrics)
 
 bland_altman_data <- FENC_temp_validation %>%
   mutate(
-    Average = (mean_sonde + mean_value) / 2,
-    Difference = mean_sonde - mean_value
+    Average = (sonde_temp + Temperature) / 2,
+    Difference = sonde_temp - Temperature
   )
 
 mean_diff <- mean(bland_altman_data$Difference)
@@ -276,6 +282,15 @@ ggplot(bland_altman_data, aes(x = Average, y = Difference)) +
   theme_minimal() +
   labs(title = "Bland-Altman Agreement Plot",
        y = "Sonde - HOBO", x = "Average Temperature")
+
+
+#Values above 0 - the sonde recorded a higher temperature than HOBO
+#Values below 0 - the HOBO recorded a higher temperature than the sonde
+#95% of the differences should fall within the red dashed lines - "limits of agreement" 
+
+#outliers can be due to : instrument malfunctions, timestamps not aligning perfectly, one logger out of water (most likely with the HOBO), fouling, or need for calibration
+
+# the graph is showing that the sonde and hobo have very little average bias and more measurements are agreeable however, it becomes more variable with higher temperatures - the HOBO may actually be exposed at low tide on occasion depending on tidal level. 
 ```
 
 
@@ -319,7 +334,7 @@ df8<-read_csv("HOBO_Data\\raw_data\\062025_ASHC_HOBO.csv", col_names = TRUE)%>%
   dplyr::rename(Date_Time = `Date-Time (EDT)`) #%>% 
   #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset","Host Connected"))
 
-df9<-read_csv("HOBO_Data\\raw_data\\052026_ASHC_HOBO.csv", col_names = TRUE)%>%  
+df9<-read_csv("HOBO_Data\\raw_data\\072026_ASHC_HOBO.csv", col_names = TRUE)%>%  
   dplyr::rename(Temperature = `Temperature`) %>%
   dplyr::rename(Date_Time = `Date-Time (EDT)`) #%>% 
   #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset","Host Connected"))
@@ -422,7 +437,7 @@ ASHC_plot <- ASHC_means %>%
     theme(axis.text = element_text(size = 10), axis.title = element_text(size = 12)) +
     scale_x_datetime(date_labels = "%b%Y", 
                      date_breaks = "2 month", 
-                     limits = as.POSIXct(c('2023-06-01', '2026-05-30')))+
+                     limits = as.POSIXct(c('2023-06-01', '2026-07-30')))+
   theme(axis.text = element_text(size = 15), axis.title = element_text(size = 20), legend.text = element_text(size=18), 
         legend.title = element_text(size=20), title = element_text(size = 20), strip.text = element_text(size = 18), axis.text.x = element_text(angle = 40, vjust = 1.0, hjust = 1.0) )+
   geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)+
@@ -645,7 +660,7 @@ GOLD_df2 <- GOLD_df2 %>%
   dplyr::select(Date_Time, Temperature) 
 GOLD_df2
 
-GOLD_df3 <- read_csv("HOBO_Data\\raw_data\\052026_GOLD_HOBO.csv", col_names = TRUE) 
+GOLD_df3 <- read_csv("HOBO_Data\\raw_data\\072026_GOLD_HOBO.csv", col_names = TRUE) 
 GOLD_df3 <- GOLD_df3 %>%
   dplyr::rename(Temperature = `Temperature`) %>%
   dplyr:: rename(Date_Time = `Date-Time (EDT)`)%>%
