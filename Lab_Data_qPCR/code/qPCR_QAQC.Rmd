@@ -5,11 +5,10 @@ date: "2025-07-09"
 output: html_document
 Description: The purpose of this script is to import, clean up, and summarize Triplex qPCR data for the detection of Dermo, MSX, and SSO to determine prevalence and infection intensity for the LISS Oyster Health Project's monthly sampling at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. Infection intensity will be reported as copies/ng. This data will then be cross validated with RFTM and Histology data. 
 
-Last updated:6/29/26 by Mariah kachmar
+Last updated:8/3/26 by Mariah kachmar
 
 - working on inputting files & a QAQC routine
-- got to calculating copies per ul 
-- next steps are the back calculations to standardize the samples - ratio copies per ng, copies/ul in 50ng/ul, then copies/2ul based on 50ng/ul
+
 ---
 
 #Set working directory
@@ -331,8 +330,8 @@ rftm_v_qpcr <- rftm_v_qpcr %>% select(Sample_ID, site, rftm_final, mackin_score 
 rftm_v_qpcr
 
 rftm_v_qpcr$results = ifelse(rftm_v_qpcr$mackin_score < rftm_v_qpcr$rftm_final, 'FALSE',
-  ifelse(rftm_v_qpcr$mackin_score > data_all$rftm_final, 'TRUE',
-  ifelse(rftm_v_qpcr$mackin_score == data_all$rftm_final, 'TRUE', NA)))
+  ifelse(rftm_v_qpcr$mackin_score > rftm_v_qpcr$rftm_final, 'TRUE',
+  ifelse(rftm_v_qpcr$mackin_score == rftm_v_qpcr$rftm_final, 'TRUE', NA)))
   
 rftm_v_qpcr
 
@@ -340,4 +339,28 @@ FALSE_qpcr<- rftm_v_qpcr %>% filter( results == 'FALSE')
 FALSE_qpcr
 
 write.csv(FALSE_qpcr, "Lab_Data_qPCR\\outputs/qPCR_sample_rerun_list.csv", row.names=FALSE)
+```
+
+#Lets compare the histology scores to the qPCR. qPCR is more sensitive so we may see slightly inflated scores but I think it is good to check in terms of postive and negative results. What I am looking for is if qPCR is lower than RFTM or is negative and histopathology is positive. 
+```{r}
+#pull in histopathology data
+Histo_all <- read.csv("Master_files/histopathology_scoring_all_data.csv")
+
+
+#Merge MSX qPCR data
+
+histo_v_qpcr <- merge(Histo_all, MSX_mackin_scores, by = c("Sample_ID", "Site"))
+histo_v_qpcr <- histo_v_qpcr %>% select(Sample_ID, Site, haplo, mackin_score , Copies_ul_ng.ul)
+histo_v_qpcr
+
+histo_v_qpcr$results = ifelse(histo_v_qpcr$mackin_score < histo_v_qpcr$haplo, 'FALSE',
+  ifelse(histo_v_qpcr$mackin_score > histo_v_qpcr$haplo, 'TRUE',
+  ifelse(histo_v_qpcr$mackin_score == histo_v_qpcr$haplo, 'TRUE', NA)))
+  
+histo_v_qpcr
+
+FALSE_histo_qpcr<- histo_v_qpcr %>% filter( results == 'FALSE')
+FALSE_histo_qpcr
+
+write.csv(FALSE_histo_qpcr, "Lab_Data_qPCR\\outputs/qPCR_sample_rerun_list_MSX.csv", row.names=FALSE)
 ```

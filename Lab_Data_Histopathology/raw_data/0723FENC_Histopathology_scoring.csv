@@ -1,4 +1,4 @@
-Sample_ID,Date_collected,Site,Lab_sample,Date_read,P. marinus,Haplosporidium,Nematopsis,General ciliates,Notes
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,P. marinus1,Haplosporidium1,Nematopsis1,General ciliates1,Notes
 0723FENC_01,7/12/2023,FENC,1,,1,0,TRUE,FALSE,
 0723FENC_02,7/12/2023,FENC,2,,0.5,0,TRUE,FALSE,no gill top msx detection
 0723FENC_03,7/12/2023,FENC,3,,3,0,TRUE,FALSE,"little gill, prokaryotic inclusions"

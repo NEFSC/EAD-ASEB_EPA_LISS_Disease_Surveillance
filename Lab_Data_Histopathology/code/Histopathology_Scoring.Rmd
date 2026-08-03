@@ -4,7 +4,9 @@ author: "Kyra Lenderman"
 date: "2025-10-23"
 output: html_document
 ---
-Updated last on 10/31/2025 by K. Lenderman
+Updated last on 8/3/2026 by M. Kachmar
+
+started uploading completed scoring documents for masterfile
 
 Note:
 - Used the reproductive code to start this one
@@ -14,8 +16,8 @@ Note:
 #Set working directory
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
-knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 ```
 
 #run packages
@@ -41,7 +43,7 @@ data_all <- list.files(path = "Lab_Data_Histopathology/raw_data",               
   pattern = "*.csv", full.names = TRUE) %>% 
   lapply(read_csv) %>%                              # Store all files in list
   bind_rows %>%                                       # Combine data sets into one data set 
-  rename(pmarinus = "P. marinus", haplo = "Haplosporidium")
+  rename(pmarinus = "P. marinus1", haplo = "Haplosporidium1")
 data_all                                            # Print data to RStudio console
 
 as.data.frame(data_all)                            # Convert tibble to data.frame
