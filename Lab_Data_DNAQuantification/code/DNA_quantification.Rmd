@@ -7,8 +7,9 @@ output: html_document
 Description: This code is used for molecular sample DNA quanitification quality control and assurance for the LISS funded Oyster Health Project. This samples were extracted using a Qiagen blood and tissue extraction kit. Quanitify of nucleic acids were determined using a Nanodrop2000 and dsDNA using a Qubit Flex. 
 
 
-Updated: 7/10/26 K. Lenderman
- - % of samples with standard deviations >10 = 13.73%
+Updated: 7/30/26 K. Lenderman
+ - % of samples with standard deviations >10 = 11.24%
+ - % of samples with standard error >10 = 5.98%
 ---
 
 
@@ -73,6 +74,11 @@ high_sd_list <- qubit_summary %>% filter(sd > 10) #creates list of which samples
 percentage_highsd <- (high_sd/nrow(qubit_summary)) * 100 # determining percentage of samples have high standard deviation
 percentage_highsd #outputs percentage
 
+#Percentage of standard error >10 for qubit
+high_se <- qubit_summary %>% filter(se > 10) %>% nrow() #creates number of rows that have sd # >10
+high_se_list <- qubit_summary %>% filter(se > 10) #creates list of which samples have high sd
+percentage_highse <- (high_se/nrow(qubit_summary)) * 100 # determining percentage of samples have high standard deviation
+percentage_highse #outputs percentage
 ```
 
 
