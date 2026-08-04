@@ -74,11 +74,12 @@ high_sd_list <- qubit_summary %>% filter(sd > 10) #creates list of which samples
 percentage_highsd <- (high_sd/nrow(qubit_summary)) * 100 # determining percentage of samples have high standard deviation
 percentage_highsd #outputs percentage
 
-#Percentage of standard error >10 for qubit
-high_se <- qubit_summary %>% filter(se > 10) %>% nrow() #creates number of rows that have sd # >10
-high_se_list <- qubit_summary %>% filter(se > 10) #creates list of which samples have high sd
-percentage_highse <- (high_se/nrow(qubit_summary)) * 100 # determining percentage of samples have high standard deviation
-percentage_highse #outputs percentage
+#Coefficient of variance (CV) 
+high_cv <- qubit_summary %>% mutate(cv = sd/mean_concentration_ng.uL) #creates number of rows that have sd # >10
+high_cv <- high_cv %>% filter(cv > 0.1)
+#percentage_highcv <- (qubit_summary/nrow(high_cv)) * 100 # determining percentage of samples have high standard deviation
+high_cv #outputs
+
 ```
 
 
