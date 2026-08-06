@@ -36,22 +36,21 @@ library("stringr")
 library("tidyverse")
 ```
 
+
 #### This code chunk merges all .csv files within the qubit folder into one data fram and outputs the full dataset into a .csv master file. This allows us to download the raw data as a .csv, add it to the repository folder, and create the master data file without copying and pasting data in excel.
 # reading in .csv files from local folder
 ```{r}
 
-
-
 data_all <- list.files(path = "Lab_Data_qPCR/raw_data",                           # Identify all CSV files
   pattern = "*.csv", full.names = TRUE) %>% 
-  lapply(read_csv, skip= 19) %>%                              # Store all files in list
-  bind_rows                                         # Combine data sets into one data set 
-data_all                                            # Print data to RStudio console
+  lapply(read_csv, skip= 19) %>%  # Store all files in list
+  bind_rows                       # Combine data sets into one data set 
+data_all                          # Print data to RStudio console
 
-as.data.frame(data_all)                            # Convert tibble to data.frame
+as.data.frame(data_all)   # Convert tibble to data.frame
 
 
-data_all <- data_all %>% filter(!is.na('Content'))
+data_all <- data_all %>% filter(!is.na('Content')) #removing any NA or blank data
 
 #What columns are necessary? I am removing 'Well' (Well # on the 96 well plate)  
 
@@ -75,6 +74,53 @@ data_all
 write.csv(data_all, "Master_files\\qPCR_all_data.csv", row.names=FALSE)
 ```
 
+#playing around with code to identify when the standards do not amplify (specifically 10^1). This is in early stages - not finished. The above chunk should be used until further instructions. 
+```{r}
+# 1. Identify all CSV files with their full paths
+file_paths <- list.files(
+  path = "Lab_Data_qPCR/raw_data", 
+  pattern = "*.csv", 
+  full.names = TRUE
+)
+
+#Name the vector with itself so bind_rows can use the full paths
+file_paths <- set_names(file_paths)
+
+# Read, combine, and retain full file paths in the "Source_File" column
+data_qpcr <- file_paths %>% 
+  map(~ read_csv(.x, skip = 19, na = c("NA", "NaN"))) %>% 
+  bind_rows(.id = "Source_File") 
+
+#What columns are necessary? I am removing 'Well' (Well # on the 96 well plate)  
+
+data_qpcr<- data_qpcr %>% dplyr::select(c('Source_File','Fluor','Content', 'Cq', 'Starting Quantity (SQ)', 'Cq Mean', 'Cq Std. Dev', 'SQ Std. Dev'))
+
+#lets rename these columns to be more user friendly
+data_qpcr <- data_qpcr %>% dplyr::rename(Target_dye = 'Fluor',Sample_ID = 'Content', Concentration = 'Starting Quantity (SQ)', St_dev = 'SQ Std. Dev', Cq_st_dev = 'Cq Std. Dev', Cq_mean = 'Cq Mean' )
+
+#We need dates
+data_qpcr <- data_qpcr %>%   mutate(
+    # extract parts
+    Month_year = str_sub(Sample_ID, 1, 4),
+    Site = str_extract(Sample_ID, "(?<=\\d{4})[A-Za-z]+(?=_)"),
+    Replicate = str_extract(Sample_ID, "(?<=_)\\d+"),
+    # convert month-year to real date (first day of month)
+    Date = my(Month_year)
+  )
+
+# Filter for failed standard curve samples
+failed_standards <- data_qpcr %>%
+  filter(str_detect(Sample_ID, regex("^Std-", ignore_case = TRUE))) %>%
+  filter(Cq == 0 | is.na(Cq) | is.nan(Cq)) %>%
+  select(Source_File, Sample_ID, Cq, Target_dye, Concentration)
+
+# View 
+print(data_qpcr)
+print(failed_standards)
+
+
+
+```
 
 ```{r}
 #Percentage of standard deviations >0.5 for qPCR Cq values
