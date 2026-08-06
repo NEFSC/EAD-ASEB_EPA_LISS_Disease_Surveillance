@@ -323,7 +323,7 @@ for(i in 1:nrow(vars)) {
   # print plots and name them as the var    
   #pdf(paste0(path= "/raw_plots",gsub(" ", "_", vars[i,]),".pdf"), height = 12, width = 15)
   print(plot) 
-  #dev.off()
+ # dev.off()
 
   } # close the loop
 
