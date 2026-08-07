@@ -223,7 +223,7 @@ FENC_daily_means
 ### QAQC with Sonde data - FENC temperture ###
 
 FENC_Temp_Sonde <- read.csv("Sonde_Data/output/FENC_Temperature_Sonde.csv")
-FENC_Temp_Sonde <- FENC_Temp_Sonde %>% rename(Date_Time = Date.Time, sonde_temp = value )  
+FENC_Temp_Sonde <- FENC_Temp_Sonde %>% dplyr::rename(Date_Time = Date.Time, sonde_temp = value )  
 
 FENC_Temp_Sonde <- FENC_Temp_Sonde %>% 
   mutate(Date_Time = ymd_hms(Date_Time, tz = "UTC"), Date_Time = round_date(Date_Time, unit = "30 minutes")) 
