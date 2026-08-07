@@ -8,8 +8,8 @@ description: This R code is used to import and summarize recruitment data collec
 ---
 
 
-last updated 12/12/25 by M. Kachmar
-- QAQC Gold star data
+last updated 08/7/26 by M. Kachmar
+- QAQC Fence Creek data
 
 ## R Markdown
 
@@ -36,18 +36,26 @@ file_paths <- list.files(path = "Field_Data_Recruitment/raw_data",
 
 
 data_all <- lapply(file_paths, function(file_path) {
-  read_csv(file_path) %>%
+  read_csv(file_path, show_col_types = FALSE) %>%
     mutate(
-      date_collected = as.Date(date_collected,format = "%m/%d/%Y"),
-      date_deployed= as.Date(date_deployed,format = "%m/%d/%Y"))
+      date_collected = as.Date(parse_date_time(
+        as.character(date_collected),
+        orders = c("Ymd", "mdY")
+      )),
+      date_deployed = as.Date(parse_date_time(
+        as.character(date_deployed),
+        orders = c("Ymd", "mdY")
+      ))
+    )
 }) %>%
-  bind_rows
-
+  bind_rows()
 as.data.frame(data_all)                            # Convert tibble to data.frame
 
 #View(data_all)
 
 data_all <- data_all %>% filter(!is.na(Count_1))
+
+
 
 ```
 
