@@ -376,7 +376,7 @@ ggplot(data=MSX_prevalence_summary, aes(x=Date, y=prevalence_precentage, color=S
 ```{r}
 #pull in RFTM data
 RFTM_all <- read.csv("Master_files/RFTM_all_data.csv")
-RFTM_all <- RFTM_all %>% rename("Sample_ID" = "lab_id")
+RFTM_all <- RFTM_all %>% dplyr::rename("Sample_ID" = "lab_id")
 
 #Merge dermo qPCR data
 
