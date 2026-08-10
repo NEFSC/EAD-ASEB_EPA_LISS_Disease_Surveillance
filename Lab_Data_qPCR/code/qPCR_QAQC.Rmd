@@ -120,8 +120,6 @@ print(failed_standards)
 
 
 
-```
-
 ```{r}
 #Percentage of standard deviations >0.5 for qPCR Cq values
 high_cq_sd <- data_all %>% filter(Cq_st_dev > 0.5) %>% nrow() #creates number of rows that have sd # >0.5
