@@ -5,7 +5,7 @@ date: "2025-07-09"
 output: html_document
 Description: The purpose of this script is to import, clean up, and summarize Triplex qPCR data for the detection of Dermo, MSX, and SSO to determine prevalence and infection intensity for the LISS Oyster Health Project's monthly sampling at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. Infection intensity will be reported as copies/ng. This data will then be cross validated with RFTM and Histology data. 
 
-Last updated:8/4/26 by Mariah kachmar
+Last updated:8/10/26 by Mariah kachmar
 
 - working on inputting files & a QAQC routine
 
