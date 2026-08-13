@@ -22,8 +22,8 @@ library("tidyverse")
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
-#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 ```
 ### This code chunk merges all .csv files within the Tissue processing folder into one data frame and outputs the full dataset into a .csv master file. This allows us to download the raw data as a .csv, add it to the repository folder, and create the master data file without copying and pasting data in excel.
 # reading in .csv files from local folder
@@ -31,7 +31,7 @@ knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-AS
 
 # There were some issues with dates so I added this code to help alleviate issues and to make sure all dates that are being pulled in have the same format moving forward. 
 
-file_paths <- list.files(path = "Field_Data_Recruitment/raw_data",
+file_paths <- list.files(path = "Field_Data_Recruitment/raw_data/spat_count",
                           pattern = "*.csv", full.names = TRUE)
 
 
@@ -180,6 +180,11 @@ ASHC_spat_total <- df_ASHC %>%
   dplyr::summarize(sum_count_1 = sum(Count_1),sum_count_2 = sum(Count_2))
 ASHC_spat_total
 
+ASHC_spat <- df_ASHC %>%
+  dplyr::group_by(Replicate, Shell, date_collected) %>%
+  dplyr::summarize(sum_count_1 = sum(Count_1),sum_count_2 = sum(Count_2))
+ASHC_spat
+
 ASHC_spat_avg <- ASHC_spat %>%
   dplyr::group_by(date_collected, Replicate)%>%
   dplyr::summarize(Mean_1 = mean(sum_count_1), Mean_2 = mean(sum_count_2))
@@ -275,6 +280,27 @@ LAUR_spat_avg2 <- LAUR_spat_avg %>%
 LAUR_spat_avg2
 ```
 
+```{r}
+#Spat length measurements
+
+file_paths <- list.files(path = "Field_Data_Recruitment/raw_data/spat_length",
+                          pattern = "*.csv", full.names = TRUE)
+
+
+spat_length <- list.files(path = "Field_Data_Recruitment/raw_data/spat_length",                           # Identify all CSV files
+ pattern = "*.csv", full.names = TRUE) %>% 
+lapply(read_csv) %>%   # Store all files in list
+  bind_rows%>%
+  mutate(date_collected = as.Date(date_collected,format = "%m/%d/%Y"))# Combine data sets into one data set 
+
+#View(data_all)
+
+spat_length_all <- spat_length %>% filter(!is.na(date_collected))
+
+spat_length_sum <- summarySE(spat_length_all, measurevar="shell_height", groupvars=c("Site", "date_collected"))
+
+
+```
 
 
 
