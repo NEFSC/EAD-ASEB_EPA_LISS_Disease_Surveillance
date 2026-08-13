@@ -5,7 +5,7 @@ date: "2025-07-09"
 output: html_document
 Description: The purpose of this script is to import, clean up, and summarize Triplex qPCR data for the detection of Dermo, MSX, and SSO to determine prevalence and infection intensity for the LISS Oyster Health Project's monthly sampling at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. Infection intensity will be reported as copies/ng. This data will then be cross validated with RFTM and Histology data. 
 
-Last updated:8/10/26 by Mariah kachmar
+Last updated:8/11/26 by Mariah kachmar
 
 - working on inputting files & a QAQC routine
 
@@ -74,6 +74,8 @@ data_all
 write.csv(data_all, "Master_files\\qPCR_all_data.csv", row.names=FALSE)
 ```
 
+#DO NOT RUN THIS CHUNK 
+
 #playing around with code to identify when the standards do not amplify (specifically 10^1). This is in early stages - not finished. The above chunk should be used until further instructions. 
 ```{r}
 # 1. Identify all CSV files with their full paths
@@ -118,6 +120,7 @@ failed_standards <- data_qpcr %>%
 print(data_qpcr)
 print(failed_standards)
 
+```
 
 
 ```{r}
