@@ -95,7 +95,7 @@ ggplot(Master_table_LONG,
 ```
 
 
-### Lets remove outliers within the data
+### Lets remove outliers within the data - this data file will be used for the proceeding code**
 ```{r}
 #Lets just see if there are outliers in the data 
 ggplot(Master_table_LONG,
@@ -159,6 +159,9 @@ Master_table_cleaned <- Master_table_cleaned %>%
   #select(`Date Time`, ends_with("_clean"))
 
 Master_table_cleaned
+
+write.csv(Master_table_cleaned, "output/Sonde Master Files/Sonde_Master_table_cleaned.csv",)
+
 
 #reorganize the data to make plots
 df_clean_plot <- Master_table_cleaned %>%
@@ -268,7 +271,7 @@ write.csv(GOLD_Temp_Sonde, "output/Sonde Master Files/GOLD_Temperature_Sonde.csv
 
 
 ```{r}
-Master_table_LONG_means <- Master_table %>%  
+Master_table_LONG_means <- Master_table_cleaned %>%  
                       dplyr::mutate(`Date Time` = as.factor(substr(`Date Time`,1,13))) %>% # remove minutes and seconds
                       reshape2::melt(id.vars = c("Date Time", "Site"),
                                     measure.vars = c("Actual Conductivity", "Salinity", "Resistivity", 
