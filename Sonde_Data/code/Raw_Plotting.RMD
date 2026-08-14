@@ -1,11 +1,12 @@
 ---
 title: "Sonde_raw_plots"
-author: "Samuel Gurr"
+author: "Samuel Gurr and Mariah Kachmar"
 date: "2023-10-03"
 output: html_document
 ---
 
-Last updated 08/6/2026 by M.Kachmar
+Last updated 08/14/2026 by M.Kachmar
+did some reoganizing and file clean ups
 
 
 IMPORTANT: Fence Creek sonde (SN 1005261) was lost in a blizzard/to ice - there is no data files for 02/2026 or 03/2026.
@@ -237,7 +238,7 @@ QAQC_plot<- df_clean_plot %>%
   )
 QAQC_plot
 
-pdf(paste0(path = "output/raw_plots/QAQC_plots","/pH_QAQC.pdf"), height = 6, width = 11) 
+pdf(paste0(path = "output/raw_plots/QAQC_outlier_plots","/pH_QAQC.pdf"), height = 6, width = 11) 
 print(QAQC_plot)
 dev.off()
 
@@ -320,11 +321,12 @@ for(i in 1:nrow(vars)) {
               theme_bw()
   
   # print plots and name them as the var    
-  pdf(paste0(path= "/raw_plots",gsub(" ", "_", vars[i,]),".pdf"), height = 12, width = 15)
+  pdf(file = paste0("output/raw_plots/", gsub(" ", "_", vars[i,]), ".pdf"), height = 12, width =15)
   print(plot) 
   dev.off()
 
   } # close the loop
+
 
 
   
@@ -455,7 +457,7 @@ CT_pH_plot <- CT_pH %>% na.omit() %>%
 
 CT_pH_plot
 
-pdf(paste0(path = "output/raw_plots/LISS_proposal_plots","/CT_pH_2026.pdf"), height = 6, width = 11) #Change the name of the file here based on the time frame of the graph
+pdf(paste0(path = "output/raw_plots/CT_intertidal_plots","/CT_pH_2026.pdf"), height = 6, width = 11) #Change the name of the file here based on the time frame of the graph
 #ggarrange(CT_pH_2026, CT_pH_callout_2026, ncol = 2, widths = c(2, 1))
 print(CT_pH_plot)
 dev.off()
@@ -488,7 +490,7 @@ CT_pH_callout <- CT_pH %>% na.omit() %>%
 CT_pH_callout
 
 
-#pdf(paste0(path = "output/raw_plots/LISS_proposal_plots","/CT_pH_2026.pdf"), height = 6, width = 11) #Change the name of the file here based on the time frame of the graph
+#pdf(paste0(path = "output/raw_plots/CT_intertidal_plots","/CT_pH_2026.pdf"), height = 6, width = 11) #Change the name of the file here based on the time frame of the graph
 #ggarrange(CT_pH_2025, CT_pH_callout_2025, ncol = 2, widths = c(2, 1))
 #print(CT_pH_plot)
 #dev.off()
@@ -519,7 +521,7 @@ CT_pH_ALL <- CT_pH %>% na.omit() %>%
 
 CT_pH_ALL
 
-pdf(paste0(path = "output/raw_plots/LISS_proposal_plots","/CT_pH_ALL.pdf"), height = 6, width = 11)
+pdf(paste0(path = "output/raw_plots/CT_intertidal_plots","/CT_pH_ALL.pdf"), height = 6, width = 11)
 #ggarrange(CT_pH_2025, CT_pH_callout_2025, ncol = 2, widths = c(2, 1))
 print(CT_pH_ALL)
 dev.off()
@@ -578,13 +580,13 @@ CT_Salinity_callout<- CT_Salinity %>% na.omit() %>%
               theme(legend.position = "none", axis.title.y = element_blank())+geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
 CT_Salinity_callout
 
-#pdf(paste0(path = "output/raw_plots/LISS_proposal_plots/CT_Salinity_2023.pdf"), height = 6, width = 11)
+#pdf(paste0(path = "output/raw_plots/CT_intertidal_plots/CT_Salinity_2023.pdf"), height = 6, width = 11)
 #ggarrange(CT_Salinity_2023, CT_Salinity_callout_2023, ncol = 2, widths = c(2, 1))
 #print(CT_Salinity_2023)
 #dev.off()
 
 
-pdf(paste0(path = "output/raw_plots/LISS_proposal_plots/CT_Salinity_2026.pdf"), height = 6, width = 11) #Change the name of the file here based on the time frame of the graph
+pdf(paste0(path = "output/raw_plots/CT_intertidal_plots/CT_Salinity_2026.pdf"), height = 6, width = 11) #Change the name of the file here based on the time frame of the graph
 #ggarrange(CT_Salinity_2025, CT_Salinity_callout_2025, ncol = 2, widths = c(2, 1))
 print(CT_Salinity_plot)
 dev.off()
@@ -643,7 +645,7 @@ CT_Temperature_callout <- CT_Temperature %>% na.omit() %>%
               theme(legend.position = "none", axis.title.y = element_blank())+geom_hline(yintercept = 16, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
 #CT_Temperature_callout_2025
 
-pdf(paste0(path ="output/raw_plots/LISS_proposal_plots/CT_Temperature_2026.pdf"), height = 6, width = 11) #Change the name of the file here based on the time frame of the graph
+pdf(paste0(path ="output/raw_plots/CT_intertidal_plots/CT_Temperature_2026.pdf"), height = 6, width = 11) #Change the name of the file here based on the time frame of the graph
 #ggarrange(CT_Temperature_2025, CT_Temperature_callout_2025, ncol = 2, widths = c(2, 1))
 print(CT_Temperature_plot)
 dev.off()
@@ -701,7 +703,7 @@ CT_DO_callout <- CT_DO %>% na.omit() %>%
               theme_classic() +
               theme(legend.position = "none", axis.title.y = element_blank())
 #CT_DO_callout_2025
-pdf(paste0(path = "output/raw_plots/LISS_proposal_plots/CT_DO_2026.pdf"), height = 6, width = 11)
+pdf(paste0(path = "output/raw_plots/CT_intertidal_plots/CT_DO_2026.pdf"), height = 6, width = 11)
 #ggarrange(CT_DO_2025, CT_DO_callout_2025, ncol = 2, widths = c(2, 1))
 print(CT_DO_plot)
 dev.off()
@@ -741,7 +743,7 @@ CT_Temperature_2023 <- CT_Temperature %>% na.omit() %>%
               theme(legend.position = "none")
 CT_Temperature_2023
 
-#pdf(paste0(path = "output/raw_plots/LISS_proposal_plots/CT_Temperature_2023.pdf"), height = 6, width = 11)
+#pdf(paste0(path = "output/raw_plots/CT_intertidal_plots/CT_Temperature_2023.pdf"), height = 6, width = 11)
 #ggarrange(CT_Temperature_2023, CT_Temperature_callout_2023, ncol = 2, widths = c(2, 1))
 #print(CT_Temperature_2023)
 #dev.off()
@@ -1037,7 +1039,7 @@ ASHC_pH_plot <- ASHC_pH %>% na.omit() %>%
 
 ASHC_pH_plot
 
-pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_pH_2026.pdf"), height = 7, width = 14)
+pdf(paste0(path = "output/raw_plots/Site_specific_plots/ASHC_pH_2026.pdf"), height = 7, width = 14)
 print(ASHC_pH_plot)
 dev.off()
 
@@ -1068,7 +1070,7 @@ ASHC_pH_callout<- ASHC_pH %>% na.omit() %>%
 
 #ASHC_Salinity_callout
 
-#pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_Salinity_2024.pdf"), height = 7, width = 14)
+#pdf(paste0(path = "output/raw_plots/Site_specific_plots/ASHC_Salinity_2024.pdf"), height = 7, width = 14)
 #print(ASHC_Salinity_2024)
 #ggarrange(ASHC_Salinity_all,ASHC_Salinity_callout, ncol = 2, widths = c(2, 1))
 #dev.off()
@@ -1101,7 +1103,7 @@ ASHC_Salinity_plot <- ASHC_Salinity %>% na.omit() %>%
 
 ASHC_Salinity_plot
 
-pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_Salinity_2026.pdf"), height = 7, width = 14)
+pdf(paste0(path = "output/raw_plots/Site_specific_plots/ASHC_Salinity_2026.pdf"), height = 7, width = 14)
 print(ASHC_Salinity_plot)
 dev.off()
 
@@ -1132,7 +1134,7 @@ ASHC_Salinity_callout <- ASHC_Salinity %>% na.omit() %>%
 
 #ASHC_Salinity_callout_2024
 
-#pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_Salinity_2024.pdf"), height = 7, width = 14)
+#pdf(paste0(path = "output/raw_plots/Site_specific_plots/ASHC_Salinity_2024.pdf"), height = 7, width = 14)
 #print(ASHC_Salinity_2024)
 #ggarrange(ASHC_Salinity_all,ASHC_Salinity_callout, ncol = 2, widths = c(2, 1))
 #dev.off()
@@ -1167,7 +1169,7 @@ ASHC_Temperature_plot <-ASHC_Temperature %>% na.omit() %>%
 
 ASHC_Temperature_plot
 
-pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_Temperature_2026.pdf"), height = 7, width = 14)
+pdf(paste0(path = "output/raw_plots/Site_specific_plots/ASHC_Temperature_2026.pdf"), height = 7, width = 14)
 print(ASHC_Temperature_plot)
 dev.off()
 
@@ -1197,7 +1199,7 @@ ASHC_Temperature_callout <- ASHC_Temperature %>% na.omit() %>%
               theme(legend.position = "none", axis.title.y = element_blank())+scale_x_datetime(breaks="1 month", date_labels = "%B")
 #ASHC_Temperature_callout_2024
 
-#pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_Temperature_2024.pdf"), height = 7, width = 14)
+#pdf(paste0(path = "output/raw_plots/Site_specific_plots/ASHC_Temperature_2024.pdf"), height = 7, width = 14)
 #print(ASHC_Temperature_2024)
 #ggarrange(ASHC_Temperature_all, ASHC_Temperature_callout, ncol = 2, widths = c(2, 1))
 #dev.off()
@@ -1228,7 +1230,7 @@ ASHC_DO_plot <- ASHC_DO %>% na.omit() %>%
               ggtitle("DO Concentration 2026") +
               labs(x = "Time", y = "DO Concentration (mg/L)") +
               theme_classic() +
-#pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_DO_2026.pdf"), height = 7, width = 14)
+#pdf(paste0(path = "output/raw_plots/Site_specific_plots/ASHC_DO_2026.pdf"), height = 7, width = 14)
 print(ASHC_DO_plot)
 #ggarrange(ASHC_DO_all, ASHC_DO_callout, ncol = 2, widths = c(2, 1))
 dev.off()              
@@ -1292,7 +1294,7 @@ ASHC_CHLA_plot <- ASHC_CHLA %>% na.omit() %>%
 
 ASHC_CHLA_plot
 
-pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_CHLA_2026.pdf"), height = 7, width = 14)
+pdf(paste0(path = "output/raw_plots/Site_specific_plots/ASHC_CHLA_2026.pdf"), height = 7, width = 14)
 print(ASHC_CHLA_plot)
 ```
 
@@ -1348,7 +1350,7 @@ ASHC_DAILY_DO_plot <- ASHC_DO_avg %>%
 
 
 ASHC_DAILY_DO_plot
-pdf(paste0(path = "output/raw_plots/Report_plots/ASHC_daily_DO_2026.pdf"), height = 7, width = 14) # update file name to reflect date range
+pdf(paste0(path = "output/raw_plots/Site_specific_plots/ASHC_daily_DO_2026.pdf"), height = 7, width = 14) # update file name to reflect date range
 print(ASHC_DAILY_DO_plot)
 
 # Monthly mean temperatures ASHC
@@ -1700,7 +1702,7 @@ FENC_pH_plot <- FENC_pH %>% na.omit() %>%
               theme(legend.position = "none", axis.text= element_text(size= 15))+geom_hline(yintercept = 7.5, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
 FENC_pH_plot
 
-pdf(paste0(path = "output/raw_plots/Report_plots/FENC_pH_2026.pdf"), height = 7, width = 14)
+pdf(paste0(path = "output/raw_plots/Site_specific_plots/FENC_pH_2026.pdf"), height = 7, width = 14)
 print(FENC_pH_plot)
 dev.off()
 
@@ -1731,7 +1733,7 @@ FENC_pH_callout<- FENC_pH %>% na.omit() %>%
 
 #FENC_Salinity_callout
 
-#pdf(paste0(path = "output/raw_plots/Report_plots/FENC_Salinity_2024.pdf"), height = 7, width = 14)
+#pdf(paste0(path = "output/raw_plots/Site_specific_plots/FENC_Salinity_2024.pdf"), height = 7, width = 14)
 #print(FENC_Salinity_2024)
 #ggarrange(FENC_Salinity_all,FENC_Salinity_callout, ncol = 2, widths = c(2, 1))
 #dev.off()
@@ -1764,7 +1766,7 @@ FENC_Salinity_plot <- FENC_Salinity %>% na.omit() %>%
 
 FENC_Salinity_plot
 
-pdf(paste0(path = "output/raw_plots/Report_plots/FENC_Salinity_2026.pdf"), height = 7, width = 14)
+pdf(paste0(path = "output/raw_plots/Site_specific_plots/FENC_Salinity_2026.pdf"), height = 7, width = 14)
 print(FENC_Salinity_plot)
 dev.off()
 
@@ -1795,7 +1797,7 @@ FENC_Salinity_callout <- FENC_Salinity %>% na.omit() %>%
 
 #FENC_Salinity_callout_2024
 
-#pdf(paste0(path = "output/raw_plots/Report_plots/FENC_Salinity_2024.pdf"), height = 7, width = 14)
+#pdf(paste0(path = "output/raw_plots/Site_specific_plots/FENC_Salinity_2024.pdf"), height = 7, width = 14)
 #print(FENC_Salinity_2024)
 #ggarrange(FENC_Salinity_all,FENC_Salinity_callout, ncol = 2, widths = c(2, 1))
 #dev.off()
@@ -1829,7 +1831,7 @@ FENC_Temperature_plot <-FENC_Temperature %>% na.omit() %>%
               theme(legend.position = "none", axis.text= element_text(size= 15))+geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)+scale_x_datetime(breaks="1 month", date_labels = "%B")
 FENC_Temperature_plot
 
-pdf(paste0(path = "output/raw_plots/Report_plots/FENC_Temperature_2026.pdf"), height = 7, width = 14)
+pdf(paste0(path = "output/raw_plots/Site_specific_plots/FENC_Temperature_2026.pdf"), height = 7, width = 14)
 print(FENC_Temperature_plot)
 dev.off()
 
@@ -1859,7 +1861,7 @@ FENC_Temperature_callout <- FENC_Temperature %>% na.omit() %>%
               theme(legend.position = "none", axis.title.y = element_blank())+scale_x_datetime(breaks="1 month", date_labels = "%B")
 #FENC_Temperature_callout_2024
 
-#pdf(paste0(path = "output/raw_plots/Report_plots/FENC_Temperature_2024.pdf"), height = 7, width = 14)
+#pdf(paste0(path = "output/raw_plots/Site_specific_plots/FENC_Temperature_2024.pdf"), height = 7, width = 14)
 #print(FENC_Temperature_2024)
 #ggarrange(FENC_Temperature_all, FENC_Temperature_callout, ncol = 2, widths = c(2, 1))
 #dev.off()
@@ -1919,7 +1921,7 @@ FENC_DO_callout <- FENC_DO %>% na.omit() %>%
               theme_classic() +
               theme(legend.position = "none", axis.title.y = element_blank())
 
-pdf(paste0(path = "output/raw_plots/Report_plots/FENC_DO_2026.pdf"), height = 7, width = 14)
+pdf(paste0(path = "output/raw_plots/Site_specific_plots/FENC_DO_2026.pdf"), height = 7, width = 14)
 print(FENC_DO_plot)
 #ggarrange(FENC_DO_all, FENC_DO_callout, ncol = 2, widths = c(2, 1))
 dev.off()
@@ -1956,7 +1958,7 @@ FENC_CHLA_plot <- FENC_CHLA %>% na.omit() %>%
 
 FENC_CHLA_plot
 
-pdf(paste0(path = "output/raw_plots/Report_plots/FENC_CHLA_2026.pdf"), height = 7, width = 14)
+pdf(paste0(path = "output/raw_plots/Site_specific_plots/FENC_CHLA_2026.pdf"), height = 7, width = 14)
 print(FENC_CHLA_plot)
 ```
 
@@ -2076,7 +2078,7 @@ FENC_DAILY_DO_plot <- FENC_DO_avg %>% dplyr::filter(date > '2026-01-01 00:01:00'
 
 FENC_DAILY_DO_plot
 
-pdf(paste0(path="output/raw_plots/Report_plots/FENC_daily_DO_2026.pdf"), height = 7, width = 14)
+pdf(paste0(path="output/raw_plots/Site_specific_plots/FENC_daily_DO_2026.pdf"), height = 7, width = 14)
 print(FENC_DAILY_DO_plot)
 
 # Monthly mean temperatures FENC
@@ -2192,7 +2194,7 @@ GOLD_pH_plot <- GOLD_pH %>% na.omit() %>%
 GOLD_pH_plot
 
 
-pdf(paste0(path="output/raw_plots/Report_plots/GOLD_pH_2026.pdf"), height = 7, width = 14)
+pdf(paste0(path="output/raw_plots/Site_specific_plots/GOLD_pH_2026.pdf"), height = 7, width = 14)
 print(GOLD_pH_plot)
 dev.off()
 
@@ -2230,7 +2232,7 @@ GOLD_pH <- GOLD_pH %>% na.omit() %>%
 GOLD_pH
 
 
-pdf(paste0(path="output/raw_plots/Report_plots/GOLD_pH.pdf"), height = 7, width = 14)
+pdf(paste0(path="output/raw_plots/Site_specific_plots/GOLD_pH.pdf"), height = 7, width = 14)
 print(GOLD_pH)
 dev.off()
 
@@ -2266,7 +2268,7 @@ GOLD_Salinity_plot <- GOLD_Salinity %>% na.omit() %>%
 
 GOLD_Salinity_plot
 
-pdf(paste0(path="output/raw_plots/Report_plots/GOLD_Salinity_2026.pdf"), height = 7, width = 14)
+pdf(paste0(path="output/raw_plots/Site_specific_plots/GOLD_Salinity_2026.pdf"), height = 7, width = 14)
 print(GOLD_Salinity_plot)
 dev.off()
 
@@ -2301,7 +2303,7 @@ GOLD_Temperature_plot <-GOLD_Temperature %>% na.omit() %>%
 GOLD_Temperature_plot
 
 
-pdf(paste0(path="output/raw_plots/Report_plots/GOLD_Temperature_2026.pdf"), height = 7, width = 14)
+pdf(paste0(path="output/raw_plots/Site_specific_plots/GOLD_Temperature_2026.pdf"), height = 7, width = 14)
 print(GOLD_Temperature_plot)
 dev.off()
 
@@ -2334,7 +2336,7 @@ GOLD_DO_plot <- GOLD_DO %>% na.omit() %>%
   scale_x_datetime(breaks="1 month", date_labels = "%B")
 
 GOLD_DO_plot
-pdf(paste0(path="output/raw_plots/Report_plots/GOLD_DO_2026.pdf"), height = 7, width = 14)
+pdf(paste0(path="output/raw_plots/Site_specific_plots/GOLD_DO_2026.pdf"), height = 7, width = 14)
 print(GOLD_DO_plot)
 dev.off()
 
@@ -2366,7 +2368,7 @@ GOLD_CHLA_plot <- GOLD_CHLA %>% na.omit() %>%
 
 GOLD_CHLA_plot
 
-pdf(paste0(path="output/raw_plots/Report_plots/GOLD_CHLA_2026.pdf"), height = 7, width = 14)
+pdf(paste0(path="output/raw_plots/Site_specific_plots/GOLD_CHLA_2026.pdf"), height = 7, width = 14)
 print(GOLD_CHLA_plot)
 ```
 #Graphed sonde data for GOLD seperated by year
@@ -2629,7 +2631,7 @@ GOLD_DAILY_DO_2023 <- GOLD_DO_avg %>%
 
 GOLD_DAILY_DO_2023
 
-#pdf(paste0(path="/raw_plots/Report_plots/GOLD_daily_DO_2023.pdf"), height = 7, width = 14)
+#pdf(paste0(path="/raw_plots/Site_specific_plots/GOLD_daily_DO_2023.pdf"), height = 7, width = 14)
 #print(GOLD_DAILY_DO_2023)
 
 GOLD_DAILY_DO_2024 <- GOLD_DO_avg %>% 
@@ -2659,7 +2661,7 @@ GOLD_DAILY_DO_2024 <- GOLD_DO_avg %>%
 
 GOLD_DAILY_DO_2024
 
-#pdf(paste0(path="/raw_plots/Report_plots/GOLD_daily_DO_2024.pdf"), height = 7, width = 14)
+#pdf(paste0(path="/raw_plots/Site_specific_plots/GOLD_daily_DO_2024.pdf"), height = 7, width = 14)
 #print(GOLD_DAILY_DO_2024)
 
 GOLD_DAILY_DO_2025 <- GOLD_DO_avg %>% 
@@ -2689,7 +2691,7 @@ GOLD_DAILY_DO_2025 <- GOLD_DO_avg %>%
 
 GOLD_DAILY_DO_2025
 
-#pdf(paste0(path="/raw_plots/Report_plots/GOLD_daily_DO_2025.pdf"), height = 7, width = 14)
+#pdf(paste0(path="/raw_plots/Site_specific_plots/GOLD_daily_DO_2025.pdf"), height = 7, width = 14)
 #print(GOLD_DAILY_DO_2025)
 
 GOLD_DAILY_DO_2026 <- GOLD_DO_avg %>% 
@@ -2719,7 +2721,7 @@ GOLD_DAILY_DO_2026 <- GOLD_DO_avg %>%
 
 GOLD_DAILY_DO_2026
 
-pdf(paste0(path="/raw_plots/Report_plots/GOLD_daily_DO_2026.pdf"), height = 7, width = 14)
+pdf(paste0(path="/raw_plots/Site_specific_plots/GOLD_daily_DO_2026.pdf"), height = 7, width = 14)
 print(GOLD_DAILY_DO_2026)
 
 # Monthly mean temperatures GOLD
@@ -2776,6 +2778,7 @@ GOLD_Monthly_Salinity
 
 ```
 
+#Presentation Plots
 #Overlay graph - temperature and pH of the three sites (ASHC, FENC, GOLD) for the whole study
 ```{r}
 #Creating data frames for graph. This method removes the lines during the time with no collections, 2023 season to 2024 season.
@@ -2866,7 +2869,7 @@ all_pHvtemp
 
 
 
-#pdf(paste0(path = "output/raw_plots/Temperature_pH_all.pdf"), height = 7, width = 14)
+#pdf(paste0(path = "output/raw_plots/Presentation_plots/Temperature_pH_all.pdf"), height = 7, width = 14)
 print(all_pHvtemp)
 #dev.off()
 ```
@@ -2927,11 +2930,11 @@ all_salvtemp<-ggarrange(All_salinity.graph,All_temp.graph, ncol = 1, align = "v"
 all_salvtemp
 
 
-#pdf(paste0(path = "output/raw_plots/salinity_temp_all.pdf"), height = 7, width = 12)
+#pdf(paste0(path = "output/raw_plots/Presentation_plots/salinity_temp_all.pdf"), height = 7, width = 12)
 print(all_salvtemp)
 
 
-#pdf(paste0(path = "output/raw_plots/Salinity_all.pdf"), height = 7, width = 14)
+#pdf(paste0(path = "output/raw_plots/Presentation_plots/Salinity_all.pdf"), height = 7, width = 14)
 print(All_salinity.graph)
 #dev.off()
 ```
@@ -2939,7 +2942,7 @@ print(All_salinity.graph)
 all_salinityvtemp<-ggarrange(All_salinity.graph,All_temp.graph, ncol = 1)
 all_salinityvtemp
 
-#pdf(paste0(path = "output/raw_plots/Temperature_Salinity_all.pdf"), height = 7, width = 14)
+#pdf(paste0(path = "output/raw_plots/Presentation_plots/Temperature_Salinity_all.pdf"), height = 7, width = 14)
 print(all_salinityvtemp)
 #dev.off()
 ```
@@ -3085,7 +3088,7 @@ LAUR_pH_all <- LAUR_pH %>% na.omit() %>%
 LAUR_pH_all
 
 
-pdf(paste0(path_out,"/raw_plots/Report_plots/LAUR_pH.pdf"), height = 7, width = 14)
+pdf(paste0(path_out,"/raw_plots/Site_specific_plots/LAUR_pH.pdf"), height = 7, width = 14)
 print(LAUR_pH_all)
 dev.off()
   
@@ -3122,7 +3125,7 @@ LAUR_Salinity_all <- LAUR_Salinity %>% na.omit() %>%
 
 LAUR_Salinity_all
 
-pdf(paste0(path_out,"/raw_plots/Report_plots/LAUR_Salinity.pdf"), height = 7, width = 14)
+pdf(paste0(path_out,"/raw_plots/Site_specific_plots/LAUR_Salinity.pdf"), height = 7, width = 14)
 print(LAUR_Salinity_all)
 dev.off()
 
@@ -3155,7 +3158,7 @@ LAUR_Temperature_all <-LAUR_Temperature %>% na.omit() %>%
 LAUR_Temperature_all
 
 
-pdf(paste0(path_out,"/raw_plots/Report_plots/LAUR_Temperature.pdf"), height = 7, width = 14)
+pdf(paste0(path_out,"/raw_plots/Site_specific_plots/LAUR_Temperature.pdf"), height = 7, width = 14)
 print(LAUR_Temperature_all)
 dev.off()
 
@@ -3186,7 +3189,7 @@ LAUR_DO_all <- LAUR_DO %>% na.omit() %>%
               theme_classic() +
               theme(legend.position = "none", axis.text= element_text(size= 15))
 
-pdf(paste0(path_out,"/raw_plots/Report_plots/LAUR_DO.pdf"), height = 7, width = 14)
+pdf(paste0(path_out,"/raw_plots/Site_specific_plots/LAUR_DO.pdf"), height = 7, width = 14)
 print(LAUR_DO_all)
 dev.off()
 
@@ -3218,7 +3221,7 @@ LAUR_CHLA_all <- LAUR_CHLA %>% na.omit() %>%
 
 LAUR_CHLA_all
 
-pdf(paste0(path_out,"/raw_plots/Report_plots/LAUR_CHLA.pdf"), height = 7, width = 14)
+pdf(paste0(path_out,"/raw_plots/Site_specific_plots/LAUR_CHLA.pdf"), height = 7, width = 14)
 print(LAUR_CHLA_all)
 
 ```
@@ -3276,7 +3279,7 @@ LAUR_DAILY_DO <- LAUR_DO_avg %>% ggplot(aes(x= date,
 
 LAUR_DAILY_DO
 
-pdf(paste0(path_out,"/raw_plots/Report_plots/LAUR_daily_DO.pdf"), height = 7, width = 14)
+pdf(paste0(path_out,"/raw_plots/Site_specific_plots/LAUR_daily_DO.pdf"), height = 7, width = 14)
 print(LAUR_DAILY_DO)
 
 # Monthly mean temperatures ASHC
