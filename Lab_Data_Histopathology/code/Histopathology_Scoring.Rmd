@@ -4,14 +4,12 @@ author: "Kyra Lenderman"
 date: "2025-10-23"
 output: html_document
 ---
-Updated last on 8/12/2026 by M. Kachmar
+Updated last on 8/14/2026 by M. Kachmar
 
 started uploading completed scoring documents for masterfile
+creating graphs for weighted prevalence and prevalence % for all sites
+created  graphs for nematopsis and ciliates (T and F variables) for all sites
 
-Note:
-- Used the reproductive code to start this one
-- Need to create graph for nematopsis and ciliates (T and F variables)
-- Create graphs separating all sites once data is received
 
 #Set working directory
 ```{r setup, include=FALSE}
@@ -154,22 +152,220 @@ haplo_prop
 #pdf(paste0(path = "Lab_Data_Reproduction/output" ,"/all_haplo_proportion.pdf"), height = 7, width = 13)
 #print(haplo_prop)
 #dev.off()
+
 ```
 
-#FENC Summary
+#Weighted Prevalence of Dermo & MSX
 ```{r}
-df_FENC<- data_all%>%
-  filter(Site=="FENC")
-df_FENC
 
-df_FENC <- df_FENC%>% 
-  ggplot(aes(x = month, y=count, fill = "Nematopsis")) +
-  #geom_bar(width = 0.5, stat = "identity", position = "fill") +
-geom_bar() +
-  theme_bw()
 
-df_FENC
+#Now for some prevalence and intensity calculations
+
+#weighted prevalence 
+
+#dermo
+d_wp_summary <- data_all %>%
+  dplyr::group_by(Site, Date_collected, year) %>% 
+  dplyr::summarize( Weighted_prevalence = mean(pmarinus))
+d_wp_summary
+
+#dermo graph
+ggplot(data=d_wp_summary, aes(x=Date_collected, y=Weighted_prevalence, color=Site)) +
+  geom_point()+  
+  geom_line(aes(group = Site))+
+   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  labs(title="Weighted Prevalence of Dermo infection (qPCR)", x ="Date", y = "Weighted Prevalence Score")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  theme(axis.text=element_text(size=12)) + facet_wrap(~ year, scales = "fixed", ncol=1,)+ scale_x_date(
+  date_breaks = "1 month",
+  date_labels = "%b/%Y")#scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))
+
+#MSX
+msx_wp_summary<- data_all %>%
+  dplyr::group_by(Site, Date_collected, year) %>% 
+  dplyr::summarize( Weighted_prevalence = mean(haplo))
+
+msx_wp_summary
+
+#MSX graph
+
+ggplot(data=msx_wp_summary, aes(x=Date_collected, y=Weighted_prevalence, color=Site)) +
+  geom_point()+  
+  geom_line(aes(group = Site))+
+   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  labs(title="Weighted Prevalence of MSX infection (qPCR)", x ="Date", y = "Weighted Prevalence Score")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  theme(axis.text=element_text(size=12)) + facet_wrap(~ year, scales = "fixed", ncol=1,)+ scale_x_date(
+  date_breaks = "1 month",
+  date_labels = "%b/%Y")#scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))
+
 ```
+# Prevalence calculations for all sites Dermo & MSX
+# Prevalence = # infected/ total # sampled
+```{r}
+
+## Prevalence T/F for DERMO
+dermo_prev_histo<-data_all%>% filter(!is.na(pmarinus))
+dermo_prev_histo
+
+dermo_prev_histo$pmar_prevalent = ifelse(dermo_prev_histo$pmarinus == 0, '0',
+  ifelse(dermo_prev_histo$pmarinus > 0, '1', NA))
+  
+dermo_prev_histo
+
+# YEARLY PREVALENCE %
+present <- nrow(dermo_prev_histo %>% filter(pmar_prevalent == '1'))
+absent <- nrow(dermo_prev_histo %>% filter(pmar_prevalent == '0'))
+
+prevalence_dermo <- present/(present+absent)
+prevalence_dermo
+
+
+str(dermo_prev_histo$pmar_prevalent)
+dermo_prev_histo$pmar_prevalent <- as.numeric(dermo_prev_histo$pmar_prevalent)
+
+d_prevalence_summary <- dermo_prev_histo %>%
+  dplyr::group_by(Site, year, Date_collected) %>% 
+  dplyr::summarize( prevalence_precentage= mean(pmar_prevalent)* 100)
+d_prevalence_summary
+
+
+#Graph DERMO
+
+ggplot(data=d_prevalence_summary, aes(x=Date_collected, y=prevalence_precentage, color=Site)) +
+  geom_point()+  
+  geom_line(aes(group = Site))+
+   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  labs(title="Prevalence of Dermo infection (Histology)", x ="Date", y = "Dermo Prevlaence %")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  theme(axis.text=element_text(size=12)) + facet_wrap(~ year, scales = "free", ncol=1) + scale_x_date(
+  date_breaks = "1 month",
+  date_labels = "%b/%Y")#+ scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))
+
+
+## Prevalence T/F for MSX
+
+MSX_prev_histo<-data_all%>% filter(!is.na(haplo))
+MSX_prev_histo
+
+MSX_prev_histo$halpo_prevalent = ifelse(MSX_prev_histo$haplo == 0, '0',
+  ifelse(MSX_prev_histo$haplo > 0, '1', NA))
+  
+MSX_prev_histo
+
+# YEARLY PREVALENCE %
+present <- nrow(MSX_prev_histo %>% filter(halpo_prevalent == '1'))
+absent <- nrow(MSX_prev_histo %>% filter(halpo_prevalent == '0'))
+
+prevalence_msx <- present/(present+absent)
+prevalence_msx
+
+
+str(MSX_prev_histo$halpo_prevalent)
+MSX_prev_histo$halpo_prevalent <- as.numeric(MSX_prev_histo$halpo_prevalent)
+
+MSX_prevalence_summary <- MSX_prev_histo %>%
+  dplyr::group_by(Site, year, Date_collected) %>% 
+  dplyr::summarize( prevalence_precentage= mean(halpo_prevalent)* 100)
+MSX_prevalence_summary
+
+#Graph MSX
+
+ggplot(data=MSX_prevalence_summary, aes(x=Date_collected, y=prevalence_precentage, color=Site)) +
+  geom_point()+  
+  geom_line(aes(group = Site))+
+   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  labs(title="Prevalence of MSX infection (histology)", x ="Date", y = "MSX Prevalence %")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  theme(axis.text=element_text(size=12)) + facet_wrap(~ year, scales = "free", ncol=1)+ scale_x_date(
+  date_breaks = "1 month",
+  date_labels = "%b/%Y")#scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))
+
+
+```
+#Nematopis prevalence Summary
+```{r}
+## Prevalence T/F for DERMO
+nema_prev_histo<-data_all%>% filter(!is.na(Nematopsis1))
+nema_prev_histo
+
+nema_prev_histo$nema_prevalent = ifelse(nema_prev_histo$Nematopsis1 == 0, '0',
+  ifelse(nema_prev_histo$Nematopsis1 > 0, '1', NA))
+  
+nema_prev_histo
+
+# YEARLY PREVALENCE %
+present <- nrow(nema_prev_histo %>% filter(nema_prevalent == '1'))
+absent <- nrow(nema_prev_histo %>% filter(nema_prevalent == '0'))
+
+prevalence_nema <- present/(present+absent)
+prevalence_nema
+
+
+str(nema_prev_histo$nema_prevalent)
+nema_prev_histo$nema_prevalent <- as.numeric(nema_prev_histo$nema_prevalent)
+
+nematopsis_prevalence_summary <- nema_prev_histo %>%
+  dplyr::group_by(Site, year, Date_collected) %>% 
+  dplyr::summarize( prevalence_precentage= mean(nema_prevalent)* 100)
+nematopsis_prevalence_summary
+
+
+#Graph Nematopis Prevalence
+
+ggplot(data=nematopsis_prevalence_summary, aes(x=Date_collected, y=prevalence_precentage, color=Site)) +
+  geom_point()+  
+  geom_line(aes(group = Site))+
+   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  labs(title="Prevalence of Nematopsis (Histology)", x ="Date", y = "Nematopsis Prevlaence %")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  theme(axis.text=element_text(size=12)) + facet_wrap(~ year, scales = "free", ncol=1) + scale_x_date(
+  date_breaks = "1 month",
+  date_labels = "%b/%Y")#+ scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))
+
+```
+#Ciliate prevalence Summary
+```{r}
+## Prevalence T/F for DERMO
+cil_prev_histo<-data_all%>% filter(!is.na('General ciliates1'))
+cil_prev_histo
+
+cil_prev_histo$cil_prevalent = ifelse(cil_prev_histo$'General ciliates1' == 0, '0',
+  ifelse(cil_prev_histo$'General ciliates1' > 0, '1', NA))
+  
+cil_prev_histo
+
+# YEARLY PREVALENCE %
+present <- nrow(cil_prev_histo %>% filter(cil_prevalent == '1'))
+absent <- nrow(cil_prev_histo %>% filter(cil_prevalent == '0'))
+
+prevalence_cil <- present/(present+absent)
+prevalence_cil
+
+
+str(cil_prev_histo$cil_prevalent)
+cil_prev_histo$cil_prevalent <- as.numeric(cil_prev_histo$cil_prevalent)
+
+ciliate_prevalence_summary <- cil_prev_histo %>%
+  dplyr::group_by(Site, year, Date_collected) %>% 
+  dplyr::summarize( prevalence_precentage= mean(cil_prevalent)* 100)
+ciliate_prevalence_summary
+
+
+#Graph general ciliate Prevalence
+
+ggplot(data=ciliate_prevalence_summary, aes(x=Date_collected, y=prevalence_precentage, color=Site)) +
+  geom_point()+  
+  geom_line(aes(group = Site))+
+   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  labs(title="Prevalence of General Ciliates (Histology)", x ="Date", y = "Ciliates Prevlaence %")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  theme(axis.text=element_text(size=12)) + facet_wrap(~ year, scales = "free", ncol=1) + scale_x_date(
+  date_breaks = "1 month",
+  date_labels = "%b/%Y")#+ scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11,12))
+
+```
+
 ```{r}
 #Spawning vs. bcs bar graph - FENC 2023
 

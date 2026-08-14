@@ -5,7 +5,7 @@ date: "2025-07-09"
 output: html_document
 Description: The purpose of this script is to import, clean up, and summarize Triplex qPCR data for the detection of Dermo, MSX, and SSO to determine prevalence and infection intensity for the LISS Oyster Health Project's monthly sampling at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. Infection intensity will be reported as copies/ng. This data will then be cross validated with RFTM and Histology data. 
 
-Last updated:8/11/26 by Mariah kachmar
+Last updated:8/14/26 by Mariah kachmar
 
 - working on inputting files & a QAQC routine
 
@@ -14,9 +14,9 @@ Last updated:8/11/26 by Mariah kachmar
 #Set working directory
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
-#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
-#knitr::opts_knit$set(root.dir = 'C:/Users/sarina.dery/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kelly's
+knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') 
+#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') 
+#knitr::opts_knit$set(root.dir = 'C:/Users/sarina.dery/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') 
 ```
 
 #run packages
@@ -137,6 +137,9 @@ high_sd_list <- data_all %>% filter(St_dev > 0.5) #creates list of which samples
 percentage_highsd <- (high_sd/nrow(data_all)) * 100 # determining percentage of samples have high standard deviation
 percentage_highsd #outputs percentage
 
+#Identify which samples have a standard deviation > 0.5 for qPCR technical replicate values
+high_sd_list <- data_all %>% filter(St_dev >0.05) %>% arrange(desc(St_dev))
+high_sd_list
 
 ```
 
@@ -391,7 +394,14 @@ rftm_v_qpcr$results = ifelse(rftm_v_qpcr$mackin_score < rftm_v_qpcr$rftm_final, 
   
 rftm_v_qpcr
 
-FALSE_qpcr<- rftm_v_qpcr %>% filter( results == 'FALSE')
+FALSE_qpcr<- rftm_v_qpcr %>% filter( results == 'FALSE') %>%
+  mutate(
+    rerun_assay = NA_character_,
+    rerun_date = as.Date(NA),
+    rerun_result = NA_real_,
+    rerun_mackin_score = NA_real_,
+    rerun_status = "Pending"
+  ) #adding columns we can fill in later on once we rerun the samples to identify if these results are true
 FALSE_qpcr
 
 write.csv(FALSE_qpcr, "Lab_Data_qPCR\\outputs/qPCR_sample_rerun_list.csv", row.names=FALSE)
@@ -415,7 +425,13 @@ histo_v_qpcr$results = ifelse(histo_v_qpcr$mackin_score < histo_v_qpcr$haplo, 'F
   
 histo_v_qpcr
 
-FALSE_histo_qpcr<- histo_v_qpcr %>% filter( results == 'FALSE')
+FALSE_histo_qpcr<- histo_v_qpcr %>% filter( results == 'FALSE')%>% mutate(
+    rerun_assay = NA_character_,
+    rerun_date = as.Date(NA),
+    rerun_result = NA_real_,
+    rerun_mackin_score = NA_real_,
+    rerun_status = "Pending"
+  ) #adding columns we can fill in later on once we rerun the samples to identify if these results are true
 FALSE_histo_qpcr
 
 write.csv(FALSE_histo_qpcr, "Lab_Data_qPCR\\outputs/qPCR_sample_rerun_list_MSX.csv", row.names=FALSE)
