@@ -6,7 +6,7 @@ output: html_document
 ---
 
 Last updated 08/14/2026 by M.Kachmar
-did some reoganizing and file clean ups
+did some reorganizing and file clean ups
 
 
 IMPORTANT: Fence Creek sonde (SN 1005261) was lost in a blizzard/to ice - there is no data files for 02/2026 or 03/2026.
