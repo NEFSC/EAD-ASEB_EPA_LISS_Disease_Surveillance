@@ -51,7 +51,7 @@ library(zoo)
 ```{r load data}
 ## Fence Creek sonde (SN 1005261) was lost in a blizzard/to ice - there is no data files for 02/2026 or 03/2026.
 
-Master_table <- read.csv("output/Sonde_master.csv",check.names=FALSE) %>% dplyr::select(-1) # check.names = F allows with col names with spaces (opthwise fills with a '.' )
+Master_table <- read.csv("output/Sonde Master Files/Sonde_master.csv",check.names=FALSE) %>% dplyr::select(-1) # check.names = F allows with col names with spaces (opthwise fills with a '.' )
 
 Master_table$`Date Time` <- lubridate::ymd_hms(Master_table$`Date Time`)
 
@@ -206,7 +206,7 @@ Sonde_master_QAQC<-ggplot(df_clean_plot, aes(x = `Date Time`)) +
     strip.background = element_rect(fill = "#F0F0F0", color = NA)
   )
 Sonde_master_QAQC
-pdf(paste0(path = "output/raw_plots","/Sonde_master_QAQC.pdf"), height = 6, width = 11) 
+pdf(paste0(path = "output/raw_plots/QAQC_plots","/Sonde_master_QAQC.pdf"), height = 6, width = 11) 
 print(Sonde_master_QAQC)
 dev.off()
 
@@ -237,7 +237,7 @@ QAQC_plot<- df_clean_plot %>%
   )
 QAQC_plot
 
-pdf(paste0(path = "output/raw_plots","/pH_QAQC.pdf"), height = 6, width = 11) 
+pdf(paste0(path = "output/raw_plots/QAQC_plots","/pH_QAQC.pdf"), height = 6, width = 11) 
 print(QAQC_plot)
 dev.off()
 
@@ -253,9 +253,9 @@ FENC_Temp_Sonde <- Temperature_sonde_all %>% filter(Site == "FENC")
 ASHC_Temp_Sonde <- Temperature_sonde_all %>% filter(Site == "ASHC")
 GOLD_Temp_Sonde <- Temperature_sonde_all %>% filter(Site == "GOLD")
 
-write.csv(FENC_Temp_Sonde, "output/FENC_Temperature_Sonde.csv")
-write.csv(ASHC_Temp_Sonde, "output/ASHC_Temperature_Sonde.csv")
-write.csv(GOLD_Temp_Sonde, "output/GOLD_Temperature_Sonde.csv")
+write.csv(FENC_Temp_Sonde, "output/Sonde Master Files/FENC_Temperature_Sonde.csv")
+write.csv(ASHC_Temp_Sonde, "output/Sonde Master Files/ASHC_Temperature_Sonde.csv")
+write.csv(GOLD_Temp_Sonde, "output/Sonde Master Files/GOLD_Temperature_Sonde.csv")
 
 ```
 
@@ -271,8 +271,7 @@ Master_table_LONG_means <- Master_table %>%
                       dplyr::mutate(`Date Time` = as.factor(substr(`Date Time`,1,13))) %>% # remove minutes and seconds
                       reshape2::melt(id.vars = c("Date Time", "Site"),
                                     measure.vars = c("Actual Conductivity", "Salinity", "Resistivity", 
-                                                     "Total Dissolved Solids" ,"RDO Concentration", "RDO Saturation",
-                                                     "Oxygen Partial Pressure", "Chlorophyll-a Fluorescence", "pH", "pH mV", 
+                                                     "Total Dissolved Solids" ,"RDO Concentration", "RDO Saturation","Oxygen Partial Pressure", "Chlorophyll-a Fluorescence", "pH", "pH mV", 
                                                      "Temperature", "Depth", "Pressure")) %>% 
                       dplyr::group_by(`Date Time`, Site, variable) %>% 
                       summarise_each(funs(mean, sd, se=sd(.)/sqrt(n())), value) %>% 
@@ -280,7 +279,7 @@ Master_table_LONG_means <- Master_table %>%
 
 
 
-write.csv(Master_table_LONG_means, "output/Sonde_hourly_means_master.csv",)
+write.csv(Master_table_LONG_means, "output/Sonde Master Files/Sonde_hourly_means_master.csv",)
 
 #### CT SITES ONLY ####
 
@@ -288,7 +287,7 @@ CT_means<- Master_table_LONG_means[Master_table_LONG_means$Site == "ASHC" | Mast
 
 
 
-write.csv(CT_means, "output/Sonde_hourly_means_CT.csv")
+write.csv(CT_means, "output/Sonde Master Files/Sonde_hourly_means_CT.csv")
 
 
 
@@ -321,42 +320,13 @@ for(i in 1:nrow(vars)) {
               theme_bw()
   
   # print plots and name them as the var    
-  #pdf(paste0(path= "/raw_plots",gsub(" ", "_", vars[i,]),".pdf"), height = 12, width = 15)
+  pdf(paste0(path= "/raw_plots",gsub(" ", "_", vars[i,]),".pdf"), height = 12, width = 15)
   print(plot) 
- # dev.off()
+  dev.off()
 
   } # close the loop
 
 
-
-# Temperature pre October 1st 2023 
-# why? we have a hefty gap in the FENC data during all october, this is 
-# a clean plot for Genevieve's NACE 2024 presentation
-#Sonde_Temp_2023 <- Table_by_var %>% 
-#    dplyr::filter(variable %in% vars[11,]) %>% 
-#    dplyr::filter(``Date Time`` > '2023-06-15 00:00:00' & ``Date Time`` < '2024-05-01 00:00:00') %>% 
-#              ggplot(aes(x=``Date Time``, 
-#                       y=mean, # the mean values
-#                       group=Site)) + # call the new mean
-#              geom_line(aes(group = factor(Site), # lines for site
-#                                linetype = Site), 
-#                            size = 0.2, 
-#                            position=position_dodge(.4)) + 
-#              # scale_linetype_manual(values=c("solid", "dashed")) +
-#              geom_point(aes(shape=Site, 
-#                             fill=Site)) + 
-#              scale_shape_manual(values=c(21, 22, 24, 25)) + 
-#              scale_fill_manual(values=c("#CC79A7", "#D55E00", "#009E73", "#0072B2")) + 
-#              geom_errorbar(aes(ymin=(mean)-(se), 
-#                                ymax=(mean)+(se)), 
-#                            width=0,position=position_dodge(.4)) +
-#              facet_grid(rows = vars(Site), scales = "free_y") +
-#              ggtitle(vars[11,]) +
-#              theme_bw()
-# 
-#pdf(paste0(path ="output/raw_plots/Temperature_JuneOct_2023.pdf"), height = 12, width = 15)
-#print(Sonde_Temp_2023) 
-#dev.off()
   
 ```
 
@@ -391,7 +361,7 @@ Master_monthly_means <- Master_table %>%
 View(Master_monthly_means)
 
 monthly_mean_ph <- Master_monthly_means[Master_monthly_means$variable =="pH", ]
-write.csv(monthly_mean_ph, "output/Sonde_monthly_ph_long.csv")
+write.csv(monthly_mean_ph, "output/Sonde Master Files/Sonde_monthly_ph_long.csv")
 
 View(monthly_mean_ph)
 

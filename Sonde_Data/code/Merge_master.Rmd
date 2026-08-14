@@ -31,10 +31,10 @@ knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-AS
 
 ```{r load data}
 
-Sonde_2023 <- read.csv("output/Sonde_master_2023.csv", check.names = F) %>% dplyr::select(-1)
-Sonde_2024 <- read.csv("output/Sonde_master_2024.csv", check.names = F) %>% dplyr::select(-1)
-Sonde_2025 <- read.csv("output/Sonde_master_2025.csv", check.names = F) %>% dplyr::select(-1)
-Sonde_2026 <- read.csv("output/Sonde_master_2026.csv", check.names = F) %>% dplyr::select(-1)
+Sonde_2023 <- read.csv("output/Sonde Master Files/Sonde_master_2023.csv", check.names = F) %>% dplyr::select(-1)
+Sonde_2024 <- read.csv("output/Sonde Master Files/Sonde_master_2024.csv", check.names = F) %>% dplyr::select(-1)
+Sonde_2025 <- read.csv("output/Sonde Master Files/Sonde_master_2025.csv", check.names = F) %>% dplyr::select(-1)
+Sonde_2026 <- read.csv("output/Sonde Master Files/Sonde_master_2026.csv", check.names = F) %>% dplyr::select(-1)
 
 
 ```
@@ -51,5 +51,5 @@ Sonde_2026 <- read.csv("output/Sonde_master_2026.csv", check.names = F) %>% dply
 Sonde_master  <- dplyr::bind_rows(Sonde_2023, Sonde_2024, Sonde_2025, Sonde_2026) #changed from rbind() to bind_rows due to the new sonde 1335676 recording depth data the older models do not record. 
 
 
-write.csv(Sonde_master, "output/Sonde_master.csv")
+write.csv(Sonde_master, "output/Sonde Master Files/Sonde_master.csv")
 ```
