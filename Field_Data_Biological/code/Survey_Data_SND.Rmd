@@ -689,7 +689,7 @@ ggplot(Height_master%>% dplyr::filter(Survival_status=="Live") %>% filter(Site!=
 CT_shell_height_live <- Height_master%>% dplyr::filter(Survival_status=="Live") %>% filter(Site!="LAUR")%>% filter(Site!="GOLD")
 
 
-# 1. Process data and calculate proportions properly WITHIN each site
+#Process data and calculate proportions properly WITHIN each site
 Spring_shellheight_proportions2026 <- CT_shell_height_live %>% 
   dplyr::filter(Year == "2026") %>% 
   filter(Season == "Spring") %>% 
@@ -709,14 +709,14 @@ Spring_shellheight_proportions2026 <- CT_shell_height_live %>%
   mutate(Proportion = Count / sum(Count)) %>%             # Calculates % per individual Site
   ungroup()                                                 # Fully ungroups at the end
 
-# 2. Generate the faceted plot
-ggplot(Spring_shellheight_proportions2026, aes(x = size_class_bin, y = Proportion)) + 
+#Generate the faceted plot
+Spring_shellheight_proportions2026 <- ggplot(Spring_shellheight_proportions2026, aes(x = size_class_bin, y = Proportion)) + 
   geom_col(fill = "steelblue", color = "black", width = 0.8) + 
   scale_y_continuous(labels = scales::percent_format()) + 
   scale_x_discrete(drop = FALSE) + 
   facet_wrap(~ Site) + # Fix 1: Moved facet inside the ggplot chain with a "+"
   labs( 
-    title = "Spring Shell Height Distribution (2026)", 
+    title = "Spring Survey Live Shell Height (2026)", 
     x = "Size Class Bin (mm)", 
     y = "Proportion" 
   ) + 
@@ -724,12 +724,13 @@ ggplot(Spring_shellheight_proportions2026, aes(x = size_class_bin, y = Proportio
   theme( 
     axis.text.x = element_text(angle = 45, hjust = 1) # Fix 2: Changed final pipe to normal styling
   )
-
-
+pdf(paste0(path = "Field_Data_Biological/Output/Spring_Survey_Live_Shell_Height(2026).pdf"), height = 6, width = 11)
+print(Spring_shellheight_proportions2026)
+dev.off()
 ```
 #CT Fall shell height
 ```{r}
-# 1. Process data and calculate proportions properly WITHIN each site
+#Process data and calculate proportions properly WITHIN each site
 Fall_shellheight_proportions2025 <- CT_shell_height_live %>% 
   dplyr::filter(Year == "2025") %>% 
   filter(Season == "Fall") %>% 
@@ -749,14 +750,14 @@ Fall_shellheight_proportions2025 <- CT_shell_height_live %>%
   mutate(Proportion = Count / sum(Count)) %>%             # Calculates % per individual Site
   ungroup()                                                 # Fully ungroups at the end
 
-# 2. Generate the faceted plot
-ggplot(Fall_shellheight_proportions2025, aes(x = size_class_bin, y = Proportion)) + 
+#Generate the faceted plot
+Fall_Survey_Live_Shell_Height2025 <- ggplot(Fall_shellheight_proportions2025, aes(x = size_class_bin, y = Proportion)) + 
   geom_col(fill = "steelblue", color = "black", width = 0.8) + 
   scale_y_continuous(labels = scales::percent_format()) + 
   scale_x_discrete(drop = FALSE) + 
   facet_wrap(~ Site) + # Fix 1: Moved facet inside the ggplot chain with a "+"
   labs( 
-    title = "Fall Shell Height Distribution (2025)", 
+    title = "Fall Survey Live Shell Height (2025)", 
     x = "Size Class Bin (mm)", 
     y = "Proportion" 
   ) + 
@@ -764,6 +765,9 @@ ggplot(Fall_shellheight_proportions2025, aes(x = size_class_bin, y = Proportion)
   theme( 
     axis.text.x = element_text(angle = 45, hjust = 1) # Fix 2: Changed final pipe to normal styling
   )
+pdf(paste0(path = "Field_Data_Biological/Output/Fall_Survey_Live_Shell_Height(2025).pdf"), height = 6, width = 11)
+print(Fall_Survey_Live_Shell_Height2025)
+dev.off()
 ```
 
 
