@@ -679,11 +679,93 @@ ggplot(Height_master%>% dplyr::filter(Survival_status=="Live") %>% filter(Site!=
   geom_boxplot()+  
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
-  labs(title="Shell Height", x ="Season", y = "Height (mm)")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  labs(title="Shell Height Live", x ="Season", y = "Height (mm)")+ theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
   theme(axis.text=element_text(size=12))+
   facet_wrap(~Site +Year)
 
 ```
+#CT live shell height - proportions
+```{r}
+CT_shell_height_live <- Height_master%>% dplyr::filter(Survival_status=="Live") %>% filter(Site!="LAUR")%>% filter(Site!="GOLD")
+
+
+# 1. Process data and calculate proportions properly WITHIN each site
+Spring_shellheight_proportions2026 <- CT_shell_height_live %>% 
+  dplyr::filter(Year == "2026") %>% 
+  filter(Season == "Spring") %>% 
+  filter(!is.na(Height)) %>% 
+  mutate(
+    size_class = as.numeric(Height), 
+    size_class_bin = cut(
+      size_class, 
+      breaks = seq(0, 210, by = 10), 
+      labels = paste0(seq(0, 200, by = 10), "-", seq(10, 210, by = 10)), 
+      include.lowest = TRUE, 
+      right = TRUE
+    )
+  ) %>% 
+  group_by(Site, size_class_bin) %>% 
+  dplyr::summarise(Count = n(), .groups = "drop_last") %>% # Keeps grouping by Site
+  mutate(Proportion = Count / sum(Count)) %>%             # Calculates % per individual Site
+  ungroup()                                                 # Fully ungroups at the end
+
+# 2. Generate the faceted plot
+ggplot(Spring_shellheight_proportions2026, aes(x = size_class_bin, y = Proportion)) + 
+  geom_col(fill = "steelblue", color = "black", width = 0.8) + 
+  scale_y_continuous(labels = scales::percent_format()) + 
+  scale_x_discrete(drop = FALSE) + 
+  facet_wrap(~ Site) + # Fix 1: Moved facet inside the ggplot chain with a "+"
+  labs( 
+    title = "Spring Shell Height Distribution (2026)", 
+    x = "Size Class Bin (mm)", 
+    y = "Proportion" 
+  ) + 
+  theme_minimal() + #applies grid lines
+  theme( 
+    axis.text.x = element_text(angle = 45, hjust = 1) # Fix 2: Changed final pipe to normal styling
+  )
+
+
+```
+#CT Fall shell height
+```{r}
+# 1. Process data and calculate proportions properly WITHIN each site
+Fall_shellheight_proportions2025 <- CT_shell_height_live %>% 
+  dplyr::filter(Year == "2025") %>% 
+  filter(Season == "Fall") %>% 
+  filter(!is.na(Height)) %>% 
+  mutate(
+    size_class = as.numeric(Height), 
+    size_class_bin = cut(
+      size_class, 
+      breaks = seq(0, 210, by = 10), 
+      labels = paste0(seq(0, 200, by = 10), "-", seq(10, 210, by = 10)), 
+      include.lowest = TRUE, 
+      right = TRUE
+    )
+  ) %>% 
+  group_by(Site, size_class_bin) %>% 
+  dplyr::summarise(Count = n(), .groups = "drop_last") %>% # Keeps grouping by Site
+  mutate(Proportion = Count / sum(Count)) %>%             # Calculates % per individual Site
+  ungroup()                                                 # Fully ungroups at the end
+
+# 2. Generate the faceted plot
+ggplot(Fall_shellheight_proportions2025, aes(x = size_class_bin, y = Proportion)) + 
+  geom_col(fill = "steelblue", color = "black", width = 0.8) + 
+  scale_y_continuous(labels = scales::percent_format()) + 
+  scale_x_discrete(drop = FALSE) + 
+  facet_wrap(~ Site) + # Fix 1: Moved facet inside the ggplot chain with a "+"
+  labs( 
+    title = "Fall Shell Height Distribution (2025)", 
+    x = "Size Class Bin (mm)", 
+    y = "Proportion" 
+  ) + 
+  theme_minimal() + #applies grid lines
+  theme( 
+    axis.text.x = element_text(angle = 45, hjust = 1) # Fix 2: Changed final pipe to normal styling
+  )
+```
+
 
 #ASHC
 ```{r}
@@ -723,7 +805,7 @@ height_ASHC_Dead <- height_ASHC[height_ASHC$Survival_status == "Box"|height_ASHC
 print(height_ASHC_Dead)
 
 #CT sites live
-CT_sites_live <- rbind(height_ASHC_Live,height_FENC_Live)
+#CT_sites_live <- rbind(height_ASHC_Live,height_FENC_Live)
 ```
 #plots
 ```{r}
@@ -749,6 +831,50 @@ ASHC_Distribution_Live<-height_ASHC_Live %>%
 ASHC_Distribution_Live
 
 ```
+```{r}
+```
+
+
+```{r}
+
+df_shellheight_proportions2026 <- height_ASHC_Live %>% 
+  dplyr::filter(Year == "2026") %>% 
+  filter(!is.na(Height)) %>% # Fix 1: Drop NAs early, ONLY for Height
+  mutate(
+    size_class = as.numeric(Height), 
+    size_class_bin = cut(
+      size_class, 
+      breaks = seq(0, 210, by = 10), 
+      # Fix 2: Create explicit range labels ("0-10", "10-20", etc.)
+      labels = paste0(seq(0, 200, by = 10), "-", seq(10, 210, by = 10)), 
+      include.lowest = TRUE, 
+      right = TRUE
+    )
+  ) %>% 
+  group_by(size_class_bin) %>% 
+  dplyr::summarise(Count = n()) %>% 
+  ungroup() %>% 
+  mutate(Proportion = Count / sum(Count))
+
+# Plotting the data
+ggplot(df_shellheight_proportions2026, aes(x = size_class_bin, y = Proportion)) + 
+  geom_col(fill = "steelblue", color = "black", width = 0.8) + 
+  scale_y_continuous(labels = scales::percent_format()) + 
+  # Fix 3: force ggplot to show bins even if Count is 0
+  scale_x_discrete(drop = FALSE) + 
+  labs( 
+    title = "Ash Creek Shell Height Distribution (2026)", 
+    x = "Size Class Bin (mm)", 
+    y = "Proportion" 
+  ) + 
+  theme_minimal() + 
+  theme( 
+    axis.text.x = element_text(angle = 45, hjust = 1) 
+  )
+
+```
+
+
 #CT Live 2024
 ```{r}
 #CT live oyster shell height 2024 spring and fall to highlight growth and recruitment

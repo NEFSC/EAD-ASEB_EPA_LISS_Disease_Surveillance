@@ -170,7 +170,7 @@ Master_2024_output <- Master_2024 %>%
                       dplyr::select(-c("External Voltage", "Battery Capacity", "Barometric Pressure", "Date")) 
 Master_2024_output <- na.omit(Master_2024_output)
 
-write.csv(Master_2024_output, "output/Sonde_master_2024.csv")
+write.csv(Master_2024_output, "output/Sonde Master Files/Sonde_master_2024.csv")
 ```
 
 ```{r}
