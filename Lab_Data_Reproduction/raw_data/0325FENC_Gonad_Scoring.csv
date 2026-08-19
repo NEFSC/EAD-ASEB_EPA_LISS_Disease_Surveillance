@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0325FENC_01,03-06-2025,FENC,1,01-26-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0325FENC_02,03-06-2025,FENC,2,01-26-2026,Sarina Dery,ND,2_Developing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,seeing less hemocytosis in gonadal ducts and more connective tissue - SD,ND,2_Developing
+0325FENC_03,03-06-2025,FENC,3,01-26-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,oocytes present - SD; perkinsus infection,ND,2_Developing
+0325FENC_04,03-06-2025,FENC,4,01-26-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,7_Reabsorbing,not a great cut - SD; perkinsus infection,ND,2_Developing
+0325FENC_05,03-06-2025,FENC,5,01-26-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0325FENC_06,03-06-2025,FENC,6,01-26-2026,Sarina Dery,ND,1_Inactive_Indeterminate,TRUE,07-06-2026,Kyra Lenderman,ND,1_Inactive_Indeterminate,,ND,1_Inactive_Indeterminate
+0325FENC_07,03-06-2025,FENC,7,01-26-2026,Sarina Dery,Male,3_Early_Active,TRUE,07-06-2026,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0325FENC_08,03-06-2025,FENC,8,01-26-2026,Sarina Dery,Female,2_Developing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,or reabsorbing - SD; diseased,ND,2_Developing
+0325FENC_09,03-06-2025,FENC,9,01-26-2026,Sarina Dery,Male,2_Developing,TRUE,07-06-2026,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0325FENC_10,03-06-2025,FENC,10,01-26-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0325FENC_11,03-06-2025,FENC,11,01-26-2026,Sarina Dery,ND,2_Developing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,or reabsorbing - SD,ND,2_Developing
+0325FENC_12,03-06-2025,FENC,12,01-26-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,7_Reabsorbing,or developing? - SD,ND,7_Reabsorbing
+0325FENC_13,03-06-2025,FENC,13,01-26-2026,Sarina Dery,ND,2_Developing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0325FENC_14,03-06-2025,FENC,14,01-26-2026,Sarina Dery,ND,2_Developing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0325FENC_15,03-06-2025,FENC,15,01-26-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,7_Reabsorbing,,Female,7_Reabsorbing
+0325FENC_16,03-06-2025,FENC,16,01-26-2026,Sarina Dery,Female,2_Developing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0325FENC_17,03-06-2025,FENC,17,01-26-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0325FENC_18,03-06-2025,FENC,18,01-26-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0325FENC_19,03-06-2025,FENC,19,01-26-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,"Perkinsus present, casue of hemocyts",ND,2_Developing
+0325FENC_20,03-06-2025,FENC,20,01-26-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0325FENC_21,03-06-2025,FENC,21,01-26-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,Female,3_Early_Active
+0325FENC_22,03-06-2025,FENC,22,01-26-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0325FENC_23,03-06-2025,FENC,23,01-26-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0325FENC_24,03-06-2025,FENC,24,01-26-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0325FENC_25,03-06-2025,FENC,25,01-26-2026,Sarina Dery,ND,2_Developing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0325FENC_26,03-06-2025,FENC,26,01-26-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,oocytes present-SD,ND,2_Developing
+0325FENC_27,03-06-2025,FENC,27,01-26-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,1_Inactive_Indeterminate,Majority inactive; many hemocytes present,ND,1_Inactive_Indeterminate
+0325FENC_28,03-06-2025,FENC,28,01-26-2026,Sarina Dery,ND,2_Developing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0325FENC_29,03-06-2025,FENC,29,01-26-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0325FENC_30,03-06-2025,FENC,30,01-26-2026,Sarina Dery,Male,2_Developing,TRUE,07-06-2026,Kyra Lenderman,Male,3_Early_Active,,ND,2_Developing
