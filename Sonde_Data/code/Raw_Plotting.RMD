@@ -210,7 +210,7 @@ Sonde_master_QAQC<-ggplot(df_clean_plot, aes(x = `Date Time`)) +
     strip.background = element_rect(fill = "#F0F0F0", color = NA)
   )
 Sonde_master_QAQC
-pdf(paste0(path = "output/raw_plots/QAQC_plots","/Sonde_master_QAQC.pdf"), height = 6, width = 11) 
+pdf(paste0(path = "output/raw_plots/QAQC_outlier_plots","/Sonde_master_QAQC.pdf"), height = 6, width = 11) 
 print(Sonde_master_QAQC)
 dev.off()
 
@@ -427,8 +427,8 @@ All_Sites_Temperature
 
 CT_pH          <- Master_table_LONG_means %>% dplyr::filter(variable == 'pH' & Site %in% c('FENC', 'ASHC'))
 CT_Salinity    <- Master_table_LONG_means %>% dplyr::filter(variable == 'Salinity' & Site %in% c('FENC', 'ASHC'))
-CT_Temperature <- Master_table_LONG_means %>% dplyr::filter(variable == 'Temperature' & Site %in% c('FENC', 'ASHC'))
-CT_DO          <- Master_table_LONG_means %>% dplyr::filter(variable == 'RDO Concentration' & Site %in% c('FENC', 'ASHC'))
+CT_Temperature <- Master_table_LONG_means %>% dplyr::filter(variable == 'Temperature' & Site %in% c('FENC','ASHC'))
+CT_DO         <- Master_table_LONG_means %>% dplyr::filter(variable == 'RDO Concentration' & Site %in%c('FENC','ASHC'))
 
 ### Update each graph for the time frame desired as well as the name of the file to coincide with the appropriate year displayed
 
