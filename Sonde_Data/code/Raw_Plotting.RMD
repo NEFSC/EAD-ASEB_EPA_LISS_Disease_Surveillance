@@ -116,7 +116,7 @@ Master_table_cleaned <- Master_table %>%
     temp_clean = ifelse(temp_delta > 2.0, NA, temp_clean), #spike test - if the temperature jumps more than 2C in a single 30 minute interval, it is flagged as en error 
     
     # --- SALINITY FILTER (Gross Bounds + Rate of Change) ---
-    sal_clean = ifelse(Salinity < 0 | Salinity > 35, NA, Salinity),
+    sal_clean = ifelse(Salinity < 0.5 | Salinity > 35, NA, Salinity),
     sal_delta = abs(sal_clean - lag(sal_clean, default = first(sal_clean))),
     sal_clean = ifelse(sal_delta > 5.0, NA, sal_clean), #if the salinity jumps more than 5PSU in a single 30 minute interval, it is flagged error
     
@@ -183,8 +183,8 @@ df_clean_plot <- Master_table_cleaned %>%
     parameter_clean == "temp_clean" ~ "Temperature",
     parameter_clean == "sal_clean"  ~ "Salinity",
     parameter_clean == "ph_clean"   ~ "pH",
-    parameter_clean == "do_clean"   ~ "RDO Concentration",
-    parameter_clean == "chla_clean" ~ "Chlorophyll-a Fluorescence"
+    parameter_clean == "do_clean"   ~ "RDO.Concentration",
+    parameter_clean == "chla_clean" ~ "Chlorophyll.a.Fluorescence"
   )) %>%
   filter(parameter == parameter_clean, Site != "LAUR") %>%
   select(-parameter_clean)
@@ -219,7 +219,7 @@ dev.off()
 #if you want to look more closely at a specific parameter
 
 QAQC_plot<- df_clean_plot %>%
-  dplyr::filter(parameter %in% c("pH")) %>%
+  dplyr::filter(parameter %in% c("Salinity")) %>%
   ggplot(aes(x = Date.Time)) + 
   geom_line(aes(y = raw_value, color = "Removed / Outlier"), alpha = 0.3, linewidth = 0.5) + 
   geom_line(aes(y = clean_value, color = "Cleaned Data"), linewidth = 0.7) + 
@@ -232,7 +232,7 @@ QAQC_plot<- df_clean_plot %>%
     y = "pH",
     x = "Date Time",
     color = "Data Status",
-    title = "Intertidal pH"
+    title = "Intertidal Salinity"
   ) +
   theme_minimal(base_size = 11) + 
   theme(
@@ -241,7 +241,7 @@ QAQC_plot<- df_clean_plot %>%
   )
 QAQC_plot
 
-pdf(paste0(path = "output/raw_plots/QAQC_outlier_plots","/pH_QAQC.pdf"), height = 6, width = 11) 
+pdf(paste0(path = "output/raw_plots/QAQC_outlier_plots","/Salinity_QAQC.pdf"), height = 6, width = 11) 
 print(QAQC_plot)
 dev.off()
 
