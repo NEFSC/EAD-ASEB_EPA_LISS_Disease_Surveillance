@@ -684,17 +684,21 @@ ggplot(Height_master%>% dplyr::filter(Survival_status=="Live") %>% filter(Site!=
   facet_wrap(~Site +Year)
 
 ```
-#CT live shell height - proportions
+#Spring 2026 live data only
 ```{r}
-CT_shell_height_live <- Height_master%>% dplyr::filter(Survival_status=="Live") %>% filter(Site!="LAUR")%>% filter(Site!="GOLD")
 
+# 1. Isolate Live Data and drop unwanted sites
+CT_shell_height_live <- Height_master %>% 
+  dplyr::filter(Survival_status == "Live") %>% 
+  dplyr::filter(Site != "LAUR") %>% 
+  dplyr::filter(Site != "GOLD") 
 
-#Process data and calculate proportions properly WITHIN each site
-Spring_shellheight_proportions2026 <- CT_shell_height_live %>% 
+# 2. Process data and calculate proportions properly WITHIN each site
+Spring_shellheight_percent2026_data <- CT_shell_height_live %>% 
   dplyr::filter(Year == "2026") %>% 
-  filter(Season == "Spring") %>% 
-  filter(!is.na(Height)) %>% 
-  mutate(
+  dplyr::filter(Season == "Spring") %>% 
+  dplyr::filter(!is.na(Height)) %>% 
+  dplyr::mutate(
     size_class = as.numeric(Height), 
     size_class_bin = cut(
       size_class, 
@@ -704,38 +708,52 @@ Spring_shellheight_proportions2026 <- CT_shell_height_live %>%
       right = TRUE
     )
   ) %>% 
-  group_by(Site, size_class_bin) %>% 
-  dplyr::summarise(Count = n(), .groups = "drop_last") %>% # Keeps grouping by Site
-  mutate(Proportion = Count / sum(Count)) %>%             # Calculates % per individual Site
-  ungroup()                                                 # Fully ungroups at the end
+ group_by(Site, size_class_bin, Survival_status) %>% 
+  dplyr::summarise(Count = n(), .groups = "drop") %>% # Drop all groups safely
+  group_by(Site) %>%                                  # Regroup ONLY by Site
+  mutate(Percentage = Count / sum(Count)) %>%        # Calculates % across the whole Site population
+  ungroup() 
 
-#Generate the faceted plot
-Spring_shellheight_proportions2026 <- ggplot(Spring_shellheight_proportions2026, aes(x = size_class_bin, y = Proportion)) + 
+# 3. Generate the faceted plot (using a unique plot variable name)
+Spring_shellheight_percent2026_plot <- ggplot(
+    Spring_shellheight_percent2026_data, 
+    aes(x = size_class_bin, y = Percentage)
+  ) + 
   geom_col(fill = "steelblue", color = "black", width = 0.8) + 
   scale_y_continuous(labels = scales::percent_format()) + 
   scale_x_discrete(drop = FALSE) + 
-  facet_wrap(~ Site) + # Fix 1: Moved facet inside the ggplot chain with a "+"
-  labs( 
+  facet_wrap(~ Site) + 
+  labs(
     title = "Spring Survey Live Shell Height (2026)", 
     x = "Size Class Bin (mm)", 
-    y = "Proportion" 
+    y = "Total Percentage"
   ) + 
-  theme_minimal() + #applies grid lines
-  theme( 
-    axis.text.x = element_text(angle = 45, hjust = 1) # Fix 2: Changed final pipe to normal styling
+  theme_minimal() + 
+  theme(
+    panel.grid.minor = element_blank(),                       # Keeps major grids but hides messy minor ones
+    axis.title.y = element_text(size = rel(1.0), angle = 90), 
+    axis.title.x = element_text(size = rel(1.0), angle = 0),
+    axis.text = element_text(size = 13),
+    axis.text.x = element_text(angle = 65, vjust = 1, hjust = 1), 
+    strip.text = element_text(size = 15),
+    title = element_text(size = 15)
   )
-pdf(paste0(path = "Field_Data_Biological/Output/Spring_Survey_Live_Shell_Height(2026).pdf"), height = 6, width = 11)
-print(Spring_shellheight_proportions2026)
-dev.off()
+print(Spring_shellheight_percent2026_plot)
+#pdf("Field_Data_Biological/Output/Spring_Survey_Live_Shell_Height(2026).pdf", height = 6, width = 11)
+#dev.off()
+
 ```
-#CT Fall shell height
+#Spring 2026 survival & size class - proportion of total site population
+
 ```{r}
-#Process data and calculate proportions properly WITHIN each site
-Fall_shellheight_proportions2025 <- CT_shell_height_live %>% 
-  dplyr::filter(Year == "2025") %>% 
-  filter(Season == "Fall") %>% 
-  filter(!is.na(Height)) %>% 
-  mutate(
+CT_shell_height_all <- Height_master%>% dplyr:: filter(Site!="LAUR")%>% filter(Site!="GOLD")
+
+# 1. Data Wrangling & Distribution Calculation per Site
+CT_Spring_Survey_2026 <- CT_shell_height_all %>%
+  dplyr::filter(Year == "2026") %>%
+  dplyr::filter(Season == "Spring") %>% 
+  dplyr::filter(!is.na(Height)) %>% 
+  dplyr::mutate(
     size_class = as.numeric(Height), 
     size_class_bin = cut(
       size_class, 
@@ -745,31 +763,158 @@ Fall_shellheight_proportions2025 <- CT_shell_height_live %>%
       right = TRUE
     )
   ) %>% 
-  group_by(Site, size_class_bin) %>% 
-  dplyr::summarise(Count = n(), .groups = "drop_last") %>% # Keeps grouping by Site
-  mutate(Proportion = Count / sum(Count)) %>%             # Calculates % per individual Site
-  ungroup()                                                 # Fully ungroups at the end
+  dplyr::group_by(Site, size_class_bin, Survival_status) %>% 
+  dplyr::summarise(Count = n(), .groups = "drop") %>% 
+  # Group strictly by Site so your proportions reflect the whole site population
+  dplyr::group_by(Site) %>% 
+  dplyr::mutate(Proportion = Count / sum(Count)) %>% 
+  dplyr::ungroup() 
 
-#Generate the faceted plot
-Fall_Survey_Live_Shell_Height2025 <- ggplot(Fall_shellheight_proportions2025, aes(x = size_class_bin, y = Proportion)) + 
+# 2. Generate the Corrected Plot Layout
+CT_Spring_Survey_2026_population_percentages <- ggplot(data = CT_Spring_Survey_2026, aes(x = size_class_bin, y = Proportion, fill = Survival_status)) + 
+  # FIX: Changed position to "stack" to honor your calculated 'Proportion' values
+  geom_bar(width = 0.8, stat = "identity", position = "stack", colour = "gray10") + 
+  # ADDED: Formats the Y axis decimal numbers (0.10, 0.20) as clean percentages (10%, 20%)
+  scale_y_continuous(labels = scales::percent_format()) +
+  scale_x_discrete(drop = FALSE) + 
+  labs(
+    title = "CT Spring Survey 2026", 
+    x = "Size Class Bin (mm)", 
+    y = "Proportion of Total Site Population"
+  ) + 
+  theme_minimal() + 
+  theme(
+    panel.grid.minor = element_blank(),
+    axis.title.y = element_text(size = rel(1.0), angle = 90), 
+    axis.title.x = element_text(size = rel(1.0), angle = 0),
+    axis.text = element_text(size = 13),
+    axis.text.x = element_text(angle = 65, vjust = 1, hjust = 1),
+    strip.text = element_text(size = 15),
+    legend.text = element_text(size = 13),
+    title = element_text(size = 15)
+  ) +
+  scale_fill_brewer(palette = "Set2", direction = -1) + 
+  facet_wrap(~ Site) 
+
+# 3. Print Plot
+print(CT_Spring_Survey_2026_population_percentages)
+#pdf(paste0(path = "Field_Data_Biological/Output/CT_Spring_Survey_2026_population_percentages.pdf"), height = 6, width = 11)
+#dev.off()
+```
+#Fall 2025 live data only
+```{r}
+# 2. Process data and calculate proportions properly WITHIN each site
+Fall_shellheight_percent2025_data <- CT_shell_height_live %>% 
+  dplyr::filter(Year == "2025") %>% 
+  dplyr::filter(Season == "Fall") %>% 
+  dplyr::filter(!is.na(Height)) %>% 
+  dplyr::mutate(
+    size_class = as.numeric(Height), 
+    size_class_bin = cut(
+      size_class, 
+      breaks = seq(0, 210, by = 10), 
+      labels = paste0(seq(0, 200, by = 10), "-", seq(10, 210, by = 10)), 
+      include.lowest = TRUE, 
+      right = TRUE
+    )
+  ) %>% 
+ group_by(Site, size_class_bin, Survival_status) %>% 
+  dplyr::summarise(Count = n(), .groups = "drop") %>% # Drop all groups safely
+  group_by(Site) %>%                                  # Regroup ONLY by Site
+  mutate(Percentage = Count / sum(Count)) %>%        # Calculates % across the whole Site population
+  ungroup() 
+
+# 3. Generate the faceted plot (using a unique plot variable name)
+Fall_shellheight_percent2025_plot <- ggplot(
+    Fall_shellheight_percent2025_data, 
+    aes(x = size_class_bin, y = Percentage)
+  ) + 
   geom_col(fill = "steelblue", color = "black", width = 0.8) + 
   scale_y_continuous(labels = scales::percent_format()) + 
   scale_x_discrete(drop = FALSE) + 
-  facet_wrap(~ Site) + # Fix 1: Moved facet inside the ggplot chain with a "+"
-  labs( 
+  facet_wrap(~ Site) + 
+  labs(
     title = "Fall Survey Live Shell Height (2025)", 
     x = "Size Class Bin (mm)", 
-    y = "Proportion" 
+    y = "Total Percentage"
   ) + 
-  theme_minimal() + #applies grid lines
-  theme( 
-    axis.text.x = element_text(angle = 45, hjust = 1) # Fix 2: Changed final pipe to normal styling
+  theme_minimal() + 
+  theme(
+    panel.grid.minor = element_blank(),                       # Keeps major grids but hides messy minor ones
+    axis.title.y = element_text(size = rel(1.0), angle = 90), 
+    axis.title.x = element_text(size = rel(1.0), angle = 0),
+    axis.text = element_text(size = 13),
+    axis.text.x = element_text(angle = 65, vjust = 1, hjust = 1), 
+    strip.text = element_text(size = 15),
+    title = element_text(size = 15)
   )
-pdf(paste0(path = "Field_Data_Biological/Output/Fall_Survey_Live_Shell_Height(2025).pdf"), height = 6, width = 11)
-print(Fall_Survey_Live_Shell_Height2025)
-dev.off()
+print(Fall_shellheight_percent2025_plot)
+#pdf("Field_Data_Biological/Output/Fall_Survey_Live_Shell_Height(2025).pdf", height = 6, width = 11)
+#dev.off()
+
 ```
 
+
+#Fall 2025 survival & size class - proportion of total site population
+
+```{r}
+# 1. Data Wrangling & Distribution Calculation per Site
+CT_Fall_Survey_2025 <- CT_shell_height_all %>%
+  dplyr::filter(Year == "2025") %>%
+  dplyr::filter(Season == "Fall") %>% 
+  dplyr::filter(!is.na(Height)) %>% 
+  dplyr::mutate(
+    size_class = as.numeric(Height), 
+    size_class_bin = cut(
+      size_class, 
+      breaks = seq(0, 210, by = 10), 
+      labels = paste0(seq(0, 200, by = 10), "-", seq(10, 210, by = 10)), 
+      include.lowest = TRUE, 
+      right = TRUE
+    )
+  ) %>% 
+  dplyr::group_by(Site, size_class_bin, Survival_status) %>% 
+  dplyr::summarise(Count = n(), .groups = "drop") %>% 
+  # Group strictly by Site so your proportions reflect the whole site population
+  dplyr::group_by(Site) %>% 
+  dplyr::mutate(Proportion = Count / sum(Count)) %>% 
+  dplyr::ungroup() 
+
+# 2. Generate the Corrected Plot Layout
+CT_Fall_Survey_2025_population_percentages <- ggplot(data = CT_Fall_Survey_2025, aes(x = size_class_bin, y = Proportion, fill = Survival_status)) + 
+  # FIX: Changed position to "stack" to honor your calculated 'Proportion' values
+  geom_bar(width = 0.8, stat = "identity", position = "stack", colour = "gray10") + 
+  # ADDED: Formats the Y axis decimal numbers (0.10, 0.20) as clean percentages (10%, 20%)
+  scale_y_continuous(labels = scales::percent_format()) +
+  scale_x_discrete(drop = FALSE) + 
+  labs(
+    title = "CT Fall Survey 2025", 
+    x = "Size Class Bin (mm)", 
+    y = "Proportion of Total Site Population"
+  ) + 
+  theme_minimal() + 
+  theme(
+    panel.grid.minor = element_blank(),
+    axis.title.y = element_text(size = rel(1.0), angle = 90), 
+    axis.title.x = element_text(size = rel(1.0), angle = 0),
+    axis.text = element_text(size = 13),
+    axis.text.x = element_text(angle = 65, vjust = 1, hjust = 1),
+    strip.text = element_text(size = 15),
+    legend.text = element_text(size = 13),
+    title = element_text(size = 15)
+  ) +
+  scale_fill_brewer(palette = "Set2", direction = -1) + 
+  facet_wrap(~ Site) 
+
+# 3. Print Plot
+print(CT_Fall_Survey_2025_population_percentages)
+#pdf(paste0(path = "Field_Data_Biological/Output/CT_Fall_Survey_2025_population_percentages.pdf"), height = 6, width = 11)
+#dev.off()
+
+
+```
+
+ 
 
 #ASHC
 ```{r}
