@@ -169,8 +169,8 @@ dev.off()
 
 
 
-path.p              <- "C:/Users/kyra.lenderman/Documents/GitHub/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data/output/Juvenile_events" #the location of all your respirometry files 
-file.names.table    <- data.frame(txt.files = (basename(list.files(path = paste(path.p,'/',sep=''), pattern = "SalinitySummary_juv.csv$", recursive = FALSE)))) 
+path.p              <- "C:/Users/kyra.lenderman/Documents/GitHub/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data/output/LowSalinity_events/raw_data_salinity" #the location of all your respirometry files 
+file.names.table    <- data.frame(txt.files = (basename(list.files(path = paste(path.p,'/',sep=''), pattern = "SalinitySummary.csv$", recursive = FALSE)))) 
 
 
 Summary.table            <- data.frame(matrix(nrow = 1, ncol = 6)) # create dataframe to save cumunalitively during for loop
@@ -239,7 +239,7 @@ EQ_plot <- Summary.table.final %>%
 # EQ_plot
 
 library(ggpubr)
-pdf("C:/Users/kyra.lenderman/Documents/GitHub/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data/output/Juvenile_events/Events_plots/juvenile_growth_salinity.pdf", 
+pdf("C:/Users/kyra.lenderman/Documents/GitHub/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data/output/LowSalinity_events/low_salinity_all.pdf", 
     height = 12, width =10)
 ggarrange(Duration_plot,
           Frequency_plot,

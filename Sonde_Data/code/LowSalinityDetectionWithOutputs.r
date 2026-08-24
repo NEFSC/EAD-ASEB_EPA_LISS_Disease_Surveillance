@@ -38,9 +38,10 @@ timeDigits<-5; #specifies the number of decimal places to which the time data ar
 getwd()
 #setwd("C:/Users/sam.gurr/Documents/Github_repositories/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
 filename     <- as.character("GitHub/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data/output/Sonde_master.csv")
-target_site  <- 'FENC' # call the site you want
+target_site  <- 'GOLD' # call the site you want
 raw_df       <- as.data.frame(read.csv(filename, sep = ',')) %>%  
-                       dplyr::filter(Site %in% target_site) 
+                       dplyr::filter(Site %in% target_site) %>%
+                      mutate()
 # raw_df   <- as.data.frame(raw)
 # raw_df[2:(ncol(raw_df))] <- lapply(raw_df[2:(ncol(raw_df))],as.numeric)
 # names(raw_df) <- gsub(" \\([0-9]+\\)", "", columns) # ommit the numeric information from all column names 
@@ -66,7 +67,6 @@ data <- as.data.frame(raw_df[!is.na(raw_df$Date.Time),] %>%
   dplyr::select(TIME, TIME_NUM_FORMAT, Salinity) %>%  # call the three column of interest
   # dplyr::rename(Salinity  = `Salinity (PSU)`)) %>% 
   na.omit())
-# View(as.data.frame(raw_df[!is.na(raw_df$`Date Time`),]))
 # View(data)
 # View(raw_df)
 
@@ -262,10 +262,10 @@ avgAvgSalinity=avgAvgSalinity);
 report2$type<-as.character(report2$type);
 
 #saves out the report files.
-output1<-gsub("Sonde_master.csv","FENC_SalinityEvents.csv",filename);
+output1<-gsub("Sonde_master.csv","GOLD_SalinityEvents.csv",filename);
 write.csv(report1, file=output1,row.names=FALSE);
 
-output2<-gsub("Sonde_master.csv","FENC_SalinitySummary.csv",filename);
+output2<-gsub("Sonde_master.csv","GOLD_SalinitySummary.csv",filename);
 write.csv(report2, file=output2,row.names=FALSE);
 
 #prints the report.
