@@ -127,7 +127,7 @@ bedheight_june2023 <- bedheight_june2023 %>% select("Date_collected", "Site", "S
 #Merging all bed height data into master file
 Bedheight_master <- rbind(bed_all, bedheight_june2023)
 
-#write.csv(Bedheight_master, "Master_files/bed_height_all_data.csv", row.names = FALSE)
+write.csv(Bedheight_master, "Master_files/bed_height_all_data.csv", row.names = FALSE)
 ```
 #Bed height sum at each site
 ```{r}
@@ -738,8 +738,9 @@ Spring_shellheight_percent2026_plot <- ggplot(
     strip.text = element_text(size = 15),
     title = element_text(size = 15)
   )
+
+#png("Field_Data_Biological/Output/Spring_Survey_Live_Shell_Height(2026).png", height = 6, width = 11, units = "in", res = 300)
 print(Spring_shellheight_percent2026_plot)
-#pdf("Field_Data_Biological/Output/Spring_Survey_Live_Shell_Height(2026).pdf", height = 6, width = 11)
 #dev.off()
 
 ```
@@ -797,8 +798,9 @@ CT_Spring_Survey_2026_population_percentages <- ggplot(data = CT_Spring_Survey_2
   facet_wrap(~ Site) 
 
 
+
+#png("Field_Data_Biological/Output/CT_Spring_Survey_2026_population_percentages.png", height = 6, width = 11, units = "in", res = 300)
 print(CT_Spring_Survey_2026_population_percentages)
-#pdf(paste0(path = "Field_Data_Biological/Output/CT_Spring_Survey_2026_population_percentages.pdf"), height = 6, width = 11)
 #dev.off()
 ```
 #Fall 2025 live data only
@@ -848,8 +850,9 @@ Fall_shellheight_percent2025_plot <- ggplot(
     strip.text = element_text(size = 15),
     title = element_text(size = 15)
   )
+
+#png("Field_Data_Biological/Output/Fall_Survey_Live_Shell_Height(2025).png", height = 6, width = 11, units = "in", res = 300)
 print(Fall_shellheight_percent2025_plot)
-#pdf("Field_Data_Biological/Output/Fall_Survey_Live_Shell_Height(2025).pdf", height = 6, width = 11)
 #dev.off()
 
 ```
@@ -907,8 +910,8 @@ CT_Fall_Survey_2025_population_percentages <- ggplot(data = CT_Fall_Survey_2025,
   facet_wrap(~ Site) 
 
 
+#png(("Field_Data_Biological/Output/CT_Fall_Survey_2025_population_percentages.png"), height = 6, width = 11, units = "in", res = 300)
 print(CT_Fall_Survey_2025_population_percentages)
-#pdf(paste0(path = "Field_Data_Biological/Output/CT_Fall_Survey_2025_population_percentages.pdf"), height = 6, width = 11)
 #dev.off()
 
 
