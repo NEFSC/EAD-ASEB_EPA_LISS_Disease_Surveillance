@@ -8,8 +8,8 @@ description: This R code is used to import and summarize recruitment data collec
 ---
 
 
-last updated 08/20/26 by M. Kachmar
-- QAQC ASH Creek data
+last updated 08/24/26 by M. Kachmar
+- QAQC GOLD
 
 ## R Markdown
 
@@ -240,11 +240,11 @@ st_rec_GOLD
 
 #Mean spat per shell per replicate
 GOLD_total_spat <- df_GOLD %>%
-  dplyr::group_by( date_collected) %>%
+  dplyr::group_by( date_collected, Replicate) %>%
   dplyr::summarize(sum_count_1 = sum(Count_1),sum_count_2 = sum(Count_2))
 GOLD_total_spat
 
-GOLD_spat_avg <- GOLD_spat %>%
+GOLD_spat_avg <- GOLD_total_spat %>%
   dplyr::group_by(Replicate, date_collected)%>%
  dplyr::summarize(Mean_1 = mean(sum_count_1), Mean_2 = mean(sum_count_2))
 GOLD_spat_avg
