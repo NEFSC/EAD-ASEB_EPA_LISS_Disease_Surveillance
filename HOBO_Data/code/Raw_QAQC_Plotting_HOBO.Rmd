@@ -98,6 +98,9 @@ print(FENC_HOBO)
 #remove NAs
 FENC_HOBO <- na.omit(FENC_HOBO)
 
+#create a master file
+write.csv(FENC_HOBO, "HOBO_Data/output/HOBO_master_files/FENC_Temperature_HOBO.csv")
+
 #### Lets look at the data 
 
 ggplot(FENC_HOBO, aes(Date_Time, Temperature)) + geom_point()
@@ -284,12 +287,17 @@ ASHC_HOBO <- rbind(df3,df4,df5,df6,df7, df8, df9, df10, df1)
 
 as.data.frame(ASHC_HOBO)
 
+
+
 ## removing unneeded columns with NAs
 
 #ASHC_HOBO <- ASHC_HOBO %>%
  # dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset", "Host Connected"))
 
 ASHC_HOBO <- na.omit(ASHC_HOBO)
+
+#Create master file
+write.csv(ASHC_HOBO, "HOBO_Data/output/HOBO_master_files/ASHC_Temperature_HOBO.csv")
 
 
 #Change column names
@@ -625,6 +633,9 @@ print(GOLD_HOBO)
  # dplyr::select( -c("Host Connected", "Water Detect", "Button Down", "Button Up", "End of File"))
 
 GOLD_HOBO <- na.omit(GOLD_HOBO)
+
+write.csv(GOLD_HOBO, "HOBO_Data/output/HOBO_master_files/GOLD_Temperature_HOBO.csv")
+
 
 #### Lets look at the data 
 

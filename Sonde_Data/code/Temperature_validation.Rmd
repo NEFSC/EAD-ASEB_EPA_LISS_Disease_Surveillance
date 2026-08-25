@@ -50,8 +50,9 @@ ASHC_Temp_Sonde <- ASHC_Temp_Sonde %>% dplyr::rename(Date_Time = Date.Time, sond
 ASHC_Temp_Sonde
 
 
+ASHC_Temp_HOBO <- read.csv("HOBO_data/output/HOBO_master_files/ASHC_Temperature_Sonde.csv")
 
-ASHC_HOBO <- ASHC_HOBO %>%
+ASHC_Temp_HOBO <- ASHC_Temp_HOBO %>%
   dplyr::mutate(Date_Time = lubridate::mdy_hm(Date_Time, tz = "UTC"), Date_Time_30min = floor_date(Date_Time, "30 minutes")
   ) %>%
   group_by(Date_Time_30min) %>%
@@ -202,7 +203,8 @@ FENC_Temp_Sonde <- FENC_Temp_Sonde %>%
 FENC_Temp_Sonde
 
 
-FENC_HOBO <- FENC_HOBO %>%
+FENC_Temp_HOBO <- read.csv("HOBO_data/output/HOBO_master_files/FENC_Temperature_Sonde.csv")
+FENC_Temp_HOBO <- FENC_Temp_HOBO %>%
   mutate(Date_Time = lubridate::mdy_hm(Date_Time, tz = "UTC"), Date_Time = round_date(Date_Time, unit = "30 minutes")) 
 FENC_HOBO
 
