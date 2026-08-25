@@ -1,0 +1,265 @@
+---
+title: "Temperature validation between sonde and HOBO devices"
+author: "Mariah Kachmar"
+date: "2026-08-25"
+output: html_document
+---
+
+IMPORTANT:  HOBO at fence creek lost in ice/blizzard - end of 01/26 and beginning of 02/26 data lost
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+#knitr::opts_knit$set(root.dir = 'C:/Users/sarina.dery/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') 
+```
+
+#### Load libraries
+
+```{r load_libraries, include = TRUE}
+# load libraries - notes show the install command needed to install (pre installed)
+# Plotting
+library(ggplot2)
+library(dplyr)
+library(gplots)
+library(RColorBrewer)
+library(ggpubr)
+library(stringr)
+library(lubridate)
+library(readr)
+library(reshape2)
+library(readr)
+library(tidyr)
+library(data.table)
+```
+
+```{r}
+### QAQC with Sonde data - ASHC temperture ###
+
+ASHC_Temp_Sonde <- read.csv("Sonde_Data/output/Sonde Master Files/ASHC_Temperature_Sonde.csv")
+ASHC_Temp_Sonde <- ASHC_Temp_Sonde %>% dplyr::rename(Date_Time = Date.Time, sonde_temp = value ) %>% 
+  dplyr::mutate(Date_Time = ymd_hms(Date_Time, tz = "UTC"),Date_Time_30min = floor_date(Date_Time, "30 minutes")
+  ) %>%
+  group_by(Date_Time_30min) %>%
+  summarise(
+    sonde_temp = mean(sonde_temp, na.rm = TRUE),
+    .groups = "drop"
+  ) %>% 
+  select(Date_Time_30min, sonde_temp)
+ASHC_Temp_Sonde
+
+
+
+ASHC_HOBO <- ASHC_HOBO %>%
+  dplyr::mutate(Date_Time = lubridate::mdy_hm(Date_Time, tz = "UTC"), Date_Time_30min = floor_date(Date_Time, "30 minutes")
+  ) %>%
+  group_by(Date_Time_30min) %>%
+  summarise(
+    hobo_temp = mean(Temperature, na.rm = TRUE),
+    .groups = "drop"
+  ) %>% 
+  select(Date_Time_30min, hobo_temp)
+
+
+#merge data
+
+#ASHC_temp_validation <- ASHC_Temp_Sonde %>% full_join( ASHC_HOBO, by = "Date_Time")
+ASHC_temp_validation <- ASHC_Temp_Sonde %>%
+  inner_join(
+    ASHC_HOBO,
+    by = "Date_Time_30min"
+  ) %>%
+  rename(
+    Date_Time = Date_Time_30min
+  )
+View(ASHC_temp_validation)
+ 
+
+ASHC_temp_validation <-na.omit(ASHC_temp_validation)
+
+ggplot(ASHC_temp_validation, aes(x = sonde_temp, y = hobo_temp)) +
+  geom_point(alpha = 0.5) +
+  geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") + # Ideal 1:1 line
+  geom_smooth(method = "lm", color = "blue") + # Best-fit line
+  theme_minimal() +
+  labs(title = "Sonde vs HOBO Temperature",
+       x = "Sonde Temp (°C)", y = "HOBO Temp (°C)")
+
+# Fit linear model to check for systemic offset/gain
+ASHC_cal_model <- lm(hobo_temp ~ sonde_temp, data = ASHC_temp_validation)
+summary(ASHC_cal_model)
+
+# Compute Error Metrics
+#error_metrics <- ASHC_temp_validation %>%
+#  dplyr::summarise(
+#    Bias = mean(hobo_temp, sonde_temp),
+#    MAE = mean(abs(hobo_temp - sonde_temp)),
+#    RMSE = sqrt(mean((hobo_temp - sonde_temp)^2))
+#  )
+
+#print(error_metrics)
+
+
+bland_altman_data <- ASHC_temp_validation %>%
+  mutate(
+    Average = (sonde_temp + hobo_temp) / 2,
+    Difference = sonde_temp - hobo_temp
+  )
+
+mean_diff <- mean(bland_altman_data$Difference)
+sd_diff <- sd(bland_altman_data$Difference)
+
+ggplot(bland_altman_data, aes(x = Average, y = Difference)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = mean_diff, color = "blue", size = 1) + # Mean bias
+  geom_hline(yintercept = mean_diff + 1.96 * sd_diff, color = "red", linetype = "dashed") + # Upper limit of agreement
+  geom_hline(yintercept = mean_diff - 1.96 * sd_diff, color = "red", linetype = "dashed") + # Lower limit of agreement
+  theme_minimal() +
+  labs(title = "Bland-Altman Agreement Plot",
+       y = "Sonde - HOBO", x = "Average Temperature")
+
+
+#Values above 0 - the sonde recorded a higher temperature than HOBO
+#Values below 0 - the HOBO recorded a higher temperature than the sonde
+#95% of the differences should fall within the red dashed lines - "limits of agreement" 
+
+#outliers can be due to : instrument malfunctions, timestamps not aligning perfectly, one logger out of water (most likely with the HOBO), fouling, or need for calibration
+
+#For ash creek, it appears the sonde is reading on average 0.3-0.4C higher than the HOBO but there is variability in the data. There are periods of time when the sonde is reading +5 to -7C difference. the relatively wide limits of agreement and substantial scatter indicate that agreement between the sensors varied considerably among observations, with occasional differences of several degrees Celsius. The magnitude of disagreement also appears to vary across the temperature range, suggesting potential temperature-dependent variability in sensor agreement.
+
+
+### CALIBRATION FOR CORRECITON FACTOR ###
+
+calibration_model <- lm(
+  sonde_temp ~ hobo_temp,
+  data = bland_altman_data
+)
+
+summary(calibration_model)
+coef(calibration_model)
+
+ASHC_HOBO_corrected <- ASHC_HOBO %>%
+  mutate(
+    corrected_temp = predict(
+      calibration_model,
+      newdata = data.frame(hobo_temp = hobo_temp)
+    )
+  )
+
+bias_model <- lm(
+  Difference ~ Average,
+  data = bland_altman_data
+)
+
+summary(bias_model)
+
+ggplot(bland_altman_data, aes(x = Average, y = Difference)) +
+  geom_point(alpha = 0.2) +
+  geom_smooth(method = "lm", se = TRUE) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  theme_minimal() +
+  labs(
+    title = "Sonde-HOBO Bias Across Temperature",
+    x = "Average Temperature (°C)",
+    y = "Sonde - HOBO (°C)"
+  )
+
+combined_temperature <- ASHC_HOBO %>%
+  left_join(
+    ASHC_Temp_Sonde,
+    by = "Date_Time"
+  ) %>%
+  mutate(
+    temperature_final = if_else(
+      !is.na(sonde_temp),
+      sonde_temp,
+      predict(
+        calibration_model,
+        newdata = data.frame(hobo_temp = hobo_temp)
+      )
+    )
+  )
+#which data was source vs supplemented
+mutate(
+  temperature_source = case_when(
+    !is.na(sonde_temp) ~ "Sonde",
+    !is.na(hobo_temp) ~ "HOBO_corrected",
+    TRUE ~ NA_character_
+  )
+)
+```
+
+```{r}
+### QAQC with Sonde data - FENC temperture ###
+
+FENC_Temp_Sonde <- read.csv("Sonde_Data/output/FENC_Temperature_Sonde.csv")
+FENC_Temp_Sonde <- FENC_Temp_Sonde %>% dplyr::rename(Date_Time = Date.Time, sonde_temp = value )  
+
+FENC_Temp_Sonde <- FENC_Temp_Sonde %>% 
+  mutate(Date_Time = ymd_hms(Date_Time, tz = "UTC"), Date_Time = round_date(Date_Time, unit = "30 minutes")) 
+
+FENC_Temp_Sonde
+
+
+FENC_HOBO <- FENC_HOBO %>%
+  mutate(Date_Time = lubridate::mdy_hm(Date_Time, tz = "UTC"), Date_Time = round_date(Date_Time, unit = "30 minutes")) 
+FENC_HOBO
+
+
+
+FENC_temp_validation <- merge(FENC_Temp_Sonde, FENC_HOBO, by = "Date_Time", all = TRUE)
+FENC_temp_validation 
+
+FENC_temp_validation <-na.omit(FENC_temp_validation)
+
+ggplot(FENC_temp_validation, aes(x = sonde_temp, y = Temperature)) +
+  geom_point(alpha = 0.5) +
+  geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") + # Ideal 1:1 line
+  geom_smooth(method = "lm", color = "blue") + # Best-fit line
+  theme_minimal() +
+  labs(title = "Sonde vs HOBO Temperature",
+       x = "Sonde Temp (°C)", y = "HOBO Temp (°C)")
+
+# Fit linear model to check for systemic offset/gain
+FENC_cal_model <- lm(Temperature ~ sonde_temp, data = FENC_temp_validation)
+summary(FENC_cal_model)
+
+# Compute Error Metrics
+error_metrics <- FENC_temp_validation %>%
+  dplyr::summarise(
+    Bias = mean(Temperature, sonde_temp),
+    MAE = mean(abs(Temperature - sonde_temp)),
+    RMSE = sqrt(mean((Temperature - sonde_temp)^2))
+  )
+
+print(error_metrics)
+
+
+bland_altman_data <- FENC_temp_validation %>%
+  mutate(
+    Average = (sonde_temp + Temperature) / 2,
+    Difference = sonde_temp - Temperature
+  )
+
+mean_diff <- mean(bland_altman_data$Difference)
+sd_diff <- sd(bland_altman_data$Difference)
+
+ggplot(bland_altman_data, aes(x = Average, y = Difference)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = mean_diff, color = "blue", size = 1) + # Mean bias
+  geom_hline(yintercept = mean_diff + 1.96 * sd_diff, color = "red", linetype = "dashed") + # Upper limit of agreement
+  geom_hline(yintercept = mean_diff - 1.96 * sd_diff, color = "red", linetype = "dashed") + # Lower limit of agreement
+  theme_minimal() +
+  labs(title = "Bland-Altman Agreement Plot",
+       y = "Sonde - HOBO", x = "Average Temperature")
+
+
+#Values above 0 - the sonde recorded a higher temperature than HOBO
+#Values below 0 - the HOBO recorded a higher temperature than the sonde
+#95% of the differences should fall within the red dashed lines - "limits of agreement" 
+
+#outliers can be due to : instrument malfunctions, timestamps not aligning perfectly, one logger out of water (most likely with the HOBO), fouling, or need for calibration
+
+# the graph is showing that the sonde and hobo have very little average bias and more measurements are agreeable however, it becomes more variable with higher temperatures - the HOBO may actually be exposed at low tide on occasion depending on tidal level. 
+```
