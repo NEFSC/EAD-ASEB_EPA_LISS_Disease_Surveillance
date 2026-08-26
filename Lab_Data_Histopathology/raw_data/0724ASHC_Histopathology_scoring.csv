@@ -1,4 +1,4 @@
-Sample_ID,Date_collected,Site,Lab_sample,Date_read,P. marinus1,Haplosporidium1,Nematopsis1,General ciliates1,Notes,Reader_1,Duplicate_read,Date_read2,P. marinus2,Haplosporidium2,Nematopsis2,General_ciliates2,Notes2,Reader_2
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,P. marinus1,Haplosporidium1,Nematopsis1,General_ciliates1,Notes,Reader_1,Duplicate_read,Date_read2,P. marinus2,Haplosporidium2,Nematopsis2,General_ciliates2,Notes2,Reader_2
 0724ASHC_01,7/12/2023,ASHC,1,1/28/2026,0,0,TRUE,FALSE,,LMB,,,,,,,,
 0724ASHC_02,7/12/2023,ASHC,2,1/28/2026,3,0,TRUE,FALSE,,KJL,,,,,,,,
 0724ASHC_03,7/12/2023,ASHC,3,1/28/2026,3,0,TRUE,TRUE,Spheno,SND,,,,,,,,
