@@ -47,7 +47,7 @@ ASHC_Temp_Sonde <- ASHC_Temp_Sonde %>% dplyr::rename(Date_Time = Date.Time, sond
     .groups = "drop"
   ) %>% 
   select(Date_Time_30min, sonde_temp)
-ASHC_Temp_Sonde
+View(ASHC_Temp_Sonde)
 
 
 ASHC_Temp_HOBO <- read.csv("HOBO_data/output/HOBO_master_files/ASHC_Temperature_HOBO.csv")
@@ -61,7 +61,7 @@ ASHC_Temp_HOBO <- ASHC_Temp_HOBO %>%
     .groups = "drop"
   ) %>% 
   select(Date_Time_30min, hobo_temp)
-
+View(ASHC_Temp_HOBO)
 
 #merge data
 
@@ -228,28 +228,58 @@ ASHC_Temperature_combined
 ```{r}
 ### QAQC with Sonde data - FENC temperture ###
 
-FENC_Temp_Sonde <- read.csv("Sonde_Data/output/FENC_Temperature_Sonde.csv")
-FENC_Temp_Sonde <- FENC_Temp_Sonde %>% dplyr::rename(Date_Time = Date.Time, sonde_temp = value )  
+FENC_Temp_Sonde <- read.csv("Sonde_Data/output/Sonde Master Files/FENC_Temperature_Sonde.csv")
+FENC_Temp_Sonde <- FENC_Temp_Sonde %>% dplyr::rename(Date_Time = Date.Time, sonde_temp = value ) %>% 
+  dplyr::mutate(Date_Time = ymd_hms(Date_Time, tz = "UTC"),Date_Time_30min = floor_date(Date_Time, "30 minutes")
+  ) %>%
+  group_by(Date_Time_30min) %>%
+  summarise(
+    sonde_temp = mean(sonde_temp, na.rm = TRUE),
+    .groups = "drop"
+  ) %>% 
+  select(Date_Time_30min, sonde_temp)
+View(FENC_Temp_Sonde)
 
-FENC_Temp_Sonde <- FENC_Temp_Sonde %>% 
-  mutate(Date_Time = ymd_hms(Date_Time, tz = "UTC"), Date_Time = round_date(Date_Time, unit = "30 minutes")) 
 
-FENC_Temp_Sonde
+FENC_Temp_HOBO <- read.csv("HOBO_data/output/HOBO_master_files/FENC_Temperature_HOBO.csv")
 
-
-FENC_Temp_HOBO <- read.csv("HOBO_data/output/HOBO_master_files/FENC_Temperature_Sonde.csv")
 FENC_Temp_HOBO <- FENC_Temp_HOBO %>%
-  mutate(Date_Time = lubridate::mdy_hm(Date_Time, tz = "UTC"), Date_Time = round_date(Date_Time, unit = "30 minutes")) 
-FENC_HOBO
+  mutate(
+    Date_Time = parse_date_time(
+      trimws(Date_Time),
+      orders = c("mdy HMS", "mdy HM"),
+      tz = "UTC"
+    )
+  )
+FENC_Temp_HOBO <- FENC_Temp_HOBO %>%
+  mutate(
+    Date_Time_30min = floor_date(Date_Time, "30 minutes")
+  ) %>%
+  group_by(Date_Time_30min) %>%
+  summarise(
+    Temperature = mean(Temperature, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  select(Date_Time_30min, Temperature)%>% rename(hobo_temp = Temperature)
 
+View(FENC_Temp_HOBO)
+#merge data
 
-
-FENC_temp_validation <- merge(FENC_Temp_Sonde, FENC_HOBO, by = "Date_Time", all = TRUE)
-FENC_temp_validation 
+#FENC_temp_validation <- FENC_Temp_Sonde %>% full_join( FENC_HOBO, by = "Date_Time")
+FENC_temp_validation <- FENC_Temp_Sonde %>%
+  inner_join(
+    FENC_Temp_HOBO,
+    by = "Date_Time_30min"
+  ) %>%
+  rename(
+    Date_Time = Date_Time_30min
+  )
+View(FENC_temp_validation)
+ 
 
 FENC_temp_validation <-na.omit(FENC_temp_validation)
 
-ggplot(FENC_temp_validation, aes(x = sonde_temp, y = Temperature)) +
+ggplot(FENC_temp_validation, aes(x = sonde_temp, y = hobo_temp)) +
   geom_point(alpha = 0.5) +
   geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") + # Ideal 1:1 line
   geom_smooth(method = "lm", color = "blue") + # Best-fit line
@@ -258,37 +288,43 @@ ggplot(FENC_temp_validation, aes(x = sonde_temp, y = Temperature)) +
        x = "Sonde Temp (°C)", y = "HOBO Temp (°C)")
 
 # Fit linear model to check for systemic offset/gain
-FENC_cal_model <- lm(Temperature ~ sonde_temp, data = FENC_temp_validation)
+FENC_cal_model <- lm(hobo_temp ~ sonde_temp, data = FENC_temp_validation)
 summary(FENC_cal_model)
 
 # Compute Error Metrics
-error_metrics <- FENC_temp_validation %>%
-  dplyr::summarise(
-    Bias = mean(Temperature, sonde_temp),
-    MAE = mean(abs(Temperature - sonde_temp)),
-    RMSE = sqrt(mean((Temperature - sonde_temp)^2))
-  )
+#error_metrics <- FENC_temp_validation %>%
+#  dplyr::summarise(
+#    Bias = mean(hobo_temp, sonde_temp),
+#    MAE = mean(abs(hobo_temp - sonde_temp)),
+#    RMSE = sqrt(mean((hobo_temp - sonde_temp)^2))
+#  )
 
-print(error_metrics)
+#print(error_metrics)
 
 
-bland_altman_data <- FENC_temp_validation %>%
+FENC_bland_altman_data <- FENC_temp_validation %>%
   mutate(
-    Average = (sonde_temp + Temperature) / 2,
-    Difference = sonde_temp - Temperature
+    Average = (sonde_temp + hobo_temp) / 2,
+    Difference = sonde_temp - hobo_temp
   )
 
-mean_diff <- mean(bland_altman_data$Difference)
-sd_diff <- sd(bland_altman_data$Difference)
+mean_diff <- mean(FENC_bland_altman_data$Difference)
+sd_diff <- sd(FENC_bland_altman_data$Difference)
 
-ggplot(bland_altman_data, aes(x = Average, y = Difference)) +
+FENC_bland_alt<-ggplot(FENC_bland_altman_data, aes(x = Average, y = Difference)) +
   geom_point(alpha = 0.5) +
   geom_hline(yintercept = mean_diff, color = "blue", size = 1) + # Mean bias
   geom_hline(yintercept = mean_diff + 1.96 * sd_diff, color = "red", linetype = "dashed") + # Upper limit of agreement
   geom_hline(yintercept = mean_diff - 1.96 * sd_diff, color = "red", linetype = "dashed") + # Lower limit of agreement
   theme_minimal() +
-  labs(title = "Bland-Altman Agreement Plot",
+  labs(title = "Fence Creek Bland-Altman Agreement Plot",
        y = "Sonde - HOBO", x = "Average Temperature")
+FENC_bland_alt
+#lets save this graph so we can reference it again later
+
+pdf(paste0(path = "HOBO_Data/output","/FENC_bland_altman.pdf"), height = 6, width = 11)
+print(FENC_bland_alt)
+dev.off()
 
 
 #Values above 0 - the sonde recorded a higher temperature than HOBO
@@ -297,5 +333,109 @@ ggplot(bland_altman_data, aes(x = Average, y = Difference)) +
 
 #outliers can be due to : instrument malfunctions, timestamps not aligning perfectly, one logger out of water (most likely with the HOBO), fouling, or need for calibration
 
-# the graph is showing that the sonde and hobo have very little average bias and more measurements are agreeable however, it becomes more variable with higher temperatures - the HOBO may actually be exposed at low tide on occasion depending on tidal level. 
+# There is generally good agreement between the sonde and hobo measurements however, bariability in the differences is greater at lower temperatures and several outliers are rpesent. the change in bias across the temperature range suggests that agreement may be temeprature - dependent. 
+
+
+### CALIBRATION FOR CORRECITON FACTOR ###
+
+FENC_calibration_model <- lm(
+  sonde_temp ~ hobo_temp,
+  data = bland_altman_data
+)
+
+summary(FENC_calibration_model)
+coef(FENC_calibration_model)
+
+
+FENC_BA_summary <- bland_altman_data %>%
+  mutate(
+    difference = sonde_temp - hobo_temp,
+    mean_temp = (sonde_temp + hobo_temp) / 2
+  ) %>%
+  summarise(
+    mean_bias = mean(difference, na.rm = TRUE),
+    SD_difference = sd(difference, na.rm = TRUE),
+    lower_LOA = mean_bias - 1.96 * SD_difference,
+    upper_LOA = mean_bias + 1.96 * SD_difference
+  )
+
+FENC_BA_summary
+
+FENC_HOBO_corrected <- FENC_Temp_HOBO %>%
+  mutate(
+    corrected_temp = predict(
+      FENC_calibration_model,
+      newdata = data.frame(hobo_temp = hobo_temp)
+    )
+  )
+
+FENC_HOBO_corrected
+
+#we don't want to supplement it yet we want to test if it actually is predicitng new data
+#this code is randomly splitting the paired data
+set.seed(123)
+n <- nrow(bland_altman_data)
+train_index <- sample( 1:n,size = 0.70 * n)
+calibration_data <- bland_altman_data[train_index, ]
+validation_data <- bland_altman_data[-train_index, ]
+#build the calibration model using only the training data
+calibration_model <- lm(sonde_temp ~ hobo_temp,data = calibration_data)
+summary(calibration_model)
+#predict sonde temperature for the validation data
+validation_data <- validation_data %>% mutate(predicted_sonde = predict(calibration_model,newdata = validation_data),error = predicted_sonde - sonde_temp)
+#calulate the prediction error
+RMSE <- sqrt(mean(validation_data$error^2, na.rm=TRUE)) #there are some large errors that are strongly affecting the RMSE value (0.9)
+MAE<- mean(abs(validation_data$error), na.rm= TRUE)
+RMSE
+MAE
+
+#The HOBO and Sonde temperatures have a strong linear relationship (R² = 0.981), with a calibration equation of #Sonde = 0.138 + 1.003 × HOBO. Independent validation indicated a mean absolute error of 0.51°C and RMSE of 0.89°C, #suggesting that corrected HOBO measurements can reasonably approximate Sonde measurements for data supplementation. #However, occasional large discrepancies were observed and should be investigated before applying the correction #across the entire dataset.
+  #need to do HOBO data clean up before using to see if that helps the RMSE
+
+
+
+
+#Lets combine the sonde and hobo data by supplementing any missing data from the sonde with the hobo data
+combined_temperature <- FENC_Temp_HOBO %>%
+  left_join(
+    FENC_Temp_Sonde,
+    by = "Date_Time_30min"
+  ) %>%
+  mutate(
+    temperature_final = if_else(
+      !is.na(sonde_temp),
+      sonde_temp,
+      predict(
+        FENC_calibration_model,
+        newdata = data.frame(hobo_temp = hobo_temp)
+      )
+    )
+  ) %>% mutate(
+  temperature_source = case_when(
+    !is.na(sonde_temp) ~ "Sonde",
+    !is.na(hobo_temp) ~ "HOBO_corrected",
+    TRUE ~ NA_character_
+  )#which data was source vs supplemented
+)
+
+View(combined_temperature)
+
+#Lets see what the raw data looks like combined 
+FENC_Temperature_combined <- combined_temperature %>%
+    mutate(Date_Time = as.POSIXct(Date_Time_30min)) %>%
+    ggplot(aes(Date_Time, temperature_final)) + 
+    geom_point() + 
+    geom_line(size = 0.2, position = position_dodge(.4)) +
+    scale_shape_manual(values = c(21, 22, 24, 25)) + 
+    scale_fill_manual(values = c("#CC79A7", "#D55E00", "#009E73", "#0072B2")) + 
+    ggtitle("Ash Creek Combined Temperature Data") +
+    labs(x = "Time", y = "Temperature (Celcius)") + 
+    theme_classic() + 
+    theme(axis.text.x = element_text(size = 20, angle = 45, hjust = 1), axis.text.y = element_text(size = 20),axis.title = element_text(size = 20)) +
+    scale_x_datetime(date_labels = "%b/%Y", 
+                     date_breaks = "2 month", 
+                     limits = as.POSIXct(c('2023-06-01', '2026-11-01'))) +geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)
+FENC_Temperature_combined
+
+
 ```
