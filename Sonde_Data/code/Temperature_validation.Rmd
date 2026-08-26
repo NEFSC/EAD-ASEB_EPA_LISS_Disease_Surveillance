@@ -50,7 +50,7 @@ ASHC_Temp_Sonde <- ASHC_Temp_Sonde %>% dplyr::rename(Date_Time = Date.Time, sond
 ASHC_Temp_Sonde
 
 
-ASHC_Temp_HOBO <- read.csv("HOBO_data/output/HOBO_master_files/ASHC_Temperature_Sonde.csv")
+ASHC_Temp_HOBO <- read.csv("HOBO_data/output/HOBO_master_files/ASHC_Temperature_HOBO.csv")
 
 ASHC_Temp_HOBO <- ASHC_Temp_HOBO %>%
   dplyr::mutate(Date_Time = lubridate::mdy_hm(Date_Time, tz = "UTC"), Date_Time_30min = floor_date(Date_Time, "30 minutes")
@@ -68,7 +68,7 @@ ASHC_Temp_HOBO <- ASHC_Temp_HOBO %>%
 #ASHC_temp_validation <- ASHC_Temp_Sonde %>% full_join( ASHC_HOBO, by = "Date_Time")
 ASHC_temp_validation <- ASHC_Temp_Sonde %>%
   inner_join(
-    ASHC_HOBO,
+    ASHC_Temp_HOBO,
     by = "Date_Time_30min"
   ) %>%
   rename(
@@ -102,23 +102,29 @@ summary(ASHC_cal_model)
 #print(error_metrics)
 
 
-bland_altman_data <- ASHC_temp_validation %>%
+ashc_bland_altman_data <- ASHC_temp_validation %>%
   mutate(
     Average = (sonde_temp + hobo_temp) / 2,
     Difference = sonde_temp - hobo_temp
   )
 
-mean_diff <- mean(bland_altman_data$Difference)
-sd_diff <- sd(bland_altman_data$Difference)
+mean_diff <- mean(ashc_bland_altman_data$Difference)
+sd_diff <- sd(ashc_bland_altman_data$Difference)
 
-ggplot(bland_altman_data, aes(x = Average, y = Difference)) +
+ASHC_bland_alt<-ggplot(ashc_bland_altman_data, aes(x = Average, y = Difference)) +
   geom_point(alpha = 0.5) +
   geom_hline(yintercept = mean_diff, color = "blue", size = 1) + # Mean bias
   geom_hline(yintercept = mean_diff + 1.96 * sd_diff, color = "red", linetype = "dashed") + # Upper limit of agreement
   geom_hline(yintercept = mean_diff - 1.96 * sd_diff, color = "red", linetype = "dashed") + # Lower limit of agreement
   theme_minimal() +
-  labs(title = "Bland-Altman Agreement Plot",
+  labs(title = "Ash Creek Bland-Altman Agreement Plot",
        y = "Sonde - HOBO", x = "Average Temperature")
+ASHC_bland_alt
+#lets save this graph so we can reference it again later
+
+pdf(paste0(path = "HOBO_Data/output","/ASHC_bland_altman.pdf"), height = 6, width = 11)
+print(ASHC_bland_alt)
+dev.off()
 
 
 #Values above 0 - the sonde recorded a higher temperature than HOBO
@@ -132,63 +138,91 @@ ggplot(bland_altman_data, aes(x = Average, y = Difference)) +
 
 ### CALIBRATION FOR CORRECITON FACTOR ###
 
-calibration_model <- lm(
+ashc_calibration_model <- lm(
   sonde_temp ~ hobo_temp,
   data = bland_altman_data
 )
 
-summary(calibration_model)
-coef(calibration_model)
+summary(ashc_calibration_model)
+coef(ashc_calibration_model)
 
-ASHC_HOBO_corrected <- ASHC_HOBO %>%
+ASHC_HOBO_corrected <- ASHC_Temp_HOBO %>%
   mutate(
     corrected_temp = predict(
-      calibration_model,
+      ashc_calibration_model,
       newdata = data.frame(hobo_temp = hobo_temp)
     )
   )
 
-bias_model <- lm(
-  Difference ~ Average,
-  data = bland_altman_data
-)
+ASHC_HOBO_corrected
 
-summary(bias_model)
+#we don't want to supplement it yet we want to test if it actually is predicitng new data
+#this code is randomly splitting the paired data
+set.seed(123)
+n <- nrow(bland_altman_data)
+train_index <- sample( 1:n,size = 0.70 * n)
+calibration_data <- bland_altman_data[train_index, ]
+validation_data <- bland_altman_data[-train_index, ]
+#build the calibration model using only the training data
+calibration_model <- lm(sonde_temp ~ hobo_temp,data = calibration_data)
+summary(calibration_model)
+#predict sonde temperature for the validation data
+validation_data <- validation_data %>% mutate(predicted_sonde = predict(calibration_model,newdata = validation_data),error = predicted_sonde - sonde_temp)
+#calulate the prediction error
+RMSE <- sqrt(mean(validation_data$error^2, na.rm=TRUE)) #there are some large errors that are strongly affecting the RMSE value (0.9)
+MAE<- mean(abs(validation_data$error), na.rm= TRUE)
+RMSE
+MAE
 
-ggplot(bland_altman_data, aes(x = Average, y = Difference)) +
-  geom_point(alpha = 0.2) +
-  geom_smooth(method = "lm", se = TRUE) +
-  geom_hline(yintercept = 0, linetype = "dashed") +
-  theme_minimal() +
-  labs(
-    title = "Sonde-HOBO Bias Across Temperature",
-    x = "Average Temperature (°C)",
-    y = "Sonde - HOBO (°C)"
-  )
+#The HOBO and Sonde temperatures have a strong linear relationship (R² = 0.981), with a calibration equation of #Sonde = 0.138 + 1.003 × HOBO. Independent validation indicated a mean absolute error of 0.51°C and RMSE of 0.89°C, #suggesting that corrected HOBO measurements can reasonably approximate Sonde measurements for data supplementation. #However, occasional large discrepancies were observed and should be investigated before applying the correction #across the entire dataset.
+  #need to do HOBO data clean up before using to see if that helps the RMSE
 
-combined_temperature <- ASHC_HOBO %>%
+
+
+
+#Lets combine the sonde and hobo data by supplementing any missing data from the sonde with the hobo data
+combined_temperature <- ASHC_Temp_HOBO %>%
   left_join(
     ASHC_Temp_Sonde,
-    by = "Date_Time"
+    by = "Date_Time_30min"
   ) %>%
   mutate(
     temperature_final = if_else(
       !is.na(sonde_temp),
       sonde_temp,
       predict(
-        calibration_model,
+        ashc_calibration_model,
         newdata = data.frame(hobo_temp = hobo_temp)
       )
     )
-  )
-#which data was source vs supplemented
-mutate(
+  ) %>% mutate(
   temperature_source = case_when(
     !is.na(sonde_temp) ~ "Sonde",
     !is.na(hobo_temp) ~ "HOBO_corrected",
     TRUE ~ NA_character_
-  )
+  )#which data was source vs supplemented
 )
+
+View(combined_temperature)
+
+#Lets see what the raw data looks like combined 
+ASHC_Temperature_combined <- combined_temperature %>%
+    mutate(Date_Time = as.POSIXct(Date_Time_30min)) %>%
+    ggplot(aes(Date_Time, temperature_final)) + 
+    geom_point() + 
+    geom_line(size = 0.2, position = position_dodge(.4)) +
+    scale_shape_manual(values = c(21, 22, 24, 25)) + 
+    scale_fill_manual(values = c("#CC79A7", "#D55E00", "#009E73", "#0072B2")) + 
+    ggtitle("Ash Creek Combined Temperature Data") +
+    labs(x = "Time", y = "Temperature (Celcius)") + 
+    theme_classic() + 
+    theme(axis.text.x = element_text(size = 20, angle = 45, hjust = 1), axis.text.y = element_text(size = 20),axis.title = element_text(size = 20)) +
+    scale_x_datetime(date_labels = "%b/%Y", 
+                     date_breaks = "2 month", 
+                     limits = as.POSIXct(c('2023-06-01', '2026-11-01'))) +geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)
+ASHC_Temperature_combined
+
+
 ```
 
 ```{r}
