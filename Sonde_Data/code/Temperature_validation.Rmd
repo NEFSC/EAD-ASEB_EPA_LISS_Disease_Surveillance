@@ -53,14 +53,24 @@ View(ASHC_Temp_Sonde)
 ASHC_Temp_HOBO <- read.csv("HOBO_data/output/HOBO_master_files/ASHC_Temperature_HOBO.csv")
 
 ASHC_Temp_HOBO <- ASHC_Temp_HOBO %>%
-  dplyr::mutate(Date_Time = lubridate::mdy_hm(Date_Time, tz = "UTC"), Date_Time_30min = floor_date(Date_Time, "30 minutes")
+  mutate(
+    Date_Time = parse_date_time(
+      trimws(Date_Time),
+      orders = c("mdy HMS", "mdy HM"),
+      tz = "UTC"
+    )
+  )
+ASHC_Temp_HOBO <- ASHC_Temp_HOBO %>%
+  mutate(
+    Date_Time_30min = floor_date(Date_Time, "30 minutes")
   ) %>%
   group_by(Date_Time_30min) %>%
   summarise(
-    hobo_temp = mean(Temperature, na.rm = TRUE),
+    Temperature = mean(Temperature, na.rm = TRUE),
     .groups = "drop"
-  ) %>% 
-  select(Date_Time_30min, hobo_temp)
+  ) %>%
+  select(Date_Time_30min, Temperature)%>% rename(hobo_temp = Temperature)
+
 View(ASHC_Temp_HOBO)
 
 #merge data
@@ -396,7 +406,7 @@ MAE
 
 
 #Lets combine the sonde and hobo data by supplementing any missing data from the sonde with the hobo data
-combined_temperature <- FENC_Temp_HOBO %>%
+FENC_combined_temperature <- FENC_Temp_HOBO %>%
   left_join(
     FENC_Temp_Sonde,
     by = "Date_Time_30min"
@@ -418,17 +428,17 @@ combined_temperature <- FENC_Temp_HOBO %>%
   )#which data was source vs supplemented
 )
 
-View(combined_temperature)
+View(FENC_combined_temperature)
 
 #Lets see what the raw data looks like combined 
-FENC_Temperature_combined <- combined_temperature %>%
+FENC_Temperature_combined <- FENC_combined_temperature %>%
     mutate(Date_Time = as.POSIXct(Date_Time_30min)) %>%
     ggplot(aes(Date_Time, temperature_final)) + 
     geom_point() + 
     geom_line(size = 0.2, position = position_dodge(.4)) +
     scale_shape_manual(values = c(21, 22, 24, 25)) + 
     scale_fill_manual(values = c("#CC79A7", "#D55E00", "#009E73", "#0072B2")) + 
-    ggtitle("Ash Creek Combined Temperature Data") +
+    ggtitle("Fence Creek Combined Temperature Data") +
     labs(x = "Time", y = "Temperature (Celcius)") + 
     theme_classic() + 
     theme(axis.text.x = element_text(size = 20, angle = 45, hjust = 1), axis.text.y = element_text(size = 20),axis.title = element_text(size = 20)) +
