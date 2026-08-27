@@ -1083,6 +1083,19 @@ print(rfmt_intentsity_all)
 dev.off()
 
 ```
+```{r}
+#dotplot of intensity RFTM scores
+df_intensity_proportions_dot <- df_intensity_proportions_new %>%
+  mutate(month_a = month.abb[month])
+df_intensity_proportions_dot$month_a <-factor(df_intensity_proportions_dot$month_a, levels = c("Jan", "Feb", "Mar", "Apr","May","Jun","Jul","Aug", "Sep", "Oct", "Nov","Dec"))
+
+df_intensity_proportions_dot <- df_intensity_proportions_dot%>% filter(!Count == 43)
+
+p1 <- ggplot(df_intensity_proportions_dot, aes(x=month_a, y=intensity_bin, size = Count))+
+        geom_point(aes(color = Count))+ facet_grid(year~site)+ scale_color_gradient(low = "gold", high = "firebrick1") 
+p1
+```
+
 
 
 ```{r}

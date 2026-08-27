@@ -23,8 +23,8 @@ knitr::opts_chunk$set(echo = TRUE,
                       cache = TRUE)
 
 #knitr::opts_knit$set(root.dir = "C:/Users/samjg/Documents/Github_repositories/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
-#knitr::opts_knit$set(root.dir = "C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
-knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
+knitr::opts_knit$set(root.dir = "C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
+#knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
 #knitr::opts_knit$set(root.dir = "C:/Users/sarina.dery/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
 
 ```
@@ -343,16 +343,10 @@ Master_monthly_means <- Master_table %>%
   dplyr::mutate(`Date.Time` = ymd_hms(`Date.Time`),
                 year_month = floor_date(`Date.Time`, "month")) %>%
   # Melt the data
-  reshape2::melt(id.vars = c("year_month", "Site"),
+ reshape2::melt(id.vars = c("year_month", "Site"),
        measure.vars = c("Actual.Conductivity", "Specific.Conductivity", "Salinity", "Resistivity", "Density", 
                         "Total.Dissolved.Solids", "RDO.Concentration", "RDO.Saturation",
-                        "Oxygen.Partial.Pressure", "Chlorophyll.a.Fluorescence", "pH", "pH.mV", 
-
-  melt(id.vars = c("year_month", "Site"),
-       measure.vars = c("`Actual Conductivity`", "Salinity", "Resistivity", 
-                        "`Total Dissolved Solids`", "RDO Concentration", "RDO Saturation",
-                        "`Oxygen Partial Pressure`", "Chlorophyll.a.Fluorescence", "pH", "`pH mV`", 
-                        "Temperature")) %>%
+                        "Oxygen.Partial.Pressure", "Chlorophyll.a.Fluorescence", "pH", "pH.mV")) %>%
   # Group by year_month, Site, and variable
   dplyr::group_by(year_month, Site, variable) %>%
   # Summarize using across() to get mean, sd, and standard error (se)
@@ -388,17 +382,10 @@ Sonde_monthly_means_CT_wide <- Sonde_monthly_means_CT %>% pivot_wider(names_from
 
 ```{r}
 All_Sites_Temperature <- Master_table_LONG_means %>% na.omit() %>%
-<<<<<<< HEAD
-             dplyr::filter(`Date.Time` > '2023-03-01 00:00:00' & `Date.Time` < '2026-03-20 09:00:00', variable=="Temperature" ) %>% # change date range needed here
+ dplyr::filter(Date.Time > '2023-03-01 00:00:00' & Date.Time < '2026-03-20 09:00:00', variable=="Temperature" ) %>% # change date range needed here
              dplyr::mutate(Site = case_when(Site == 'ASHC' ~ 'Ash Creek', Site == 'FENC' ~ 'Fence Creek', Site == 'GOLD' ~ 'Gold Star', .default = 'Fence Creek')) %>% 
-             ggplot(aes(x=`Date.Time`, 
-                       y=mean, # the mean values
-=======
-             dplyr::filter(`Date.Time` > '2023-03-01 00:00:00' & `Date.Time` < '2025-11-30 00:00:00' ) %>% # change date range needed here
-             dplyr::mutate(Site = case_when(Site == 'ASHC' ~ 'Ash Creek', Site == 'FENC' ~ 'Fence Creek', Site == 'GOLD' ~ 'Gold Star', .default = 'Fence Creek')) %>% 
-             ggplot(aes(x=`Date.Time`, 
-                       y=Temperature, # the mean values
->>>>>>> 61fe0d7593975c11a9db4623d060e8e20e892af7
+             ggplot(aes(x=Date.Time, 
+                       y=mean,
                        group=Site)) + # call the new mean
               geom_line(aes(group = factor(Site), # lines for site
                                 linetype = Site), 
@@ -428,7 +415,7 @@ All_Sites_Temperature
 CT_pH          <- Master_table_LONG_means %>% dplyr::filter(variable == 'pH' & Site %in% c('FENC', 'ASHC'))
 CT_Salinity    <- Master_table_LONG_means %>% dplyr::filter(variable == 'Salinity' & Site %in% c('FENC', 'ASHC'))
 CT_Temperature <- Master_table_LONG_means %>% dplyr::filter(variable == 'Temperature' & Site %in% c('FENC','ASHC'))
-CT_DO         <- Master_table_LONG_means %>% dplyr::filter(variable == 'RDO Concentration' & Site %in%c('FENC','ASHC'))
+CT_DO         <- Master_table_LONG_means %>% dplyr::filter(variable == 'RDO.Concentration' & Site %in%c('FENC','ASHC'))
 
 ### Update each graph for the time frame desired as well as the name of the file to coincide with the appropriate year displayed
 
@@ -718,8 +705,8 @@ dev.off()
 ```{r}
 #Adding linear regression lines and equations to temperature data
 #Going to use this to compare temperature of 2023 and 2024 when more data overlaps
-CT_Temperature_2023 <- CT_Temperature %>% na.omit() %>%
-             dplyr::filter(`Date.Time` > '2023-07-01 00:00:00' & `Date.Time` < '2023-11-30 00:00:00' ) %>% # change date range needed here
+CT_Temperature_2024 <- CT_Temperature %>% na.omit() %>%
+             dplyr::filter(`Date.Time` > '2024-07-01 00:00:00' & `Date.Time` < '2024-11-30 00:00:00' ) %>% # change date range needed here
              dplyr::mutate(Site = case_when(Site == 'ASHC' ~ 'Ash Creek', .default = 'Fence Creek')) %>% 
              ggplot(aes(x=`Date.Time`, 
                        y=mean, # the mean values
@@ -744,7 +731,7 @@ CT_Temperature_2023 <- CT_Temperature %>% na.omit() %>%
               labs(x = "Time", y = "Temperature (Celcius)") +
               theme_classic() +
               theme(legend.position = "none")
-CT_Temperature_2023
+CT_Temperature_2024
 
 #pdf(paste0(path = "output/raw_plots/CT_intertidal_plots/CT_Temperature_2023.pdf"), height = 6, width = 11)
 #ggarrange(CT_Temperature_2023, CT_Temperature_callout_2023, ncol = 2, widths = c(2, 1))
