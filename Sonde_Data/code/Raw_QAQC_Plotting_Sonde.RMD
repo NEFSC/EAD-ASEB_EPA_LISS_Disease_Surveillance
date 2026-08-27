@@ -2944,9 +2944,9 @@ print(all_salinityvtemp)
 ```{r}
 #overlay graphs (RFTM mean or bcs mean scores per month, overlaid with salinity or temp sonde data)
 #make sure to create data frame with means for the month of sonde data and bcs or RFTM code
-CT_Temperature_2024_ashc <- CT_Temperature_2024 %>% filter(Site == "ASHC")
-ct_temp_monthlymeans <- aggregate(mean~Month+Site+Year,data=CT_Temperature_2024_ashc,FUN=mean)
-ct_temp_monthlyse <- aggregate(se~Month+Site+Year,data=CT_Temperature_2024_ashc,FUN=mean)
+CT_Temperature_ashc <- CT_Temperature %>% dplyr:: filter(Site == "ASHC")
+ct_temp_monthlymeans <- aggregate(mean~Month+Site+Year,data=ASHC_Temperature,FUN=mean)
+ct_temp_monthlyse <- aggregate(se~Month+Site+Year,data=ASHC_Temperature,FUN=mean)
 ct_temp_monthlymeans$se <- ct_temp_monthlyse$se
 
 mean_bcs_ashc <- mean_bcs_ashc %>% filter(!month == "Sept") #need to run tissue processing code!
@@ -2988,52 +2988,51 @@ overlay.temprftm <- ggplot(ASHC_temp.rftm_over, aes(Month, rftm_mean)) +
 overlay.temprftm
 ```
 ```{r}
-rftm_prop_ashc2024 <- df_intensity_proportions2024 %>%
-  filter(site == "ASHC")
+rftm_prop_ashc <- df_intensity_proportions_new %>%
+  filter(site == "Ash Creek")%>% rename(Year=year)
 
 r1 <- ggplot() +
-  geom_bar(data=rftm_prop_ashc2024, aes(x=month, y= Proportion, fill=intensity_bin),width = .5, stat="identity", position = "fill",colour = "black")+  
+  geom_bar(data=rftm_prop_ashc, aes(x=month, y= Proportion, fill=intensity_bin),width = .5, stat="identity", position = "fill",colour = "black")+  
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
   labs(fill ="Dermo Intensity")+
-  labs(title="Proportion of Intensity scores of Dermo infection vs. Temperature at ASHC - 2024", x ="Month", y = "Proportion")+ #theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  labs(title="Proportion of Intensity scores of Dermo infection vs. Temperature at ASHC", x ="Month", y = "Proportion")+ #theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
   #theme(axis.text=element_text(size=12))+
-scale_fill_brewer(palette = "YlOrBr")
+scale_fill_brewer(palette = "YlOrBr")+facet_wrap(~Year)
    #scale_x_continuous("Month", breaks = c(3,4,5,6,7,8,9,10))+
 r1
   
 p <- r1 + geom_point(ct_temp_monthlymeans, mapping = aes(x=Month, y=mean/25), color = "blue") +
   geom_smooth(ct_temp_monthlymeans, mapping = aes(x=Month, y=mean/25), color = "blue")+
-  scale_y_continuous(sec.axis = sec_axis(~.*25, name = "Temp"))
+  scale_y_continuous(sec.axis = sec_axis(~.*25, name = "Temp"))+facet_wrap(~Year)
 
- ct_temp_monthlymeans24 <- ct_temp_monthlymeans %>% filter(Year == "2024")
- 
-p <- r1 + geom_line(ct_temp_monthlymeans24, mapping = aes(x=Month, y=mean/25), color = "blue", size = 1) +
+
+p <- r1 + geom_line(ct_temp_monthlymeans, mapping = aes(x=Month, y=mean/25), color = "blue", size = 1) +
   #geom_errorbar(aes(ymin = mean-se, ymax=mean+se))+
-  scale_y_continuous(sec.axis = sec_axis(~.*25, name = "Temp"))
+  scale_y_continuous(sec.axis = sec_axis(~.*25, name = "Temp"))+facet_wrap(~Year)
 
 p
 
 #BCS overlay with temp
-bcs_prop_ashc2024 <- df_BCS_proportions2024 %>%
-  filter(site == "ASHC") 
+bcs_prop_ashc <- df_bcs_proportions_new %>%
+  filter(site == "ASHC") %>% rename(Year = year)
 bcs_prop_ashc2024<- bcs_prop_ashc2024 %>%
   mutate(month = recode(month, 
                                      "March" = 3, "April" = 4, "May"= 5, "June"= 6, "July"= 7,"Aug"= 8, "Sept"=9, "Oct"=10, "Nov"=11, "Dec"=12))
 r1 <- ggplot() +
-  geom_bar(data=bcs_prop_ashc2024, aes(x=month, y= Proportion, fill=condition_score_bin),width = .5, stat="identity", position = "fill",colour = "black")+  
+  geom_bar(data=bcs_prop_ashc, aes(x=month, y= Proportion, fill=condition_score_bin),width = .5, stat="identity", position = "fill",colour = "black")+  
    theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
   labs(fill ="Body condition score")+
-  labs(title="Proportion of body condition score vs. Temperature at ASHC - 2024", x ="Month", y = "Proportion")+ #theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
+  labs(title="Proportion of body condition score vs. Temperature at ASHC", x ="Month", y = "Proportion")+ #theme(axis.title.y = element_text(size = rel(1.3), angle =90), axis.title.x = element_text(size = rel(1.3), angle = 0))+
   #theme(axis.text=element_text(size=12))+
-  scale_fill_brewer(palette = "Blues", direction = -1)
+  scale_fill_brewer(palette = "Blues", direction = -1)+facet_wrap(~Year)
    #scale_x_continuous("Month", breaks = c(3,4,5,6,7,8,9,10))+
 r1
   
 ct_temp_monthlymeans24 <- ct_temp_monthlymeans %>% filter(Year == "2024")
-p <- r1 + geom_line(ct_temp_monthlymeans24, mapping = aes(x=Month, y=mean/25), color = "red", size = 1) +
-  scale_y_continuous(sec.axis = sec_axis(~.*25, name = "Temp"))
+p <- r1 + geom_line(ct_temp_monthlymeans, mapping = aes(x=Month, y=mean/25), color = "red", size = 1) +
+  scale_y_continuous(sec.axis = sec_axis(~.*25, name = "Temp"))+facet_wrap(~Year)
 p
 ```
 
