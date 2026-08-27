@@ -79,7 +79,8 @@ df5<-read_csv("HOBO_Data\\raw_data\\082026_FENC_HOBO.csv", col_names = TRUE)%>% 
 FENC_HOBO <- rbind(df1,df2,df3,df4,df5)   #Combine the two data sheets
 
 as.data.frame(FENC_HOBO) #make a data frame
-
+#create a master file
+write.csv(FENC_HOBO, "HOBO_Data/output/HOBO_master_files/FENC_Temperature_HOBO.csv")
 
 #Date formatting
 
@@ -98,8 +99,7 @@ print(FENC_HOBO)
 #remove NAs
 FENC_HOBO <- na.omit(FENC_HOBO)
 
-#create a master file
-write.csv(FENC_HOBO, "HOBO_Data/output/HOBO_master_files/FENC_Temperature_HOBO.csv")
+
 
 #### Lets look at the data 
 
@@ -280,14 +280,15 @@ df11<-read_csv("HOBO_Data\\raw_data\\082025_ASHC_HOBO_recovery.csv", col_names =
   dplyr::rename(Date_Time = `Date-Time (EDT)`) #%>% 
   #dplyr::select( -c( "Button Down", "Button Up", "End of File", "Started Offset","Host Connected"))
 
-
+ 
 ASHC_HOBO <- rbind(df3,df4,df5,df6,df7, df8, df9,df11,df10)
 
 #ASHC_HOBO <- read_csv("HOBO_Data\\raw_data\\112024_ASHC_HOBO.csv", col_names = TRUE)   
 
 as.data.frame(ASHC_HOBO)
 
-
+#Create master file
+write.csv(ASHC_HOBO, "HOBO_Data/output/HOBO_master_files/ASHC_Temperature_HOBO.csv")
 
 ## removing unneeded columns with NAs
 
@@ -296,8 +297,7 @@ as.data.frame(ASHC_HOBO)
 
 ASHC_HOBO <- na.omit(ASHC_HOBO)
 
-#Create master file
-write.csv(ASHC_HOBO, "HOBO_Data/output/HOBO_master_files/ASHC_Temperature_HOBO.csv")
+
 
 
 #Change column names
