@@ -6,7 +6,7 @@ output: html_document
 
 ---
 
-Last updated: 8/24/26 M.Kachmar
+Last updated: 8/27/26 M.Kachmar
 - working on cross validating data points for hobo and temperature data 
 
 
@@ -44,7 +44,374 @@ library(data.table)
 ```{r}
 path_out <- 'HOBO_Data/output/'
 ```
+### Lets bring in all the data for all the sites to make a master sheet ###
+```{r}
 
+path.raw <- "HOBO_Data/raw_data/"
+
+# using the paste0 function we will add the whole path together, check it out in the example below! 
+# paste0 does not require you to set your separation between calls, so we will manually assign as "/"
+paste0(getwd(),"/",path.raw) # you see the whole directory prints including the raw_data folder! yay.
+
+
+
+
+file.names.hobo         <- data.frame(txt.files = 
+                                         (basename(list.files(path = paste0(getwd(),"/",path.raw), 
+                                                              pattern = "csv$", 
+                                                              recursive = FALSE)))) 
+
+file.names.hobo
+
+```
+* second, assign your *blank* master dataframe 
+
+```{r}
+#rm(Master_HOBO)
+#Master_HOBO <- data.frame() 
+
+```
+
+#Lets pull in and reorganize the data to make a master file 
+```{r}
+
+# IMPORTANT: start completely fresh
+Master_HOBO <- NULL
+
+
+for (m in 1:nrow(file.names.hobo)) {
+  
+
+  # File name and path
+
+  filename <- file.names.hobo[m, 1]
+  
+  raw_hobo_rootdir <- file.path(
+    getwd(),
+    path.raw,
+    filename
+  )
+  
+  # Read HOBO file
+  raw <- read_csv( raw_hobo_rootdir, col_names = TRUE, show_col_types = FALSE)
+  
+  # Find Date-Time column
+  date_col <- names(raw)[
+    grepl("Date", names(raw), ignore.case = TRUE) &
+    grepl("Time", names(raw), ignore.case = TRUE)
+  ][1]
+
+  # Find Temperature column
+  temp_col <- names(raw)[
+    grepl("Temperature", names(raw), ignore.case = TRUE)
+  ][1]
+
+  # Check columns
+  if (is.na(date_col) || is.na(temp_col)) {
+    
+    warning(
+      "Could not identify Date-Time or Temperature in: ",
+      filename
+    )
+    
+    next
+  }
+  
+  
+
+  # Keep only the columns we need
+  raw_df <- raw %>%select( all_of(date_col), all_of(temp_col)
+    ) %>% rename(  Date_Time = all_of(date_col),  Temperature = all_of(temp_col) )
+  
+  # FORCE Date_Time to character FIRST
+  raw_df$Date_Time <- as.character( raw_df$Date_Time)
+  
+
+  # Convert Date_Time to POSIXct
+  raw_df$Date_Time <- parse_date_time(
+    raw_df$Date_Time,
+    orders = c(
+      "mdy HMS",
+      "mdy HM"
+    ),tz = "America/New_York",
+    quiet = TRUE)
+
+  # Convert Temperature to numeric
+  raw_df$Temperature <- as.numeric(raw_df$Temperature)
+  
+  # Add Site
+  raw_df <- raw_df %>%mutate(Site = sub(  ".*_(.*)_.*",  "\\1",  filename ))
+  
+
+  # Add Month and Year
+  raw_df <- raw_df %>%mutate(Month = month(Date_Time),Year = year(Date_Time))
+  
+  # Add to Master
+  Master_HOBO <- bind_rows( Master_HOBO,raw_df)
+  
+  # Progress
+  message( "Processed ", m, " of ", nrow(file.names.hobo),
+    ": ", filename,
+    " | Date = ", date_col,
+    " | Temp = ", temp_col,
+    " | Date NAs = ", sum(is.na(raw_df$Date_Time)),
+    " | Temp NAs = ", sum(is.na(raw_df$Temperature))
+  )
+}
+
+
+
+# Final column order
+Master_HOBO <- Master_HOBO %>%select(Date_Time,Temperature,Site, Month,Year)
+
+View(Master_HOBO)
+
+write.csv(Master_HOBO, "HOBO_Data/output/HOBO_master_files/Master_HOBO_raw.csv",)
+
+```
+
+
+#Now that we have a master file, we should clean up the data and remove any outliers
+```{r}
+#Lets just see if there are outliers in the data 
+ggplot(Master_HOBO,
+       aes(x = Site, y = Temperature)) +
+  geom_boxplot(outlier.colour = "red",
+               outlier.size = 2) +
+  theme_bw() +
+  labs(x = "Site",
+       y = "Temperature")
+
+Master_HOBO_cleaned <- Master_HOBO %>%
+   group_by(Site) %>%
+  mutate(
+    # --- TEMPERATURE FILTER (Gross Bounds + Rate of Change) ---
+    temp_clean = ifelse(Temperature < -2 | Temperature > 40, NA, Temperature), #gross range test removing values outside of this range
+    temp_delta = abs(temp_clean - lag(temp_clean, default = first(temp_clean))), #calculating rate of change. how much the temp is jumping from last reading to current reading
+    temp_clean = ifelse(temp_delta > 2.0, NA, temp_clean)) #spike test - if the temperature jumps more than 2C in a single 30 minute interval, it is flagged as en error 
+
+Master_HOBO_cleaned
+
+write.csv(Master_HOBO_cleaned, "HOBO_Data/output/HOBO_master_files/Master_HOBO_cleaned.csv",)
+
+
+#reorganize the data to make plots
+hobo_clean_plot <- Master_HOBO_cleaned %>%
+  select(Site, Date_Time, 
+         Temperature, temp_clean) %>%
+  pivot_longer(
+    cols = c(Temperature),
+    names_to = "parameter", values_to = "raw_value"
+  ) %>%
+  pivot_longer(
+    cols = c(temp_clean),
+    names_to = "parameter_clean", values_to = "clean_value"
+  ) %>%
+  mutate(parameter_clean = case_when(
+    parameter_clean == "temp_clean" ~ "Temperature",
+  )) %>%
+  filter(parameter == parameter_clean, Site != "LAUR") %>%
+  select(-parameter_clean)
+
+hobo_master_QAQC<-ggplot(hobo_clean_plot, aes(x = Date_Time)) + 
+  geom_line(aes(y = raw_value, color = "Removed / Outlier"), alpha = 0.3, linewidth = 0.5) + 
+  geom_line(aes(y = clean_value, color = "Cleaned Data"), linewidth = 0.7) + 
+  
+  # Facet matrix: Rows = Parameters, Columns = Sites
+  facet_grid(parameter ~ Site, scales = "free_y", 
+             labeller = labeller(parameter = c(
+               Temperature = "Temp (°C)"
+             ))) + 
+  
+  scale_color_manual(values = c("Cleaned Data" = "#0072B2", "Removed / Outlier" = "#D55E00")) + 
+  theme_minimal(base_size = 11) + 
+  theme(
+    legend.position = "top", 
+    strip.background = element_rect(fill = "#F0F0F0", color = NA)
+  )
+hobo_master_QAQC
+```
+
+
+#Fence Creek
+```{r}
+
+FENC_HOBO <- Master_HOBO_cleaned %>% filter(Site == "FENC")
+FENC_HOBO
+
+write.csv(FENC_HOBO, "HOBO_Data/output/HOBO_master_files/FENC_Temperature_HOBO.csv")
+
+
+#remove NAs
+FENC_HOBO <- na.omit(FENC_HOBO)
+
+
+
+#### Lets look at the data 
+
+ggplot(FENC_HOBO, aes(Date_Time, Temperature)) + geom_point()
+
+
+# Hourly Means 
+
+FENC_means <- FENC_HOBO %>%
+  mutate(Hour = floor_date(Date_Time, unit = "hour")) %>%
+  group_by( Site,Hour) %>%
+  summarise(mean_Temperature = mean( Temperature,na.rm = TRUE),sd_Temperature = sd( Temperature, na.rm = TRUE),
+    n = sum(!is.na(Temperature)),
+    .groups = "drop")
+
+FENC_means
+
+
+FENC_plot <- FENC_means %>%
+   # mutate(Hour = as.POSIXct(Hour)) %>%
+    ggplot(aes(Hour, mean_Temperature)) + 
+    geom_point() + 
+    geom_line(size = 0.2, position = position_dodge(.4)) +
+    scale_shape_manual(values = c(21, 22, 24, 25)) + 
+    scale_fill_manual(values = c("#CC79A7", "#D55E00", "#009E73", "#0072B2")) + 
+    geom_errorbar(aes(ymin = mean_Temperature - sd_Temperature, 
+                      ymax = mean_Temperature + sd_Temperature), 
+                  width = 0, position = position_dodge(.4)) +
+    ggtitle("Fence Creek, CT") +
+    labs(x = "", y = "Temperature (°C)") + 
+    theme_classic() + 
+    theme(axis.text = element_text(size = 25), axis.title = element_text(size = 12),axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1) ) +
+    scale_x_datetime(date_labels = "%b%Y", 
+                     date_breaks = "2 month", 
+                     limits = as.POSIXct(c('2023-06-01', '2026-5-30')))+
+  theme(axis.text = element_text(size = 15), axis.title = element_text(size = 20), legend.text = element_text(size=18), 
+        legend.title = element_text(size=20), title = element_text(size = 20), strip.text = element_text(size = 18), axis.text.x = element_text(angle = 40, vjust = 1.0, hjust = 1.0) )+
+  geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)+
+  geom_hline(yintercept = 16, color = "blue", linetype = "solid", size = 1) + ylim(-10,30)
+FENC_plot
+
+pdf(paste0(path= "HOBO_Data/output/FENC_HOBO.pdf"), height = 7, width = 14)
+print(FENC_plot)
+dev.off()
+```
+
+
+#Ash Creek
+```{r}
+
+ASHC_HOBO <- Master_HOBO_cleaned %>% filter(Site == "ASHC")
+ASHC_HOBO
+
+write.csv(ASHC_HOBO, "HOBO_Data/output/HOBO_master_files/ASHC_Temperature_HOBO.csv")
+
+#remove NAs
+ASHC_HOBO <- na.omit(ASHC_HOBO)
+
+#### Lets look at the data 
+
+ggplot(ASHC_HOBO, aes(Date_Time, Temperature)) + geom_point()
+
+
+# Hourly Means 
+
+ASHC_means <- ASHC_HOBO %>%
+  mutate(Hour = floor_date(Date_Time, unit = "hour")) %>%
+  group_by( Site,Hour) %>%
+  summarise(mean_Temperature = mean( Temperature,na.rm = TRUE),sd_Temperature = sd( Temperature, na.rm = TRUE),
+    n = sum(!is.na(Temperature)),
+    .groups = "drop")
+
+ASHC_means
+
+
+ASHC_plot <- ASHC_means %>%
+   # mutate(Hour = as.POSIXct(Hour)) %>%
+    ggplot(aes(Hour, mean_Temperature)) + 
+    geom_point() + 
+    geom_line(size = 0.2, position = position_dodge(.4)) +
+    scale_shape_manual(values = c(21, 22, 24, 25)) + 
+    scale_fill_manual(values = c("#CC79A7", "#D55E00", "#009E73", "#0072B2")) + 
+    geom_errorbar(aes(ymin = mean_Temperature - sd_Temperature, 
+                      ymax = mean_Temperature + sd_Temperature), 
+                  width = 0, position = position_dodge(.4)) +
+    ggtitle("Ash Creek, CT") +
+    labs(x = "", y = "Temperature (°C)") + 
+    theme_classic() + 
+    theme(axis.text = element_text(size = 25), axis.title = element_text(size = 12),axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1) ) +
+    scale_x_datetime(date_labels = "%b%Y", 
+                     date_breaks = "2 month", 
+                     limits = as.POSIXct(c('2023-06-01', '2026-5-30')))+
+  theme(axis.text = element_text(size = 15), axis.title = element_text(size = 20), legend.text = element_text(size=18), 
+        legend.title = element_text(size=20), title = element_text(size = 20), strip.text = element_text(size = 18), axis.text.x = element_text(angle = 40, vjust = 1.0, hjust = 1.0) )+
+  geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)+
+  geom_hline(yintercept = 16, color = "blue", linetype = "solid", size = 1) + ylim(-10,30)
+ASHC_plot
+
+pdf(paste0(path= "HOBO_Data/output/ASHC_HOBO.pdf"), height = 7, width = 14)
+print(ASHC_plot)
+dev.off()
+
+```
+
+#Gold Star Beach, NY 
+```{r}
+
+GOLD_HOBO <- Master_HOBO_cleaned %>% filter(Site == "GOLD")
+GOLD_HOBO
+
+write.csv(GOLD_HOBO, "HOBO_Data/output/HOBO_master_files/GOLD_Temperature_HOBO.csv")
+
+#remove NAs
+GOLD_HOBO <- na.omit(GOLD_HOBO)
+
+#### Lets look at the data 
+
+ggplot(GOLD_HOBO, aes(Date_Time, Temperature)) + geom_point()
+
+
+# Hourly Means 
+
+GOLD_means <- GOLD_HOBO %>%
+  mutate(Hour = floor_date(Date_Time, unit = "hour")) %>%
+  group_by( Site,Hour) %>%
+  summarise(mean_Temperature = mean( Temperature,na.rm = TRUE),sd_Temperature = sd( Temperature, na.rm = TRUE),
+    n = sum(!is.na(Temperature)),
+    .groups = "drop")
+
+GOLD_means
+
+
+GOLD_plot <- GOLD_means %>%
+   # mutate(Hour = as.POSIXct(Hour)) %>%
+    ggplot(aes(Hour, mean_Temperature)) + 
+    geom_point() + 
+    geom_line(size = 0.2, position = position_dodge(.4)) +
+    scale_shape_manual(values = c(21, 22, 24, 25)) + 
+    scale_fill_manual(values = c("#CC79A7", "#D55E00", "#009E73", "#0072B2")) + 
+    geom_errorbar(aes(ymin = mean_Temperature - sd_Temperature, 
+                      ymax = mean_Temperature + sd_Temperature), 
+                  width = 0, position = position_dodge(.4)) +
+    ggtitle("Gold Star Beach, NY") +
+    labs(x = "", y = "Temperature (°C)") + 
+    theme_classic() + 
+    theme(axis.text = element_text(size = 25), axis.title = element_text(size = 12),axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1) ) +
+    scale_x_datetime(date_labels = "%b%Y", 
+                     date_breaks = "2 month", 
+                     limits = as.POSIXct(c('2023-06-01', '2026-5-30')))+
+  theme(axis.text = element_text(size = 15), axis.title = element_text(size = 20), legend.text = element_text(size=18), 
+        legend.title = element_text(size=20), title = element_text(size = 20), strip.text = element_text(size = 18), axis.text.x = element_text(angle = 40, vjust = 1.0, hjust = 1.0) )+
+  geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)+
+  geom_hline(yintercept = 16, color = "blue", linetype = "solid", size = 1) + ylim(-10,30)
+GOLD_plot
+
+pdf(paste0(path= "HOBO_Data/output/GOLD_HOBO.pdf"), height = 7, width = 14)
+print(GOLD_plot)
+dev.off()
+
+```
+
+
+#################################################################################################################################
+
+
+##################################### OLD CODE, DONT DELETE YET INCASE WE NEED SOMETHING ########################################
 
 #### Fence Creek ####
 # We had to change out the HOBO due to it breaking in June 2024 - there will be a gap in data due to this

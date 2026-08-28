@@ -54,10 +54,10 @@ ASHC_Temp_HOBO <- read.csv("HOBO_data/output/HOBO_master_files/ASHC_Temperature_
 
 ASHC_Temp_HOBO <- ASHC_Temp_HOBO %>%
   mutate(
-    Date_Time = parse_date_time(
-      trimws(Date_Time),
-      orders = c("mdy HMS", "mdy HM"),
-      tz = "UTC"
+    Date_Time = as.POSIXct(
+      Date_Time,
+      format = "%Y-%m-%d %H:%M:%S",
+      tz = "America/New_York"
     )
   )
 ASHC_Temp_HOBO <- ASHC_Temp_HOBO %>%
@@ -71,7 +71,9 @@ ASHC_Temp_HOBO <- ASHC_Temp_HOBO %>%
   ) %>%
   select(Date_Time_30min, Temperature)%>% rename(hobo_temp = Temperature)
 
-View(ASHC_Temp_HOBO)
+ASHC_Temp_HOBO
+
+
 
 #merge data
 
@@ -137,6 +139,19 @@ print(ASHC_bland_alt)
 dev.off()
 
 
+ggplot(bland_altman_data,
+       aes(x = Average,
+           y = Difference)) +
+  geom_point(alpha = 0.2) +
+  geom_smooth(method = "loess", se = TRUE) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(
+    x = "Average Temperature (°C)",
+    y = "Sonde - HOBO (°C)"
+  ) +
+  theme_classic()
+
+
 #Values above 0 - the sonde recorded a higher temperature than HOBO
 #Values below 0 - the HOBO recorded a higher temperature than the sonde
 #95% of the differences should fall within the red dashed lines - "limits of agreement" 
@@ -144,13 +159,13 @@ dev.off()
 #outliers can be due to : instrument malfunctions, timestamps not aligning perfectly, one logger out of water (most likely with the HOBO), fouling, or need for calibration
 
 #For ash creek, it appears the sonde is reading on average 0.3-0.4C higher than the HOBO but there is variability in the data. There are periods of time when the sonde is reading +5 to -7C difference. the relatively wide limits of agreement and substantial scatter indicate that agreement between the sensors varied considerably among observations, with occasional differences of several degrees Celsius. The magnitude of disagreement also appears to vary across the temperature range, suggesting potential temperature-dependent variability in sensor agreement.
-
+#The sonde is reading higher at colder temperatures than the HOBO
 
 ### CALIBRATION FOR CORRECITON FACTOR ###
 
 ashc_calibration_model <- lm(
   sonde_temp ~ hobo_temp,
-  data = bland_altman_data
+  data = ashc_bland_altman_data
 )
 
 summary(ashc_calibration_model)
@@ -169,10 +184,10 @@ ASHC_HOBO_corrected
 #we don't want to supplement it yet we want to test if it actually is predicitng new data
 #this code is randomly splitting the paired data
 set.seed(123)
-n <- nrow(bland_altman_data)
+n <- nrow(ashc_bland_altman_data)
 train_index <- sample( 1:n,size = 0.70 * n)
-calibration_data <- bland_altman_data[train_index, ]
-validation_data <- bland_altman_data[-train_index, ]
+calibration_data <- ashc_bland_altman_data[train_index, ]
+validation_data <- ashc_bland_altman_data[-train_index, ]
 #build the calibration model using only the training data
 calibration_model <- lm(sonde_temp ~ hobo_temp,data = calibration_data)
 summary(calibration_model)
