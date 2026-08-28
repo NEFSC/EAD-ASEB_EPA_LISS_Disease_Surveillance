@@ -464,3 +464,220 @@ FENC_Temperature_combined
 
 
 ```
+
+#Gold Star Beach
+```{r}
+### QAQC with Sonde data - GOLD temperture ###
+
+GOLD_Temp_Sonde <- read.csv("Sonde_Data/output/Sonde Master Files/GOLD_Temperature_Sonde.csv")
+GOLD_Temp_Sonde <- GOLD_Temp_Sonde %>% dplyr::rename(Date_Time = Date.Time, sonde_temp = value ) %>% 
+  dplyr::mutate(Date_Time = ymd_hms(Date_Time, tz = "UTC"),Date_Time_30min = floor_date(Date_Time, "30 minutes")
+  ) %>%
+  group_by(Date_Time_30min) %>%
+  summarise(
+    sonde_temp = mean(sonde_temp, na.rm = TRUE),
+    .groups = "drop"
+  ) %>% 
+  select(Date_Time_30min, sonde_temp)
+View(GOLD_Temp_Sonde)
+
+
+GOLD_Temp_HOBO <- read.csv("HOBO_data/output/HOBO_master_files/GOLD_Temperature_HOBO.csv")
+
+GOLD_Temp_HOBO <- GOLD_Temp_HOBO %>%
+  mutate(
+    Date_Time = as.POSIXct(
+      Date_Time,
+      format = "%Y-%m-%d %H:%M:%S",
+      tz = "America/New_York"
+    )
+  )
+GOLD_Temp_HOBO <- GOLD_Temp_HOBO %>%
+  mutate(
+    Date_Time_30min = floor_date(Date_Time, "30 minutes")
+  ) %>%
+  group_by(Date_Time_30min) %>%
+  summarise(
+    Temperature = mean(Temperature, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  select(Date_Time_30min, Temperature)%>% rename(hobo_temp = Temperature)
+
+GOLD_Temp_HOBO
+
+
+
+#merge data
+
+#GOLD_temp_validation <- GOLD_Temp_Sonde %>% full_join( GOLD_HOBO, by = "Date_Time")
+GOLD_temp_validation <- GOLD_Temp_Sonde %>%
+  inner_join(
+    GOLD_Temp_HOBO,
+    by = "Date_Time_30min"
+  ) %>%
+  rename(
+    Date_Time = Date_Time_30min
+  )
+View(GOLD_temp_validation)
+ 
+
+GOLD_temp_validation <-na.omit(GOLD_temp_validation)
+
+ggplot(GOLD_temp_validation, aes(x = sonde_temp, y = hobo_temp)) +
+  geom_point(alpha = 0.5) +
+  geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") + # Ideal 1:1 line
+  geom_smooth(method = "lm", color = "blue") + # Best-fit line
+  theme_minimal() +
+  labs(title = "Sonde vs HOBO Temperature",
+       x = "Sonde Temp (°C)", y = "HOBO Temp (°C)")
+
+# Fit linear model to check for systemic offset/gain
+GOLD_cal_model <- lm(hobo_temp ~ sonde_temp, data = GOLD_temp_validation)
+summary(GOLD_cal_model)
+
+# Compute Error Metrics
+#error_metrics <- GOLD_temp_validation %>%
+#  dplyr::summarise(
+#    Bias = mean(hobo_temp, sonde_temp),
+#    MAE = mean(abs(hobo_temp - sonde_temp)),
+#    RMSE = sqrt(mean((hobo_temp - sonde_temp)^2))
+#  )
+
+#print(error_metrics)
+
+
+GOLD_bland_altman_data <- GOLD_temp_validation %>%
+  mutate(
+    Average = (sonde_temp + hobo_temp) / 2,
+    Difference = sonde_temp - hobo_temp
+  )
+
+mean_diff <- mean(GOLD_bland_altman_data$Difference)
+sd_diff <- sd(GOLD_bland_altman_data$Difference)
+
+GOLD_bland_alt<-ggplot(GOLD_bland_altman_data, aes(x = Average, y = Difference)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = mean_diff, color = "blue", size = 1) + # Mean bias
+  geom_hline(yintercept = mean_diff + 1.96 * sd_diff, color = "red", linetype = "dashed") + # Upper limit of agreement
+  geom_hline(yintercept = mean_diff - 1.96 * sd_diff, color = "red", linetype = "dashed") + # Lower limit of agreement
+  theme_minimal() +
+  labs(title = "Ash Creek Bland-Altman Agreement Plot",
+       y = "Sonde - HOBO", x = "Average Temperature")
+GOLD_bland_alt
+#lets save this graph so we can reference it again later
+
+pdf(paste0(path = "HOBO_Data/output","/GOLD_bland_altman.pdf"), height = 6, width = 11)
+print(GOLD_bland_alt)
+dev.off()
+
+
+ggplot(bland_altman_data,
+       aes(x = Average,
+           y = Difference)) +
+  geom_point(alpha = 0.2) +
+  geom_smooth(method = "loess", se = TRUE) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(
+    x = "Average Temperature (°C)",
+    y = "Sonde - HOBO (°C)"
+  ) +
+  theme_classic()
+
+
+#Values above 0 - the sonde recorded a higher temperature than HOBO
+#Values below 0 - the HOBO recorded a higher temperature than the sonde
+#95% of the differences should fall within the red dashed lines - "limits of agreement" 
+
+#outliers can be due to : instrument malfunctions, timestamps not aligning perfectly, one logger out of water (most likely with the HOBO), fouling, or need for calibration
+
+#For ash creek, it appears the sonde is reading on average 0.3-0.4C higher than the HOBO but there is variability in the data. There are periods of time when the sonde is reading +5 to -7C difference. the relatively wide limits of agreement and substantial scatter indicate that agreement between the sensors varied considerably among observations, with occasional differences of several degrees Celsius. The magnitude of disagreement also appears to vary across the temperature range, suggesting potential temperature-dependent variability in sensor agreement.
+#The sonde is reading higher at colder temperatures than the HOBO
+
+### CALIBRATION FOR CORRECITON FACTOR ###
+
+GOLD_calibration_model <- lm(
+  sonde_temp ~ hobo_temp,
+  data = GOLD_bland_altman_data
+)
+
+summary(GOLD_calibration_model)
+coef(GOLD_calibration_model)
+
+GOLD_HOBO_corrected <- GOLD_Temp_HOBO %>%
+  mutate(
+    corrected_temp = predict(
+      GOLD_calibration_model,
+      newdata = data.frame(hobo_temp = hobo_temp)
+    )
+  )
+
+GOLD_HOBO_corrected
+
+#we don't want to supplement it yet we want to test if it actually is predicitng new data
+#this code is randomly splitting the paired data
+set.seed(123)
+n <- nrow(GOLD_bland_altman_data)
+train_index <- sample( 1:n,size = 0.70 * n)
+calibration_data <- GOLD_bland_altman_data[train_index, ]
+validation_data <- GOLD_bland_altman_data[-train_index, ]
+#build the calibration model using only the training data
+calibration_model <- lm(sonde_temp ~ hobo_temp,data = calibration_data)
+summary(calibration_model)
+#predict sonde temperature for the validation data
+validation_data <- validation_data %>% mutate(predicted_sonde = predict(calibration_model,newdata = validation_data),error = predicted_sonde - sonde_temp)
+#calulate the prediction error
+RMSE <- sqrt(mean(validation_data$error^2, na.rm=TRUE)) #there are some large errors that are strongly affecting the RMSE value (0.9)
+MAE<- mean(abs(validation_data$error), na.rm= TRUE)
+RMSE
+MAE
+
+#The HOBO and Sonde temperatures have a strong linear relationship (R² = 0.981), with a calibration equation of #Sonde = 0.138 + 1.003 × HOBO. Independent validation indicated a mean absolute error of 0.51°C and RMSE of 0.89°C, #suggesting that corrected HOBO measurements can reasonably approximate Sonde measurements for data supplementation. #However, occasional large discrepancies were observed and should be investigated before applying the correction #across the entire dataset.
+  #need to do HOBO data clean up before using to see if that helps the RMSE
+
+
+
+
+#Lets combine the sonde and hobo data by supplementing any missing data from the sonde with the hobo data
+combined_temperature <- GOLD_Temp_HOBO %>%
+  left_join(
+    GOLD_Temp_Sonde,
+    by = "Date_Time_30min"
+  ) %>%
+  mutate(
+    temperature_final = if_else(
+      !is.na(sonde_temp),
+      sonde_temp,
+      predict(
+        GOLD_calibration_model,
+        newdata = data.frame(hobo_temp = hobo_temp)
+      )
+    )
+  ) %>% mutate(
+  temperature_source = case_when(
+    !is.na(sonde_temp) ~ "Sonde",
+    !is.na(hobo_temp) ~ "HOBO_corrected",
+    TRUE ~ NA_character_
+  )#which data was source vs supplemented
+)
+
+View(combined_temperature)
+
+#Lets see what the raw data looks like combined 
+GOLD_Temperature_combined <- combined_temperature %>%
+    mutate(Date_Time = as.POSIXct(Date_Time_30min)) %>%
+    ggplot(aes(Date_Time, temperature_final)) + 
+    geom_point() + 
+    geom_line(size = 0.2, position = position_dodge(.4)) +
+    scale_shape_manual(values = c(21, 22, 24, 25)) + 
+    scale_fill_manual(values = c("#CC79A7", "#D55E00", "#009E73", "#0072B2")) + 
+    ggtitle("Gold Star Combined Temperature Data") +
+    labs(x = "Time", y = "Temperature (Celcius)") + 
+    theme_classic() + 
+    theme(axis.text.x = element_text(size = 20, angle = 45, hjust = 1), axis.text.y = element_text(size = 20),axis.title = element_text(size = 20)) +
+    scale_x_datetime(date_labels = "%b/%Y", 
+                     date_breaks = "2 month", 
+                     limits = as.POSIXct(c('2023-06-01', '2026-11-01'))) +geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)
+GOLD_Temperature_combined
+
+
+```
