@@ -1363,10 +1363,21 @@ head(ASHC_Temperature)
 
 ASHC_Monthly_Temperature <- ASHC_Temperature %>% na.omit() %>%
   dplyr::group_by(Month , Year, Site)%>%
-  dplyr::summarize(Monthly_mean = mean(mean))
+  dplyr::summarize(Monthly_mean = mean(mean), sd=sd(sd))
 ASHC_Monthly_Temperature
 
 ```
+```{r}
+#Overlay of temp by year - ASHC
+ashc_temp<- ggplot(ASHC_Monthly_Temperature, aes(x=Month, y=Monthly_mean, group = Year, fill = factor(Year)))+
+  geom_line(linewidth=0.75) +
+  geom_ribbon(aes(ymax = Monthly_mean+sd, ymin = Monthly_mean-sd), alpha=0.15)+
+  labs(x="Month", colour="Year") +
+  theme_classic()
+ashc_temp
+
+```
+
 
 ```{r}
 
@@ -2097,7 +2108,7 @@ head(FENC_Temperature)
 
 FENC_Monthly_Temperature <-FENC_Temperature %>% na.omit() %>%
   dplyr::group_by(Month , Year, Site)%>%
-  dplyr::summarize(Monthly_mean = mean(mean))
+  dplyr::summarize(Monthly_mean = mean(mean), sd=sd(sd))
 FENC_Monthly_Temperature
 
 #Salinity average
@@ -2124,7 +2135,7 @@ head(FENC_Salinity)
 
 FENC_Monthly_Salinity <- FENC_Salinity %>% na.omit() %>%
   dplyr::group_by(Month , Year, Site)%>%
-  dplyr::summarize(Monthly_mean = mean(mean))
+  dplyr::summarize(Monthly_mean = mean(mean), sd=sd(sd))
 FENC_Monthly_Salinity
 
 ```
@@ -2138,6 +2149,24 @@ CT_daily_pH
 
 pdf(paste0("output/raw_plots/CT_daily_pH.pdf"), height = 12, width = 14)
 print(CT_daily_pH)
+```
+```{r}
+#Overlay of temp and salinity by year - FENC
+
+fenc_temp<- ggplot(FENC_Monthly_Temperature, aes(x=Month, y=Monthly_mean, group = Year, fill = factor(Year)))+
+  geom_line(linewidth=0.75) +
+  geom_ribbon(aes(ymax = Monthly_mean+sd, ymin = Monthly_mean-sd), alpha=0.15)+
+  labs(x="Month", y="Temperature", colour="Year") +
+  theme_classic()
+fenc_temp
+
+fenc_sal<- ggplot(FENC_Monthly_Salinity, aes(x=Month, y=Monthly_mean, group = Year, fill = factor(Year)))+
+  geom_line(linewidth=0.75) +
+  geom_ribbon(aes(ymax = Monthly_mean+sd, ymin = Monthly_mean-sd), alpha=0.15)+
+  labs(x="Month", y="Salinity", colour="Year") +
+  theme_classic()
+fenc_sal
+
 ```
 
 # Clean GOLD for the LISS stakeholder reports (NEW YORK)
@@ -2740,7 +2769,7 @@ head(GOLD_Temperature)
 
 GOLD_Monthly_Temperature <- GOLD_Temperature %>% na.omit() %>%
   dplyr::group_by(Month ,Year, Site)%>%
-  dplyr::summarize(Monthly_mean = mean(mean))
+  dplyr::summarize(Monthly_mean = mean(mean), sd=sd(sd))
 GOLD_Monthly_Temperature
 
 #Salinity average
@@ -2770,6 +2799,17 @@ GOLD_Monthly_Salinity <- GOLD_Salinity %>% na.omit() %>%
 GOLD_Monthly_Salinity
 
 ```
+
+```{r}
+#Overlay of temp by year - GOLD
+gold_temp<- ggplot(GOLD_Monthly_Temperature, aes(x=Month, y=Monthly_mean, group = Year, fill = factor(Year)))+
+  geom_line(linewidth=0.75) +
+  geom_ribbon(aes(ymax = Monthly_mean+sd, ymin = Monthly_mean-sd), alpha=0.15)+
+  labs(x="Month", y="Temperature", colour="Year") +
+  theme_classic()
+gold_temp
+```
+
 
 #Presentation Plots
 #Overlay graph - temperature and pH of the three sites (ASHC, FENC, GOLD) for the whole study
