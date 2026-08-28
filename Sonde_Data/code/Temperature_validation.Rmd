@@ -561,7 +561,7 @@ GOLD_bland_alt<-ggplot(GOLD_bland_altman_data, aes(x = Average, y = Difference))
   geom_hline(yintercept = mean_diff + 1.96 * sd_diff, color = "red", linetype = "dashed") + # Upper limit of agreement
   geom_hline(yintercept = mean_diff - 1.96 * sd_diff, color = "red", linetype = "dashed") + # Lower limit of agreement
   theme_minimal() +
-  labs(title = "Ash Creek Bland-Altman Agreement Plot",
+  labs(title = "Gold Star Bland-Altman Agreement Plot",
        y = "Sonde - HOBO", x = "Average Temperature")
 GOLD_bland_alt
 #lets save this graph so we can reference it again later
