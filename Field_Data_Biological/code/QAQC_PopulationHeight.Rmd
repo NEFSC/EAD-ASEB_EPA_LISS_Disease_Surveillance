@@ -8,7 +8,8 @@ output: html_document
 description: This R code is used to important and summarize shell height data from the LISS Oyster Health Project's 2023 oyster population surveys at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. June 2023 data was originally input into the Access database (LISS_Database_FieldCollectionData_2023-07-18.accb) and files needed to be converted and standardize to the new collection method. All original or raw data can be accessed in the GitHub repository. 
 ---
 
-Last updated 5/20/26 by M.Kachmar
+Last updated 9/3/26 by M.Kachmar
+- Fence creek fall 2026
 
 Note: Fixed the density code as it was not including the oysters that were counted past 100.
 
@@ -200,7 +201,7 @@ Height_master$Year<- year(Height_master$Date_collected)
 
 View(Height_master)
 # Output to repository
-write_csv(Height_master, path= "Master_files/height_all_data.csv") #row.names=FALSE)
+write_csv(Height_master,  "Master_files/height_all_data.csv") #row.names=FALSE)
 
 
 ```

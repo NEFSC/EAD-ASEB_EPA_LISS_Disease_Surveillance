@@ -6,8 +6,9 @@ output: html_document
 
 ---
 
-Last updated: 8/27/26 M.Kachmar
-- working on cross validating data points for hobo and temperature data 
+Last updated: 8/28/26 M.Kachmar
+- cleaned up code and removed outliers from data
+-created masterfiles 
 
 
 IMPORTANT:  HOBO at fence creek lost in ice/blizzard - end of 01/26 and beginning of 02/26 data lost
@@ -166,7 +167,7 @@ Master_HOBO <- Master_HOBO %>%select(Date_Time,Temperature,Site, Month,Year)
 
 View(Master_HOBO)
 
-write.csv(Master_HOBO, "HOBO_Data/output/HOBO_master_files/Master_HOBO_raw.csv",)
+#write.csv(Master_HOBO, "HOBO_Data/output/HOBO_master_files/Master_HOBO_raw.csv",)
 
 ```
 
@@ -192,7 +193,7 @@ Master_HOBO_cleaned <- Master_HOBO %>%
 
 Master_HOBO_cleaned
 
-write.csv(Master_HOBO_cleaned, "HOBO_Data/output/HOBO_master_files/Master_HOBO_cleaned.csv",)
+#write.csv(Master_HOBO_cleaned, "HOBO_Data/output/HOBO_master_files/Master_HOBO_cleaned.csv",)
 
 
 #reorganize the data to make plots
@@ -298,6 +299,8 @@ dev.off()
 
 ASHC_HOBO <- Master_HOBO_cleaned %>% filter(Site == "ASHC")
 ASHC_HOBO
+
+
 
 write.csv(ASHC_HOBO, "HOBO_Data/output/HOBO_master_files/ASHC_Temperature_HOBO.csv")
 
