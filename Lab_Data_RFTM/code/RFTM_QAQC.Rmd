@@ -739,7 +739,7 @@ df_GOLD
 df_GOLD <- df_GOLD %>% filter(!is.na(rftm_final))
 
 #Weighted prevalence
-st_intensity_GOLD <- summarySE(df_GOLD, measurevar="rftm_final", groupvars=c("month", "year"))
+st_intensity_GOLD <- summarySE(df_GOLD, measurevar="rftm_final", groupvars=c("month", "year", "date_collected"))
 st_intensity_GOLD
 
 #Prevalence
@@ -1092,7 +1092,7 @@ df_intensity_proportions_dot$month_a <-factor(df_intensity_proportions_dot$month
 df_intensity_proportions_dot <- df_intensity_proportions_dot%>% filter(!Count == 43)
 
 p1 <- ggplot(df_intensity_proportions_dot, aes(x=month_a, y=intensity_bin, size = Count))+
-        geom_point(aes(color = Count))+ facet_grid(year~site)+ scale_color_gradient(low = "gold", high = "firebrick1") 
+        geom_point(aes(color = Count))+ facet_grid(year~site)+ scale_color_gradient(low = "lightgreen", high = "firebrick1") 
 p1
 ```
 
