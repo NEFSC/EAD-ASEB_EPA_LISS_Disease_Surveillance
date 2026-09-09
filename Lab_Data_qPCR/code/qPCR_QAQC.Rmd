@@ -5,7 +5,7 @@ date: "2025-07-09"
 output: html_document
 Description: The purpose of this script is to import, clean up, and summarize Triplex qPCR data for the detection of Dermo, MSX, and SSO to determine prevalence and infection intensity for the LISS Oyster Health Project's monthly sampling at Ash Creek and Fence Creek intertidal sites in Connecticut and Goldstar beach and Laurel Hollow subtidal sites on Long Island, NY. Infection intensity will be reported as copies/ng. This data will then be cross validated with RFTM and Histology data. 
 
-Last updated:8/31/26 by Mariah kachmar
+Last updated:9/3/26 by Mariah kachmar
 
 - working on inputting files & a QAQC routine
 
@@ -14,8 +14,8 @@ Last updated:8/31/26 by Mariah kachmar
 #Set working directory
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') 
-knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') 
+knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') 
+#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') 
 #knitr::opts_knit$set(root.dir = 'C:/Users/sarina.dery/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') 
 ```
 
@@ -103,11 +103,12 @@ data_all <- data_all %>%
 data_all
 
 std08_check <- data_all %>%
-  filter(Standard == "10^1") %>%
-  group_by(File_Name, Target_dye) %>%
-  summarise(
-    Std08_Cq = first(Cq),
-    Std08_amplified = !is.na(Std08_Cq) & !is.nan(Std08_Cq),
+  dplyr::filter(Standard == "10^1") %>%
+  dplyr::group_by(File_Name, Target_dye) %>%
+  dplyr::summarise(
+    n_Std08 = length(Cq),
+    n_amplified = sum(!is.na(Cq)),
+    Std08_amplified = any(!is.na(Cq)),
     .groups = "drop"
   )
 
@@ -119,10 +120,20 @@ failed_10_1_files <- std08_check %>%
 failed_10_1_files
 
 std10_2 <- data_all %>%
-  filter(str_detect(Sample_ID,regex("_Std-07$", ignore_case = TRUE))) %>%
-  group_by(File_Name, Target_dye) %>%
-  summarise( Cq_10_2 = first(Cq),.groups = "drop")
+  dplyr::filter(
+    str_detect(
+      Sample_ID,
+      regex("_Std-07$", ignore_case = TRUE)
+    )
+  ) %>%
+  dplyr::group_by(File_Name, Target_dye) %>%
+  dplyr::summarise(
+    Cq_10_2 = first(Cq),
+    .groups = "drop"
+  )
+
 std10_2
+
 
 unknowns_failed_10_1 <- data_all %>%
   # Keep only files where 10^1 failed
@@ -164,20 +175,20 @@ excluded_low_copy
 
 ```{r}
 #Percentage of standard deviations >0.5 for qPCR Cq values
-high_cq_sd <- data_all_clean %>% filter(Cq_st_dev > 0.5) %>% nrow() #creates number of rows that have sd # >0.5
-high_cq_sd_list <- data_all_clean %>% filter(Cq_st_dev > 0.5) #creates list of which samples have high sd
-percentage_highsd <- (high_cq_sd/nrow(data_all_clean)) * 100 # determining percentage of samples have high standard deviation
+high_cq_sd <- data_all %>% filter(Cq_st_dev > 0.5) %>% nrow() #creates number of rows that have sd # >0.5
+high_cq_sd_list <- data_all %>% filter(Cq_st_dev > 0.5) #creates list of which samples have high sd
+percentage_highsd <- (high_cq_sd/nrow(data_all)) * 100 # determining percentage of samples have high standard deviation
 percentage_highsd #outputs percentage
 
 
 #Percentage of standard deviations >0.5 for qPCR technical replicate values
-high_sd <- data_all_clean %>% filter(St_dev > 0.5) %>% nrow() #creates number of rows that have sd # >0.5
-high_sd_list <- data_all_clean %>% filter(St_dev > 0.5) #creates list of which samples have high sd
-percentage_highsd <- (high_sd/nrow(data_all_clean)) * 100 # determining percentage of samples have high standard deviation
+high_sd <- data_all %>% filter(St_dev > 0.5) %>% nrow() #creates number of rows that have sd # >0.5
+high_sd_list <- data_all %>% filter(St_dev > 0.5) #creates list of which samples have high sd
+percentage_highsd <- (high_sd/nrow(data_all)) * 100 # determining percentage of samples have high standard deviation
 percentage_highsd #outputs percentage
 
 #Identify which samples have a standard deviation > 0.5 for qPCR technical replicate values
-high_sd_list <- data_all_clean %>% filter(St_dev >0.05) %>% arrange(desc(St_dev))
+high_sd_list <- data_all %>% filter(St_dev >0.05) %>% arrange(desc(St_dev))
 high_sd_list
 
 ```
@@ -433,6 +444,28 @@ rftm_v_qpcr$results = ifelse(rftm_v_qpcr$mackin_score < rftm_v_qpcr$rftm_final, 
   
 rftm_v_qpcr
 
+rftm_v_qpcr %>%
+  dplyr::filter(
+    !is.na(rftm_final),
+    !is.na(mackin_score)
+  ) %>%
+  dplyr::summarise(
+    n = length(rftm_final),
+    qPCR_positive_RFTM_zero = sum(
+      rftm_final == 0 & mackin_score > 0
+    ),
+    percent = sum(
+      rftm_final == 0 & mackin_score > 0
+    ) / length(rftm_final) * 100
+  )
+
+rftm_v_qpcr %>%
+  dplyr::filter(
+    rftm_final == 0,
+    mackin_score > 0
+  ) %>%
+  dplyr::count(mackin_score, name = "Frequency")
+
 FALSE_qpcr<- rftm_v_qpcr %>% filter( results == 'FALSE') %>%
   mutate(
     rerun_assay = NA_character_,
@@ -444,6 +477,87 @@ FALSE_qpcr<- rftm_v_qpcr %>% filter( results == 'FALSE') %>%
 FALSE_qpcr
 
 write.csv(FALSE_qpcr, "Lab_Data_qPCR\\outputs/qPCR_sample_rerun_list.csv", row.names=FALSE)
+
+#qPCR-derived Mackin scores were generally higher than RFTM scores. Among oysters classified as uninfected by RFTM, 17.0% were qPCR-positive, with 69.7% of these qPCR-positive samples assigned low Mackin scores (0.5–1). This pattern may reflect greater detection of low-level infections by qPCR, although differences in tissue analyzed between methods may also contribute to the observed discrepancy.
+```
+#let's see if there is any statistical differences between the methods (rftm and qPCR)
+```{r}
+
+#non-parametric wilcoxon sum-rank test 
+# Test for significant differences between paired diagnostic methods
+wilcox_result <- wilcox.test(rftm_v_qpcr$rftm_final, 
+                             rftm_v_qpcr$mackin_score, 
+                             paired = TRUE)
+
+print(wilcox_result)
+
+
+#Regression using mixed effects model
+library(lme4)
+library(tidyr)
+library(dplyr)
+
+#Reshape data to long format so each sample has two rows (one per method)
+long_data <- rftm_v_qpcr %>%
+  select(Sample_ID, rftm_final, mackin_score) %>% # Replace sample_id with your actual unique identifier column
+  pivot_longer(cols = c(rftm_final, mackin_score), 
+               names_to = "Method", 
+               values_to = "Score")
+# Install and load the ordinal package if you haven't already
+# install.packages("ordinal")
+library(ordinal)
+
+# 1. Convert your Score column into a strictly ordered factor
+long_data$Score <- factor(long_data$Score, 
+                          levels = c(0, 0.5, 1, 2, 3, 4, 5), 
+                          ordered = TRUE)
+
+# 2. Run a Cumulative Link Mixed Model with Sample_ID as a random effect
+ordinal_paired_model <- clmm(Score ~ Method + (1 | Sample_ID), 
+                             data = long_data)
+
+# 3. View the stable summary metrics
+summary(ordinal_paired_model)
+
+rftm_v_qpcr %>%
+  summarise(
+    median_RFTM = median(rftm_final, na.rm = TRUE),
+    median_Mackin = median(mackin_score, na.rm = TRUE),
+    median_difference = median(rftm_final - mackin_score, na.rm = TRUE),
+    mean_difference = mean(rftm_final - mackin_score, na.rm = TRUE)
+  )
+
+rftm_v_qpcr %>%
+  mutate(difference = rftm_final - mackin_score) %>%
+  summarise(
+    n = sum(!is.na(difference)),
+    median_difference = median(difference, na.rm = TRUE),
+    mean_difference = mean(difference, na.rm = TRUE),
+    min_difference = min(difference, na.rm = TRUE),
+    max_difference = max(difference, na.rm = TRUE)
+  )
+
+agreement <- rftm_v_qpcr %>%
+  dplyr::filter(
+    !is.na(rftm_final),
+    !is.na(mackin_score)
+  ) %>%
+  dplyr::mutate(
+    difference = rftm_final - mackin_score,
+    exact_agreement = rftm_final == mackin_score,
+    within_1 = abs(difference) <= 1
+  ) %>%
+  dplyr::summarise(
+    n = length(rftm_final),
+    exact_agreement_pct = mean(exact_agreement) * 100,
+    within_1_pct = mean(within_1) * 100
+  )
+
+agreement
+
+#RFTM tends to give lower scores than qPCR (significant difference), however, overall we are getting similar results. 33.5% had exactly the same score and 79.5% were within 1 disease intensity category and typically the difference was only 0.5 with lower RFTM. 
+
+#"RFTM and qPCR-derived Mackin disease-intensity scores differed significantly (paired Wilcoxon signed-rank test, V = 3958, p < 0.001). RFTM scores were generally lower than qPCR-derived Mackin scores, with a median paired difference of −0.5 score categories (RFTM − Mackin). Exact agreement between methods occurred for 33.5% of samples, while 79.5% of samples differed by no more than one score category."
 ```
 
 #Lets compare the histology scores to the qPCR. qPCR is more sensitive so we may see slightly inflated scores but I think it is good to check in terms of postive and negative results. What I am looking for is if qPCR is lower than RFTM or is negative and histopathology is positive. 
@@ -474,4 +588,38 @@ FALSE_histo_qpcr<- histo_v_qpcr %>% filter( results == 'FALSE')%>% mutate(
 FALSE_histo_qpcr
 
 write.csv(FALSE_histo_qpcr, "Lab_Data_qPCR\\outputs/qPCR_sample_rerun_list_MSX.csv", row.names=FALSE)
+```
+#let's see if there is any statistical differences between the methods
+```{r}
+
+#non-parametric wilcoxon sum-rank test 
+# Test for significant differences between paired diagnostic methods
+wilcox_result <- wilcox.test(histo_v_qpcr$haplo, 
+                             histo_v_qpcr$mackin_score, 
+                             paired = TRUE)
+
+print(wilcox_result)
+
+
+#Regression using mixed effects model
+library(lme4)
+library(tidyr)
+library(dplyr)
+
+# 1. Reshape data to long format so each sample has two rows (one per method)
+long_data <- histo_v_qpcr %>%
+  select(Sample_ID, haplo, mackin_score) %>% # Replace sample_id with your actual unique identifier column
+  pivot_longer(cols = c(haplo, mackin_score), 
+               names_to = "Method", 
+               values_to = "Score")
+
+# 2. Fit a mixed model treating sample_id as a random effect to handle pairing
+method_model <- glmer(Score ~ Method + (1 | Sample_ID), 
+                      data = long_data, 
+                      family = poisson(link = "log")) # Use poisson or ordinal/clmm if Score is strict factor
+
+summary(method_model)
+
+#qPCR is reading significantly higher intensity scores than histology
+
 ```
