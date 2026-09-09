@@ -527,7 +527,7 @@ dev.off()
 ```{r}
 
 df_quadrat_FENC <-density%>%
-  dplyr::filter(Site == "FENC")
+  filter(Site == "FENC")
 df_quadrat_FENC
 
 

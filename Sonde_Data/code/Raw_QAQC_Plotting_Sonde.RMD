@@ -5,8 +5,7 @@ date: "2023-10-03"
 output: html_document
 ---
 
-Last updated 08/14/2026 by M.Kachmar
-did some reorganizing and file clean ups
+Last updated 09/9/2026 by M.Kachmar
 
 
 IMPORTANT: Fence Creek sonde (SN 1005261) was lost in a blizzard/to ice - there is no data files for 02/2026 or 03/2026.
@@ -22,9 +21,9 @@ knitr::opts_chunk$set(echo = TRUE,
                       message = FALSE, 
                       cache = TRUE)
 
-#knitr::opts_knit$set(root.dir = "C:/Users/samjg/Documents/Github_repositories/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
-knitr::opts_knit$set(root.dir = "C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
-#knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
+
+#knitr::opts_knit$set(root.dir = "C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
+knitr::opts_knit$set(root.dir = "C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
 #knitr::opts_knit$set(root.dir = "C:/Users/sarina.dery/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance/Sonde_Data")
 
 ```
@@ -251,7 +250,7 @@ dev.off()
 #Creating site specific data sheets for temperature that are not averaged to do QAQC and compare to HOBO data
 ```{r}
 
-Temperature_sonde_all<- Master_table_LONG %>% filter(variable == "Temperature")
+Temperature_sonde_all<- Master_table_cleaned %>% filter(variable == "Temperature")
 
 FENC_Temp_Sonde <- Temperature_sonde_all %>% filter(Site == "FENC")
 ASHC_Temp_Sonde <- Temperature_sonde_all %>% filter(Site == "ASHC")
@@ -278,8 +277,12 @@ Master_table_LONG_means <- Master_table_cleaned %>%
                                                      "Total.Dissolved.Solids" ,"RDO.Concentration", "RDO.Saturation","Oxygen.Partial.Pressure", "Chlorophyll.a.Fluorescence", "pH", "pH.mV", 
                                                      "Temperature", "Depth", "Pressure")) %>% 
                       dplyr::group_by(Date.Time, Site, variable) %>% 
-                      summarise_each(funs(mean, sd, se=sd(.)/sqrt(n())), value) %>% 
-                      dplyr::mutate(Date.Time = ymd_h(Date.Time)) # reformat back to date 
+                      dplyr::summarise(mean = mean(value, na.rm = TRUE),
+    sd = sd(value, na.rm = TRUE),
+    se = sd(value, na.rm = TRUE) / sqrt(sum(!is.na(value))),
+    .groups = "drop")%>%
+                      #summarise_each(funs(mean, sd, se=sd(.)/sqrt(n())), value)
+                      dplyr::mutate(Date.Time = lubridate::ymd_h(Date.Time)) # reformat back to date 
 
 
 
@@ -1670,8 +1673,8 @@ CT_DO_FENC_all
 FENC_pH          <- Master_table_LONG_means %>% dplyr::filter(variable == 'pH' & Site %in% c('FENC'))
 FENC_Salinity   <- Master_table_LONG_means %>% dplyr::filter(variable == 'Salinity' & Site %in% c('FENC'))
 FENC_Temperature <- Master_table_LONG_means %>% dplyr::filter(variable == 'Temperature' & Site %in% c('FENC'))
-FENC_DO          <- Master_table_LONG_means %>% dplyr::filter(variable == 'RDO Concentration' & Site %in% c('FENC'))
-FENC_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == 'Chlorophyll-a Fluorescence' & Site %in% c('FENC'))
+FENC_DO          <- Master_table_LONG_means %>% dplyr::filter(variable == 'RDO.Concentration' & Site %in% c('FENC'))
+FENC_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == 'Chlorophyll.a.Fluorescence' & Site %in% c('FENC'))
 
 ### Update each graph for the time frame desired as well as the name of the file to coincide with the appropriate year displayed
 
