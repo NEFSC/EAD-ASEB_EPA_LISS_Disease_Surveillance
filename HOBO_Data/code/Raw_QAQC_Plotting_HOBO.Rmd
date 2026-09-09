@@ -121,8 +121,8 @@ for (m in 1:nrow(file.names.hobo)) {
   
 
   # Keep only the columns we need
-  raw_df <- raw %>%select( all_of(date_col), all_of(temp_col)
-    ) %>% rename(  Date_Time = all_of(date_col),  Temperature = all_of(temp_col) )
+  raw_df <- raw %>%dplyr::select( all_of(date_col), all_of(temp_col)
+    ) %>% dplyr::rename(  Date_Time = all_of(date_col),  Temperature = all_of(temp_col) )
   
   # FORCE Date_Time to character FIRST
   raw_df$Date_Time <- as.character( raw_df$Date_Time)
@@ -256,9 +256,9 @@ ggplot(FENC_HOBO, aes(Date_Time, Temperature)) + geom_point()
 # Hourly Means 
 
 FENC_means <- FENC_HOBO %>%
-  mutate(Hour = floor_date(Date_Time, unit = "hour")) %>%
-  group_by( Site,Hour) %>%
-  summarise(mean_Temperature = mean( Temperature,na.rm = TRUE),sd_Temperature = sd( Temperature, na.rm = TRUE),
+  dplyr::mutate(Hour = floor_date(Date_Time, unit = "hour")) %>%
+  dplyr::group_by( Site,Hour) %>%
+  dplyr::summarise(mean_Temperature = mean( Temperature,na.rm = TRUE),sd_Temperature = sd( Temperature, na.rm = TRUE),
     n = sum(!is.na(Temperature)),
     .groups = "drop")
 

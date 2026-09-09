@@ -247,20 +247,6 @@ dev.off()
 ```
 
 
-#Creating site specific data sheets for temperature that are not averaged to do QAQC and compare to HOBO data
-```{r}
-
-Temperature_sonde_all<- Master_table_cleaned %>% filter(variable == "Temperature")
-
-FENC_Temp_Sonde <- Temperature_sonde_all %>% filter(Site == "FENC")
-ASHC_Temp_Sonde <- Temperature_sonde_all %>% filter(Site == "ASHC")
-GOLD_Temp_Sonde <- Temperature_sonde_all %>% filter(Site == "GOLD")
-
-write.csv(FENC_Temp_Sonde, "output/Sonde Master Files/FENC_Temperature_Sonde.csv")
-write.csv(ASHC_Temp_Sonde, "output/Sonde Master Files/ASHC_Temperature_Sonde.csv")
-write.csv(GOLD_Temp_Sonde, "output/Sonde Master Files/GOLD_Temperature_Sonde.csv")
-
-```
 
 * As suspected this visual is horrible.. we have TONS of data, every 10 seconds to be exact! 
 
