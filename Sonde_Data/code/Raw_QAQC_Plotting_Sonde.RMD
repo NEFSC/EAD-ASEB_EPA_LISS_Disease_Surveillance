@@ -248,6 +248,7 @@ dev.off()
 
 
 
+
 * As suspected this visual is horrible.. we have TONS of data, every 10 seconds to be exact! 
 
 * if we want to view trends, we need to narrow down 
