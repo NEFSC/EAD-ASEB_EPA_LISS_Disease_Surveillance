@@ -286,43 +286,121 @@ write.csv(CT_means, "output/Sonde Master Files/Sonde_hourly_means_CT.csv")
 
 
 
-for(i in 1:nrow(vars)) {
+#for(i in 1:nrow(vars)) {
   
   # filter table for each variable
-  Table_by_var <- Master_table_LONG_means %>% 
-                    dplyr::filter(variable %in% vars[i,])
+#  Table_by_var <- Master_table_LONG_means %>% 
+ #                   dplyr::filter(variable %in% vars[i,])
   
   # plot each
-  plot <- Table_by_var %>% 
-              ggplot(aes(x=Date.Time, 
-                       y=mean, # the mean values
-                       group=Site)) + # call the new mean
-              geom_line(aes(group = factor(Site), # lines for site
-                                linetype = Site), 
-                            size = 0.2, 
-                            position=position_dodge(.4)) + 
-              # scale_linetype_manual(values=c("solid", "dashed")) +
-              geom_point(aes(shape=Site, 
-                             fill=Site)) + 
-              scale_shape_manual(values=c(21, 22, 24, 25)) + 
-              scale_fill_manual(values=c("#CC79A7", "#D55E00", "#009E73", "#0072B2")) + 
-              geom_errorbar(aes(ymin=(mean)-(se), 
-                                ymax=(mean)+(se)), 
-                            width=0,position=position_dodge(.4)) +
-              facet_grid(rows = vars(Site), scales = "free_y") +
-              ggtitle(vars[i,]) +
-              theme_bw()
+#  plot <- Table_by_var %>% 
+#              ggplot(aes(x=Date.Time, 
+ #                      y=mean, # the mean values
+  #                     group=Site)) + # call the new mean
+#              geom_line(aes(group = factor(Site), # lines for site
+#                                linetype = Site), 
+ #                           size = 0.2, 
+  #                          position=position_dodge(.4)) + 
+   #           # scale_linetype_manual(values=c("solid", "dashed")) +
+    #          geom_point(aes(shape=Site, 
+     #                        fill=Site)) + 
+      #        scale_shape_manual(values=c(21, 22, 24, 25)) + 
+       #       scale_fill_manual(values=c("#CC79A7", "#D55E00", "#009E73", "#0072B2")) + 
+        #      geom_errorbar(aes(ymin=(mean)-(se), 
+         #                       ymax=(mean)+(se)), 
+          #                  width=0,position=position_dodge(.4)) +
+           #   facet_grid(rows = vars(Site), scales = "free_y") +
+            #  ggtitle(vars[i,]) +
+             # theme_bw()
   
   # print plots and name them as the var    
-  pdf(file = paste0("output/raw_plots/", gsub(" ", "_", vars[i,]), ".pdf"), height = 12, width =15)
-  print(plot) 
-  dev.off()
+#  pdf(file = paste0("output/raw_plots/", gsub(" ", "_", vars[i,]), ".pdf"), height = 12, width =15)
+#  print(plot) 
+#  dev.off()
 
-  } # close the loop
-
+#  } # close the loop
 
 
   
+
+for(i in 1:nrow(vars)) {
+  
+  # variable name from vars
+current_var <- gsub("[ -]", ".", vars$dat[i])
+
+  # filter table for each variable
+  Table_by_var <- Master_table_LONG_means %>% 
+    dplyr::filter(as.character(variable) == current_var)
+  
+  print(current_var)
+  print(nrow(Table_by_var))
+  
+  # plot only if data exist
+  if(nrow(Table_by_var) == 0) {
+    message("No data found for: ", current_var)
+    next
+  }
+  
+  plot <- Table_by_var %>% 
+    ggplot(aes(
+      x = Date.Time, 
+      y = mean,
+      group = Site
+    )) +
+    geom_line(
+      aes(
+        group = factor(Site),
+        linetype = Site
+      ), 
+      size = 0.2, 
+      position = position_dodge(.4)
+    ) +
+    geom_point(
+      aes(
+        shape = Site, 
+        fill = Site
+      )
+    ) +
+    scale_shape_manual(
+      values = c(21, 22, 24, 25)
+    ) +
+    scale_fill_manual(
+      values = c(
+        "#CC79A7",
+        "#D55E00",
+        "#009E73",
+        "#0072B2"
+      )
+    ) +
+    geom_errorbar(
+      aes(
+        ymin = mean - se, 
+        ymax = mean + se
+      ), 
+      width = 0,
+      position = position_dodge(.4)
+    ) +
+    facet_grid(
+      rows = vars(Site), 
+      scales = "free_y"
+    ) +
+    ggtitle(vars$dat[i]) +
+    theme_bw()
+  
+  pdf(
+    file = paste0(
+      "output/raw_plots/",
+      gsub(" ", "_", vars$dat[i]),
+      ".pdf"
+    ),
+    height = 12, 
+    width = 15
+  )
+  
+  print(plot) 
+  dev.off()
+  
+}
 ```
 
 
