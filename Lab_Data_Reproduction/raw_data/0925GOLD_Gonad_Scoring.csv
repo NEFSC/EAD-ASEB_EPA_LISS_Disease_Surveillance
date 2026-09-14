@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0925GOLD_01,09-23-2025,GOLD,1,05-01-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0925GOLD_02,09-23-2025,GOLD,2,05-01-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0925GOLD_03,09-23-2025,GOLD,3,05-01-2026,Sarina Dery,Male,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,Male,7_Reabsorbing,,Male,7_Reabsorbing
+0925GOLD_04,09-23-2025,GOLD,4,05-01-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,ND,7_Reabsorbing,female?-SD,ND,7_Reabsorbing
+0925GOLD_05,09-23-2025,GOLD,5,05-01-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0925GOLD_06,09-23-2025,GOLD,6,05-01-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0925GOLD_07,09-23-2025,GOLD,7,05-01-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0925GOLD_08,09-23-2025,GOLD,8,05-01-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0925GOLD_09,09-23-2025,GOLD,9,05-01-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,ND,7_Reabsorbing,high msx infection,ND,7_Reabsorbing
+0925GOLD_10,09-23-2025,GOLD,10,05-01-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,ND,7_Reabsorbing,high dermo infection,ND,7_Reabsorbing
+0925GOLD_11,09-23-2025,GOLD,11,05-01-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+0925GOLD_12,09-23-2025,GOLD,12,05-01-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,Female,6_Post_Spawning,,Female,7_Reabsorbing
+0925GOLD_13,09-23-2025,GOLD,13,05-01-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0925GOLD_14,09-23-2025,GOLD,14,05-01-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0925GOLD_15,09-23-2025,GOLD,15,05-01-2026,Sarina Dery,Male,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,Male,6_Post_Spawning,or post spawn?SD,Male,6_Post_Spawning
+0925GOLD_16,09-23-2025,GOLD,16,05-01-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,Female,6_Post_Spawning,,Female,7_Reabsorbing
+0925GOLD_17,09-23-2025,GOLD,17,05-01-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0925GOLD_18,09-23-2025,GOLD,18,05-01-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+0925GOLD_19,09-23-2025,GOLD,19,05-01-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,ND,7_Reabsorbing,male?-SD,ND,7_Reabsorbing
+0925GOLD_20,09-23-2025,GOLD,20,05-01-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0925GOLD_21,09-23-2025,GOLD,21,05-01-2026,Sarina Dery,ND,0_Castrated,TRUE,07-30-2026,Kyra Lenderman,ND,0_Castrated,gonad parasite present- SD,ND,0_Castrated
+0925GOLD_22,09-23-2025,GOLD,22,05-01-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0925GOLD_23,09-23-2025,GOLD,23,05-01-2026,Sarina Dery,Male,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,Male,6_Post_Spawning,,Male,7_Reabsorbing
+0925GOLD_24,09-23-2025,GOLD,24,05-01-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+0925GOLD_25,09-23-2025,GOLD,25,05-01-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0925GOLD_26,09-23-2025,GOLD,26,05-01-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0925GOLD_27,09-23-2025,GOLD,27,05-01-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0925GOLD_28,09-23-2025,GOLD,28,05-01-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0925GOLD_29,09-23-2025,GOLD,29,05-01-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,Hermaphrodite,7_Reabsorbing,,Hermaphrodite,7_Reabsorbing
+0925GOLD_30,09-23-2025,GOLD,30,05-01-2026,Sarina Dery,Male,7_Reabsorbing,TRUE,07-30-2026,Kyra Lenderman,Male,6_Post_Spawning,,Male,7_Reabsorbing

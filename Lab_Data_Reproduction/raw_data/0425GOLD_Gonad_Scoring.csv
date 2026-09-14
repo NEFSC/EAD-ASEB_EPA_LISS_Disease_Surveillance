@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0425GOLD_01,04-28-2025,GOLD,1,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,06-11-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0425GOLD_02,04-28-2025,GOLD,2,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,06-11-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0425GOLD_03,04-28-2025,GOLD,3,01-27-2026,Sarina Dery,Hermaphrodite,3_Early_Active,TRUE,06-11-2026,Kyra Lenderman,Hermaphrodite,3_Early_Active,,Hermaphrodite,3_Early_Active
+0425GOLD_04,04-28-2025,GOLD,4,01-27-2026,Sarina Dery,Male,3_Early_Active,TRUE,06-11-2026,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0425GOLD_05,04-28-2025,GOLD,5,01-27-2026,Sarina Dery,Male,3_Early_Active,TRUE,06-11-2026,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0425GOLD_06,04-28-2025,GOLD,6,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,06-11-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0425GOLD_07,04-28-2025,GOLD,7,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,06-11-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0425GOLD_08,04-28-2025,GOLD,8,01-27-2026,Sarina Dery,Male,3_Early_Active,TRUE,06-11-2026,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0425GOLD_09,04-28-2025,GOLD,9,01-27-2026,Sarina Dery,Male,3_Early_Active,TRUE,06-11-2026,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0425GOLD_10,04-28-2025,GOLD,10,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,06-11-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0425GOLD_11,04-28-2025,GOLD,11,01-27-2026,Sarina Dery,Male,3_Early_Active,TRUE,06-11-2026,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0425GOLD_12,04-28-2025,GOLD,12,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,06-11-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0425GOLD_13,04-28-2025,GOLD,13,01-27-2026,Sarina Dery,Female,2_Developing,TRUE,06-11-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0425GOLD_14,04-28-2025,GOLD,14,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,06-11-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0425GOLD_15,04-28-2025,GOLD,15,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,06-11-2026,Kyra Lenderman,Female,3_Early_Active,not a great cut - SD,Female,3_Early_Active
+0425GOLD_16,04-28-2025,GOLD,16,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,06-11-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0425GOLD_17,04-28-2025,GOLD,17,01-27-2026,Sarina Dery,Male,3_Early_Active,TRUE,06-11-2026,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0425GOLD_18,04-28-2025,GOLD,18,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,06-11-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0425GOLD_19,04-28-2025,GOLD,19,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,06-11-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0425GOLD_20,04-28-2025,GOLD,20,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,06-11-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0425GOLD_21,04-28-2025,GOLD,21,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,06-11-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0425GOLD_22,04-28-2025,GOLD,22,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,08-31-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0425GOLD_23,04-28-2025,GOLD,23,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,08-31-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0425GOLD_24,04-28-2025,GOLD,24,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,08-31-2026,Kyra Lenderman,Female,3_Early_Active,some reabsorbtion present?-SD,Female,3_Early_Active
+0425GOLD_25,04-28-2025,GOLD,25,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,08-31-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0425GOLD_26,04-28-2025,GOLD,26,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,08-31-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0425GOLD_27,04-28-2025,GOLD,27,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,08-31-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0425GOLD_28,04-28-2025,GOLD,28,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,08-31-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0425GOLD_29,04-28-2025,GOLD,29,01-27-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,08-31-2026,Kyra Lenderman,ND,2_Developing,,Female,3_Early_Active
+0425GOLD_30,04-28-2025,GOLD,30,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,08-31-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active

@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0525ASHC_01,05-01-2025,ASHC,1,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,06-25-2026,Kyra Lenderman,Female,3_Early_Active,possible diseased?-SD,Female,3_Early_Active
+0525ASHC_02,05-01-2025,ASHC,2,01-27-2026,Sarina Dery,Male,3_Early_Active,TRUE,06-25-2026,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0525ASHC_03,05-01-2025,ASHC,3,01-27-2026,Sarina Dery,Male,3_Early_Active,TRUE,06-25-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0525ASHC_04,05-01-2025,ASHC,4,01-27-2026,Sarina Dery,Male,2_Developing,TRUE,06-25-2026,Kyra Lenderman,ND,2_Developing,or reabsorbing? -SD,ND,2_Developing
+0525ASHC_05,05-01-2025,ASHC,5,01-27-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,06-25-2026,Kyra Lenderman,ND,2_Developing,,ND,7_Reabsorbing
+0525ASHC_06,05-01-2025,ASHC,6,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,06-25-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0525ASHC_07,05-01-2025,ASHC,7,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,06-25-2026,Kyra Lenderman,Female,3_Early_Active,significant hemocytosis present - SD,Female,3_Early_Active
+0525ASHC_08,05-01-2025,ASHC,8,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,06-25-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0525ASHC_09,05-01-2025,ASHC,9,01-27-2026,Sarina Dery,Female,2_Developing,TRUE,06-25-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0525ASHC_10,05-01-2025,ASHC,10,01-27-2026,Sarina Dery,Male,3_Early_Active,TRUE,06-25-2026,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0525ASHC_11,05-01-2025,ASHC,11,01-27-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,06-25-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0525ASHC_12,05-01-2025,ASHC,12,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,06-25-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0525ASHC_13,05-01-2025,ASHC,13,01-27-2026,Sarina Dery,Male,3_Early_Active,TRUE,06-25-2026,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0525ASHC_14,05-01-2025,ASHC,14,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,06-25-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0525ASHC_15,05-01-2025,ASHC,15,01-27-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,06-25-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0525ASHC_16,05-01-2025,ASHC,16,01-27-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,06-25-2026,Kyra Lenderman,ND,2_Developing,,Female,3_Early_Active
+0525ASHC_17,05-01-2025,ASHC,17,01-27-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,06-25-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0525ASHC_18,05-01-2025,ASHC,18,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,06-25-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0525ASHC_19,05-01-2025,ASHC,19,01-27-2026,Sarina Dery,Female,2_Developing,TRUE,06-25-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0525ASHC_20,05-01-2025,ASHC,20,01-27-2026,Sarina Dery,Male,3_Early_Active,TRUE,06-25-2026,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0525ASHC_21,05-01-2025,ASHC,21,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,06-25-2026,Kyra Lenderman,Female,3_Early_Active,not a great cut - SD,Female,3_Early_Active
+0525ASHC_22,05-01-2025,ASHC,22,01-27-2026,Sarina Dery,Female,2_Developing,TRUE,06-25-2026,Kyra Lenderman,ND,2_Developing,reabsorbing?-SD,Female,3_Early_Active
+0525ASHC_23,05-01-2025,ASHC,23,01-27-2026,Sarina Dery,Male,3_Early_Active,TRUE,06-25-2026,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0525ASHC_24,05-01-2025,ASHC,24,01-27-2026,Sarina Dery,Male,3_Early_Active,TRUE,06-25-2026,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0525ASHC_25,05-01-2025,ASHC,25,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,06-25-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0525ASHC_26,05-01-2025,ASHC,26,01-27-2026,Sarina Dery,ND,2_Developing,TRUE,06-25-2026,Kyra Lenderman,ND,2_Developing,reabsorbing?-SD,ND,2_Developing
+0525ASHC_27,05-01-2025,ASHC,27,01-27-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,06-25-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0525ASHC_28,05-01-2025,ASHC,28,01-27-2026,Sarina Dery,Female,2_Developing,TRUE,06-25-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0525ASHC_29,05-01-2025,ASHC,29,01-27-2026,Sarina Dery,Male,7_Reabsorbing,TRUE,06-25-2026,Kyra Lenderman,ND,2_Developing,possibly developing and fighting disease? -SD,ND,2_Developing
+0525ASHC_30,05-01-2025,ASHC,30,01-27-2026,Sarina Dery,ND,2_Developing,TRUE,06-25-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing

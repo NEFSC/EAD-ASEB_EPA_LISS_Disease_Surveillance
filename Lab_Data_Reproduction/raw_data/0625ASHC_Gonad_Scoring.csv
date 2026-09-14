@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0625ASHC_01,06-16-2025,ASHC,1,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-06-2026,Sarina Dery,Female,4_Late_Mature,,Female,4_Late_Mature
+0625ASHC_02,06-16-2025,ASHC,2,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-06-2026,Sarina Dery,Female,4_Late_Mature,,Female,4_Late_Mature
+0625ASHC_03,06-16-2025,ASHC,3,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-06-2026,Sarina Dery,Female,4_Late_Mature,,Female,4_Late_Mature
+0625ASHC_04,06-16-2025,ASHC,4,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-06-2026,Sarina Dery,Female,4_Late_Mature,,Female,4_Late_Mature
+0625ASHC_05,06-16-2025,ASHC,5,11-08-2025,Kyra Lenderman,Male,3_Early_Active,TRUE,02-06-2026,Sarina Dery,Male,3_Early_Active,Less mature sperm - no tails,Male,3_Early_Active
+0625ASHC_06,06-16-2025,ASHC,6,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-06-2026,Sarina Dery,Female,4_Late_Mature,,Female,4_Late_Mature
+0625ASHC_07,06-16-2025,ASHC,7,11-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,02-06-2026,Sarina Dery,Female,4_Late_Mature,Some mature spots,Female,4_Late_Mature
+0625ASHC_08,06-16-2025,ASHC,8,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-06-2026,Sarina Dery,Female,4_Late_Mature,Coverslip is not fully sealed,Female,4_Late_Mature
+0625ASHC_09,06-16-2025,ASHC,9,11-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,02-06-2026,Sarina Dery,Female,4_Late_Mature,significant hemocytosis - SD,Female,4_Late_Mature
+0625ASHC_10,06-16-2025,ASHC,10,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-06-2026,Sarina Dery,Female,4_Late_Mature,possibly spawning - SD,Female,4_Late_Mature
+0625ASHC_11,06-16-2025,ASHC,11,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-06-2026,Sarina Dery,Female,4_Late_Mature,Some early active spots,Female,4_Late_Mature
+0625ASHC_12,06-16-2025,ASHC,12,11-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,02-06-2026,Sarina Dery,Female,3_Early_Active,,Female,3_Early_Active
+0625ASHC_13,06-16-2025,ASHC,13,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-06-2026,Sarina Dery,Female,4_Late_Mature,,Female,4_Late_Mature
+0625ASHC_14,06-16-2025,ASHC,14,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-06-2026,Sarina Dery,Female,4_Late_Mature,,Female,4_Late_Mature
+0625ASHC_15,06-16-2025,ASHC,15,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-06-2026,Sarina Dery,Female,4_Late_Mature,Some early active spots,Female,4_Late_Mature
+0625ASHC_16,06-16-2025,ASHC,16,11-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,02-06-2026,Sarina Dery,Female,4_Late_Mature,Some mature spots,Female,4_Late_Mature
+0625ASHC_17,06-16-2025,ASHC,17,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-06-2026,Sarina Dery,Female,4_Late_Mature,,Female,4_Late_Mature
+0625ASHC_18,06-16-2025,ASHC,18,11-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,02-06-2026,Sarina Dery,Female,3_Early_Active,More immature eggs,Female,3_Early_Active
+0625ASHC_19,06-16-2025,ASHC,19,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-06-2026,Sarina Dery,Female,4_Late_Mature,,Female,4_Late_Mature
+0625ASHC_20,06-16-2025,ASHC,20,11-08-2025,Kyra Lenderman,Male,3_Early_Active,TRUE,02-06-2026,Sarina Dery,Male,3_Early_Active,Not many tails,Male,3_Early_Active
+0625ASHC_21,06-16-2025,ASHC,21,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-06-2026,Sarina Dery,Female,4_Late_Mature,Some early active spots,Female,4_Late_Mature
+0625ASHC_22,06-16-2025,ASHC,22,11-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,02-06-2026,Sarina Dery,Female,4_Late_Mature,,Female,4_Late_Mature
+0625ASHC_23,06-16-2025,ASHC,23,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-06-2026,Sarina Dery,Female,4_Late_Mature,Some early active spots,Female,4_Late_Mature
+0625ASHC_24,06-16-2025,ASHC,24,11-08-2025,Kyra Lenderman,Male,4_Late_Mature,TRUE,02-06-2026,Sarina Dery,Male,4_Late_Mature,,Male,4_Late_Mature
+0625ASHC_25,06-16-2025,ASHC,25,11-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,02-06-2026,Sarina Dery,Female,4_Late_Mature,,Female,4_Late_Mature
+0625ASHC_26,06-16-2025,ASHC,26,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-06-2026,Sarina Dery,Female,4_Late_Mature,Bad cut,Female,4_Late_Mature
+0625ASHC_27,06-16-2025,ASHC,27,11-08-2025,Kyra Lenderman,Male,4_Late_Mature,TRUE,02-06-2026,Sarina Dery,Male,4_Late_Mature,Could be early active,Male,4_Late_Mature
+0625ASHC_28,06-16-2025,ASHC,28,11-08-2025,Kyra Lenderman,Male,3_Early_Active,TRUE,02-06-2026,Sarina Dery,Male,4_Late_Mature,,Male,3_Early_Active
+0625ASHC_29,06-16-2025,ASHC,29,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-06-2026,Sarina Dery,Female,4_Late_Mature,,Female,4_Late_Mature
+0625ASHC_30,06-16-2025,ASHC,30,11-08-2025,Kyra Lenderman,Female,4_Late_Mature,TRUE,02-06-2026,Sarina Dery,Female,4_Late_Mature,,Female,4_Late_Mature

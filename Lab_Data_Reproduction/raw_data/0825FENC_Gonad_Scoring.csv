@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0825FENC_01,08-14-2025,FENC,1,02-06-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-07-2026,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0825FENC_02,08-14-2025,FENC,2,02-06-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-07-2026,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+0825FENC_03,08-14-2025,FENC,3,02-06-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-07-2026,Kyra Lenderman,Female,6_Post_Spawning,,Female,7_Reabsorbing
+0825FENC_04,08-14-2025,FENC,4,02-06-2026,Sarina Dery,Female,6_Post_Spawning,TRUE,07-07-2026,Kyra Lenderman,Female,6_Post_Spawning,reabsorbing? -SD,Female,6_Post_Spawning
+0825FENC_05,08-14-2025,FENC,5,02-06-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-07-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0825FENC_06,08-14-2025,FENC,6,02-06-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-07-2026,Kyra Lenderman,ND,7_Reabsorbing,perkinsus present,ND,7_Reabsorbing
+0825FENC_07,08-14-2025,FENC,7,02-06-2026,Sarina Dery,Female,6_Post_Spawning,TRUE,07-07-2026,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0825FENC_08,08-14-2025,FENC,8,02-06-2026,Sarina Dery,Female,6_Post_Spawning,TRUE,07-07-2026,Kyra Lenderman,Female,6_Post_Spawning,check could be spawning,Female,6_Post_Spawning
+0825FENC_09,08-14-2025,FENC,9,02-06-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-07-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0825FENC_10,08-14-2025,FENC,10,02-06-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-07-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0825FENC_11,08-14-2025,FENC,11,02-06-2026,Sarina Dery,Male,6_Post_Spawning,TRUE,07-07-2026,Kyra Lenderman,Male,5_Spawning,,Male,6_Post_Spawning
+0825FENC_12,08-14-2025,FENC,12,02-06-2026,Sarina Dery,Male,4_Late_Mature,TRUE,07-07-2026,Kyra Lenderman,Male,5_Spawning,,Male,4_Late_Mature
+0825FENC_13,08-14-2025,FENC,13,02-06-2026,Sarina Dery,Female,6_Post_Spawning,TRUE,07-07-2026,Kyra Lenderman,Female,5_Spawning,,Female,6_Post_Spawning
+0825FENC_14,08-14-2025,FENC,14,02-06-2026,Sarina Dery,ND,0_Castrated,TRUE,07-07-2026,Kyra Lenderman,ND,0_Castrated,,ND,0_Castrated
+0825FENC_15,08-14-2025,FENC,15,02-06-2026,Sarina Dery,ND,0_Castrated,TRUE,07-07-2026,Kyra Lenderman,ND,0_Castrated,perkinsus present,ND,0_Castrated
+0825FENC_16,08-14-2025,FENC,16,02-06-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-07-2026,Kyra Lenderman,Female,6_Post_Spawning,,Female,7_Reabsorbing
+0825FENC_17,08-14-2025,FENC,17,02-06-2026,Sarina Dery,Female,6_Post_Spawning,TRUE,07-07-2026,Kyra Lenderman,Female,6_Post_Spawning,Some spawning spots,Female,6_Post_Spawning
+0825FENC_18,08-14-2025,FENC,18,02-06-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-07-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0825FENC_19,08-14-2025,FENC,19,02-06-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-07-2026,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+0825FENC_20,08-14-2025,FENC,20,02-06-2026,Sarina Dery,Male,4_Late_Mature,TRUE,07-07-2026,Kyra Lenderman,Male,4_Late_Mature,possibly early active - SD,Male,4_Late_Mature
+0825FENC_21,08-14-2025,FENC,21,02-06-2026,Sarina Dery,Male,7_Reabsorbing,TRUE,07-07-2026,Kyra Lenderman,Male,7_Reabsorbing,,Male,7_Reabsorbing
+0825FENC_22,08-14-2025,FENC,22,02-06-2026,Sarina Dery,Female,6_Post_Spawning,TRUE,07-07-2026,Kyra Lenderman,Female,5_Spawning,spawning? SD,Female,5_Spawning
+0825FENC_23,08-14-2025,FENC,23,02-06-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-07-2026,Kyra Lenderman,Female,7_Reabsorbing,VGH,Female,7_Reabsorbing
+0825FENC_24,08-14-2025,FENC,24,02-06-2026,Sarina Dery,Female,6_Post_Spawning,TRUE,07-07-2026,Kyra Lenderman,Female,5_Spawning,spawning? SD,Female,5_Spawning
+0825FENC_25,08-14-2025,FENC,25,02-06-2026,Sarina Dery,Female,6_Post_Spawning,TRUE,07-07-2026,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
+0825FENC_26,08-14-2025,FENC,26,02-06-2026,Sarina Dery,Female,6_Post_Spawning,TRUE,07-07-2026,Kyra Lenderman,Female,6_Post_Spawning,check could be spawning,Female,6_Post_Spawning
+0825FENC_27,08-14-2025,FENC,27,02-06-2026,Sarina Dery,Male,6_Post_Spawning,TRUE,07-07-2026,Kyra Lenderman,Male,6_Post_Spawning,,Male,6_Post_Spawning
+0825FENC_28,08-14-2025,FENC,28,02-06-2026,Sarina Dery,Male,7_Reabsorbing,TRUE,07-07-2026,Kyra Lenderman,Male,7_Reabsorbing,,Male,7_Reabsorbing
+0825FENC_29,08-14-2025,FENC,29,02-06-2026,Sarina Dery,Male,6_Post_Spawning,TRUE,07-07-2026,Kyra Lenderman,Male,5_Spawning,,Male,6_Post_Spawning
+0825FENC_30,08-14-2025,FENC,30,02-06-2026,Sarina Dery,Male,7_Reabsorbing,TRUE,07-07-2026,Kyra Lenderman,ND,7_Reabsorbing,perkinsus present,Male,7_Reabsorbing

@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0525FENC_01,05-05-2025,FENC,1,11-08-2025,Kyra Lenderman,ND,2_Developing,TRUE,02-04-2026,Sarina Dery,ND,2_Developing,,ND,2_Developing
+0525FENC_02,05-05-2025,FENC,2,11-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,02-04-2026,Sarina Dery,Female,3_Early_Active,,Female,3_Early_Active
+0525FENC_03,05-05-2025,FENC,3,11-08-2025,Kyra Lenderman,ND,2_Developing,TRUE,02-04-2026,Sarina Dery,ND,2_Developing,Some spots are early active,ND,2_Developing
+0525FENC_04,05-05-2025,FENC,4,11-08-2025,Kyra Lenderman,ND,2_Developing,TRUE,02-04-2026,Sarina Dery,ND,2_Developing,Some eggs present-KL could be hermaphrodite - SD; VGH,Hermaphrodite,3_Early_Active
+0525FENC_05,05-05-2025,FENC,5,11-08-2025,Kyra Lenderman,Male,3_Early_Active,TRUE,02-04-2026,Sarina Dery,Male,3_Early_Active,,Male,3_Early_Active
+0525FENC_06,05-05-2025,FENC,6,11-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,02-04-2026,Sarina Dery,Female,3_Early_Active,,Female,3_Early_Active
+0525FENC_07,05-05-2025,FENC,7,11-08-2025,Kyra Lenderman,ND,2_Developing,TRUE,02-04-2026,Sarina Dery,ND,2_Developing,,ND,2_Developing
+0525FENC_08,05-05-2025,FENC,8,11-08-2025,Kyra Lenderman,ND,2_Developing,TRUE,02-04-2026,Sarina Dery,ND,2_Developing,,ND,2_Developing
+0525FENC_09,05-05-2025,FENC,9,11-08-2025,Kyra Lenderman,ND,2_Developing,TRUE,02-04-2026,Sarina Dery,ND,2_Developing,,ND,2_Developing
+0525FENC_10,05-05-2025,FENC,10,11-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,02-04-2026,Sarina Dery,Female,3_Early_Active,,Female,3_Early_Active
+0525FENC_11,05-05-2025,FENC,11,11-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,02-04-2026,Sarina Dery,Female,3_Early_Active,,Female,3_Early_Active
+0525FENC_12,05-05-2025,FENC,12,11-08-2025,Kyra Lenderman,Male,3_Early_Active,TRUE,02-04-2026,Sarina Dery,Male,3_Early_Active,,Male,3_Early_Active
+0525FENC_13,05-05-2025,FENC,13,11-08-2025,Kyra Lenderman,ND,2_Developing,TRUE,02-04-2026,Sarina Dery,ND,2_Developing,,ND,2_Developing
+0525FENC_14,05-05-2025,FENC,14,11-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,02-04-2026,Sarina Dery,Female,3_Early_Active,,Female,3_Early_Active
+0525FENC_15,05-05-2025,FENC,15,11-08-2025,Kyra Lenderman,ND,2_Developing,TRUE,02-04-2026,Sarina Dery,ND,2_Developing,,ND,2_Developing
+0525FENC_16,05-05-2025,FENC,16,11-08-2025,Kyra Lenderman,ND,2_Developing,TRUE,02-04-2026,Sarina Dery,ND,2_Developing,Some early active spots,ND,2_Developing
+0525FENC_17,05-05-2025,FENC,17,11-08-2025,Kyra Lenderman,Male,3_Early_Active,TRUE,02-04-2026,Sarina Dery,Male,3_Early_Active,,Male,3_Early_Active
+0525FENC_18,05-05-2025,FENC,18,11-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,02-04-2026,Sarina Dery,Male,3_Early_Active,,Male,3_Early_Active
+0525FENC_19,05-05-2025,FENC,19,11-08-2025,Kyra Lenderman,ND,2_Developing,TRUE,02-04-2026,Sarina Dery,ND,2_Developing,,ND,2_Developing
+0525FENC_20,05-05-2025,FENC,20,11-08-2025,Kyra Lenderman,ND,2_Developing,TRUE,02-04-2026,Sarina Dery,ND,2_Developing,Some early active spots,ND,2_Developing
+0525FENC_21,05-05-2025,FENC,21,11-08-2025,Kyra Lenderman,ND,2_Developing,TRUE,02-04-2026,Sarina Dery,ND,2_Developing,Some early active spots,ND,2_Developing
+0525FENC_22,05-05-2025,FENC,22,11-08-2025,Kyra Lenderman,ND,2_Developing,TRUE,02-04-2026,Sarina Dery,ND,2_Developing,"Some early active spots, possibly female",ND,2_Developing
+0525FENC_23,05-05-2025,FENC,23,11-08-2025,Kyra Lenderman,ND,2_Developing,TRUE,02-04-2026,Sarina Dery,ND,2_Developing,possible male -SD,ND,2_Developing
+0525FENC_24,05-05-2025,FENC,24,11-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,02-04-2026,Sarina Dery,Female,3_Early_Active,,Female,3_Early_Active
+0525FENC_25,05-05-2025,FENC,25,11-08-2025,Kyra Lenderman,ND,2_Developing,TRUE,02-04-2026,Sarina Dery,ND,2_Developing,possible female -SD,ND,2_Developing
+0525FENC_26,05-05-2025,FENC,26,11-08-2025,Kyra Lenderman,Female,3_Early_Active,TRUE,02-04-2026,Sarina Dery,Female,3_Early_Active,,Female,3_Early_Active
+0525FENC_27,05-05-2025,FENC,27,11-08-2025,Kyra Lenderman,ND,2_Developing,TRUE,02-04-2026,Sarina Dery,ND,2_Developing,,ND,2_Developing
+0525FENC_28,05-05-2025,FENC,28,11-08-2025,Kyra Lenderman,ND,2_Developing,TRUE,02-04-2026,Sarina Dery,ND,2_Developing,possible female -SD,ND,2_Developing
+0525FENC_29,05-05-2025,FENC,29,11-08-2025,Kyra Lenderman,ND,2_Developing,TRUE,02-04-2026,Sarina Dery,ND,2_Developing,Some inactive spots,ND,2_Developing
+0525FENC_30,05-05-2025,FENC,30,11-08-2025,Kyra Lenderman,ND,2_Developing,TRUE,02-04-2026,Sarina Dery,Female,3_Early_Active,,Female,3_Early_Active

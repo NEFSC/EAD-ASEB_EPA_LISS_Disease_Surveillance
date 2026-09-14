@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+0425FENC_01,04-03-2025,FENC,1,01-27-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0425FENC_02,04-03-2025,FENC,2,01-27-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0425FENC_03,04-03-2025,FENC,3,01-27-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0425FENC_04,04-03-2025,FENC,4,01-27-2026,Sarina Dery,ND,2_Developing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,male?-SD,ND,2_Developing
+0425FENC_05,04-03-2025,FENC,5,01-27-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0425FENC_06,04-03-2025,FENC,6,01-27-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0425FENC_07,04-03-2025,FENC,7,01-27-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+0425FENC_08,04-03-2025,FENC,8,01-27-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0425FENC_09,04-03-2025,FENC,9,01-27-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,Female,3_Early_Active,,ND,2_Developing
+0425FENC_10,04-03-2025,FENC,10,01-27-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,Female,3_Early_Active,,ND,2_Developing
+0425FENC_11,04-03-2025,FENC,11,01-27-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,Perkinsus infection ,ND,2_Developing
+0425FENC_12,04-03-2025,FENC,12,01-27-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,or early stages of development?-SD,ND,2_Developing
+0425FENC_13,04-03-2025,FENC,13,01-27-2026,Sarina Dery,ND,2_Developing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,male?-SD,ND,2_Developing
+0425FENC_14,04-03-2025,FENC,14,01-27-2026,Sarina Dery,ND,2_Developing,TRUE,07-06-2026,Kyra Lenderman,Female,3_Early_Active,oocytes and spermatocytes present? -SD,Female,3_Early_Active
+0425FENC_15,04-03-2025,FENC,15,01-27-2026,Sarina Dery,ND,2_Developing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,or reabsorbing?-SD,ND,2_Developing
+0425FENC_16,04-03-2025,FENC,16,01-27-2026,Sarina Dery,Female,3_Early_Active,TRUE,07-06-2026,Kyra Lenderman,Female,3_Early_Active,,Female,3_Early_Active
+0425FENC_17,04-03-2025,FENC,17,01-27-2026,Sarina Dery,ND,1_Inactive_Indeterminate,TRUE,07-06-2026,Kyra Lenderman,ND,1_Inactive_Indeterminate,or inactive?-SD; severe dermo infection,ND,1_Inactive_Indeterminate
+0425FENC_18,04-03-2025,FENC,18,01-27-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0425FENC_19,04-03-2025,FENC,19,01-27-2026,Sarina Dery,Male,3_Early_Active,TRUE,07-06-2026,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0425FENC_20,04-03-2025,FENC,20,01-27-2026,Sarina Dery,ND,2_Developing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0425FENC_21,04-03-2025,FENC,21,01-27-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0425FENC_22,04-03-2025,FENC,22,01-27-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0425FENC_23,04-03-2025,FENC,23,01-27-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0425FENC_24,04-03-2025,FENC,24,01-27-2026,Sarina Dery,ND,2_Developing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0425FENC_25,04-03-2025,FENC,25,01-27-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,Female,3_Early_Active,,ND,2_Developing
+0425FENC_26,04-03-2025,FENC,26,01-27-2026,Sarina Dery,Male,3_Early_Active,TRUE,07-06-2026,Kyra Lenderman,Male,3_Early_Active,,Male,3_Early_Active
+0425FENC_27,04-03-2025,FENC,27,01-27-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0425FENC_28,04-03-2025,FENC,28,01-27-2026,Sarina Dery,ND,2_Developing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0425FENC_29,04-03-2025,FENC,29,01-27-2026,Sarina Dery,ND,2_Developing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,,ND,2_Developing
+0425FENC_30,04-03-2025,FENC,30,01-27-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-06-2026,Kyra Lenderman,ND,2_Developing,female?-SD,ND,2_Developing
