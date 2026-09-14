@@ -52,7 +52,7 @@ as.data.frame(data_all)                            # Convert tibble to data.fram
 
 data_all <- data_all %>% filter(!is.na('Sample Name'))
 
-data_all<- data_all %>% select(c('Test Date', 'Sample Name', 'Original Sample Conc.', 'Original sample conc. units'))
+data_all<- data_all %>% dplyr:: select(c('Test Date', 'Sample Name', 'Original Sample Conc.', 'Original sample conc. units'))
 
 data_all <- data_all %>% rename(Date = 'Test Date', Sample_ID = 'Sample Name', Concentration = 'Original Sample Conc.', Units = 'Original sample conc. units')
 
