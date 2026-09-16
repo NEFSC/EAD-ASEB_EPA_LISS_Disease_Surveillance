@@ -323,19 +323,50 @@ write.csv(CT_means, "output/Sonde Master Files/Sonde_hourly_means_CT.csv")
 
   
 
+# Match the names in vars$dat to the actual names in Master_table_LONG_means
+variable_map <- c(
+  "Actual Conductivity"       = "Actual.Conductivity",
+  "Salinity"                  = "sal_clean",
+  "Resistivity"               = "Resistivity",
+  "Total Dissolved Solids"    = "Total.Dissolved.Solids",
+  "RDO Concentration"         = "do_clean",
+  "RDO Saturation"            = "RDO.Saturation",
+  "Oxygen Partial Pressure"   = "Oxygen.Partial.Pressure",
+  "Chlorophyll-a Fluorescence"= "chla_clean",
+  "pH"                        = "ph_clean",
+  "pH mV"                     = "pH.mV",
+  "Temperature"               = "temp_clean",
+  "Depth"                      = "Depth",
+  "Pressure"                   = "Pressure"
+)
+
+
 for(i in 1:nrow(vars)) {
   
-  # variable name from vars
-current_var <- gsub("[ -]", ".", vars$dat[i])
-
-  # filter table for each variable
-  Table_by_var <- Master_table_LONG_means %>% 
-    dplyr::filter(as.character(variable) == current_var)
+  # Display name from vars
+  display_var <- as.character(vars$dat[i])
   
+  # Actual variable name in Master_table_LONG_means
+  current_var <- variable_map[display_var]
+  
+  print(display_var)
   print(current_var)
+  
+  # Check that the mapping exists
+  if(is.na(current_var)) {
+    message("No variable mapping found for: ", display_var)
+    next
+  }
+  
+  # Filter table for each variable
+  Table_by_var <- Master_table_LONG_means %>% 
+    dplyr::filter(
+      as.character(variable) == current_var
+    )
+  
   print(nrow(Table_by_var))
   
-  # plot only if data exist
+  # Plot only if data exist
   if(nrow(Table_by_var) == 0) {
     message("No data found for: ", current_var)
     next
@@ -384,22 +415,21 @@ current_var <- gsub("[ -]", ".", vars$dat[i])
       rows = vars(Site), 
       scales = "free_y"
     ) +
-    ggtitle(vars$dat[i]) +
+    ggtitle(display_var) +
     theme_bw()
   
   pdf(
     file = paste0(
       "output/raw_plots/",
-      gsub(" ", "_", vars$dat[i]),
+      gsub(" ", "_", display_var),
       ".pdf"
     ),
     height = 12, 
     width = 15
   )
   
-  print(plot) 
+  print(plot)
   dev.off()
-  
 }
 ```
 
@@ -1056,11 +1086,11 @@ CT_DO_ASHC_all
 # Clean ASHC for the LISS stakeholder reports (CT)
 ```{r, figs for LISS stakeholder reports}
 
-ASHC_pH          <- Master_table_LONG_means %>% dplyr::filter(variable == 'pH' & Site %in% c('ASHC'))
-ASHC_Salinity    <- Master_table_LONG_means %>% dplyr::filter(variable == 'Salinity' & Site %in% c('ASHC'))
-ASHC_Temperature <- Master_table_LONG_means %>% dplyr::filter(variable == 'Temperature' & Site %in% c('ASHC'))
-ASHC_DO          <- Master_table_LONG_means %>% dplyr::filter(variable == 'RDO.Concentration' & Site %in% c('ASHC'))
-ASHC_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == 'Chlorophyll.a.Fluorescence' & Site %in% c('ASHC'))
+ASHC_pH          <- Master_table_LONG_means %>% dplyr::filter(variable == 'ph_clean' & Site %in% c('ASHC'))
+ASHC_Salinity    <- Master_table_LONG_means %>% dplyr::filter(variable == 'sal_clean' & Site %in% c('ASHC'))
+ASHC_Temperature <- Master_table_LONG_means %>% dplyr::filter(variable == 'temp_clean' & Site %in% c('ASHC'))
+ASHC_DO          <- Master_table_LONG_means %>% dplyr::filter(variable == 'do_clean' & Site %in% c('ASHC'))
+ASHC_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == 'chla_clean' & Site %in% c('ASHC'))
 
 ### Update each graph for the time frame desired as well as the name of the file to coincide with the appropriate year displayed
 
