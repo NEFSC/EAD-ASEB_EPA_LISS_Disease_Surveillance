@@ -263,31 +263,34 @@ FENC_Temp_Sonde <- FENC_Temp_Sonde %>% dplyr::rename(Date_Time = Date.Time, sond
     .groups = "drop"
   ) %>% 
   select(Date_Time_30min, sonde_temp)
-View(FENC_Temp_Sonde)
+FENC_Temp_Sonde
 
 
 FENC_Temp_HOBO <- read.csv("HOBO_data/output/HOBO_master_files/FENC_Temperature_HOBO.csv")
 
 FENC_Temp_HOBO <- FENC_Temp_HOBO %>%
-  mutate(
+  dplyr::mutate(
     Date_Time = parse_date_time(
       trimws(Date_Time),
-      orders = c("mdy HMS", "mdy HM"),
+      orders = c("ymd HMS", "ymd HM"),
       tz = "UTC"
     )
   )
+head(FENC_Temp_HOBO$Date_Time, 10)
+sum(is.na(FENC_Temp_HOBO$Date_Time))
+
 FENC_Temp_HOBO <- FENC_Temp_HOBO %>%
-  mutate(
+  dplyr::mutate(
     Date_Time_30min = floor_date(Date_Time, "30 minutes")
   ) %>%
-  group_by(Date_Time_30min) %>%
-  summarise(
+  dplyr::group_by(Date_Time_30min) %>%
+  dplyr::summarise(
     Temperature = mean(Temperature, na.rm = TRUE),
     .groups = "drop"
   ) %>%
-  select(Date_Time_30min, Temperature)%>% rename(hobo_temp = Temperature)
+  dplyr::select(Date_Time_30min, Temperature) %>%
+  dplyr::rename(hobo_temp = Temperature)
 
-View(FENC_Temp_HOBO)
 #merge data
 
 #FENC_temp_validation <- FENC_Temp_Sonde %>% full_join( FENC_HOBO, by = "Date_Time")
@@ -365,14 +368,14 @@ dev.off()
 
 FENC_calibration_model <- lm(
   sonde_temp ~ hobo_temp,
-  data = bland_altman_data
+  data = FENC_bland_altman_data
 )
 
 summary(FENC_calibration_model)
 coef(FENC_calibration_model)
 
 
-FENC_BA_summary <- bland_altman_data %>%
+FENC_BA_summary <- FENC_bland_altman_data %>%
   mutate(
     difference = sonde_temp - hobo_temp,
     mean_temp = (sonde_temp + hobo_temp) / 2
@@ -399,10 +402,10 @@ FENC_HOBO_corrected
 #we don't want to supplement it yet we want to test if it actually is predicitng new data
 #this code is randomly splitting the paired data
 set.seed(123)
-n <- nrow(bland_altman_data)
+n <- nrow(FENC_bland_altman_data)
 train_index <- sample( 1:n,size = 0.70 * n)
-calibration_data <- bland_altman_data[train_index, ]
-validation_data <- bland_altman_data[-train_index, ]
+calibration_data <- FENC_bland_altman_data[train_index, ]
+validation_data <- FENC_bland_altman_data[-train_index, ]
 #build the calibration model using only the training data
 calibration_model <- lm(sonde_temp ~ hobo_temp,data = calibration_data)
 summary(calibration_model)

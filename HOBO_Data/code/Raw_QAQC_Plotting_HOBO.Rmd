@@ -368,6 +368,58 @@ GOLD_HOBO <- na.omit(GOLD_HOBO)
 
 ggplot(GOLD_HOBO, aes(Date_Time, Temperature)) + geom_point()
 
+#on 4.8.26 when going for sampling the anchor and hobo were in the intertidal area - we were not sure when it was moved but assumed it was from when the docks/flupsy was put back in. Someone moved it not realizing we had a HOBO device. Lets take a closer look at when it may have happened so we can remove that data.The anchor could have also washed up on shore from the storms. Not sure. hard to tell. 
+
+GOLD_plot_check <- GOLD_HOBO %>%
+    mutate(Date_Time = as.POSIXct(Date_Time)) %>%
+    ggplot(aes(Date_Time, Temperature)) + 
+    geom_point() + 
+    geom_line(size = 0.2, position = position_dodge(.4)) +
+    scale_shape_manual(values = c(21, 22, 24, 25)) + 
+    scale_fill_manual(values = c("#CC79A7", "#D55E00", "#009E73", "#0072B2")) + 
+    #geom_errorbar(aes(ymin = Temperature - se_value, 
+     #                 ymax = Temperature + se_value), 
+     #             width = 0, position = position_dodge(.4)) +
+    ggtitle("Gold Star Beach HOBO winter-spring 2026") +
+    labs(x = "Time", y = "Temperature (Celcius)") + 
+    theme_classic() + 
+    theme(axis.text.x = element_text(size = 20, angle = 45, hjust = 1), axis.text.y = element_text(size = 20),axis.title = element_text(size = 20)) +
+    scale_x_datetime(date_labels = "%b/%Y", 
+                     date_breaks = "1 month", 
+                     limits = as.POSIXct(c('2026-01-01', '2026-04-30'))) +geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)
+GOLD_plot_check
+
+
+#Lets 'fix' this data chunk
+gold_hobo_cleanup <- GOLD_HOBO %>% arrange(Date_Time)
+gold_hobo_cleanup <- gold_hobo_cleanup %>%
+  mutate(washup_period = Date_Time >= as.POSIXct( "2026-02-25 00:00:00", tz = "America/New_York") &
+  Date_Time <= as.POSIXct("2026-04-14 23:59:59", tz = "America/New_York"))
+gold_hobo_cleanup <- gold_hobo_cleanup %>%
+  mutate(temp_change_1hr = abs(Temperature - lag(Temperature, 6)))
+gold_hobo_cleanup <- gold_hobo_cleanup %>%
+  mutate(rolling_median_3hr = zoo::rollmedian( Temperature, k = 19, fill = NA,align = "center"),
+    deviation_3hr = abs(Temperature - rolling_median_3hr))
+gold_hobo_cleanup <- gold_hobo_cleanup %>%
+  mutate(exposure_flag = case_when( washup_period & deviation_3hr >= 2 ~ "possible_exposure",TRUE ~ "likely_submerged"))
+gold_hobo_cleanup <- gold_hobo_cleanup %>%
+  mutate(Temperature_clean = ifelse(exposure_flag == "possible_exposure", NA,Temperature))
+
+gold_hobo_cleanup <- gold_hobo_cleanup %>%
+  mutate(rolling_median_3hr = zoo::rollmedian(Temperature,k = 19,fill = NA,align = "center"),deviation_3hr = abs(Temperature - rolling_median_3hr))
+
+ggplot(gold_hobo_cleanup %>%filter(Date_Time >= as.POSIXct("2026-02-20", tz = "America/New_York"),Date_Time <= as.POSIXct("2026-04-20", tz = "America/New_York")),
+  aes(x = Date_Time)) +
+  geom_point(aes(y = Temperature),size = 0.5) +
+  geom_line(aes(y = rolling_median_3hr),linewidth = 1) +
+  labs(title = "Gold Star Beach HOBO: Raw Temperature vs. 3-hour Rolling Median",x = "Time",y = "Temperature (°C)") +
+  theme_classic()
+
+summary(gold_hobo_cleanup$deviation_3hr)
+quantile(gold_hobo_cleanup$deviation_3hr,probs = c(0.50,0.75,0.90,0.95,0.975,0.99),na.rm = TRUE)
+
+write.csv(gold_hobo_cleanup, "HOBO_Data/output/HOBO_master_files/GOLD_Temperature_HOBO_cleanup.csv")
+
 
 # Hourly Means 
 
