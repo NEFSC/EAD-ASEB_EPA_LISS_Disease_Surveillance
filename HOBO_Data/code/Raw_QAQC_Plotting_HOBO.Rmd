@@ -250,7 +250,7 @@ FENC_HOBO <- na.omit(FENC_HOBO)
 
 #### Lets look at the data 
 
-ggplot(FENC_HOBO, aes(Date_Time, Temperature)) + geom_point()
+ggplot(FENC_HOBO, aes(Date_Time, temp_clean)) + geom_point()
 
 
 # Hourly Means 
@@ -258,8 +258,8 @@ ggplot(FENC_HOBO, aes(Date_Time, Temperature)) + geom_point()
 FENC_means <- FENC_HOBO %>%
   dplyr::mutate(Hour = floor_date(Date_Time, unit = "hour")) %>%
   dplyr::group_by( Site,Hour) %>%
-  dplyr::summarise(mean_Temperature = mean( Temperature,na.rm = TRUE),sd_Temperature = sd( Temperature, na.rm = TRUE),
-    n = sum(!is.na(Temperature)),
+  dplyr::summarise(mean_Temperature = mean( temp_clean,na.rm = TRUE),sd_Temperature = sd( temp_clean, na.rm = TRUE),
+    n = sum(!is.na(temp_clean)),
     .groups = "drop")
 
 FENC_means
@@ -309,7 +309,7 @@ ASHC_HOBO <- na.omit(ASHC_HOBO)
 
 #### Lets look at the data 
 
-ggplot(ASHC_HOBO, aes(Date_Time, Temperature)) + geom_point()
+ggplot(ASHC_HOBO, aes(Date_Time, temp_clean)) + geom_point()
 
 
 # Hourly Means 
@@ -317,8 +317,8 @@ ggplot(ASHC_HOBO, aes(Date_Time, Temperature)) + geom_point()
 ASHC_means <- ASHC_HOBO %>%
   mutate(Hour = floor_date(Date_Time, unit = "hour")) %>%
   group_by( Site,Hour) %>%
-  summarise(mean_Temperature = mean( Temperature,na.rm = TRUE),sd_Temperature = sd( Temperature, na.rm = TRUE),
-    n = sum(!is.na(Temperature)),
+  summarise(mean_Temperature = mean( temp_clean,na.rm = TRUE),sd_Temperature = sd( temp_clean, na.rm = TRUE),
+    n = sum(!is.na(temp_clean)),
     .groups = "drop")
 
 ASHC_means
@@ -366,7 +366,7 @@ GOLD_HOBO <- na.omit(GOLD_HOBO)
 
 #### Lets look at the data 
 
-ggplot(GOLD_HOBO, aes(Date_Time, Temperature)) + geom_point()
+ggplot(GOLD_HOBO, aes(Date_Time, temp_clean)) + geom_point()
 
 #on 4.8.26 when going for sampling the anchor and hobo were in the intertidal area - we were not sure when it was moved but assumed it was from when the docks/flupsy was put back in. Someone moved it not realizing we had a HOBO device. Lets take a closer look at when it may have happened so we can remove that data.The anchor could have also washed up on shore from the storms. Not sure. hard to tell. 
 
