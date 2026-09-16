@@ -615,13 +615,24 @@ bcs_all <- lapply(file_paths, function(file_path) {
   bind_rows
 as.data.frame(bcs_all)  # Convert tibble to data.frame
 
-bcs_1 <- bcs_all %>% filter(!is.na(date_collected)) %>% select( lab_id, site, condition)
+bcs_1 <- bcs_all %>% dplyr::filter(!is.na(date_collected)) %>% dplyr::select( lab_id, site, condition)
 
-repro_1 <- data_all%>% rename(lab_id = Sample_ID) %>% select(lab_id, Sex_final, Stage_final)
+repro_1 <- data_all%>% rename(lab_id = Sample_ID) %>% dplyr::select(lab_id, Sex_final, Stage_final)
 
 bcs_repro_data <- merge(repro_1, bcs_1)
 
 bcs_repro_data
+
+df_score_proportions2<- bcs_repro_data %>%
+  mutate(stage_final_numeric = as.factor(Stage_final),stage_bin = case_when(Stage_final == 0 ~ "0_Castrated", Stage_final == 1 ~ "1_Inactive_Indeterminate", Stage_final == 2 ~"2_Developing",Stage_final == 3 ~ "3_Early_Active", Stage_final == 4 ~"4_Late_Mature",Stage_final == 5 ~ "5_Spawning", Stage_final == 6 ~ "6_Post_Spawning", Stage_final == 7 ~ "7_Reabsorbing", TRUE ~ as.character(Stage_final))) %>%
+  group_by(site, condition, stage_bin) %>%
+  dplyr::summarise(Count= n()) %>%
+  ungroup() %>%
+  dplyr::mutate(Proportion = Count/sum(Count))
+
+df_score_proportions<- na.omit(df_score_proportions)
+
+df_score_proportions
 ```
 
 
