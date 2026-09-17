@@ -38,7 +38,7 @@ library(data.table)
 ### QAQC with Sonde data - ASHC temperture ###
 
 ASHC_Temp_Sonde <- read.csv("Sonde_Data/output/Sonde Master Files/ASHC_Temperature_Sonde.csv")
-ASHC_Temp_Sonde <- ASHC_Temp_Sonde %>% dplyr::rename(Date_Time = Date.Time, sonde_temp = value ) %>% 
+ASHC_Temp_Sonde <- ASHC_Temp_Sonde %>% dplyr::rename(Date_Time = Date.Time, sonde_temp = temp_clean ) %>% 
   dplyr::mutate(Date_Time = ymd_hms(Date_Time, tz = "UTC"),Date_Time_30min = floor_date(Date_Time, "30 minutes")
   ) %>%
   group_by(Date_Time_30min) %>%
@@ -66,10 +66,10 @@ ASHC_Temp_HOBO <- ASHC_Temp_HOBO %>%
   ) %>%
   group_by(Date_Time_30min) %>%
   summarise(
-    Temperature = mean(Temperature, na.rm = TRUE),
+    temp_clean = mean(temp_clean, na.rm = TRUE),
     .groups = "drop"
   ) %>%
-  select(Date_Time_30min, Temperature)%>% rename(hobo_temp = Temperature)
+  select(Date_Time_30min, temp_clean)%>% rename(hobo_temp = temp_clean)
 
 ASHC_Temp_HOBO
 
@@ -103,6 +103,7 @@ ggplot(ASHC_temp_validation, aes(x = sonde_temp, y = hobo_temp)) +
 ASHC_cal_model <- lm(hobo_temp ~ sonde_temp, data = ASHC_temp_validation)
 summary(ASHC_cal_model)
 
+#when the sonde reads 0 the HOBO reads ~0.37C
 # Compute Error Metrics
 #error_metrics <- ASHC_temp_validation %>%
 #  dplyr::summarise(
@@ -139,7 +140,7 @@ print(ASHC_bland_alt)
 dev.off()
 
 
-ggplot(bland_altman_data,
+ggplot(ashc_bland_altman_data,
        aes(x = Average,
            y = Difference)) +
   geom_point(alpha = 0.2) +
@@ -254,7 +255,7 @@ ASHC_Temperature_combined
 ### QAQC with Sonde data - FENC temperture ###
 
 FENC_Temp_Sonde <- read.csv("Sonde_Data/output/Sonde Master Files/FENC_Temperature_Sonde.csv")
-FENC_Temp_Sonde <- FENC_Temp_Sonde %>% dplyr::rename(Date_Time = Date.Time, sonde_temp = value ) %>% 
+FENC_Temp_Sonde <- FENC_Temp_Sonde %>% dplyr::rename(Date_Time = Date.Time, sonde_temp = temp_clean ) %>% 
   dplyr::mutate(Date_Time = ymd_hms(Date_Time, tz = "UTC"),Date_Time_30min = floor_date(Date_Time, "30 minutes")
   ) %>%
   group_by(Date_Time_30min) %>%

@@ -481,7 +481,7 @@ geom_errorbar(aes(ymin = Total_Density - SE,
               width = 0.2) 
 
 #use to filter out specific sites
-ggplot(data=mean_total_oysters_all %>% filter(Site == "ASHC", Season == "Spring"), aes(x= survival_status, y = Total_Density, fill = survival_status)) +
+ggplot(data=mean_total_oysters_all %>% filter(Site == "ASHC"), aes(x= survival_status, y = Total_Density, fill = survival_status)) +
   geom_bar( stat="identity")+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.title = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+

@@ -432,6 +432,21 @@ for(i in 1:nrow(vars)) {
   dev.off()
 }
 ```
+#Master files for temperature validation with HOBO
+```{r}
+
+ASHC_Temperature_Sonde <- Master_table_cleaned %>% dplyr::filter(Site %in% c('ASHC')) %>% select(Date.Time, temp_clean, Site)
+FENC_Temperature_Sonde <- Master_table_cleaned %>% dplyr::filter(Site %in% c('FENC')) %>% select(Date.Time, temp_clean, Site)
+GOLD_Temperature_Sonde <- Master_table_cleaned %>% dplyr::filter(Site %in% c('GOLD')) %>% select(Date.Time, temp_clean, Site)
+
+write.csv(ASHC_Temperature_Sonde, "output/Sonde Master Files/ASHC_Temperature_Sonde.csv")
+write.csv(FENC_Temperature_Sonde, "output/Sonde Master Files/FENC_Temperature_Sonde.csv")
+write.csv(GOLD_Temperature_Sonde, "output/Sonde Master Files/GOLD_Temperature_Sonde.csv")
+
+
+```
+
+```
 
 
 #Creating monthly means for juvenile growth study and statistical analysis
@@ -800,6 +815,7 @@ dev.off()
 
 ```
 
+
 ```{r}
 #Adding linear regression lines and equations to temperature data
 #Going to use this to compare temperature of 2023 and 2024 when more data overlaps
@@ -1094,7 +1110,7 @@ ASHC_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == 'chla_
 
 ### Update each graph for the time frame desired as well as the name of the file to coincide with the appropriate year displayed
 
-#write.csv(ASHC_Temperature, "output/ASHC_Temperature_Sonde.csv")
+#write.csv(ASHC_Temperature, "output/Sonde Master Files/ASHC_Temperature_Sonde.csv")
 
 ######### pH #########
 
@@ -1773,7 +1789,7 @@ FENC_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == 'Chlor
 
 ### Update each graph for the time frame desired as well as the name of the file to coincide with the appropriate year displayed
 
-write.csv(FENC_Temperature, "output/FENC_Temperature_Sonde.csv")
+#write.csv(FENC_Temperature, "output/Sonde Master Files/FENC_Temperature_Sonde.csv")
 
 ######### pH #########
 
@@ -2271,13 +2287,13 @@ fenc_sal
 #I want to create code to remove outliers for these graphs. Outliers are obvious temperature drops when the sonde is removed from the water. 
 ```{r, figs for LISS stakeholder reports}
 
-GOLD_pH          <- Master_table_LONG_means %>% dplyr::filter(variable == 'pH' & Site %in% c('GOLD')) 
-GOLD_Salinity    <- Master_table_LONG_means %>% dplyr::filter(variable == 'Salinity' & Site %in% c('GOLD'))
-GOLD_Temperature <- Master_table_LONG_means %>% dplyr::filter(variable == 'Temperature' & Site %in% c('GOLD'))
-GOLD_DO          <- Master_table_LONG_means %>% dplyr::filter(variable == 'RDO.Concentration' & Site %in% c('GOLD'))
-GOLD_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == 'Chlorophyll.a.Fluorescence' & Site %in% c('GOLD'))
+GOLD_pH          <- Master_table_LONG_means %>% dplyr::filter(variable == 'ph_clean' & Site %in% c('GOLD')) 
+GOLD_Salinity    <- Master_table_LONG_means %>% dplyr::filter(variable == 'sal_clean' & Site %in% c('GOLD'))
+GOLD_Temperature <- Master_table_LONG_means %>% dplyr::filter(variable == 'temp_clean' & Site %in% c('GOLD'))
+GOLD_DO          <- Master_table_LONG_means %>% dplyr::filter(variable == 'do_clean' & Site %in% c('GOLD'))
+GOLD_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == 'chla_clean' & Site %in% c('GOLD'))
 
-#write.csv(GOLD_Temperature, "output/GOLD_Temperature_Sonde.csv")
+#write.csv(GOLD_Temperature, "output/Sonde Master Files/GOLD_Temperature_Sonde.csv")
 
 
 ######## pH ########
