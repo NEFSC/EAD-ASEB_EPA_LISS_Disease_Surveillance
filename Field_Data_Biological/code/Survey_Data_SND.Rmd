@@ -744,6 +744,7 @@ print(Spring_shellheight_percent2026_plot)
 #dev.off()
 
 ```
+
 #Spring 2026 survival & size class - proportion of total site population
 
 ```{r}
@@ -781,7 +782,7 @@ CT_Spring_Survey_2026_population_percentages <- ggplot(data = CT_Spring_Survey_2
   labs(
     title = "CT Spring Survey 2026", 
     x = "Size Class Bin (mm)", 
-    y = "Proportion of Total Site Population"
+    y = "% of Total Population"
   ) + 
   theme_minimal() + 
   theme(
@@ -802,7 +803,69 @@ CT_Spring_Survey_2026_population_percentages <- ggplot(data = CT_Spring_Survey_2
 #png("Field_Data_Biological/Output/CT_Spring_Survey_2026_population_percentages.png", height = 6, width = 11, units = "in", res = 300)
 print(CT_Spring_Survey_2026_population_percentages)
 #dev.off()
+
 ```
+
+#Fall 2026 survival & size class - proportion of total site population
+
+```{r}
+
+#Data Wrangling & Distribution Calculation per Site
+CT_Fall_Survey_2026 <- CT_shell_height_all %>%
+  dplyr::filter(Year == "2026") %>%
+  dplyr::filter(Season == "Fall") %>% 
+  dplyr::filter(!is.na(Height)) %>% 
+  dplyr::mutate(
+    size_class = as.numeric(Height), 
+    size_class_bin = cut(
+      size_class, 
+      breaks = seq(0, 210, by = 10), 
+      labels = paste0(seq(0, 200, by = 10), "-", seq(10, 210, by = 10)), 
+      include.lowest = TRUE, 
+      right = TRUE
+    )
+  ) %>% 
+  dplyr::group_by(Site, size_class_bin, Survival_status) %>% 
+  dplyr::summarise(Count = n(), .groups = "drop") %>% 
+  # Group strictly by Site so your proportions reflect the whole site population
+  dplyr::group_by(Site) %>% 
+  dplyr::mutate(Proportion = Count / sum(Count)) %>% 
+  dplyr::ungroup() 
+
+#Generate the Corrected Plot Layout
+CT_Fall_Survey_2026_population_percentages <- ggplot(data = CT_Fall_Survey_2026, aes(x = size_class_bin, y = Proportion, fill = Survival_status)) + 
+  # FIX: Changed position to "stack" to honor your calculated 'Proportion' values
+  geom_bar(width = 0.8, stat = "identity", position = "stack", colour = "gray10") + 
+  # ADDED: Formats the Y axis decimal numbers (0.10, 0.20) as clean percentages (10%, 20%)
+  scale_y_continuous(labels = scales::percent_format()) +
+  scale_x_discrete(drop = FALSE) + 
+  labs(
+    title = "CT Fall Survey 2026", 
+    x = "Size Class Bin (mm)", 
+    y = "% of Total Population"
+  ) + 
+  theme_minimal() + 
+  theme(
+    panel.grid.minor = element_blank(),
+    axis.title.y = element_text(size = rel(1.0), angle = 90), 
+    axis.title.x = element_text(size = rel(1.0), angle = 0),
+    axis.text = element_text(size = 13),
+    axis.text.x = element_text(angle = 65, vjust = 1, hjust = 1),
+    strip.text = element_text(size = 15),
+    legend.text = element_text(size = 13),
+    title = element_text(size = 15)
+  ) +
+  scale_fill_brewer(palette = "Set2", direction = -1) + 
+  facet_wrap(~ Site) 
+
+
+#png(("Field_Data_Biological/Output/CT_Fall_Survey_2026_population_percentages.png"), height = 6, width = 11, units = "in", res = 300)
+print(CT_Fall_Survey_2026_population_percentages)
+#dev.off()
+```
+
+```
+
 #Fall 2025 live data only
 ```{r}
 #Process data and calculate proportions properly WITHIN each site
