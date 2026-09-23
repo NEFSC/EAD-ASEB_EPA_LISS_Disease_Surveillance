@@ -495,7 +495,7 @@ ggplot(data = rftm_v_qpcr_wp_summary, aes(x = as.Date(date_collected), color = s
   # RFTM
   geom_point(aes(y = mean_rftm, shape = "RFTM")) +
   geom_line(aes(y = mean_rftm, group = site, linetype = "RFTM")) +
-  # qPCR / Mackin
+  # qPCR 
   geom_point(aes(y = mean_mackin, shape = "qPCR")) +
   geom_line(aes(y = mean_mackin, group = site, linetype = "qPCR")) +
   theme_bw() +
