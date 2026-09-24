@@ -446,8 +446,6 @@ write.csv(GOLD_Temperature_Sonde, "output/Sonde Master Files/GOLD_Temperature_So
 
 ```
 
-```
-
 
 #Creating monthly means for juvenile growth study and statistical analysis
 ```{r}
@@ -2506,6 +2504,8 @@ GOLD_CHLA_plot
 pdf(paste0(path="output/raw_plots/Site_specific_plots/GOLD_CHLA_2026.pdf"), height = 7, width = 14)
 print(GOLD_CHLA_plot)
 ```
+
+
 #Graphed sonde data for GOLD seperated by year
 ```{r}
 #Separating temperature data by year at GOLD
@@ -2573,7 +2573,9 @@ NY_salinity_GOLD_yearly <- NY_salinity_GOLD %>% na.omit() %>%
               theme_classic()
 
 NY_salinity_GOLD_yearly
+
 ```
+
 ```{r}
 #Separating pH data by year at GOLD
 

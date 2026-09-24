@@ -642,39 +642,50 @@ dev.off()
 ```
 #GOLD density & mortality
 ```{r}
-df_quadrat_GOLD <- quadratdensity_all%>%
-  filter(Site == "GOLD")
+df_quadrat_GOLD <- density%>%
+  filter(Site == "GOLD")%>%
+  mutate(year = year(Date_collected))
 df_quadrat_GOLD
 
-#Quadrat size is 50 x50cm (.25 m^2). To calculate density (oysters per m^2) multiply number of oysters counted X 4 to = 1 meter
+#for 2023 - 2025 Quadrat size is 50 x50cm (.25 m^2). To calculate density (oysters per m^2) multiply number of oysters counted X 4 to = 1 meter
+#for 2026, we chose to use 25 x25cm (.0625 m^2). To calculate density (oysters per m^2) multiply number of oysters counted X 16
 
 df_density_GOLD <- df_quadrat_GOLD %>%
-  dplyr::group_by(Site, Season, Year, Date_collected, Quadrat, Survival_status) %>% 
+  dplyr::group_by(Site, Season, year, Date_collected, Quadrat, survival_status) %>% 
+   dplyr::filter(year != '2026') %>% #removing 2026 to calculate that separately
   dplyr::summarize(Density = sum(Count)*4)
 df_density_GOLD
 
+df_density_GOLD_2026 <- df_quadrat_GOLD %>%
+  dplyr::group_by(Site, Season, year, Date_collected, Quadrat, survival_status) %>% 
+   dplyr::filter(year == '2026') %>% 
+  dplyr::summarize(Density = sum(Count)*16)
+df_density_GOLD_2026
+
+df_density_GOLD_all <- rbind(df_density_GOLD,df_density_GOLD_2026)
+
 #Mean of Oysters per m^2 across all quadrats
-mean_total_oysters_GOLD <- df_density_GOLD %>%
-  dplyr::group_by(Site, Season, Year, Date_collected, Survival_status) %>%
+mean_total_oysters_GOLD <- df_density_GOLD_all %>%
+  dplyr::group_by(Site, Season, year, Date_collected, survival_status) %>%
   dplyr::summarize(Total_Density = mean(Density))
 mean_total_oysters_GOLD
  
 
 #Density per quadrat totals
-ggplot(data=df_quadrat_GOLD, aes(x= Survival_status, y = Count, fill = Survival_status)) +
+ggplot(data=df_quadrat_GOLD, aes(x= survival_status, y = Count, fill = survival_status)) +
   geom_bar( stat="identity")+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   labs(title="Gold Star Count ", x ="Survival status", y= "Density")+
-  facet_wrap(~ Year, scales = "free")
+  facet_wrap(~ year, scales = "free")
 
 #Density of oysters per meter squared
-ggplot(data=mean_total_oysters_GOLD, aes(x= Survival_status, y = Total_Density, fill = Survival_status)) +
+ggplot(data=mean_total_oysters_GOLD, aes(x= survival_status, y = Total_Density, fill = survival_status)) +
   geom_bar( stat="identity")+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   labs(title="Gold Star Density ", x ="Survival status", y= "Density (# oyster / meter squared)")+
-  facet_wrap(~ Year, scales = "free")
+  facet_wrap(~ year, scales = "free")
 
 
 #Mortality calculations
