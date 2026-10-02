@@ -22,8 +22,9 @@ library("tidyverse")
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
 #knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+knitr::opts_knit$set(root.dir = 'C:/Users/sarina.dery/Documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Sarina's
 ```
 ### This code chunk merges all .csv files within the Tissue processing folder into one data frame and outputs the full dataset into a .csv master file. This allows us to download the raw data as a .csv, add it to the repository folder, and create the master data file without copying and pasting data in excel.
 # reading in .csv files from local folder
@@ -124,7 +125,7 @@ Avg_spat_graph <- Avg_spat_stringer %>% filter(!Site == "LAUR", !Year=="2023")
 
 ggplot(Avg_spat_graph, aes(x=Month,y=Count_1, fill = Site))+
   geom_bar(stat = "identity", position = "dodge")+
-  labs(title = "Spat Counts - All Sites 2024-2025",
+  labs(title = "Spat Counts - All Sites 2024-2026",
        x = "Month", y = "Count")+
   scale_fill_brewer(palette = "Set2")+
   facet_grid(Site~Year)
