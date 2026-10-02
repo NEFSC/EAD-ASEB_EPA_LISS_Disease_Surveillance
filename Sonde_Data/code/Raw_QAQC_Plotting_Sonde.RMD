@@ -1779,11 +1779,11 @@ CT_DO_FENC_all
 # Clean FENC for the LISS stakeholder reports (CT)
 ```{r, figs for LISS stakeholder reports}
 
-FENC_pH          <- Master_table_LONG_means %>% dplyr::filter(variable == 'pH' & Site %in% c('FENC'))
-FENC_Salinity   <- Master_table_LONG_means %>% dplyr::filter(variable == 'Salinity' & Site %in% c('FENC'))
-FENC_Temperature <- Master_table_LONG_means %>% dplyr::filter(variable == 'Temperature' & Site %in% c('FENC'))
-FENC_DO          <- Master_table_LONG_means %>% dplyr::filter(variable == 'RDO.Concentration' & Site %in% c('FENC'))
-FENC_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == 'Chlorophyll.a.Fluorescence' & Site %in% c('FENC'))
+FENC_pH          <- Master_table_LONG_means %>% dplyr::filter(variable == 'ph_clean' & Site %in% c('FENC'))
+FENC_Salinity   <- Master_table_LONG_means %>% dplyr::filter(variable == 'sal_clean' & Site %in% c('FENC'))
+FENC_Temperature <- Master_table_LONG_means %>% dplyr::filter(variable == 'temp_clean' & Site %in% c('FENC'))
+FENC_DO          <- Master_table_LONG_means %>% dplyr::filter(variable == 'do_clean' & Site %in% c('FENC'))
+FENC_CHLA        <- Master_table_LONG_means %>% dplyr::filter(variable == 'chla_clean' & Site %in% c('FENC'))
 
 ### Update each graph for the time frame desired as well as the name of the file to coincide with the appropriate year displayed
 
@@ -2115,10 +2115,10 @@ all_dates <- data.frame(Date = seq(start_date, end_date, by = "day"))
 
 # Merge the summary data onto the complete date sequence
 # This introduces NA values for any dates missing in daily_summary
-complete_daily_summary2 <- all_dates %>%
-  left_join(daily_summary2, by = "Date")
+complete_daily_summary <- all_dates %>%
+  left_join(daily_summary, by = "Date")
 
-FENC_pH_daily <- ggplot(complete_daily_summary2, aes(x = Date)) +
+FENC_pH_daily <- ggplot(complete_daily_summary, aes(x = Date)) +
   # geom_ribbon will now have gaps where Temp_Min/Max are NA
   geom_ribbon(aes(ymin = pH_Min, ymax = pH_Max), 
               fill = "black", alpha = 0.2) +
