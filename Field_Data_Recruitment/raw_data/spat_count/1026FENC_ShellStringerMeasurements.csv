@@ -70,6 +70,7 @@ date_deployed,date_collected,Site,Replicate,Shell,Side,Count_1,Count_2
 2026-08-05,2026-10-01,FENC,F,5,top,0,0
 2026-08-05,2026-10-01,FENC,F,5,bottom,1,1
 2026-08-05,2026-10-01,FENC,F,6,top,0,0
+<<<<<<< HEAD
 2026-08-05,2026-10-01,FENC,F,6,bottom,0,0
 ,,,,,,,
 ,,,,,,,
@@ -998,3 +999,6 @@ date_deployed,date_collected,Site,Replicate,Shell,Side,Count_1,Count_2
 ,,,,,,,
 ,,,,,,,
 ,,,,,,,
+=======
+2026-08-05,2026-10-01,FENC,F,6,bottom,0,0
+>>>>>>> 443b0cd42712958fe8882acc18b2c377162801c6
