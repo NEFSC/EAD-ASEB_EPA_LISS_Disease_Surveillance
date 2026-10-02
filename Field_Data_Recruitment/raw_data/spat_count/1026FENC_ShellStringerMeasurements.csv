@@ -11,7 +11,7 @@ date_deployed,date_collected,Site,Replicate,Shell,Side,Count_1,Count_2
 2026-08-05,2026-10-01,FENC,A,5,bottom,0,0
 2026-08-05,2026-10-01,FENC,A,6,top,1,1
 2026-08-05,2026-10-01,FENC,A,6,bottom,2,2
-2026-08-05,2026-10-01,FENC,B,1,top,1,1
+2026-08-05,2026-10-01,FENC,B,1,top,1,0
 2026-08-05,2026-10-01,FENC,B,1,bottom,2,2
 2026-08-05,2026-10-01,FENC,B,2,top,2,2
 2026-08-05,2026-10-01,FENC,B,2,bottom,4,4
@@ -26,7 +26,7 @@ date_deployed,date_collected,Site,Replicate,Shell,Side,Count_1,Count_2
 2026-08-05,2026-10-01,FENC,C,1,top,3,3
 2026-08-05,2026-10-01,FENC,C,1,bottom,5,5
 2026-08-05,2026-10-01,FENC,C,2,top,2,2
-2026-08-05,2026-10-01,FENC,C,2,bottom,2,2
+2026-08-05,2026-10-01,FENC,C,2,bottom,2,1
 2026-08-05,2026-10-01,FENC,C,3,top,1,1
 2026-08-05,2026-10-01,FENC,C,3,bottom,1,1
 2026-08-05,2026-10-01,FENC,C,4,top,0,0
@@ -44,8 +44,8 @@ date_deployed,date_collected,Site,Replicate,Shell,Side,Count_1,Count_2
 2026-08-05,2026-10-01,FENC,D,4,top,2,2
 2026-08-05,2026-10-01,FENC,D,4,bottom,3,3
 2026-08-05,2026-10-01,FENC,D,5,top,1,1
-2026-08-05,2026-10-01,FENC,D,5,bottom,2,2
-2026-08-05,2026-10-01,FENC,D,6,top,2,2
+2026-08-05,2026-10-01,FENC,D,5,bottom,1,2
+2026-08-05,2026-10-01,FENC,D,6,top,2,1
 2026-08-05,2026-10-01,FENC,D,6,bottom,5,5
 2026-08-05,2026-10-01,FENC,E,1,top,0,0
 2026-08-05,2026-10-01,FENC,E,1,bottom,0,0
