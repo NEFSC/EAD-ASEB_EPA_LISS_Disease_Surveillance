@@ -622,7 +622,7 @@ GOLD_Distribution_Live<-ggplot(data=height_GOLD_Live, aes(x= Height)) +
   facet_wrap(~ Year, scales = "free", ncol = 1)
 
 GOLD_Distribution_Live
-pdf(paste0(path = "Field_Data_Biological/Output/GOLD_Distribution_Live.pdf"), height = 6, width = 11)
+pdf(paste0(path = "Field_Data_Biological/Output/GOLD_Distribution_Live.pdf"), height = 8, width = 11)
 print(GOLD_Distribution_Live)
 dev.off()
 
