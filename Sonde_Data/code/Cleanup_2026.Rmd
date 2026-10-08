@@ -170,7 +170,7 @@ Master_2026
 
 ## Cleanup and print 
 
-* remove the columns "External Voltage", "Battery Capacity", "Barometric Pressure", "Date" ( DAte is an extra column we have a correct date in there already)
+* remove the columns "External Voltage", "Battery Capacity", "Barometric Pressure", "Date" ( Date is an extra column we have a correct date in there already)
 
 ```{r cleanup and r}
 
