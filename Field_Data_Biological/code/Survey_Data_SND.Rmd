@@ -855,7 +855,7 @@ CT_Fall_Survey_2026_population_percentages <- ggplot(data = CT_Fall_Survey_2026,
     legend.text = element_text(size = 13),
     title = element_text(size = 15)
   ) +
-  scale_fill_brewer(palette = "Set2", direction = -1) + 
+  scale_fill_manual(values = c("Live"="#66C2A5","Box"="#8DA0CB")) + 
   facet_wrap(~ Site) 
 
 
@@ -864,7 +864,7 @@ print(CT_Fall_Survey_2026_population_percentages)
 #dev.off()
 ```
 
-```
+
 
 #Fall 2025 live data only
 ```{r}
