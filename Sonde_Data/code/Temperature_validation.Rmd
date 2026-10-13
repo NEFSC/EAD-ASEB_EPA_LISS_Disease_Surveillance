@@ -139,7 +139,7 @@ ASHC_bland_alt<-ggplot(ashc_bland_altman_data, aes(x = Average, y = Difference))
 ASHC_bland_alt
 #lets save this graph so we can reference it again later
 
-pdf(paste0(path = "HOBO_Data/output","/ASHC_bland_altman.pdf"), height = 6, width = 11)
+pdf(paste0(path = "Sonde_Data/output/raw_plots/Temperature validation","/ASHC_bland_altman.pdf"), height = 6, width = 11)
 print(ASHC_bland_alt)
 dev.off()
 
@@ -211,33 +211,34 @@ MAE
 
 
 #Lets combine the sonde and hobo data by supplementing any missing data from the sonde with the hobo data
+
 combined_temperature <- ASHC_Temp_HOBO %>%
-  left_join(
+  dplyr::full_join(
     ASHC_Temp_Sonde,
     by = "Date_Time_30min"
   ) %>%
-  mutate(
-    temperature_final = if_else(
-      !is.na(sonde_temp),
+  dplyr::mutate(
+    hobo_temp_corrected = predict(
+      ashc_calibration_model,
+      newdata = data.frame(hobo_temp = hobo_temp)
+    ),
+    temperature_final = dplyr::coalesce(
       sonde_temp,
-      predict(
-        ashc_calibration_model,
-        newdata = data.frame(hobo_temp = hobo_temp)
-      )
+      hobo_temp_corrected
+    ),
+    temperature_source = dplyr::case_when(
+      !is.na(sonde_temp) ~ "Sonde",
+      !is.na(hobo_temp) ~ "HOBO_corrected",
+      TRUE ~ NA_character_
     )
-  ) %>% mutate(
-  temperature_source = case_when(
-    !is.na(sonde_temp) ~ "Sonde",
-    !is.na(hobo_temp) ~ "HOBO_corrected",
-    TRUE ~ NA_character_
-  )#which data was source vs supplemented
-)
+  ) %>%
+  dplyr::arrange(Date_Time_30min)
 
 View(combined_temperature)
 
 #Lets see what the raw data looks like combined 
 ASHC_Temperature_combined <- combined_temperature %>%
-    mutate(Date_Time = as.POSIXct(Date_Time_30min)) %>%
+    dplyr::mutate(Date_Time = as.POSIXct(Date_Time_30min)) %>%
     ggplot(aes(Date_Time, temperature_final)) + 
     geom_point() + 
     geom_line(size = 0.2, position = position_dodge(.4)) +
@@ -251,6 +252,12 @@ ASHC_Temperature_combined <- combined_temperature %>%
                      date_breaks = "2 month", 
                      limits = as.POSIXct(c('2023-06-01', '2026-11-01'))) +geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)
 ASHC_Temperature_combined
+
+pdf(paste0(path = "Sonde_Data/output/raw_plots/Temperature validation","/ASHC_temp_combined.pdf"), height = 6, width = 11)
+print(ASHC_Temperature_combined)
+dev.off()
+
+
 
 
 ```
@@ -312,13 +319,17 @@ View(FENC_temp_validation)
 
 FENC_temp_validation <-na.omit(FENC_temp_validation)
 
-ggplot(FENC_temp_validation, aes(x = sonde_temp, y = hobo_temp)) +
+hobo_v_sonde_fenc<-ggplot(FENC_temp_validation, aes(x = sonde_temp, y = hobo_temp)) +
   geom_point(alpha = 0.5) +
   geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") + # Ideal 1:1 line
   geom_smooth(method = "lm", color = "blue") + # Best-fit line
   theme_minimal() +
   labs(title = "Sonde vs HOBO Temperature",
        x = "Sonde Temp (°C)", y = "HOBO Temp (°C)")
+hobo_v_sonde_fenc
+pdf(paste0(path = "Sonde_Data/output/raw_plots/Temperature validation","/HOBO_vs_Sonde_FENC.pdf"), height = 6, width = 11) 
+print(hobo_v_sonde_fenc)
+dev.off()
 
 # Fit linear model to check for systemic offset/gain
 FENC_cal_model <- lm(hobo_temp ~ sonde_temp, data = FENC_temp_validation)
@@ -355,7 +366,7 @@ FENC_bland_alt<-ggplot(FENC_bland_altman_data, aes(x = Average, y = Difference))
 FENC_bland_alt
 #lets save this graph so we can reference it again later
 
-pdf(paste0(path = "HOBO_Data/output","/FENC_bland_altman.pdf"), height = 6, width = 11)
+pdf(paste0(path = "Sonde_Data/output/raw_plots/Temperature validation","/FENC_bland_altman.pdf"), height = 6, width = 11)
 print(FENC_bland_alt)
 dev.off()
 
@@ -469,6 +480,10 @@ FENC_Temperature_combined <- FENC_combined_temperature %>%
                      date_breaks = "2 month", 
                      limits = as.POSIXct(c('2023-06-01', '2026-11-01'))) +geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)
 FENC_Temperature_combined
+
+pdf(paste0(path = "Sonde_Data/output/raw_plots/Temperature validation","/FENC_temp_combined.pdf"), height = 6, width = 11)
+print(FENC_Temperature_combined)
+dev.off()
 
 
 ```
