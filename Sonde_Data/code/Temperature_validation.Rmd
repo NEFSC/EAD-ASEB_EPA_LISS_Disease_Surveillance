@@ -493,7 +493,7 @@ dev.off()
 ### QAQC with Sonde data - GOLD temperture ###
 
 GOLD_Temp_Sonde <- read.csv("Sonde_Data/output/Sonde Master Files/GOLD_Temperature_Sonde.csv")
-GOLD_Temp_Sonde <- GOLD_Temp_Sonde %>% dplyr::rename(Date_Time = Date.Time, sonde_temp = value ) %>% 
+GOLD_Temp_Sonde <- GOLD_Temp_Sonde %>% dplyr::rename(Date_Time = Date.Time, sonde_temp = temp_clean ) %>% 
   dplyr::mutate(Date_Time = ymd_hms(Date_Time, tz = "UTC"),Date_Time_30min = floor_date(Date_Time, "30 minutes")
   ) %>%
   group_by(Date_Time_30min) %>%
@@ -546,13 +546,17 @@ View(GOLD_temp_validation)
 
 GOLD_temp_validation <-na.omit(GOLD_temp_validation)
 
-ggplot(GOLD_temp_validation, aes(x = sonde_temp, y = hobo_temp)) +
+hobo_v_sonde_gold<- ggplot(GOLD_temp_validation, aes(x = sonde_temp, y = hobo_temp)) +
   geom_point(alpha = 0.5) +
   geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") + # Ideal 1:1 line
   geom_smooth(method = "lm", color = "blue") + # Best-fit line
   theme_minimal() +
   labs(title = "Sonde vs HOBO Temperature",
        x = "Sonde Temp (°C)", y = "HOBO Temp (°C)")
+
+pdf(paste0(path = "Sonde_Data/output/raw_plots/Temperature validation","/Hobo_vs_Sonde_GOLD.pdf"), height = 6, width = 11)
+print(hobo_v_sonde_gold)
+dev.off()
 
 # Fit linear model to check for systemic offset/gain
 GOLD_cal_model <- lm(hobo_temp ~ sonde_temp, data = GOLD_temp_validation)
@@ -589,7 +593,7 @@ GOLD_bland_alt<-ggplot(GOLD_bland_altman_data, aes(x = Average, y = Difference))
 GOLD_bland_alt
 #lets save this graph so we can reference it again later
 
-pdf(paste0(path = "HOBO_Data/output","/GOLD_bland_altman.pdf"), height = 6, width = 11)
+pdf(paste0(path = "Sonde_Data/output/raw_plots/Temperature validation","/GOLD_bland_altman.pdf"), height = 6, width = 11)
 print(GOLD_bland_alt)
 dev.off()
 
@@ -701,6 +705,10 @@ GOLD_Temperature_combined <- combined_temperature %>%
                      date_breaks = "2 month", 
                      limits = as.POSIXct(c('2023-06-01', '2026-11-01'))) +geom_hline(yintercept = 20, color = "red", linetype = "solid", size = 1)
 GOLD_Temperature_combined
+
+pdf(paste0(path = "Sonde_Data/output/raw_plots/Temperature validation","/GOLD_temp_combinded.pdf"), height = 6, width = 11)
+print(GOLD_Temperature_combined)
+dev.off()
 
 
 ```
