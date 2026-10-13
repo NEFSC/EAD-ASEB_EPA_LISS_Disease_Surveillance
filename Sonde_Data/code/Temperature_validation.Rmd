@@ -91,13 +91,17 @@ View(ASHC_temp_validation)
 
 ASHC_temp_validation <-na.omit(ASHC_temp_validation)
 
-ggplot(ASHC_temp_validation, aes(x = sonde_temp, y = hobo_temp)) +
+hobo_v_sonde_ashc <- ggplot(ASHC_temp_validation, aes(x = sonde_temp, y = hobo_temp)) +
   geom_point(alpha = 0.5) +
   geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") + # Ideal 1:1 line
   geom_smooth(method = "lm", color = "blue") + # Best-fit line
   theme_minimal() +
   labs(title = "Sonde vs HOBO Temperature",
        x = "Sonde Temp (°C)", y = "HOBO Temp (°C)")
+hobo_v_sonde_ashc
+pdf(paste0(path = "Sonde_Data/output/raw_plots/Temperature validation","/HOBO_vs_Sonde_ASHC.pdf"), height = 6, width = 11) 
+print(hobo_v_sonde_ashc)
+dev.off()
 
 # Fit linear model to check for systemic offset/gain
 ASHC_cal_model <- lm(hobo_temp ~ sonde_temp, data = ASHC_temp_validation)
