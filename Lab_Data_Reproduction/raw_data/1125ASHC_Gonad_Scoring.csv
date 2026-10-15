@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+1125ASHC_01,11-10-2025,ASHC,1,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1125ASHC_02,11-10-2025,ASHC,2,03-23-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+1125ASHC_03,11-10-2025,ASHC,3,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,ND,7_Reabsorbing,possibly male?,ND,7_Reabsorbing
+1125ASHC_04,11-10-2025,ASHC,4,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1125ASHC_05,11-10-2025,ASHC,5,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1125ASHC_06,11-10-2025,ASHC,6,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1125ASHC_07,11-10-2025,ASHC,7,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1125ASHC_08,11-10-2025,ASHC,8,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,Female,7_Reabsorbing,,ND,7_Reabsorbing
+1125ASHC_09,11-10-2025,ASHC,9,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1125ASHC_10,11-10-2025,ASHC,10,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1125ASHC_11,11-10-2025,ASHC,11,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1125ASHC_12,11-10-2025,ASHC,12,03-23-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+1125ASHC_13,11-10-2025,ASHC,13,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1125ASHC_14,11-10-2025,ASHC,14,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1125ASHC_15,11-10-2025,ASHC,15,03-23-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1125ASHC_16,11-10-2025,ASHC,16,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1125ASHC_17,11-10-2025,ASHC,17,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1125ASHC_18,11-10-2025,ASHC,18,03-23-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+1125ASHC_19,11-10-2025,ASHC,19,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1125ASHC_20,11-10-2025,ASHC,20,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1125ASHC_21,11-10-2025,ASHC,21,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1125ASHC_22,11-10-2025,ASHC,22,03-23-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,Female,7_Reabsorbing,possibly developing?,Female,7_Reabsorbing
+1125ASHC_23,11-10-2025,ASHC,23,03-23-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,ND,2_Developing,possibly developing?,Female,7_Reabsorbing
+1125ASHC_24,11-10-2025,ASHC,24,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,ND,7_Reabsorbing,possibly developing?,ND,7_Reabsorbing
+1125ASHC_25,11-10-2025,ASHC,25,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,ND,7_Reabsorbing,possibly developing?,ND,7_Reabsorbing
+1125ASHC_26,11-10-2025,ASHC,26,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,Female,7_Reabsorbing,possibly developing?,Female,7_Reabsorbing
+1125ASHC_27,11-10-2025,ASHC,27,03-23-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,08-31-2026,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+1125ASHC_28,11-10-2025,ASHC,28,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+1125ASHC_29,11-10-2025,ASHC,29,03-23-2026,Sarina Dery,ND,2_Developing,TRUE,08-06-2026,Kyra Lenderman,ND,2_Developing,possibly male?,ND,2_Developing
+1125ASHC_30,11-10-2025,ASHC,30,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,08-06-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing

@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+1025ASHC_01,10-16-2025,ASHC,1,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,ND,7_Reabsorbing,parasite or ciliate in gonad - diseased,ND,7_Reabsorbing
+1025ASHC_02,10-16-2025,ASHC,2,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1025ASHC_03,10-16-2025,ASHC,3,03-23-2026,Sarina Dery,Male,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1025ASHC_04,10-16-2025,ASHC,4,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1025ASHC_05,10-16-2025,ASHC,5,03-23-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+1025ASHC_06,10-16-2025,ASHC,6,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1025ASHC_07,10-16-2025,ASHC,7,03-23-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1025ASHC_08,10-16-2025,ASHC,8,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1025ASHC_09,10-16-2025,ASHC,9,03-23-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+1025ASHC_10,10-16-2025,ASHC,10,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1025ASHC_11,10-16-2025,ASHC,11,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1025ASHC_12,10-16-2025,ASHC,12,03-23-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+1025ASHC_13,10-16-2025,ASHC,13,03-23-2026,Sarina Dery,ND,0_Castrated,TRUE,07-31-2026,Kyra Lenderman,ND,0_Castrated,parasite or ciliate in gonad - diseased,ND,0_Castrated
+1025ASHC_14,10-16-2025,ASHC,14,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1025ASHC_15,10-16-2025,ASHC,15,03-23-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+1025ASHC_16,10-16-2025,ASHC,16,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1025ASHC_17,10-16-2025,ASHC,17,03-23-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,ND,7_Reabsorbing,,Female,7_Reabsorbing
+1025ASHC_18,10-16-2025,ASHC,18,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1025ASHC_19,10-16-2025,ASHC,19,03-23-2026,Sarina Dery,ND,0_Castrated,TRUE,07-31-2026,Kyra Lenderman,ND,7_Reabsorbing,parasite or ciliate in gonad - diseased; partially castrated ,ND,7_Reabsorbing
+1025ASHC_20,10-16-2025,ASHC,20,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1025ASHC_21,10-16-2025,ASHC,21,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1025ASHC_22,10-16-2025,ASHC,22,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1025ASHC_23,10-16-2025,ASHC,23,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1025ASHC_24,10-16-2025,ASHC,24,03-23-2026,Sarina Dery,Female,6_Post_Spawning,TRUE,07-31-2026,Kyra Lenderman,Female,6_Post_Spawning,,Female,6_Post_Spawning
+1025ASHC_25,10-16-2025,ASHC,25,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,ND,7_Reabsorbing,poor staining - xylene didnt allow for die to seep in?,ND,7_Reabsorbing
+1025ASHC_26,10-16-2025,ASHC,26,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1025ASHC_27,10-16-2025,ASHC,27,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1025ASHC_28,10-16-2025,ASHC,28,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1025ASHC_29,10-16-2025,ASHC,29,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1025ASHC_30,10-16-2025,ASHC,30,03-23-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,07-31-2026,Kyra Lenderman,ND,7_Reabsorbing,high perkinsus infection ,ND,7_Reabsorbing
