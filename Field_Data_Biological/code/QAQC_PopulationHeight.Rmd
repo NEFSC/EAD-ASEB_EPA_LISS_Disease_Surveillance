@@ -16,8 +16,8 @@ Note: Fixed the density code as it was not including the oysters that were count
 
 ```{r, setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
-#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
+#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Mariah's
+knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') #Kyra's
 ```
 
 
@@ -333,7 +333,7 @@ live_height_ASHC
 
 #How many animals fall within the distributions
 # Define size bins (modify these according to your size ranges)
-size_breaks <- seq(0, 190, by = 10)  # Define size breaks (0, 10, 20, 30, 40, 50)
+size_breaks <- seq(0, 210, by = 10)  # Define size breaks (0, 10, 20, 30, 40, 50)
 size_labels <- paste(size_breaks[-length(size_breaks)], size_breaks[-1], sep = "-")  # Labels for size ranges
 
 # Create size bins and count animals in each bin
@@ -368,8 +368,8 @@ ASHC_Distribution_Live<-height_ASHC_Live %>%
   geom_histogram()+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  labs(title="Ash Creek Height Live Oysters ", x ="Height (mm)")+ scale_x_continuous(limits= c(0,200), breaks = seq(0,200, by =10) )+
-  #scale_y_continuous( breaks = seq(0,20, by = 5))+
+  labs(title="Ash Creek Height Live Oysters ", x ="Height (mm)")+ scale_x_continuous(limits= c(0,205), breaks = seq(0,200, by =10) )+
+  scale_y_continuous(limits = c(0,150), breaks = seq(0,150, by = 5))+
  facet_wrap(~ factor(Season, levels = c("Spring", "Fall")) + Year, scales = "free",  nrow=2)
 ASHC_Distribution_Live
 
@@ -384,8 +384,8 @@ ASHC_Distribution_Dead<- height_ASHC_Dead %>%
   geom_histogram()+  #scale_fill_manual(values=c("forestgreen","orange", "purple"))+
   theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ 
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  labs(title="Ash Creek Height Dead Oysters ", x ="Height (mm)")+ scale_x_continuous(limits= c(0,200), breaks = seq(0,200, by =10) )+
-  scale_y_continuous(limits = c(0,20), breaks = seq(0,20, by = 5))+
+  labs(title="Ash Creek Height Dead Oysters ", x ="Height (mm)")+ scale_x_continuous(limits= c(0,205), breaks = seq(0,200, by =10) )+
+  scale_y_continuous(limits = c(0,30), breaks = seq(0,30, by = 5))+
    facet_wrap(~ factor(Season, levels = c("Spring", "Fall")) + Year, scales = "free", nrow=2)
 ASHC_Distribution_Dead
 

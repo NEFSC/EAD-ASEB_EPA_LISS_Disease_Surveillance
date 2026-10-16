@@ -991,10 +991,10 @@ BCS_proportions_CT <- BCS_proportions_CT %>%
       month == "Dec"   ~ 12L,
       TRUE             ~ NA_integer_
     )
-  ) %>% filter(year != "2026")
+  )
 
 dermo_trend <- dermo_trend %>%
-  mutate(month = as.integer(month)) %>% filter(year != "2026")
+  mutate(month = as.integer(month))
   
 
 r1 <- ggplot() +
