@@ -44,31 +44,50 @@ library("car")
 path_out <- 'Field_Data_WaterChemistry/output/'
 ```
 
-#read data files
+#read data files 
 ```{r}
-data_all <- list.files(path = "Field_Data_WaterChemistry/raw_data",                           # Identify all CSV files
-  pattern = "*.csv", full.names = TRUE) %>% 
-  lapply(read_csv, skip = 1) %>%                              # Store all files in list
-  bind_rows                                         # Combine data sets into one data set 
-data_all                                            # Print data to RStudio console
-
-as.data.frame(data_all)                            # Convert tibble to data.frame
+#data_all <- list.files(path = "Field_Data_WaterChemistry/raw_data",                           # Identify all CSV files
+#  pattern = "*.csv", full.names = TRUE) %>% 
+#  lapply(read_csv, skip = 1) %>%                              # Store all files in list
+#  bind_rows                                         # Combine data sets into one data set 
+#data_all                                            # Print data to RStudio console
+#as.data.frame(data_all)                            # Convert tibble to data.frame
 
 
 #dates - adding month and year
 
-data_all <- data_all %>% dplyr::rename(c( "Date_collected" = "Date collected" , "site" = "Location" ))
+#data_all <- data_all %>% dplyr::rename(c( "Date_collected" = "Date collected" , "site" = "Location" ))
 
-data_all
+#data_all
 
 #for some reason not all of the dates are cooperating need to fix this for below****
-data_all <- data_all %>% dplyr::mutate(Date_collected = as.Date(Date_collected, format = "%m/%d/%Y"), month = month(Date_collected), year = year(Date_collected))
+#data_all <- data_all %>% dplyr::mutate(Date_collected = as.Date(Date_collected, format = "%m/%d/%Y"), month = month(Date_collected), year = #year(Date_collected))
+
+#data_all
+
+#data_all <- data_all %>% filter(!is.na(Date_collected))
+#data_all
+
+```
+#read low tide data only
+```{r}
+# Read one CSV file
+data_all <- read_csv("Field_Data_WaterChemistry/raw_data/CO2sys_water_quality_data_TA_pH.csv",skip = 1)
+data_all
+as.data.frame(data_all)
+
+# Rename columns
+data_all <- data_all %>%dplyr::rename( Date_collected = `Date collected`,site = Location)
+
+# Convert dates and add month and year
+data_all <- data_all %>%
+  dplyr::mutate(Date_collected = as.Date(Date_collected, format = "%m/%d/%Y"),month = month(Date_collected), year = year(Date_collected))
+
+# Remove rows with missing or invalid dates
+data_all <- data_all %>%dplyr::filter(!is.na(Date_collected))
+
 
 data_all
-
-data_all <- data_all %>% filter(!is.na(Date_collected))
-data_all
-
 ```
 
 #Aragonite Saturation ('WAr out')
@@ -182,6 +201,68 @@ seasonal_aragonite_plot
 pdf(paste0(path = "Field_Data_WaterChemistry/output" ,"/Seasonal_Aragonite__all.pdf"), height = 7, width = 13)
 print(seasonal_aragonite_plot)
 dev.off()
+
+```
+#Tidal cycle data from 10/8/2026
+```{r}
+# Read one CSV file
+tidal_all <- read_csv("Field_Data_WaterChemistry/raw_data/CO2sys_tidal_cycle_data_TA_pH.csv")
+tidal_all
+as.data.frame(tidal_all)
+
+# Rename columns
+tidal_all <- tidal_all %>%dplyr::rename( Date_collected = `Date collected`,site = Location)
+
+# Convert dates and add month and year
+tidal_all <- tidal_all %>%
+  dplyr::mutate(Date_collected = as.Date(Date_collected, format = "%m/%d/%Y"),month = month(Date_collected), year = year(Date_collected))
+
+# Remove rows with missing or invalid dates
+tidal_all <- tidal_all %>%dplyr::filter(!is.na(Date_collected))
+
+
+tidal_all
+```
+#tidal cycle plot
+```{r}
+tidal_aragonite_plot <- tidal_all %>%
+  ggplot(aes(
+    x = `Time of collection`,
+    y = `WAr out`,
+    group = site,
+    color = site
+  )) +
+  geom_line(linewidth = 0.8) +
+  geom_point(size = 4) +
+  facet_wrap(~ site) +
+  theme_bw() +
+  theme(
+    plot.title = element_text(size = 20),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.text.x = element_text(size = 14),
+    axis.title.x = element_text(size = 14),
+    axis.text.y = element_text(size = 14),
+    axis.title.y = element_text(size = 15),
+    strip.text = element_text(size = 16, face = "bold"),
+    legend.position = "none"
+  ) +
+  labs(
+    title = "Aragonite Saturation Across the Tidal Cycle",
+    x = "Sampling Time",
+    y = expression(Omega[ar])
+  ) +
+  scale_y_continuous(
+    limits = c(0, 2),
+    breaks = seq(0, 2, by = 0.2)
+  ) +
+  geom_hline(
+    yintercept = 1,
+    color = "red",
+    linetype = "dashed"
+  )
+
+tidal_aragonite_plot
 
 ```
 
