@@ -198,11 +198,209 @@ seasonal_aragonite_plot <- seasonal_aragonite %>% filter(year != "2026") %>%
 
 seasonal_aragonite_plot
 
+pdf(paste0(path = "Field_Data_WaterChemistry/output" ,"/Seasonal_Lowtide_Aragonite__all.pdf"), height = 7, width = 13)
+print(seasonal_aragonite_plot)
+dev.off()
+
+```
+
+#read high tide data only
+```{r}
+# Read one CSV file
+data_all_high <- read_csv("Field_Data_WaterChemistry/raw_data/CO2sys_water_quality_data_TA_pH_high.csv",skip = 1)
+data_all_high
+as.data.frame(data_all_high)
+
+# Rename columns
+data_all_high <- data_all_high %>%dplyr::rename( Date_collected = `Date collected`,site = Location)
+
+# Convert dates and add month and year
+data_all_high <- data_all_high %>%
+  dplyr::mutate(Date_collected = as.Date(Date_collected, format = "%m/%d/%Y"),month = month(Date_collected), year = year(Date_collected))
+
+# Remove rows with missing or invalid dates
+data_all_high <- data_all_high %>%dplyr::filter(!is.na(Date_collected))
+
+
+data_all_high
+```
+
+#Lets graph seasonal means for each year
+```{r}
+
+seasonal_aragonite_high <- aragonite_master_long_high %>%
+   dplyr::filter(variable == "WAr out") %>%
+   dplyr::mutate(
+    season = case_when(
+      month %in% c(12, 1, 2) ~ "Winter",
+      month %in% c(3, 4, 5) ~ "Spring",
+      month %in% c(6, 7, 8) ~ "Summer",
+      month %in% c(9, 10, 11) ~ "Fall"
+    )
+  ) %>%
+  dplyr::group_by(site, season, year) %>%
+   dplyr::summarize(
+    mean_WAr = mean(value, na.rm = TRUE),
+    sd_WAr = sd(value, na.rm = TRUE),
+    n = sum(!is.na(value)),
+    se_WAr = sd_WAr / sqrt(n),
+    .groups = "drop"
+  )
+
+seasonal_aragonite_high
+
+
+seasonal_aragonite_high_plot <- seasonal_aragonite_high %>% 
+  mutate( season = factor( season,levels = c("Winter", "Spring", "Summer", "Fall"))) %>%
+  ggplot(aes(x = season, y = mean_WAr, color = season, group = season)) +
+  geom_point(size = 4) +
+  geom_errorbar(aes(ymin = mean_WAr - se_WAr,
+                    ymax = mean_WAr + se_WAr),
+                width = 0.2, color= "black") +
+  facet_grid(site ~ year, scales = "free_x", space = "free_x") +
+  theme_bw() + theme(plot.title = element_text(size = 20))+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  theme(axis.text.x = element_text(size = 14),
+        axis.title.x = element_text(size = 14))+
+  theme(axis.text.y = element_text(size = 14),
+        axis.title.y = element_text(size =15))+
+  theme(strip.text = element_text(size = 16, face = "bold"), legend.text = element_text(size = 14))+
+  labs(
+    title = "Seasonal Mean Aragonite Saturation at High Tide",
+    x = "Season",
+    y = expression(Omega[ar])
+  ) +
+   scale_y_continuous(limits = c(0, 2),breaks = seq(0, 2, by = 0.2)) +
+  scale_color_manual(
+  values = c(
+    "Winter" = "#56B4E9",  # sky blue
+    "Spring" = "#009E73",  # bluish green
+    "Summer" = "#E69F00",  # orange
+    "Fall"   = "#D55E00"   # vermillion
+  ))+
+  geom_hline(yintercept = 1, color = "red")
+
+seasonal_aragonite_high_plot
+
+pdf(paste0(path = "Field_Data_WaterChemistry/output" ,"/Seasonal_Hightide_Aragonite__all.pdf"), height = 7, width = 13)
+print(seasonal_aragonite_plot)
+dev.off()
+
+```
+#Aragonite Saturation ('WAr out') high tide
+```{r}
+
+aragonite_master_long_high<- data_all_high %>%  
+                      reshape2::melt(id.vars = c("Date_collected", "site","month","year"),
+                                    measure.vars = c("Salinity","t(oC) field","pH out","pCO2 out (matm)","HCO3 out (mmol/kgSW)","CO3 out (mmol/kgSW)","CO2 out (mmol/kgSW)","WAr out","xCO2 out (dry at 1 atm) (ppm)"))
+head(aragonite_master_long_high)
+
+
+monthly_high_aragonite_plot <- ggplot(data=aragonite_master_long_high %>% 
+          filter(variable == "WAr out"), aes(x=month, y=value, fill=site)) +geom_point()+ #scale_fill_manual(values=c("forestgreen","orange", "purple"))
+  theme_bw() + theme(plot.title = element_text(size = 20))+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  theme(axis.text.x = element_text(size = 12),
+        axis.title.x = element_text(size = 12))+
+  theme(axis.text.y = element_text(size = 12),
+        axis.title.y = element_text(size =15))+
+  labs(title="Monthly High Tide Aragonite Saturation", x ="", y = "Aragonite Sauration (Ωar)")+
+  scale_y_continuous(limits = c(0,2), breaks = seq(0, 2, by = 0.2))+
+  scale_x_continuous(breaks = 1:12) +
+theme(strip.text = element_text(size = 12))+theme(legend.position = "none")+
+  geom_hline(yintercept = 1, color = "red", size = .5) +  #red line is at equilibrium 
+facet_grid(site ~ year, scales = "free_x", space = "free_x")
+
+monthly_high_aragonite_plot
+
+mean_high_aragonite_plot <- ggplot(
+  data = aragonite_master_long_high %>%
+    filter(variable == "WAr out"),
+  aes(x = factor(year), y = value, fill = site)) +
+  geom_boxplot() +
+  theme_bw() +
+  theme(
+    plot.title = element_text(size = 20),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.text.x = element_text(size = 12),
+    axis.title.x = element_text(size = 12),
+    axis.text.y = element_text(size = 12),
+    axis.title.y = element_text(size = 15),
+    strip.text = element_text(size = 12)) +
+  labs(title = "Mean Yearly Aragonite Saturation ", x = "Year", y = "Aragonite Saturation (Ωar)") +
+  scale_y_continuous(limits = c(0, 2),breaks = seq(0, 2, by = 0.2)) +
+  geom_hline(yintercept = 1, color = "red", size = 0.5) +
+  facet_wrap(~site)
+
+mean_high_aragonite_plot
+
+pdf(paste0(path = "Field_Data_WaterChemistry/output" ,"/Mean_HighTide_Aragonite__all.pdf"), height = 7, width = 13)
+print(mean_high_aragonite_plot)
+dev.off()
+```
+
+#Lets graph seasonal means for each year
+```{r}
+
+seasonal_aragonite <- aragonite_master_long %>%
+   dplyr::filter(variable == "WAr out") %>%
+   dplyr::mutate(
+    season = case_when(
+      month %in% c(12, 1, 2) ~ "Winter",
+      month %in% c(3, 4, 5) ~ "Spring",
+      month %in% c(6, 7, 8) ~ "Summer",
+      month %in% c(9, 10, 11) ~ "Fall"
+    )
+  ) %>%
+  dplyr::group_by(site, season, year) %>%
+   dplyr::summarize(
+    mean_WAr = mean(value, na.rm = TRUE),
+    sd_WAr = sd(value, na.rm = TRUE),
+    n = sum(!is.na(value)),
+    se_WAr = sd_WAr / sqrt(n),
+    .groups = "drop"
+  )
+
+seasonal_aragonite
+
+
+seasonal_aragonite_plot <- seasonal_aragonite %>% filter(year != "2026") %>%
+  mutate( season = factor( season,levels = c("Winter", "Spring", "Summer", "Fall"))) %>%
+  ggplot(aes(x = season, y = mean_WAr, color = season, group = season)) +
+  geom_point(size = 4) +
+  geom_errorbar(aes(ymin = mean_WAr - se_WAr,
+                    ymax = mean_WAr + se_WAr),
+                width = 0.2, color= "black") +
+  facet_grid(site ~ year, scales = "free_x", space = "free_x") +
+  theme_bw() + theme(plot.title = element_text(size = 20))+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  theme(axis.text.x = element_text(size = 14),
+        axis.title.x = element_text(size = 14))+
+  theme(axis.text.y = element_text(size = 14),
+        axis.title.y = element_text(size =15))+
+  theme(strip.text = element_text(size = 16, face = "bold"), legend.text = element_text(size = 14))+
+  labs(
+    title = "Seasonal Mean Aragonite Saturation",
+    x = "Season",
+    y = expression(Omega[ar])
+  ) +
+   scale_y_continuous(limits = c(0, 2),breaks = seq(0, 2, by = 0.2)) +
+  scale_color_manual(
+  values = c(
+    "Winter" = "#56B4E9",  # sky blue
+    "Spring" = "#009E73",  # bluish green
+    "Summer" = "#E69F00",  # orange
+    "Fall"   = "#D55E00"   # vermillion
+  ))+
+  geom_hline(yintercept = 1, color = "red")
+
+seasonal_aragonite_plot
+
 pdf(paste0(path = "Field_Data_WaterChemistry/output" ,"/Seasonal_Aragonite__all.pdf"), height = 7, width = 13)
 print(seasonal_aragonite_plot)
 dev.off()
 
 ```
+
+
 #Tidal cycle data from 10/8/2026
 ```{r}
 # Read one CSV file
