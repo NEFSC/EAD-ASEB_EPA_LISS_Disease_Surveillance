@@ -282,7 +282,7 @@ seasonal_aragonite_high_plot <- seasonal_aragonite_high %>%
 seasonal_aragonite_high_plot
 
 pdf(paste0(path = "Field_Data_WaterChemistry/output" ,"/Seasonal_Hightide_Aragonite__all.pdf"), height = 7, width = 13)
-print(seasonal_aragonite_plot)
+print(seasonal_aragonite_high_plot)
 dev.off()
 
 ```
