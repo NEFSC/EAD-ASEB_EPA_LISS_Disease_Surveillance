@@ -1,0 +1,31 @@
+Sample_ID,Date_collected,Site,Lab_sample,Date_read1,reader1,Sex1,Stage1,Duplicate_read,Date_read2,reader2,Sex2,Stage2,Notes,Sex_final,Stage_final
+1125FENC_01,11-12-2025,FENC,1,06-02-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+1125FENC_02,11-12-2025,FENC,2,06-02-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,ND,7_Reabsorbing,potental sperm present,ND,7_Reabsorbing
+1125FENC_03,11-12-2025,FENC,3,06-02-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,ND,7_Reabsorbing,possibly male?,ND,7_Reabsorbing
+1125FENC_04,11-12-2025,FENC,4,06-02-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,ND,1_Inactive_Indeterminate,MSX infection,ND,1_Inactive_Indeterminate
+1125FENC_05,11-12-2025,FENC,5,06-02-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,ND,7_Reabsorbing,MSX & dermo infection,ND,7_Reabsorbing
+1125FENC_06,11-12-2025,FENC,6,06-02-2026,Sarina Dery,Male,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,Male,7_Reabsorbing,or holding onto developing sperm - SD,Male,7_Reabsorbing
+1125FENC_07,11-12-2025,FENC,7,06-02-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,ND,7_Reabsorbing,female?-SD,ND,7_Reabsorbing
+1125FENC_08,11-12-2025,FENC,8,06-02-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,ND,7_Reabsorbing,female?-SD,ND,7_Reabsorbing
+1125FENC_09,11-12-2025,FENC,9,06-02-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+1125FENC_10,11-12-2025,FENC,10,06-02-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1125FENC_11,11-12-2025,FENC,11,06-02-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1125FENC_12,11-12-2025,FENC,12,06-02-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+1125FENC_13,11-12-2025,FENC,13,06-02-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1125FENC_14,11-12-2025,FENC,14,06-02-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1125FENC_15,11-12-2025,FENC,15,06-02-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+1125FENC_16,11-12-2025,FENC,16,06-02-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1125FENC_17,11-12-2025,FENC,17,06-02-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1125FENC_18,11-12-2025,FENC,18,06-02-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,ND,7_Reabsorbing,male?-SD,ND,7_Reabsorbing
+1125FENC_19,11-12-2025,FENC,19,06-02-2026,Sarina Dery,ND,0_Castrated,TRUE,10-22-2026,Kyra Lenderman,ND,0_Castrated,gonadal parasite? - SD,ND,0_Castrated
+1125FENC_20,11-12-2025,FENC,20,06-02-2026,Sarina Dery,Male,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,ND,7_Reabsorbing,egg and sperm present,ND,7_Reabsorbing
+1125FENC_21,11-12-2025,FENC,21,06-02-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1125FENC_22,11-12-2025,FENC,22,06-02-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,ND,7_Reabsorbing,possible hermaphrodite or transition into female? - SD,ND,7_Reabsorbing
+1125FENC_23,11-12-2025,FENC,23,06-02-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1125FENC_24,11-12-2025,FENC,24,06-02-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,ND,7_Reabsorbing,male?-SD,ND,7_Reabsorbing
+1125FENC_25,11-12-2025,FENC,25,06-02-2026,Sarina Dery,Male,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,Male,7_Reabsorbing,,Male,7_Reabsorbing
+1125FENC_26,11-12-2025,FENC,26,06-02-2026,Sarina Dery,Female,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,Female,7_Reabsorbing,,Female,7_Reabsorbing
+1125FENC_27,11-12-2025,FENC,27,06-02-2026,Sarina Dery,ND,0_Castrated,TRUE,10-22-2026,Kyra Lenderman,ND,0_Castrated,gonadal parasite? - SD,ND,0_Castrated
+1125FENC_28,11-12-2025,FENC,28,06-02-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
+1125FENC_29,11-12-2025,FENC,29,06-02-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,ND,7_Reabsorbing,male?-SD,ND,7_Reabsorbing
+1125FENC_30,11-12-2025,FENC,30,06-02-2026,Sarina Dery,ND,7_Reabsorbing,TRUE,10-22-2026,Kyra Lenderman,ND,7_Reabsorbing,,ND,7_Reabsorbing
