@@ -566,9 +566,9 @@ dev.off()
 CT_shell_height_all <- Height_master%>% dplyr:: filter(Site!="LAUR")%>% filter(Site!="GOLD")
 
 #Data Wrangling & Distribution Calculation per Site
-CT_Spring_Survey_2026 <- CT_shell_height_all %>%
+CT_Fall_Survey_2026 <- CT_shell_height_all %>%
   dplyr::filter(Year == "2026") %>%
-  dplyr::filter(Season == "Spring") %>% 
+  dplyr::filter(Season == "Fall") %>% 
   dplyr::filter(!is.na(Height)) %>% 
   dplyr::mutate(
     size_class = as.numeric(Height), 
@@ -585,19 +585,23 @@ CT_Spring_Survey_2026 <- CT_shell_height_all %>%
   # Group strictly by Site so your proportions reflect the whole site population
   dplyr::group_by(Site) %>% 
   dplyr::mutate(Proportion = Count / sum(Count)) %>% 
-  dplyr::ungroup() 
+  dplyr::ungroup() %>%
+  dplyr:: mutate(Site=factor(Site,
+                 levels = c("ASHC", "FENC"),
+                 labels = c("Ash Creek", "Fence Creek")))
 
 #Generate the Corrected Plot Layout
-CT_Spring_Survey_2026_population_percentages <- ggplot(data = CT_Spring_Survey_2026, aes(x = size_class_bin, y = Proportion, fill = Survival_status)) + 
+CT_Fall_Survey_2026_population_percentages <- ggplot(data = CT_Fall_Survey_2026, aes(x = size_class_bin, y = Proportion, fill = Survival_status)) + 
   # FIX: Changed position to "stack" to honor your calculated 'Proportion' values
   geom_bar(width = 0.8, stat = "identity", position = "stack", colour = "gray10") + 
   # ADDED: Formats the Y axis decimal numbers (0.10, 0.20) as clean percentages (10%, 20%)
   scale_y_continuous(labels = scales::percent_format()) +
   scale_x_discrete(drop = FALSE) + 
   labs(
-    title = "CT Spring Survey 2026", 
+    title = "CT Fall Survey 2026", 
     x = "Size Class Bin (mm)", 
-    y = "% of Total Population"
+    y = "% of Total Population",
+    fill= "Survival Status"
   ) + 
   theme_minimal() + 
   theme(
@@ -608,16 +612,18 @@ CT_Spring_Survey_2026_population_percentages <- ggplot(data = CT_Spring_Survey_2
     axis.text.x = element_text(angle = 65, vjust = 1, hjust = 1),
     strip.text = element_text(size = 15),
     legend.text = element_text(size = 13),
-    title = element_text(size = 15)
+    title = element_text(size = 15),
+    plot.background = element_rect(fill="#d1f5f8", color = NA),
+    panel.background = element_rect(fill = "white", color = NA)
   ) +
-  scale_fill_brewer(palette = "Set2", direction = -1) + 
+  scale_fill_manual(values = c( "mediumpurple", "aquamarine3")) + 
   facet_wrap(~ Site) 
 
 
 
-#png("Field_Data_Biological/Output/CT_Spring_Survey_2026_population_percentages.png", height = 6, width = 11, units = "in", res = 300)
-print(CT_Spring_Survey_2026_population_percentages)
-#dev.off()
+png("Field_Data_Biological/Output/CT_Fall_Survey_2026_population_percentages.png", height = 6, width = 11, units = "in", res = 300)
+print(CT_Fall_Survey_2026_population_percentages)
+dev.off()
 ```
 
 #LAUR
