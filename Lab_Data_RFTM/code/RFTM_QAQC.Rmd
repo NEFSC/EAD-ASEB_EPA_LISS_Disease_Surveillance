@@ -456,12 +456,14 @@ RFTM_proportions_all
 
 # Summarize mean RFTM disease intensity by month, year, and site
 
+
+
   # Keep every month visible, including months without samples
-data_heatmap <- data_all %>%  complete( site,year = 2023:2026,month = 1:12) %>%
-  mutate(month = factor(month,levels = 12:1,labels = month.abb[12:1]),year = factor(year, levels = 2023:2026)) %>% filter(site != "LAUR")
+data_heatmap <- df_intensity_summary %>%  complete(site, year = 2023:2026,month = 1:12) %>%
+  mutate(month = factor(month,levels = 12:1,labels = month.abb[12:1]),year = factor(year, levels = 2023:2026)) #%>% filter(site != "LAUR")
 
 # Plot heatmap
-ggplot(data_heatmap,aes(x = month,y = year,fill = rftm_final)) +
+rftm_heatmap<- ggplot(data_heatmap,aes(x = month,y = year,fill = rftm_final)) +
   geom_tile() +
   scale_x_discrete(limits = month.abb) +
   scale_y_discrete(limits = c("2026", "2025", "2024", "2023")) +
@@ -475,9 +477,23 @@ ggplot(data_heatmap,aes(x = month,y = year,fill = rftm_final)) +
   strip.background = element_rect(fill = "white"),
   strip.text = element_text(face = "bold"),
   axis.text = element_text(color = "black"),
+  panel.spacing = unit(1, "lines")) +
+  theme(
+  panel.grid = element_blank(),
+  strip.background = element_rect(fill = "white"),
+  strip.text = element_text(face = "bold", size = 14),   # ASHC, FENC, GOLD
+  plot.title = element_text(size = 18, face = "bold"),
+  plot.subtitle = element_text(size = 13),
+  axis.title = element_text(size = 14),
+  axis.text = element_text(size = 12, color = "black"),
+  legend.title = element_text(size = 13),
+  legend.text = element_text(size = 11),
   panel.spacing = unit(1, "lines"))
+rftm_heatmap
 
-
+ pdf(paste0(path = "Lab_Data_RFTM/output" ,"/RFTM_heatmap_all.pdf"), height = 10, width = 14)
+ print(rftm_heatmap)
+ dev.off()
 
 ```
 
