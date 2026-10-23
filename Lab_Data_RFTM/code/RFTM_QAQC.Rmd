@@ -451,24 +451,23 @@ RFTM_proportions_all
  print(RFTM_proportions_all)
  dev.off()
 ```
-### Heat mapping ###
+### Heat mapping of weighted prevalence (intensity)###
 ```{r}
 
 # Summarize mean RFTM disease intensity by month, year, and site
 
-
-
   # Keep every month visible, including months without samples
-data_heatmap <- df_intensity_summary %>%  complete(site, year = 2023:2026,month = 1:12) %>%
-  mutate(month = factor(month,levels = 12:1,labels = month.abb[12:1]),year = factor(year, levels = 2023:2026)) #%>% filter(site != "LAUR")
+data_heatmap <- df_intensity_summary %>%  ungroup() %>% complete(site, year = 2023:2026,month = 1:12) %>%
+  mutate(month = factor(month,levels = 12:1,labels = month.abb[12:1]),year = factor(year, levels = 2023:2026)) %>% filter(site != "LAUR")
 
 # Plot heatmap
-rftm_heatmap<- ggplot(data_heatmap,aes(x = month,y = year,fill = rftm_final)) +
+rftm_heatmap<- ggplot(data_heatmap,aes(x = month,y = year,fill = intensity)) +
   geom_tile() +
   scale_x_discrete(limits = month.abb) +
   scale_y_discrete(limits = c("2026", "2025", "2024", "2023")) +
   facet_wrap(~ site, ncol = 1) +
-  scale_fill_viridis_c(option = "viridis",name = "Mackin Score",na.value = "grey85", direction =1) +
+  scale_fill_viridis_c(option = "viridis",name = "Mackin Score",na.value = "grey85", direction =1, limits = c(0, 5),
+  breaks = 0:5) +
   labs(title = "Monthly Dermo Disease Intensity",subtitle = "Monthly mackin score across sites and years",x = "Month",y = "Year") +
   theme_bw() +
   theme(
