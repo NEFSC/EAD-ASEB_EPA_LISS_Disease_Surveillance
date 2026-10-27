@@ -498,7 +498,7 @@ geom_errorbar(aes(ymin = Total_Density - SE,
 
 
 df_quadrat_ASHC <- density%>%
-  filter(Site == "ASHC") %>% filter(!Count == "0")
+  filter(Site == "ASHC") %>% filter(!Count == "0") #removing Spring 2023 quadrat 5 that had a percent coverage of 0%
 df_quadrat_ASHC
 
 #Quadrat size is 25 x25cm (.0625 m^2). To calculate density (oysters per m^2) multiply number of oysters counted X 16
