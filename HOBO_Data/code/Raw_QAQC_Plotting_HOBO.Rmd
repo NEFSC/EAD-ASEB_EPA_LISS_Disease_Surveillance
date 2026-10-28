@@ -426,8 +426,8 @@ write.csv(gold_hobo_cleanup, "HOBO_Data/output/HOBO_master_files/GOLD_Temperatur
 GOLD_means <- GOLD_HOBO %>%
   dplyr::mutate(Hour = floor_date(Date_Time, unit = "hour")) %>%
   dplyr::group_by( Site,Hour) %>%
-  dplyr::summarise(mean_Temperature = mean( Temperature,na.rm = TRUE),sd_Temperature = sd( Temperature, na.rm = TRUE),
-    n = sum(!is.na(Temperature)),
+  dplyr::summarise(mean_Temperature = mean( temp_clean,na.rm = TRUE),sd_Temperature = sd( temp_clean, na.rm = TRUE),
+    n = sum(!is.na(temp_clean)),
     .groups = "drop")
 
 GOLD_means
