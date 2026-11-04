@@ -228,7 +228,7 @@ QAQC_plot<- df_clean_plot %>%
   
   scale_color_manual(values = c("Cleaned Data" = "#0072B2", "Removed / Outlier" = "#D55E00")) + 
   labs(
-    y = "pH",
+    y = "salinity",
     x = "Date Time",
     color = "Data Status",
     title = "Intertidal Salinity"
