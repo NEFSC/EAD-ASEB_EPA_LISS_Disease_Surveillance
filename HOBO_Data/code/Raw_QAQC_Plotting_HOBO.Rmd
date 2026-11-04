@@ -76,82 +76,105 @@ file.names.hobo
 #Lets pull in and reorganize the data to make a master file 
 ```{r}
 
-# IMPORTANT: start completely fresh
+# Initialize master dataframe before the loop
 Master_HOBO <- NULL
 
-
 for (m in 1:nrow(file.names.hobo)) {
-  
 
   # File name and path
-
   filename <- file.names.hobo[m, 1]
-  
+
   raw_hobo_rootdir <- file.path(
     getwd(),
     path.raw,
     filename
   )
-  
-  # Read HOBO file
-  raw <- read_csv( raw_hobo_rootdir, col_names = TRUE, show_col_types = FALSE)
-  
-  # Find Date-Time column
-  date_col <- names(raw)[
-    grepl("Date", names(raw), ignore.case = TRUE) &
-    grepl("Time", names(raw), ignore.case = TRUE)
-  ][1]
 
-  # Find Temperature column
-  temp_col <- names(raw)[
-    grepl("Temperature", names(raw), ignore.case = TRUE)
-  ][1]
+  # Read HOBO file
+  raw <- read_csv(
+    raw_hobo_rootdir,
+    col_names = TRUE,
+    show_col_types = FALSE
+  )
+
+  # Clean column names to handle encoding issues
+  clean_names <- iconv(
+    names(raw),
+    from = "",
+    to = "UTF-8",
+    sub = ""
+  )
+
+  # Find Date-Time column using cleaned names
+  date_idx <- which(
+    grepl("Date", clean_names, ignore.case = TRUE) &
+    grepl("Time", clean_names, ignore.case = TRUE)
+  )[1]
+
+  # Find Temperature column using cleaned names
+  temp_idx <- which(
+    grepl("Temperature", clean_names, ignore.case = TRUE)
+  )[1]
+
+  # Retrieve original column names
+  date_col <- if (!is.na(date_idx)) names(raw)[date_idx] else NA
+  temp_col <- if (!is.na(temp_idx)) names(raw)[temp_idx] else NA
 
   # Check columns
   if (is.na(date_col) || is.na(temp_col)) {
-    
+
     warning(
       "Could not identify Date-Time or Temperature in: ",
       filename
     )
-    
+
     next
   }
-  
-  
 
   # Keep only the columns we need
-  raw_df <- raw %>%dplyr::select( all_of(date_col), all_of(temp_col)
-    ) %>% dplyr::rename(  Date_Time = all_of(date_col),  Temperature = all_of(temp_col) )
-  
+  raw_df <- raw %>%
+    dplyr::select(all_of(date_col), all_of(temp_col)) %>%
+    dplyr::rename(
+      Date_Time = all_of(date_col),
+      Temperature = all_of(temp_col)
+    )
+
   # FORCE Date_Time to character FIRST
-  raw_df$Date_Time <- as.character( raw_df$Date_Time)
-  
+  raw_df$Date_Time <- as.character(raw_df$Date_Time)
 
   # Convert Date_Time to POSIXct
   raw_df$Date_Time <- parse_date_time(
     raw_df$Date_Time,
     orders = c(
+      "mdy HMS p",
+      "mdy HM p",
       "mdy HMS",
       "mdy HM"
-    ),tz = "America/New_York",
-    quiet = TRUE)
+    ),
+    tz = "America/New_York",
+    quiet = TRUE
+  )
 
   # Convert Temperature to numeric
   raw_df$Temperature <- as.numeric(raw_df$Temperature)
-  
+
   # Add Site
-  raw_df <- raw_df %>%mutate(Site = sub(  ".*_(.*)_.*",  "\\1",  filename ))
-  
+  raw_df <- raw_df %>%
+    mutate(Site = sub(".*_(.*)_.*", "\\1", filename))
 
   # Add Month and Year
-  raw_df <- raw_df %>%mutate(Month = month(Date_Time),Year = year(Date_Time))
-  
+  raw_df <- raw_df %>%
+    mutate(
+      Month = month(Date_Time),
+      Year = year(Date_Time)
+    )
+
   # Add to Master
-  Master_HOBO <- bind_rows( Master_HOBO,raw_df)
-  
+  Master_HOBO <- bind_rows(Master_HOBO, raw_df)
+
   # Progress
-  message( "Processed ", m, " of ", nrow(file.names.hobo),
+  message(
+    "Processed ", m, " of ", nrow(file.names.hobo),
     ": ", filename,
     " | Date = ", date_col,
     " | Temp = ", temp_col,
@@ -159,7 +182,6 @@ for (m in 1:nrow(file.names.hobo)) {
     " | Temp NAs = ", sum(is.na(raw_df$Temperature))
   )
 }
-
 
 
 # Final column order
