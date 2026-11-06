@@ -37,6 +37,8 @@ library("stringr")
 library("RColorBrewer")
 library("tidyr")
 library(ggpubr)
+library("glmmTMB")
+library("car")
 ```
 
 
@@ -420,7 +422,6 @@ kruskal.test(condition_score ~ date_collected ,CT_bc_all)
 glm_bc_CT <- glmmTMB(condition_score ~ site * date_collected, CT_bc_all)
 summary(glm_bc_CT)
 Anova(glm_bc_CT)
-
 
 
 ```
