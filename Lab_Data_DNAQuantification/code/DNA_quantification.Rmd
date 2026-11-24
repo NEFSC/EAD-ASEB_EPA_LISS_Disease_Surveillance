@@ -80,6 +80,11 @@ high_cv <- high_cv %>% filter(cv > 0.1)
 #percentage_highcv <- (qubit_summary/nrow(high_cv)) * 100 # determining percentage of samples have high standard deviation
 high_cv #outputs
 
+#Samples with low concentrations (<20ng/ul)
+low_con <- qubit_summary %>% filter(mean_concentration_ng.uL < 20)%>%filter(!is.na(sd))
+low_con <- low_con[!grepl("blank|BLANK", low_con$Sample_ID),]
+
+low_con
 ```
 
 
