@@ -14,8 +14,8 @@ Last updated:11/13/26 by Mariah kachmar
 #Set working directory
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-#knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') 
-knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') 
+knitr::opts_knit$set(root.dir = 'C:/Users/mariah.kachmar/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') 
+#knitr::opts_knit$set(root.dir = 'C:/Users/kyra.lenderman/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') 
 #knitr::opts_knit$set(root.dir = 'C:/Users/sarina.dery/documents/Github/EAD-ASEB_EPA_LISS_Disease_Surveillance') 
 ```
 
@@ -532,6 +532,11 @@ ggplot(data = rftm_v_qpcr_wp_summary, aes(x = as.Date(date_collected), color = s
 ```
 #let's see if there is any statistical differences between the methods (rftm and qPCR)
 ```{r}
+
+#correlation
+cor.test(rftm_v_qpcr$rftm_final, rftm_v_qpcr$mackin_score, method = "pearson")
+#they are in fact correlated! wooo!
+
 
 #non-parametric wilcoxon sum-rank test 
 # Test for significant differences between paired diagnostic methods
